@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "chains": [
+    {
+      "chainKey": "library_catalog_journey",
+      "poiKey": "central_library",
+      "title": "Do catálogo ao empréstimo",
+      "synopsis": "Ajude a Biblioteca a organizar acervos e receber leitores internacionais.",
+      "minLocalLevel": 1,
+      "steps": [
+        {
+          "stepIndex": 0,
+          "templateKey": "chain_lib_shelve",
+          "title": "Organizar prateleiras",
+          "description": "Estude hoje para catalogar os novos livros em inglês.",
+          "missionType": "study_day",
+          "targetValue": 1,
+          "baseXp": 35,
+          "baseCoins": 25,
+          "baseLocalXp": 20,
+          "difficulty": "easy"
+        },
+        {
+          "stepIndex": 1,
+          "templateKey": "chain_lib_focus",
+          "title": "Sessão de leitura guiada",
+          "description": "Complete uma sessão de foco no café ou na biblioteca.",
+          "missionType": "focus_session",
+          "targetValue": 1,
+          "baseXp": 45,
+          "baseCoins": 30,
+          "baseLocalXp": 28,
+          "difficulty": "medium"
+        },
+        {
+          "stepIndex": 2,
+          "templateKey": "chain_lib_vocab",
+          "title": "Palavras do acervo",
+          "description": "Pratique speaking no farm — 3 unidades.",
+          "missionType": "speaking_units",
+          "targetValue": 3,
+          "baseXp": 55,
+          "baseCoins": 40,
+          "baseLocalXp": 35,
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "chainKey": "town_hall_civic_arc",
+      "poiKey": "town_hall",
+      "title": "Luzes da praça cívica",
+      "synopsis": "A prefeitura precisa de consistência antes da próxima cerimônia.",
+      "minLocalLevel": 2,
+      "steps": [
+        {
+          "stepIndex": 0,
+          "templateKey": "chain_hall_daily",
+          "title": "Dia de serviço",
+          "description": "Complete 1 missão diária global.",
+          "missionType": "complete_daily_global",
+          "targetValue": 1,
+          "baseXp": 40,
+          "baseCoins": 35,
+          "baseLocalXp": 25,
+          "difficulty": "easy"
+        },
+        {
+          "stepIndex": 1,
+          "templateKey": "chain_hall_study",
+          "title": "Presença na cidade",
+          "description": "Registre estudo em dois dias (cumulativo na chain).",
+          "missionType": "study_day",
+          "targetValue": 1,
+          "baseXp": 50,
+          "baseCoins": 40,
+          "baseLocalXp": 30,
+          "difficulty": "medium"
+        },
+        {
+          "stepIndex": 2,
+          "templateKey": "chain_hall_focus",
+          "title": "Foco para o discurso",
+          "description": "Uma sessão de foco para preparar o evento cívico.",
+          "missionType": "focus_session",
+          "targetValue": 1,
+          "baseXp": 65,
+          "baseCoins": 50,
+          "baseLocalXp": 45,
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "chainKey": "cafe_warm_welcome",
+      "poiKey": "study_cafe",
+      "title": "Café acolhedor",
+      "synopsis": "Leo quer transformar o café no ponto de encontro dos estudantes.",
+      "minLocalLevel": 1,
+      "steps": [
+        {
+          "stepIndex": 0,
+          "templateKey": "chain_cafe_focus",
+          "title": "Primeiro espresso",
+          "description": "Complete 1 sessão de foco.",
+          "missionType": "focus_session",
+          "targetValue": 1,
+          "baseXp": 30,
+          "baseCoins": 28,
+          "baseLocalXp": 18,
+          "difficulty": "easy"
+        },
+        {
+          "stepIndex": 1,
+          "templateKey": "chain_cafe_study",
+          "title": "Cliente regular",
+          "description": "Estude hoje no ritmo da cidade.",
+          "missionType": "study_day",
+          "targetValue": 1,
+          "baseXp": 38,
+          "baseCoins": 32,
+          "baseLocalXp": 22,
+          "difficulty": "easy"
+        }
+      ]
+    }
+  ]
+}

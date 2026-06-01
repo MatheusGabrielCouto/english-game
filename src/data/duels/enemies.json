@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "enemies": [
+    {
+      "key": "slime_typos",
+      "name": "Slime de Typos",
+      "emoji": "🟢",
+      "hp": 80,
+      "playerDamage": 12,
+      "counterDamage": 20,
+      "tagline": "Confunde palavras parecidas",
+      "arenaKey": "coliseum_tutorial"
+    },
+    {
+      "key": "weekly_lexicon_guardian",
+      "name": "Guardião do Léxico",
+      "emoji": "👹",
+      "hp": 160,
+      "playerDamage": 14,
+      "counterDamage": 22,
+      "tagline": "Boss semanal — mix da sua liga",
+      "arenaKey": "coliseum_weekly_boss"
+    },
+    {
+      "key": "echo_pet",
+      "name": "Echo do Pet",
+      "emoji": "🐾",
+      "hp": 70,
+      "playerDamage": 11,
+      "counterDamage": 18,
+      "tagline": "Palavras que você errou com o Buddy",
+      "arenaKey": "pet_echo"
+    }
+  ]
+}

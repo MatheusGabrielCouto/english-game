@@ -1,56 +1,124 @@
-# Welcome to your Expo app 👋
+# English Quest
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo gamificado para aprendizado de inglês, construído com Expo.
 
-## Get started
+## Stack
 
-1. Install dependencies
+- Expo Router
+- TypeScript
+- NativeWind (Tailwind CSS)
+- Zustand + SQLite (expo-sqlite + Drizzle ORM)
+- React Hook Form + Zod
 
-   ```bash
-   npm install
-   ```
+## Pré-requisitos
 
-2. Start the app
+- [pnpm](https://pnpm.io/installation) (gerenciador de pacotes do projeto)
 
-   ```bash
-   npx expo start
-   ```
+## Estrutura
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+src/
+├── app/              # Rotas (Expo Router)
+├── components/       # UI reutilizável
+├── features/         # Módulos por domínio
+├── hooks/
+├── services/
+├── storage/          # Drizzle ORM + SQLite repositories
+├── constants/
+├── utils/
+└── types/
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Começar
 
-### Other setup steps
+```bash
+pnpm install
+pnpm exec expo start -c
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Banco de dados (Drizzle)
 
-## Learn more
+| Comando            | Uso                                                     |
+| ------------------ | ------------------------------------------------------- |
+| `pnpm db:generate` | Gera migrations para o app (Expo) após alterar o schema |
+| `pnpm db:push`     | Aplica o schema no SQLite local `.data/` (dev)          |
+| `pnpm db:studio`   | Abre o Drizzle Studio no navegador (banco local)        |
 
-To learn more about developing your project with Expo, look at the following resources:
+- **App (simulador/dispositivo):** `drizzle.config.ts` com `driver: 'expo'` + migrations em `drizzle/`
+- **Studio no Mac:** `drizzle.studio.config.ts` com `dbCredentials` → arquivo `.data/english-quest-dev.db`
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+O `drizzle-kit studio` padrão **não** lê o banco do celular/emulador. Para inspecionar os dados reais do app, use o plugin [expo-drizzle-studio-plugin](https://github.com/drizzle-team/drizzle-studio-expo) (`Shift + M` no terminal do Expo).
 
-## Join the community
+Schema: `src/storage/database/schema.ts`
 
-Join our community of developers creating universal apps.
+## Scripts
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- `pnpm start` — servidor de desenvolvimento
+- `pnpm ios` — iOS
+- `pnpm android` — Android (dev client + Metro)
+- `pnpm web` — Web
+- `pnpm android:apk:release` — gera APK release local (Gradle)
+- `pnpm android:build:preview` — gera APK na nuvem (EAS, perfil `preview`)
+
+## Build nativo (iOS / Android)
+
+O projeto usa **dev client** (`expo-dev-client`). Depois de adicionar módulos nativos (ex.: `expo-audio`), recompile:
+
+```bash
+pnpm android   # ou pnpm ios
+```
+
+### iOS: `React-Core-prebuilt` / `pod install` falha
+
+Se o caminho do projeto tiver **espaços** (ex.: `Estudos/React Native/app-foco`), o download dos tarballs pré-compilados do React Native pode quebrar. O repositório já força build from source em `ios/Podfile.properties.json`:
+
+- `ios.buildReactNativeFromSource`: `true`
+- `EXPO_USE_PRECOMPILED_MODULES`: `false`
+
+Se ainda falhar, limpe e reinstale os pods:
+
+```bash
+cd ios
+rm -rf Pods Podfile.lock
+pod install
+cd ..
+pnpm ios
+```
+
+**Recomendação:** clonar o repo em um caminho **sem espaços** (ex.: `~/Estudos/app-foco`) para builds iOS mais rápidos.
+
+### Áudio (`expo-audio`)
+
+Só funciona no binário nativo recompilado após instalar `expo-audio`. No simulador/dispositivo, ajuste sons em **Perfil → Sistema → Áudio do jogo**.
+
+## Gerar APK para teste
+
+### Opção 1 — Local (mais rápido se já fez prebuild)
+
+```bash
+pnpm android:apk:release
+```
+
+APK gerado em:
+
+`android/app/build/outputs/apk/release/app-release.apk`
+
+Instale no celular via USB (`adb install`) ou copie o arquivo.
+
+> O release local usa a keystore de debug — serve para testes, não para publicar na Play Store.
+
+### Opção 2 — EAS Build (nuvem, bom para compartilhar)
+
+```bash
+pnpm android:build:preview
+```
+
+O perfil `preview` em `eas.json` gera um **APK** com o bundle JS embutido (não precisa do Metro). Na primeira execução, o EAS pode pedir para vincular o projeto Expo.
+
+## Instalar pacotes
+
+```bash
+pnpm add <pacote>
+pnpm add -D <pacote>          # devDependency
+pnpm exec expo install <pacote>  # versão alinhada ao Expo SDK
+```

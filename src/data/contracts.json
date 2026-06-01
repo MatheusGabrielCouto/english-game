@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "contracts": [
+    {
+      "key": "consistency_starter",
+      "name": "Consistency Starter",
+      "description": "Ideal para começar a construir consistência.",
+      "objective": "Estudar 3 dias consecutivos",
+      "targetDays": 3,
+      "stakeAmount": 25,
+      "icon": "🌱",
+      "issuerPoiKey": "town_hall",
+      "districtKey": "centro",
+      "minPlayerLevel": 1,
+      "minLocalLevel": 1,
+      "baseLocalXpReward": 45,
+      "rewards": [
+        {
+          "type": "coins",
+          "amount": 75,
+          "label": "75 moedas"
+        },
+        {
+          "type": "shield",
+          "amount": 1,
+          "label": "1 escudo"
+        }
+      ]
+    },
+    {
+      "key": "weekly_focus",
+      "name": "Weekly Focus",
+      "description": "Uma semana inteira de foco nos estudos.",
+      "objective": "Estudar 7 dias consecutivos",
+      "targetDays": 7,
+      "stakeAmount": 100,
+      "icon": "🔥",
+      "issuerPoiKey": "coworking_hub",
+      "districtKey": "negocios",
+      "minPlayerLevel": 5,
+      "minLocalLevel": 2,
+      "baseLocalXpReward": 90,
+      "rewards": [
+        {
+          "type": "coins",
+          "amount": 300,
+          "label": "300 moedas"
+        },
+        {
+          "type": "loot_box",
+          "rarity": "rare",
+          "quantity": 1,
+          "label": "1 Loot Box Rara"
+        }
+      ]
+    },
+    {
+      "key": "discipline_builder",
+      "name": "Discipline Builder",
+      "description": "Duas semanas de disciplina recompensadas.",
+      "objective": "Estudar 14 dias consecutivos",
+      "targetDays": 14,
+      "stakeAmount": 200,
+      "icon": "💪",
+      "issuerPoiKey": "central_library",
+      "districtKey": "centro",
+      "minPlayerLevel": 3,
+      "minLocalLevel": 2,
+      "baseLocalXpReward": 140,
+      "rewards": [
+        {
+          "type": "coins",
+          "amount": 700,
+          "label": "700 moedas"
+        },
+        {
+          "type": "shield",
+          "amount": 2,
+          "label": "2 escudos"
+        },
+        {
+          "type": "loot_box",
+          "rarity": "rare",
+          "quantity": 1,
+          "label": "1 Loot Box Rara"
+        }
+      ]
+    },
+    {
+      "key": "commitment_master",
+      "name": "Commitment Master",
+      "description": "O desafio definitivo de comprometimento.",
+      "objective": "Estudar 30 dias consecutivos",
+      "targetDays": 30,
+      "stakeAmount": 500,
+      "icon": "👑",
+      "issuerPoiKey": "town_hall",
+      "districtKey": "centro",
+      "minPlayerLevel": 8,
+      "minLocalLevel": 3,
+      "baseLocalXpReward": 250,
+      "rewards": [
+        {
+          "type": "coins",
+          "amount": 2000,
+          "label": "2000 moedas"
+        },
+        {
+          "type": "shield",
+          "amount": 3,
+          "label": "3 escudos"
+        },
+        {
+          "type": "loot_box",
+          "rarity": "epic",
+          "quantity": 1,
+          "label": "1 Loot Box Épica"
+        }
+      ]
+    },
+    {
+      "key": "christmas_advent_pact",
+      "name": "Advent Study Pact",
+      "description": "Pacto de estudo de fim de ano na prefeitura.",
+      "objective": "Estudar 12 dias em dezembro (não precisa ser consecutivo)",
+      "targetDays": 12,
+      "stakeAmount": 80,
+      "icon": "🎄",
+      "issuerPoiKey": "town_hall",
+      "districtKey": "centro",
+      "minPlayerLevel": 3,
+      "minLocalLevel": 1,
+      "baseLocalXpReward": 120,
+      "eventKey": "christmas_2026",
+      "rewards": [
+        { "type": "coins", "amount": 350, "label": "350 moedas" },
+        { "type": "loot_box", "rarity": "epic", "quantity": 1, "label": "Loot natalina épica" }
+      ]
+    },
+    {
+      "key": "christmas_holiday_rush",
+      "name": "Holiday Rush",
+      "description": "Correria festiva no mercadinho — consistência e vocabulário.",
+      "objective": "Estudar 5 dias consecutivos durante o Natal",
+      "targetDays": 5,
+      "stakeAmount": 50,
+      "icon": "🛒",
+      "issuerPoiKey": "corner_shop",
+      "districtKey": "centro",
+      "minPlayerLevel": 3,
+      "minLocalLevel": 1,
+      "baseLocalXpReward": 70,
+      "eventKey": "christmas_2026",
+      "rewards": [
+        { "type": "coins", "amount": 180, "label": "180 moedas" },
+        { "type": "shield", "amount": 1, "label": "1 escudo" }
+      ]
+    }
+  ]
+}

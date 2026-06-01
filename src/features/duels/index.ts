@@ -1,0 +1,11 @@
+export { DUEL_UI } from './constants/duel-ui';
+export { DUEL_COMBAT_CONFIG } from './constants/duel-combat-config';
+export { DUEL_PROGRESSION_CONFIG } from './constants/duel-progression-config';
+export { DuelService, resolveQuestionCount, resolveArenaMode } from './services/duel-service';
+export { DuelCombatService } from './services/duel-combat-service';
+export { DuelRewardService } from './services/duel-reward-service';
+export { DuelProfileService } from './services/duel-profile-service';
+export { DuelPatentService } from './services/duel-patent-service';
+export { useDuelStore } from './store/duel-store';
+export { DuelArenaScreen } from './components/DuelArenaScreen';
+export { DUELS_FEATURE_KEY } from './constants/duels-feature';

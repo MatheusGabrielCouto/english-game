@@ -1,0 +1,2499 @@
+{
+  "version": 1,
+  "daily": [
+    {
+      "id": "vocabulary-01",
+      "category": "vocabulary",
+      "title": "Aprender 5 palavras",
+      "description": "Memorize 5 palavras novas em inglês hoje.",
+      "difficulty": "easy",
+      "baseXp": 40,
+      "baseCoins": 20
+    },
+    {
+      "id": "vocabulary-02",
+      "category": "vocabulary",
+      "title": "Flashcards express",
+      "description": "Revise 11 flashcards de vocabulário.",
+      "difficulty": "easy",
+      "baseXp": 35,
+      "baseCoins": 18
+    },
+    {
+      "id": "vocabulary-03",
+      "category": "vocabulary",
+      "title": "Palavras do dia",
+      "description": "Estude 17 palavras com exemplos em contexto.",
+      "difficulty": "medium",
+      "baseXp": 55,
+      "baseCoins": 28
+    },
+    {
+      "id": "vocabulary-04",
+      "category": "vocabulary",
+      "title": "Sinônimos & antônimos",
+      "description": "Aprenda pares de sinônimos/antônimos (23 pares).",
+      "difficulty": "medium",
+      "baseXp": 60,
+      "baseCoins": 30
+    },
+    {
+      "id": "vocabulary-05",
+      "category": "vocabulary",
+      "title": "Phrasal verbs",
+      "description": "Domine 9 phrasal verbs comuns.",
+      "difficulty": "hard",
+      "baseXp": 75,
+      "baseCoins": 38
+    },
+    {
+      "id": "vocabulary-06",
+      "category": "vocabulary",
+      "title": "Collocations",
+      "description": "Pratique 15 collocations naturais.",
+      "difficulty": "hard",
+      "baseXp": 80,
+      "baseCoins": 40
+    },
+    {
+      "id": "vocabulary-07",
+      "category": "vocabulary",
+      "title": "Vocabulário técnico",
+      "description": "Aprenda 21 termos técnicos em inglês.",
+      "difficulty": "expert",
+      "baseXp": 95,
+      "baseCoins": 48
+    },
+    {
+      "id": "vocabulary-08",
+      "category": "vocabulary",
+      "title": "Word families",
+      "description": "Estude famílias de palavras (27 raízes).",
+      "difficulty": "medium",
+      "baseXp": 58,
+      "baseCoins": 29
+    },
+    {
+      "id": "vocabulary-09",
+      "category": "vocabulary",
+      "title": "Contexto real",
+      "description": "Use 13 palavras novas em frases próprias.",
+      "difficulty": "hard",
+      "baseXp": 78,
+      "baseCoins": 39
+    },
+    {
+      "id": "vocabulary-10",
+      "category": "vocabulary",
+      "title": "Review sprint",
+      "description": "Revise 19 palavras aprendidas esta semana.",
+      "difficulty": "easy",
+      "baseXp": 42,
+      "baseCoins": 21
+    },
+    {
+      "id": "reading-01",
+      "category": "reading",
+      "title": "Leitura rápida",
+      "description": "Leia um texto em inglês por 5 minutos.",
+      "difficulty": "easy",
+      "baseXp": 38,
+      "baseCoins": 19
+    },
+    {
+      "id": "reading-02",
+      "category": "reading",
+      "title": "Artigo tech",
+      "description": "Leia um artigo técnico (11 min).",
+      "difficulty": "medium",
+      "baseXp": 62,
+      "baseCoins": 31
+    },
+    {
+      "id": "reading-03",
+      "category": "reading",
+      "title": "News digest",
+      "description": "Leia notícias em inglês (17 min).",
+      "difficulty": "medium",
+      "baseXp": 58,
+      "baseCoins": 29
+    },
+    {
+      "id": "reading-04",
+      "category": "reading",
+      "title": "Documentação",
+      "description": "Leia documentação oficial (23 min).",
+      "difficulty": "hard",
+      "baseXp": 82,
+      "baseCoins": 41
+    },
+    {
+      "id": "reading-05",
+      "category": "reading",
+      "title": "Blog post",
+      "description": "Leia 9 parágrafos de um blog dev.",
+      "difficulty": "easy",
+      "baseXp": 40,
+      "baseCoins": 20
+    },
+    {
+      "id": "reading-06",
+      "category": "reading",
+      "title": "Skimming practice",
+      "description": "Pratique skimming em 15 textos curtos.",
+      "difficulty": "medium",
+      "baseXp": 56,
+      "baseCoins": 28
+    },
+    {
+      "id": "reading-07",
+      "category": "reading",
+      "title": "Deep reading",
+      "description": "Leitura profunda de 21 páginas.",
+      "difficulty": "hard",
+      "baseXp": 85,
+      "baseCoins": 43
+    },
+    {
+      "id": "reading-08",
+      "category": "reading",
+      "title": "README review",
+      "description": "Leia 27 READMEs de projetos open source.",
+      "difficulty": "medium",
+      "baseXp": 60,
+      "baseCoins": 30
+    },
+    {
+      "id": "reading-09",
+      "category": "reading",
+      "title": "Case study",
+      "description": "Estude um case study em inglês (13 min).",
+      "difficulty": "expert",
+      "baseXp": 98,
+      "baseCoins": 49
+    },
+    {
+      "id": "reading-10",
+      "category": "reading",
+      "title": "Highlight & notes",
+      "description": "Leia e anote 19 insights de um texto.",
+      "difficulty": "hard",
+      "baseXp": 76,
+      "baseCoins": 38
+    },
+    {
+      "id": "listening-01",
+      "category": "listening",
+      "title": "Listening básico",
+      "description": "Ouça áudio em inglês por 5 minutos.",
+      "difficulty": "easy",
+      "baseXp": 36,
+      "baseCoins": 18
+    },
+    {
+      "id": "listening-02",
+      "category": "listening",
+      "title": "Podcast clip",
+      "description": "Ouça um trecho de podcast (11 min).",
+      "difficulty": "medium",
+      "baseXp": 55,
+      "baseCoins": 28
+    },
+    {
+      "id": "listening-03",
+      "category": "listening",
+      "title": "TED talk",
+      "description": "Assista 17 min de uma TED talk.",
+      "difficulty": "medium",
+      "baseXp": 62,
+      "baseCoins": 31
+    },
+    {
+      "id": "listening-04",
+      "category": "listening",
+      "title": "Meeting recording",
+      "description": "Ouça gravação de reunião (23 min).",
+      "difficulty": "hard",
+      "baseXp": 80,
+      "baseCoins": 40
+    },
+    {
+      "id": "listening-05",
+      "category": "listening",
+      "title": "Shadowing",
+      "description": "Pratique shadowing por 9 minutos.",
+      "difficulty": "hard",
+      "baseXp": 84,
+      "baseCoins": 42
+    },
+    {
+      "id": "listening-06",
+      "category": "listening",
+      "title": "Accent training",
+      "description": "Treine compreensão de sotaque (15 min).",
+      "difficulty": "expert",
+      "baseXp": 96,
+      "baseCoins": 48
+    },
+    {
+      "id": "listening-07",
+      "category": "listening",
+      "title": "YouTube dev",
+      "description": "Ouça tutorial técnico (21 min).",
+      "difficulty": "medium",
+      "baseXp": 58,
+      "baseCoins": 29
+    },
+    {
+      "id": "listening-08",
+      "category": "listening",
+      "title": "Dictation",
+      "description": "Faça ditado de 27 frases curtas.",
+      "difficulty": "hard",
+      "baseXp": 78,
+      "baseCoins": 39
+    },
+    {
+      "id": "listening-09",
+      "category": "listening",
+      "title": "News audio",
+      "description": "Ouça noticiário em inglês (13 min).",
+      "difficulty": "easy",
+      "baseXp": 38,
+      "baseCoins": 19
+    },
+    {
+      "id": "listening-10",
+      "category": "listening",
+      "title": "Transcript study",
+      "description": "Ouça e leia transcript (19 min).",
+      "difficulty": "medium",
+      "baseXp": 60,
+      "baseCoins": 30
+    },
+    {
+      "id": "speaking-01",
+      "category": "speaking",
+      "title": "Speaking warmup",
+      "description": "Fale em inglês por 5 minutos.",
+      "difficulty": "easy",
+      "baseXp": 42,
+      "baseCoins": 21
+    },
+    {
+      "id": "speaking-02",
+      "category": "speaking",
+      "title": "Pronunciation drill",
+      "description": "Pratique pronúncia de 11 palavras.",
+      "difficulty": "medium",
+      "baseXp": 58,
+      "baseCoins": 29
+    },
+    {
+      "id": "speaking-03",
+      "category": "speaking",
+      "title": "Self introduction",
+      "description": "Grave uma apresentação pessoal (17 min).",
+      "difficulty": "medium",
+      "baseXp": 62,
+      "baseCoins": 31
+    },
+    {
+      "id": "speaking-04",
+      "category": "speaking",
+      "title": "Mock answer",
+      "description": "Responda 23 perguntas em voz alta.",
+      "difficulty": "hard",
+      "baseXp": 82,
+      "baseCoins": 41
+    },
+    {
+      "id": "speaking-05",
+      "category": "speaking",
+      "title": "Explain a concept",
+      "description": "Explique um conceito técnico (9 min).",
+      "difficulty": "hard",
+      "baseXp": 86,
+      "baseCoins": 43
+    },
+    {
+      "id": "speaking-06",
+      "category": "speaking",
+      "title": "Debate practice",
+      "description": "Defenda uma opinião em inglês (15 min).",
+      "difficulty": "expert",
+      "baseXp": 100,
+      "baseCoins": 50
+    },
+    {
+      "id": "speaking-07",
+      "category": "speaking",
+      "title": "Daily standup",
+      "description": "Simule um daily standup (21 min).",
+      "difficulty": "medium",
+      "baseXp": 60,
+      "baseCoins": 30
+    },
+    {
+      "id": "speaking-08",
+      "category": "speaking",
+      "title": "Small talk",
+      "description": "Pratique small talk (27 tópicos).",
+      "difficulty": "easy",
+      "baseXp": 40,
+      "baseCoins": 20
+    },
+    {
+      "id": "speaking-09",
+      "category": "speaking",
+      "title": "Presentation",
+      "description": "Apresente um slide deck (13 min).",
+      "difficulty": "expert",
+      "baseXp": 95,
+      "baseCoins": 48
+    },
+    {
+      "id": "speaking-10",
+      "category": "speaking",
+      "title": "Shadow speak",
+      "description": "Repita frases nativas (19 min).",
+      "difficulty": "medium",
+      "baseXp": 56,
+      "baseCoins": 28
+    },
+    {
+      "id": "writing-01",
+      "category": "writing",
+      "title": "Journal entry",
+      "description": "Escreva um diário em inglês (5 frases).",
+      "difficulty": "easy",
+      "baseXp": 40,
+      "baseCoins": 20
+    },
+    {
+      "id": "writing-02",
+      "category": "writing",
+      "title": "Email draft",
+      "description": "Escreva um e-mail profissional (11 parágrafos).",
+      "difficulty": "medium",
+      "baseXp": 62,
+      "baseCoins": 31
+    },
+    {
+      "id": "writing-03",
+      "category": "writing",
+      "title": "LinkedIn post",
+      "description": "Redija um post profissional em inglês.",
+      "difficulty": "medium",
+      "baseXp": 58,
+      "baseCoins": 29
+    },
+    {
+      "id": "writing-04",
+      "category": "writing",
+      "title": "Code comment",
+      "description": "Documente 23 funções em inglês.",
+      "difficulty": "hard",
+      "baseXp": 78,
+      "baseCoins": 39
+    },
+    {
+      "id": "writing-05",
+      "category": "writing",
+      "title": "Essay outline",
+      "description": "Crie outline de essay (9 tópicos).",
+      "difficulty": "hard",
+      "baseXp": 82,
+      "baseCoins": 41
+    },
+    {
+      "id": "writing-06",
+      "category": "writing",
+      "title": "Cover letter",
+      "description": "Escreva trecho de cover letter.",
+      "difficulty": "expert",
+      "baseXp": 98,
+      "baseCoins": 49
+    },
+    {
+      "id": "writing-07",
+      "category": "writing",
+      "title": "Slack message",
+      "description": "Escreva 21 mensagens profissionais.",
+      "difficulty": "easy",
+      "baseXp": 38,
+      "baseCoins": 19
+    },
+    {
+      "id": "writing-08",
+      "category": "writing",
+      "title": "Summary writing",
+      "description": "Resuma um texto em 27 frases.",
+      "difficulty": "medium",
+      "baseXp": 56,
+      "baseCoins": 28
+    },
+    {
+      "id": "writing-09",
+      "category": "writing",
+      "title": "PR description",
+      "description": "Escreva descrição de PR em inglês.",
+      "difficulty": "hard",
+      "baseXp": 84,
+      "baseCoins": 42
+    },
+    {
+      "id": "writing-10",
+      "category": "writing",
+      "title": "Rewrite practice",
+      "description": "Reescreva 19 frases de forma natural.",
+      "difficulty": "medium",
+      "baseXp": 60,
+      "baseCoins": 30
+    },
+    {
+      "id": "grammar-01",
+      "category": "grammar",
+      "title": "Tense review",
+      "description": "Revise 5 tempos verbais.",
+      "difficulty": "easy",
+      "baseXp": 38,
+      "baseCoins": 19
+    },
+    {
+      "id": "grammar-02",
+      "category": "grammar",
+      "title": "Articles practice",
+      "description": "Pratique a/an/the em 11 frases.",
+      "difficulty": "easy",
+      "baseXp": 36,
+      "baseCoins": 18
+    },
+    {
+      "id": "grammar-03",
+      "category": "grammar",
+      "title": "Prepositions",
+      "description": "Estude preposições (17 exemplos).",
+      "difficulty": "medium",
+      "baseXp": 55,
+      "baseCoins": 28
+    },
+    {
+      "id": "grammar-04",
+      "category": "grammar",
+      "title": "Conditionals",
+      "description": "Pratique conditionals (23 frases).",
+      "difficulty": "hard",
+      "baseXp": 80,
+      "baseCoins": 40
+    },
+    {
+      "id": "grammar-05",
+      "category": "grammar",
+      "title": "Passive voice",
+      "description": "Transforme 9 frases para passive.",
+      "difficulty": "medium",
+      "baseXp": 58,
+      "baseCoins": 29
+    },
+    {
+      "id": "grammar-06",
+      "category": "grammar",
+      "title": "Reported speech",
+      "description": "Pratique reported speech (15 frases).",
+      "difficulty": "hard",
+      "baseXp": 78,
+      "baseCoins": 39
+    },
+    {
+      "id": "grammar-07",
+      "category": "grammar",
+      "title": "Modal verbs",
+      "description": "Use modal verbs em 21 contextos.",
+      "difficulty": "medium",
+      "baseXp": 56,
+      "baseCoins": 28
+    },
+    {
+      "id": "grammar-08",
+      "category": "grammar",
+      "title": "Error correction",
+      "description": "Corrija 27 erros gramaticais.",
+      "difficulty": "hard",
+      "baseXp": 82,
+      "baseCoins": 41
+    },
+    {
+      "id": "grammar-09",
+      "category": "grammar",
+      "title": "Complex sentences",
+      "description": "Construa 13 frases complexas.",
+      "difficulty": "expert",
+      "baseXp": 94,
+      "baseCoins": 47
+    },
+    {
+      "id": "grammar-10",
+      "category": "grammar",
+      "title": "Grammar quiz",
+      "description": "Complete 19 exercícios de gramática.",
+      "difficulty": "easy",
+      "baseXp": 40,
+      "baseCoins": 20
+    },
+    {
+      "id": "revision-01",
+      "category": "revision",
+      "title": "Quick review",
+      "description": "Revise conteúdo de ontem (5 min).",
+      "difficulty": "easy",
+      "baseXp": 35,
+      "baseCoins": 18
+    },
+    {
+      "id": "revision-02",
+      "category": "revision",
+      "title": "Spaced repetition",
+      "description": "Revise 11 itens com repetição espaçada.",
+      "difficulty": "medium",
+      "baseXp": 55,
+      "baseCoins": 28
+    },
+    {
+      "id": "revision-03",
+      "category": "revision",
+      "title": "Weekly recap",
+      "description": "Recapitule a semana em inglês (17 min).",
+      "difficulty": "medium",
+      "baseXp": 60,
+      "baseCoins": 30
+    },
+    {
+      "id": "revision-04",
+      "category": "revision",
+      "title": "Mistake log",
+      "description": "Revise 23 erros anotados.",
+      "difficulty": "hard",
+      "baseXp": 76,
+      "baseCoins": 38
+    },
+    {
+      "id": "revision-05",
+      "category": "revision",
+      "title": "Mixed skills",
+      "description": "Revise vocabulário, listening e speaking (9 min).",
+      "difficulty": "hard",
+      "baseXp": 82,
+      "baseCoins": 41
+    },
+    {
+      "id": "revision-06",
+      "category": "revision",
+      "title": "Anki session",
+      "description": "Complete 15 cards de revisão.",
+      "difficulty": "easy",
+      "baseXp": 38,
+      "baseCoins": 19
+    },
+    {
+      "id": "revision-07",
+      "category": "revision",
+      "title": "Peer teaching",
+      "description": "Explique 21 conceitos que aprendeu.",
+      "difficulty": "expert",
+      "baseXp": 92,
+      "baseCoins": 46
+    },
+    {
+      "id": "revision-08",
+      "category": "revision",
+      "title": "Flash review",
+      "description": "Revise 27 tópicos em 10 minutos.",
+      "difficulty": "medium",
+      "baseXp": 52,
+      "baseCoins": 26
+    },
+    {
+      "id": "revision-09",
+      "category": "revision",
+      "title": "Portfolio review",
+      "description": "Revise suas anotações em inglês.",
+      "difficulty": "easy",
+      "baseXp": 36,
+      "baseCoins": 18
+    },
+    {
+      "id": "revision-10",
+      "category": "revision",
+      "title": "Challenge retry",
+      "description": "Refaça 19 exercícios difíceis.",
+      "difficulty": "hard",
+      "baseXp": 78,
+      "baseCoins": 39
+    },
+    {
+      "id": "career_english-01",
+      "category": "career_english",
+      "title": "LinkedIn headline",
+      "description": "Otimize seu headline em inglês.",
+      "difficulty": "easy",
+      "baseXp": 42,
+      "baseCoins": 21
+    },
+    {
+      "id": "career_english-02",
+      "category": "career_english",
+      "title": "Resume bullet",
+      "description": "Escreva 11 bullet points de CV.",
+      "difficulty": "medium",
+      "baseXp": 62,
+      "baseCoins": 31
+    },
+    {
+      "id": "career_english-03",
+      "category": "career_english",
+      "title": "Networking pitch",
+      "description": "Pratique elevator pitch (17 min).",
+      "difficulty": "medium",
+      "baseXp": 58,
+      "baseCoins": 29
+    },
+    {
+      "id": "career_english-04",
+      "category": "career_english",
+      "title": "Job description",
+      "description": "Leia 23 job descriptions em inglês.",
+      "difficulty": "hard",
+      "baseXp": 80,
+      "baseCoins": 40
+    },
+    {
+      "id": "career_english-05",
+      "category": "career_english",
+      "title": "Remote culture",
+      "description": "Estude comunicação em times remotos.",
+      "difficulty": "medium",
+      "baseXp": 56,
+      "baseCoins": 28
+    },
+    {
+      "id": "career_english-06",
+      "category": "career_english",
+      "title": "Performance review",
+      "description": "Pratique self-assessment em inglês.",
+      "difficulty": "hard",
+      "baseXp": 84,
+      "baseCoins": 42
+    },
+    {
+      "id": "career_english-07",
+      "category": "career_english",
+      "title": "Salary negotiation",
+      "description": "Pratique frases de negociação (21 min).",
+      "difficulty": "expert",
+      "baseXp": 98,
+      "baseCoins": 49
+    },
+    {
+      "id": "career_english-08",
+      "category": "career_english",
+      "title": "Professional email",
+      "description": "Escreva e-mail para recruiter.",
+      "difficulty": "medium",
+      "baseXp": 60,
+      "baseCoins": 30
+    },
+    {
+      "id": "career_english-09",
+      "category": "career_english",
+      "title": "Team collaboration",
+      "description": "Pratique frases de colaboração (13 exemplos).",
+      "difficulty": "easy",
+      "baseXp": 40,
+      "baseCoins": 20
+    },
+    {
+      "id": "career_english-10",
+      "category": "career_english",
+      "title": "Career goals",
+      "description": "Descreva metas de carreira em inglês.",
+      "difficulty": "medium",
+      "baseXp": 55,
+      "baseCoins": 28
+    },
+    {
+      "id": "interview_english-01",
+      "category": "interview_english",
+      "title": "Tell me about yourself",
+      "description": "Pratique resposta clássica de entrevista.",
+      "difficulty": "easy",
+      "baseXp": 45,
+      "baseCoins": 23
+    },
+    {
+      "id": "interview_english-02",
+      "category": "interview_english",
+      "title": "STAR method",
+      "description": "Prepare 11 respostas STAR.",
+      "difficulty": "medium",
+      "baseXp": 65,
+      "baseCoins": 33
+    },
+    {
+      "id": "interview_english-03",
+      "category": "interview_english",
+      "title": "Behavioral questions",
+      "description": "Responda 17 perguntas comportamentais.",
+      "difficulty": "hard",
+      "baseXp": 85,
+      "baseCoins": 43
+    },
+    {
+      "id": "interview_english-04",
+      "category": "interview_english",
+      "title": "Technical explain",
+      "description": "Explique um projeto técnico (23 min).",
+      "difficulty": "hard",
+      "baseXp": 88,
+      "baseCoins": 44
+    },
+    {
+      "id": "interview_english-05",
+      "category": "interview_english",
+      "title": "System design talk",
+      "description": "Pratique explicação de system design.",
+      "difficulty": "expert",
+      "baseXp": 100,
+      "baseCoins": 50
+    },
+    {
+      "id": "interview_english-06",
+      "category": "interview_english",
+      "title": "Weakness question",
+      "description": "Pratique resposta sobre fraquezas.",
+      "difficulty": "medium",
+      "baseXp": 58,
+      "baseCoins": 29
+    },
+    {
+      "id": "interview_english-07",
+      "category": "interview_english",
+      "title": "Questions for interviewer",
+      "description": "Prepare 21 perguntas para o entrevistador.",
+      "difficulty": "easy",
+      "baseXp": 40,
+      "baseCoins": 20
+    },
+    {
+      "id": "interview_english-08",
+      "category": "interview_english",
+      "title": "Whiteboard intro",
+      "description": "Simule introdução de whiteboard (27 min).",
+      "difficulty": "hard",
+      "baseXp": 82,
+      "baseCoins": 41
+    },
+    {
+      "id": "interview_english-09",
+      "category": "interview_english",
+      "title": "Culture fit",
+      "description": "Pratique respostas sobre cultura (13 temas).",
+      "difficulty": "medium",
+      "baseXp": 56,
+      "baseCoins": 28
+    },
+    {
+      "id": "interview_english-10",
+      "category": "interview_english",
+      "title": "Mock interview",
+      "description": "Complete mock interview de 19 minutos.",
+      "difficulty": "expert",
+      "baseXp": 95,
+      "baseCoins": 48
+    },
+    {
+      "id": "programming_english-01",
+      "category": "programming_english",
+      "title": "Code reading",
+      "description": "Leia código comentado em inglês (5 min).",
+      "difficulty": "easy",
+      "baseXp": 40,
+      "baseCoins": 20
+    },
+    {
+      "id": "programming_english-02",
+      "category": "programming_english",
+      "title": "API docs",
+      "description": "Estude documentação de API (11 endpoints).",
+      "difficulty": "medium",
+      "baseXp": 62,
+      "baseCoins": 31
+    },
+    {
+      "id": "programming_english-03",
+      "category": "programming_english",
+      "title": "Error messages",
+      "description": "Traduza e entenda 17 error messages.",
+      "difficulty": "medium",
+      "baseXp": 58,
+      "baseCoins": 29
+    },
+    {
+      "id": "programming_english-04",
+      "category": "programming_english",
+      "title": "RFC skimming",
+      "description": "Leia trecho de RFC/spec (23 min).",
+      "difficulty": "hard",
+      "baseXp": 86,
+      "baseCoins": 43
+    },
+    {
+      "id": "programming_english-05",
+      "category": "programming_english",
+      "title": "Commit messages",
+      "description": "Escreva 9 commit messages em inglês.",
+      "difficulty": "easy",
+      "baseXp": 38,
+      "baseCoins": 19
+    },
+    {
+      "id": "programming_english-06",
+      "category": "programming_english",
+      "title": "Code review comment",
+      "description": "Escreva 15 comentários de code review.",
+      "difficulty": "hard",
+      "baseXp": 80,
+      "baseCoins": 40
+    },
+    {
+      "id": "programming_english-07",
+      "category": "programming_english",
+      "title": "Architecture doc",
+      "description": "Leia doc de arquitetura (21 min).",
+      "difficulty": "expert",
+      "baseXp": 96,
+      "baseCoins": 48
+    },
+    {
+      "id": "programming_english-08",
+      "category": "programming_english",
+      "title": "Stack Overflow",
+      "description": "Leia 27 threads técnicas em inglês.",
+      "difficulty": "medium",
+      "baseXp": 55,
+      "baseCoins": 28
+    },
+    {
+      "id": "programming_english-09",
+      "category": "programming_english",
+      "title": "Variable naming",
+      "description": "Pratique naming em inglês (13 exemplos).",
+      "difficulty": "easy",
+      "baseXp": 36,
+      "baseCoins": 18
+    },
+    {
+      "id": "programming_english-10",
+      "category": "programming_english",
+      "title": "Tech blog write",
+      "description": "Escreva snippet técnico em inglês.",
+      "difficulty": "hard",
+      "baseXp": 84,
+      "baseCoins": 42
+    }
+  ],
+  "weekly": [
+    {
+      "id": "weekly-vocab-01",
+      "category": "vocabulary",
+      "title": "50 palavras",
+      "description": "Aprenda palavras novas esta semana.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-vocab-02",
+      "category": "vocabulary",
+      "title": "75 palavras",
+      "description": "Expanda seu vocabulário ativo.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-vocab-03",
+      "category": "vocabulary",
+      "title": "100 palavras",
+      "description": "Meta ambiciosa de vocabulário.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-vocab-04",
+      "category": "vocabulary",
+      "title": "150 palavras",
+      "description": "Desafio de vocabulário avançado.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-vocab-05",
+      "category": "vocabulary",
+      "title": "200 palavras",
+      "description": "Vocabulário para fluência.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-vocab-06",
+      "category": "vocabulary",
+      "title": "250 palavras",
+      "description": "Vocabulário massivo semanal.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-vocab-07",
+      "category": "vocabulary",
+      "title": "300 palavras",
+      "description": "Vocabulário de elite.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-vocab-08",
+      "category": "vocabulary",
+      "title": "400 palavras",
+      "description": "Vocabulário master.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-vocab-09",
+      "category": "vocabulary",
+      "title": "500 palavras",
+      "description": "Vocabulário lendário.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-vocab-10",
+      "category": "vocabulary",
+      "title": "750 palavras",
+      "description": "Vocabulário épico.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    },
+    {
+      "id": "weekly-reading-01",
+      "category": "reading",
+      "title": "3 dias de leitura",
+      "description": "Leia em inglês em dias diferentes.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-reading-02",
+      "category": "reading",
+      "title": "4 dias de leitura",
+      "description": "Consistência de leitura.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-reading-03",
+      "category": "reading",
+      "title": "5 dias de leitura",
+      "description": "Semana de leitura diária.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-reading-04",
+      "category": "reading",
+      "title": "5 dias + artigos",
+      "description": "Leitura + artigos técnicos.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-reading-05",
+      "category": "reading",
+      "title": "7 dias de leitura",
+      "description": "Leitura todos os dias.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-reading-06",
+      "category": "reading",
+      "title": "10 artigos tech",
+      "description": "Artigos de tecnologia.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-reading-07",
+      "category": "reading",
+      "title": "15 artigos",
+      "description": "Volume de leitura alto.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-reading-08",
+      "category": "reading",
+      "title": "20 artigos",
+      "description": "Leitura intensiva.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-reading-09",
+      "category": "reading",
+      "title": "25 artigos",
+      "description": "Leitura master.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-reading-10",
+      "category": "reading",
+      "title": "30 artigos",
+      "description": "Leitura épica.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    },
+    {
+      "id": "weekly-listening-01",
+      "category": "listening",
+      "title": "3 sessões listening",
+      "description": "Pratique listening esta semana.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-listening-02",
+      "category": "listening",
+      "title": "5 sessões",
+      "description": "Aumente exposição auditiva.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-listening-03",
+      "category": "listening",
+      "title": "7 sessões",
+      "description": "Listening consistente.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-listening-04",
+      "category": "listening",
+      "title": "10 sessões",
+      "description": "Listening avançado.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-listening-05",
+      "category": "listening",
+      "title": "15 sessões",
+      "description": "Listening intensivo.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-listening-06",
+      "category": "listening",
+      "title": "20 sessões",
+      "description": "Listening master.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-listening-07",
+      "category": "listening",
+      "title": "25 sessões",
+      "description": "Listening elite.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-listening-08",
+      "category": "listening",
+      "title": "30 sessões",
+      "description": "Listening pro.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-listening-09",
+      "category": "listening",
+      "title": "40 sessões",
+      "description": "Listening lendário.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-listening-10",
+      "category": "listening",
+      "title": "50 sessões",
+      "description": "Listening épico.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    },
+    {
+      "id": "weekly-speaking-01",
+      "category": "speaking",
+      "title": "3 sessões speaking",
+      "description": "Fale em inglês regularmente.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-speaking-02",
+      "category": "speaking",
+      "title": "5 sessões",
+      "description": "Pratique speaking ativo.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-speaking-03",
+      "category": "speaking",
+      "title": "7 sessões",
+      "description": "Speaking consistente.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-speaking-04",
+      "category": "speaking",
+      "title": "10 sessões",
+      "description": "Speaking avançado.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-speaking-05",
+      "category": "speaking",
+      "title": "15 sessões",
+      "description": "Speaking intensivo.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-speaking-06",
+      "category": "speaking",
+      "title": "20 sessões",
+      "description": "Speaking master.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-speaking-07",
+      "category": "speaking",
+      "title": "25 sessões",
+      "description": "Speaking elite.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-speaking-08",
+      "category": "speaking",
+      "title": "30 sessões",
+      "description": "Speaking pro.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-speaking-09",
+      "category": "speaking",
+      "title": "40 sessões",
+      "description": "Speaking lendário.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-speaking-10",
+      "category": "speaking",
+      "title": "50 sessões",
+      "description": "Speaking épico.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    },
+    {
+      "id": "weekly-writing-01",
+      "category": "writing",
+      "title": "5 missões writing",
+      "description": "Complete missões de writing.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-writing-02",
+      "category": "writing",
+      "title": "10 missões",
+      "description": "Volume de escrita semanal.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-writing-03",
+      "category": "writing",
+      "title": "15 missões",
+      "description": "Escrita consistente.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-writing-04",
+      "category": "writing",
+      "title": "20 missões",
+      "description": "Escrita avançada.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-writing-05",
+      "category": "writing",
+      "title": "25 missões",
+      "description": "Escrita intensiva.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-writing-06",
+      "category": "writing",
+      "title": "30 missões",
+      "description": "Escrita master.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-writing-07",
+      "category": "writing",
+      "title": "35 missões",
+      "description": "Escrita elite.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-writing-08",
+      "category": "writing",
+      "title": "40 missões",
+      "description": "Escrita pro.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-writing-09",
+      "category": "writing",
+      "title": "45 missões",
+      "description": "Escrita lendária.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-writing-10",
+      "category": "writing",
+      "title": "50 missões",
+      "description": "Escrita épica.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    },
+    {
+      "id": "weekly-grammar-01",
+      "category": "grammar",
+      "title": "500 XP grammar",
+      "description": "Ganhe XP com gramática.",
+      "missionType": "XP_GAINED",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-grammar-02",
+      "category": "grammar",
+      "title": "750 XP",
+      "description": "XP de gramática semanal.",
+      "missionType": "XP_GAINED",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-grammar-03",
+      "category": "grammar",
+      "title": "1000 XP",
+      "description": "Gramática consistente.",
+      "missionType": "XP_GAINED",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-grammar-04",
+      "category": "grammar",
+      "title": "1500 XP",
+      "description": "Gramática avançada.",
+      "missionType": "XP_GAINED",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-grammar-05",
+      "category": "grammar",
+      "title": "2000 XP",
+      "description": "Gramática intensiva.",
+      "missionType": "XP_GAINED",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-grammar-06",
+      "category": "grammar",
+      "title": "2500 XP",
+      "description": "Gramática master.",
+      "missionType": "XP_GAINED",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-grammar-07",
+      "category": "grammar",
+      "title": "3000 XP",
+      "description": "Gramática elite.",
+      "missionType": "XP_GAINED",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-grammar-08",
+      "category": "grammar",
+      "title": "4000 XP",
+      "description": "Gramática pro.",
+      "missionType": "XP_GAINED",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-grammar-09",
+      "category": "grammar",
+      "title": "5000 XP",
+      "description": "Gramática lendária.",
+      "missionType": "XP_GAINED",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-grammar-10",
+      "category": "grammar",
+      "title": "7500 XP",
+      "description": "Gramática épica.",
+      "missionType": "XP_GAINED",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    },
+    {
+      "id": "weekly-revision-01",
+      "category": "revision",
+      "title": "Estudar 3 dias",
+      "description": "Revise em dias diferentes.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-revision-02",
+      "category": "revision",
+      "title": "Estudar 4 dias",
+      "description": "Consistência de revisão.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-revision-03",
+      "category": "revision",
+      "title": "Estudar 5 dias",
+      "description": "Revisão diária.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-revision-04",
+      "category": "revision",
+      "title": "Estudar 6 dias",
+      "description": "Revisão avançada.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-revision-05",
+      "category": "revision",
+      "title": "Estudar 7 dias",
+      "description": "Revisão intensiva.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-revision-06",
+      "category": "revision",
+      "title": "7 dias + review",
+      "description": "Revisão master.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-revision-07",
+      "category": "revision",
+      "title": "7 dias intensivo",
+      "description": "Revisão elite.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-revision-08",
+      "category": "revision",
+      "title": "7 dias master",
+      "description": "Revisão pro.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-revision-09",
+      "category": "revision",
+      "title": "7 dias elite",
+      "description": "Revisão lendária.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-revision-10",
+      "category": "revision",
+      "title": "7 dias perfeito",
+      "description": "Revisão épica.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    },
+    {
+      "id": "weekly-career-01",
+      "category": "career_english",
+      "title": "800 XP career",
+      "description": "Inglês para carreira internacional.",
+      "missionType": "XP_GAINED",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-career-02",
+      "category": "career_english",
+      "title": "1200 XP",
+      "description": "Career English semanal.",
+      "missionType": "XP_GAINED",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-career-03",
+      "category": "career_english",
+      "title": "1600 XP",
+      "description": "Carreira consistente.",
+      "missionType": "XP_GAINED",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-career-04",
+      "category": "career_english",
+      "title": "2000 XP",
+      "description": "Carreira avançada.",
+      "missionType": "XP_GAINED",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-career-05",
+      "category": "career_english",
+      "title": "2500 XP",
+      "description": "Carreira intensiva.",
+      "missionType": "XP_GAINED",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-career-06",
+      "category": "career_english",
+      "title": "3000 XP",
+      "description": "Carreira master.",
+      "missionType": "XP_GAINED",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-career-07",
+      "category": "career_english",
+      "title": "3500 XP",
+      "description": "Carreira elite.",
+      "missionType": "XP_GAINED",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-career-08",
+      "category": "career_english",
+      "title": "4000 XP",
+      "description": "Carreira pro.",
+      "missionType": "XP_GAINED",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-career-09",
+      "category": "career_english",
+      "title": "5000 XP",
+      "description": "Carreira lendária.",
+      "missionType": "XP_GAINED",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-career-10",
+      "category": "career_english",
+      "title": "6000 XP",
+      "description": "Carreira épica.",
+      "missionType": "XP_GAINED",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    },
+    {
+      "id": "weekly-interview-01",
+      "category": "interview_english",
+      "title": "3 mocks",
+      "description": "Pratique entrevistas em inglês.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-interview-02",
+      "category": "interview_english",
+      "title": "5 mocks",
+      "description": "Mock interviews semanais.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-interview-03",
+      "category": "interview_english",
+      "title": "7 mocks",
+      "description": "Entrevistas consistentes.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-interview-04",
+      "category": "interview_english",
+      "title": "10 mocks",
+      "description": "Entrevistas avançadas.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-interview-05",
+      "category": "interview_english",
+      "title": "12 mocks",
+      "description": "Entrevistas intensivas.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-interview-06",
+      "category": "interview_english",
+      "title": "15 mocks",
+      "description": "Entrevistas master.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-interview-07",
+      "category": "interview_english",
+      "title": "18 mocks",
+      "description": "Entrevistas elite.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-interview-08",
+      "category": "interview_english",
+      "title": "20 mocks",
+      "description": "Entrevistas pro.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-interview-09",
+      "category": "interview_english",
+      "title": "25 mocks",
+      "description": "Entrevistas lendárias.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-interview-10",
+      "category": "interview_english",
+      "title": "30 mocks",
+      "description": "Entrevistas épicas.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    },
+    {
+      "id": "weekly-dev-01",
+      "category": "programming_english",
+      "title": "30 termos tech",
+      "description": "Vocabulário técnico semanal.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 3,
+      "difficulty": "easy",
+      "baseXp": 120,
+      "baseCoins": 60
+    },
+    {
+      "id": "weekly-dev-02",
+      "category": "programming_english",
+      "title": "50 termos",
+      "description": "Termos de programação.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 145,
+      "baseCoins": 72
+    },
+    {
+      "id": "weekly-dev-03",
+      "category": "programming_english",
+      "title": "75 termos",
+      "description": "Dev English consistente.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 7,
+      "difficulty": "hard",
+      "baseXp": 170,
+      "baseCoins": 84
+    },
+    {
+      "id": "weekly-dev-04",
+      "category": "programming_english",
+      "title": "100 termos",
+      "description": "Dev English avançado.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 10,
+      "difficulty": "expert",
+      "baseXp": 195,
+      "baseCoins": 96
+    },
+    {
+      "id": "weekly-dev-05",
+      "category": "programming_english",
+      "title": "125 termos",
+      "description": "Dev English intensivo.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 220,
+      "baseCoins": 108
+    },
+    {
+      "id": "weekly-dev-06",
+      "category": "programming_english",
+      "title": "150 termos",
+      "description": "Dev English master.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 20,
+      "difficulty": "medium",
+      "baseXp": 245,
+      "baseCoins": 120
+    },
+    {
+      "id": "weekly-dev-07",
+      "category": "programming_english",
+      "title": "175 termos",
+      "description": "Dev English elite.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 270,
+      "baseCoins": 132
+    },
+    {
+      "id": "weekly-dev-08",
+      "category": "programming_english",
+      "title": "200 termos",
+      "description": "Dev English pro.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 30,
+      "difficulty": "expert",
+      "baseXp": 295,
+      "baseCoins": 144
+    },
+    {
+      "id": "weekly-dev-09",
+      "category": "programming_english",
+      "title": "250 termos",
+      "description": "Dev English lendário.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 40,
+      "difficulty": "easy",
+      "baseXp": 320,
+      "baseCoins": 156
+    },
+    {
+      "id": "weekly-dev-10",
+      "category": "programming_english",
+      "title": "300 termos",
+      "description": "Dev English épico.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 345,
+      "baseCoins": 168
+    }
+  ],
+  "epic": [
+    {
+      "title": "100 dias de estudo",
+      "description": "Estude em 100 dias diferentes.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 100,
+      "difficulty": "expert",
+      "baseXp": 5000,
+      "baseCoins": 2500,
+      "id": "epic-01"
+    },
+    {
+      "title": "365 dias de estudo",
+      "description": "Um ano de consistência.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 365,
+      "difficulty": "expert",
+      "baseXp": 15000,
+      "baseCoins": 7500,
+      "id": "epic-02"
+    },
+    {
+      "title": "1000 palavras",
+      "description": "Aprenda 1000 palavras no total.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 1000,
+      "difficulty": "hard",
+      "baseXp": 3000,
+      "baseCoins": 1500,
+      "id": "epic-03"
+    },
+    {
+      "title": "5000 palavras",
+      "description": "Vocabulário massivo.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 5000,
+      "difficulty": "expert",
+      "baseXp": 8000,
+      "baseCoins": 4000,
+      "id": "epic-04"
+    },
+    {
+      "title": "100 sessões listening",
+      "description": "100 sessões de listening completas.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 100,
+      "difficulty": "hard",
+      "baseXp": 3500,
+      "baseCoins": 1750,
+      "id": "epic-05"
+    },
+    {
+      "title": "500 sessões speaking",
+      "description": "Domine speaking com volume.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 500,
+      "difficulty": "expert",
+      "baseXp": 10000,
+      "baseCoins": 5000,
+      "id": "epic-06"
+    },
+    {
+      "title": "500 missões diárias",
+      "description": "Complete 500 missões diárias.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 500,
+      "difficulty": "hard",
+      "baseXp": 4000,
+      "baseCoins": 2000,
+      "id": "epic-07"
+    },
+    {
+      "title": "2000 missões diárias",
+      "description": "Veterano das missões.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 2000,
+      "difficulty": "expert",
+      "baseXp": 12000,
+      "baseCoins": 6000,
+      "id": "epic-08"
+    },
+    {
+      "title": "50.000 XP",
+      "description": "Acumule 50.000 XP total.",
+      "missionType": "XP_GAINED",
+      "targetValue": 50000,
+      "difficulty": "hard",
+      "baseXp": 4500,
+      "baseCoins": 2250,
+      "id": "epic-09"
+    },
+    {
+      "title": "250.000 XP",
+      "description": "XP lendário acumulado.",
+      "missionType": "XP_GAINED",
+      "targetValue": 250000,
+      "difficulty": "expert",
+      "baseXp": 15000,
+      "baseCoins": 7500,
+      "id": "epic-10"
+    },
+    {
+      "title": "10 contratos",
+      "description": "Complete 10 contratos.",
+      "missionType": "CONTRACTS_COMPLETED",
+      "targetValue": 10,
+      "difficulty": "medium",
+      "baseXp": 2000,
+      "baseCoins": 1000,
+      "id": "epic-11"
+    },
+    {
+      "title": "50 contratos",
+      "description": "Mestre dos contratos.",
+      "missionType": "CONTRACTS_COMPLETED",
+      "targetValue": 50,
+      "difficulty": "expert",
+      "baseXp": 10000,
+      "baseCoins": 5000,
+      "id": "epic-12"
+    },
+    {
+      "title": "Streak de 30",
+      "description": "Mantenha streak de 30 dias.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 30,
+      "difficulty": "medium",
+      "baseXp": 1500,
+      "baseCoins": 750,
+      "id": "epic-13"
+    },
+    {
+      "title": "Streak de 100",
+      "description": "Streak centenária.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 100,
+      "difficulty": "expert",
+      "baseXp": 8000,
+      "baseCoins": 4000,
+      "id": "epic-14"
+    },
+    {
+      "title": "25 conquistas",
+      "description": "Desbloqueie 25 conquistas.",
+      "missionType": "ACHIEVEMENTS_UNLOCKED",
+      "targetValue": 25,
+      "difficulty": "medium",
+      "baseXp": 1800,
+      "baseCoins": 900,
+      "id": "epic-15"
+    },
+    {
+      "title": "72 conquistas",
+      "description": "Colecionador de conquistas.",
+      "missionType": "ACHIEVEMENTS_UNLOCKED",
+      "targetValue": 72,
+      "difficulty": "expert",
+      "baseXp": 9000,
+      "baseCoins": 4500,
+      "id": "epic-16"
+    },
+    {
+      "title": "Todas construções",
+      "description": "Desbloqueie todas as construções.",
+      "missionType": "CITY_BUILDINGS",
+      "targetValue": 27,
+      "difficulty": "expert",
+      "baseXp": 12000,
+      "baseCoins": 6000,
+      "id": "epic-17"
+    },
+    {
+      "title": "10 evoluções pet",
+      "description": "Evolua seu pet 10 vezes.",
+      "missionType": "PET_EVOLUTIONS",
+      "targetValue": 10,
+      "difficulty": "hard",
+      "baseXp": 3500,
+      "baseCoins": 1750,
+      "id": "epic-18"
+    },
+    {
+      "title": "100 loot boxes",
+      "description": "Abra 100 loot boxes.",
+      "missionType": "LOOT_BOXES_OPENED",
+      "targetValue": 100,
+      "difficulty": "hard",
+      "baseXp": 4000,
+      "baseCoins": 2000,
+      "id": "epic-19"
+    },
+    {
+      "title": "Nível 25",
+      "description": "Alcance o nível 25.",
+      "missionType": "XP_GAINED",
+      "targetValue": 25000,
+      "difficulty": "medium",
+      "baseXp": 2000,
+      "baseCoins": 1000,
+      "id": "epic-20"
+    },
+    {
+      "title": "Nível 50",
+      "description": "Alcance o nível 50.",
+      "missionType": "XP_GAINED",
+      "targetValue": 100000,
+      "difficulty": "hard",
+      "baseXp": 5000,
+      "baseCoins": 2500,
+      "id": "epic-21"
+    },
+    {
+      "title": "Nível 100",
+      "description": "Alcance o nível 100.",
+      "missionType": "XP_GAINED",
+      "targetValue": 500000,
+      "difficulty": "expert",
+      "baseXp": 20000,
+      "baseCoins": 10000,
+      "id": "epic-22"
+    },
+    {
+      "title": "200 dias de estudo",
+      "description": "200 dias de consistência.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 200,
+      "difficulty": "hard",
+      "baseXp": 6000,
+      "baseCoins": 3000,
+      "id": "epic-23"
+    },
+    {
+      "title": "750 palavras",
+      "description": "750 palavras aprendidas.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 750,
+      "difficulty": "medium",
+      "baseXp": 2200,
+      "baseCoins": 1100,
+      "id": "epic-24"
+    },
+    {
+      "title": "2500 palavras",
+      "description": "2500 palavras no arsenal.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 2500,
+      "difficulty": "hard",
+      "baseXp": 5500,
+      "baseCoins": 2750,
+      "id": "epic-25"
+    },
+    {
+      "title": "75 sessões listening",
+      "description": "75 sessões de listening.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 75,
+      "difficulty": "medium",
+      "baseXp": 2000,
+      "baseCoins": 1000,
+      "id": "epic-26"
+    },
+    {
+      "title": "250 sessões speaking",
+      "description": "250 sessões de speaking.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 250,
+      "difficulty": "hard",
+      "baseXp": 4500,
+      "baseCoins": 2250,
+      "id": "epic-27"
+    },
+    {
+      "title": "1000 missões",
+      "description": "1000 missões diárias.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 1000,
+      "difficulty": "hard",
+      "baseXp": 5500,
+      "baseCoins": 2750,
+      "id": "epic-28"
+    },
+    {
+      "title": "5 contratos",
+      "description": "5 contratos concluídos.",
+      "missionType": "CONTRACTS_COMPLETED",
+      "targetValue": 5,
+      "difficulty": "easy",
+      "baseXp": 1200,
+      "baseCoins": 600,
+      "id": "epic-29"
+    },
+    {
+      "title": "25 contratos",
+      "description": "25 contratos concluídos.",
+      "missionType": "CONTRACTS_COMPLETED",
+      "targetValue": 25,
+      "difficulty": "hard",
+      "baseXp": 5000,
+      "baseCoins": 2500,
+      "id": "epic-30"
+    },
+    {
+      "title": "Streak de 14",
+      "description": "Duas semanas perfeitas.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 14,
+      "difficulty": "easy",
+      "baseXp": 800,
+      "baseCoins": 400,
+      "id": "epic-31"
+    },
+    {
+      "title": "Streak de 60",
+      "description": "Dois meses de streak.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 60,
+      "difficulty": "hard",
+      "baseXp": 4000,
+      "baseCoins": 2000,
+      "id": "epic-32"
+    },
+    {
+      "title": "15 conquistas",
+      "description": "15 conquistas desbloqueadas.",
+      "missionType": "ACHIEVEMENTS_UNLOCKED",
+      "targetValue": 15,
+      "difficulty": "easy",
+      "baseXp": 1000,
+      "baseCoins": 500,
+      "id": "epic-33"
+    },
+    {
+      "title": "50 conquistas",
+      "description": "50 conquistas desbloqueadas.",
+      "missionType": "ACHIEVEMENTS_UNLOCKED",
+      "targetValue": 50,
+      "difficulty": "hard",
+      "baseXp": 6000,
+      "baseCoins": 3000,
+      "id": "epic-34"
+    },
+    {
+      "title": "15 construções",
+      "description": "15 construções desbloqueadas.",
+      "missionType": "CITY_BUILDINGS",
+      "targetValue": 15,
+      "difficulty": "medium",
+      "baseXp": 2500,
+      "baseCoins": 1250,
+      "id": "epic-35"
+    },
+    {
+      "title": "5 evoluções",
+      "description": "5 evoluções do pet.",
+      "missionType": "PET_EVOLUTIONS",
+      "targetValue": 5,
+      "difficulty": "medium",
+      "baseXp": 1800,
+      "baseCoins": 900,
+      "id": "epic-36"
+    },
+    {
+      "title": "50 loot boxes",
+      "description": "50 loot boxes abertas.",
+      "missionType": "LOOT_BOXES_OPENED",
+      "targetValue": 50,
+      "difficulty": "medium",
+      "baseXp": 2200,
+      "baseCoins": 1100,
+      "id": "epic-37"
+    },
+    {
+      "title": "10.000 XP",
+      "description": "10.000 XP acumulado.",
+      "missionType": "XP_GAINED",
+      "targetValue": 10000,
+      "difficulty": "easy",
+      "baseXp": 900,
+      "baseCoins": 450,
+      "id": "epic-38"
+    },
+    {
+      "title": "100.000 XP",
+      "description": "100.000 XP acumulado.",
+      "missionType": "XP_GAINED",
+      "targetValue": 100000,
+      "difficulty": "hard",
+      "baseXp": 7000,
+      "baseCoins": 3500,
+      "id": "epic-39"
+    },
+    {
+      "title": "500 dias",
+      "description": "500 dias de estudo.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 500,
+      "difficulty": "expert",
+      "baseXp": 18000,
+      "baseCoins": 9000,
+      "id": "epic-40"
+    },
+    {
+      "title": "10.000 palavras",
+      "description": "10.000 palavras aprendidas.",
+      "missionType": "WORDS_LEARNED",
+      "targetValue": 10000,
+      "difficulty": "expert",
+      "baseXp": 15000,
+      "baseCoins": 7500,
+      "id": "epic-41"
+    },
+    {
+      "title": "1000 sessões",
+      "description": "1000 sessões de prática.",
+      "missionType": "SPEAKING_SESSIONS",
+      "targetValue": 1000,
+      "difficulty": "expert",
+      "baseXp": 14000,
+      "baseCoins": 7000,
+      "id": "epic-42"
+    },
+    {
+      "title": "5000 missões",
+      "description": "5000 missões completas.",
+      "missionType": "DAILY_MISSIONS_COMPLETED",
+      "targetValue": 5000,
+      "difficulty": "expert",
+      "baseXp": 20000,
+      "baseCoins": 10000,
+      "id": "epic-43"
+    },
+    {
+      "title": "100 contratos",
+      "description": "100 contratos — lenda.",
+      "missionType": "CONTRACTS_COMPLETED",
+      "targetValue": 100,
+      "difficulty": "expert",
+      "baseXp": 25000,
+      "baseCoins": 12500,
+      "id": "epic-44"
+    },
+    {
+      "title": "Streak 365",
+      "description": "Um ano sem quebrar streak.",
+      "missionType": "STUDY_DAYS",
+      "targetValue": 365,
+      "difficulty": "expert",
+      "baseXp": 30000,
+      "baseCoins": 15000,
+      "id": "epic-45"
+    },
+    {
+      "title": "Todas conquistas",
+      "description": "100% das conquistas.",
+      "missionType": "ACHIEVEMENTS_UNLOCKED",
+      "targetValue": 72,
+      "difficulty": "expert",
+      "baseXp": 20000,
+      "baseCoins": 10000,
+      "id": "epic-46"
+    },
+    {
+      "title": "20 construções",
+      "description": "20 construções na cidade.",
+      "missionType": "CITY_BUILDINGS",
+      "targetValue": 20,
+      "difficulty": "hard",
+      "baseXp": 4500,
+      "baseCoins": 2250,
+      "id": "epic-47"
+    },
+    {
+      "title": "20 evoluções",
+      "description": "20 evoluções de pet.",
+      "missionType": "PET_EVOLUTIONS",
+      "targetValue": 20,
+      "difficulty": "expert",
+      "baseXp": 8000,
+      "baseCoins": 4000,
+      "id": "epic-48"
+    },
+    {
+      "title": "500 loot boxes",
+      "description": "500 loot boxes abertas.",
+      "missionType": "LOOT_BOXES_OPENED",
+      "targetValue": 500,
+      "difficulty": "expert",
+      "baseXp": 12000,
+      "baseCoins": 6000,
+      "id": "epic-49"
+    }
+  ]
+}

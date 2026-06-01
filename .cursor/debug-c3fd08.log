@@ -1,0 +1,26 @@
+{"sessionId":"c3fd08","location":"AppTabBar.tsx:onPress","message":"Profile tab press","data":{"route":"profile","isFocused":false},"hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250576946}
+{"sessionId":"c3fd08","location":"profile.tsx:focus","message":"Profile tab focused","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250577035}
+{"sessionId":"c3fd08","location":"profile.tsx:sections-ready","message":"Profile heavy sections mounted","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250577048}
+{"sessionId":"c3fd08","location":"profile.tsx:focus","message":"Profile tab focused","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250600844}
+{"sessionId":"c3fd08","location":"profile.tsx:sections-ready","message":"Profile heavy sections mounted","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250600847}
+{"sessionId":"c3fd08","location":"AppTabBar.tsx:onPress","message":"Profile tab press","data":{"route":"profile","isFocused":false},"hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250662730}
+{"sessionId":"c3fd08","location":"profile.tsx:focus","message":"Profile tab focused","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250662771}
+{"sessionId":"c3fd08","location":"profile.tsx:sections-ready","message":"Profile heavy sections mounted","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250662773}
+{"sessionId":"c3fd08","location":"AppTabBar.tsx:onPress","message":"Profile tab press","data":{"route":"profile","isFocused":false},"hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250864536}
+{"sessionId":"c3fd08","location":"profile.tsx:focus","message":"Profile tab focused","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250864619}
+{"sessionId":"c3fd08","location":"profile.tsx:sections-ready","message":"Profile heavy sections mounted","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780250864637}
+{"sessionId":"c3fd08","location":"AppTabBar.tsx:onPress","message":"Profile tab press","data":{"route":"profile","isFocused":false},"hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780251444778}
+{"sessionId":"c3fd08","location":"profile.tsx:focus","message":"Profile tab focused","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780251444861}
+{"sessionId":"c3fd08","location":"profile.tsx:sections-ready","message":"Profile heavy sections mounted","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780251444869}
+{"sessionId":"c3fd08","location":"profile.tsx:focus","message":"Profile tab focused","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780251461037}
+{"sessionId":"c3fd08","location":"profile.tsx:sections-ready","message":"Profile heavy sections mounted","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780251461041}
+{"sessionId":"c3fd08","location":"AppTabBar.tsx:onPress","message":"Profile tab press","data":{"route":"profile","isFocused":false},"hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252005520}
+{"sessionId":"c3fd08","location":"profile.tsx:focus","message":"Profile tab focused","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252005662}
+{"sessionId":"c3fd08","location":"profile.tsx:sections-ready","message":"Profile heavy sections mounted","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252005679}
+{"sessionId":"c3fd08","location":"AppTabBar.tsx:onPress","message":"Profile tab press","data":{"route":"profile","isFocused":false},"hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252051927}
+{"sessionId":"c3fd08","location":"profile.tsx:focus","message":"Profile tab focused","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252052041}
+{"sessionId":"c3fd08","location":"profile.tsx:sections-ready","message":"Profile heavy sections mounted","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252052054}
+{"sessionId":"c3fd08","location":"AppTabBar.tsx:onPress","message":"Profile tab press","data":{"route":"profile","isFocused":false},"hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252088426}
+{"sessionId":"c3fd08","location":"profile.tsx:focus","message":"Profile tab focused","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252088543}
+{"sessionId":"c3fd08","location":"profile.tsx:sections-ready","message":"Profile heavy sections mounted","hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252088557}
+{"sessionId":"c3fd08","location":"AppTabBar.tsx:onPress","message":"Profile tab press","data":{"route":"profile","isFocused":false},"hypothesisId":"H33","runId":"post-fix-profile","timestamp":1780252209920}

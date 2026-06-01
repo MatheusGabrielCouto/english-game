@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "projectKey": "library_lexicon_wing",
+      "poiKey": "central_library",
+      "title": "Ala infantil da biblioteca",
+      "description": "Coloque tijolos lexicon na planta da estante — cada palavra que você aprendeu vira um tijolo no muro.",
+      "resourceType": "lexicon_brick",
+      "targetTotal": 30,
+      "deliveryChunk": 5,
+      "minLocalLevel": 1,
+      "localXpOnComplete": 30,
+      "vitalityOnComplete": 3,
+      "blueprint": {
+        "slots": [
+          { "themeTag": "education", "count": 15, "label": "Palavras do acervo" },
+          { "themeTag": "food", "count": 5, "label": "Café da biblioteca" },
+          { "themeTag": "any", "count": 10, "label": "Tijolos gerais" }
+        ],
+        "allowCrackedWeight": 0.5,
+        "lemmaSetKey": "library_lexicon_wing"
+      }
+    },
+    {
+      "projectKey": "library_archive_shelves",
+      "poiKey": "central_library",
+      "title": "Arquivo central",
+      "description": "Catalogar o acervo com tijolos de leitura e educação.",
+      "resourceType": "lexicon_brick",
+      "targetTotal": 35,
+      "deliveryChunk": 5,
+      "minLocalLevel": 3,
+      "localXpOnComplete": 45,
+      "vitalityOnComplete": 4,
+      "blueprint": {
+        "slots": [
+          { "themeTag": "reading", "count": 12, "label": "Leitura e arquivo" },
+          { "themeTag": "education", "count": 13, "label": "Termos acadêmicos" },
+          { "themeTag": "any", "count": 10, "label": "Tijolos gerais" }
+        ],
+        "lemmaSetKey": "library_archive_shelves"
+      }
+    },
+    {
+      "projectKey": "town_hall_plaza",
+      "poiKey": "town_hall",
+      "title": "Reforma da praça cívica",
+      "description": "Madeira de consistência para revitalizar o centro da cidade.",
+      "resourceType": "consistency_wood",
+      "targetTotal": 25,
+      "deliveryChunk": 5,
+      "minLocalLevel": 1,
+      "localXpOnComplete": 25,
+      "vitalityOnComplete": 3
+    },
+    {
+      "projectKey": "town_hall_ceremony_hall",
+      "poiKey": "town_hall",
+      "title": "Salão de cerimônias",
+      "description": "Materiais para o próximo evento da prefeitura.",
+      "resourceType": "consistency_wood",
+      "targetTotal": 40,
+      "deliveryChunk": 8,
+      "minLocalLevel": 2,
+      "localXpOnComplete": 35,
+      "vitalityOnComplete": 4
+    }
+  ]
+}

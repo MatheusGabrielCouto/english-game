@@ -1,0 +1,7 @@
+expo.modules.focusmode.expo-focus-mode-pngs-0 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/build/generated/res/pngs/release
+expo.modules.focusmode.expo-focus-mode-resValues-1 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/build/generated/res/resValues/release
+expo.modules.focusmode.expo-focus-mode-mergeReleaseResources-2 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
+expo.modules.focusmode.expo-focus-mode-mergeReleaseResources-3 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+expo.modules.focusmode.expo-focus-mode-release-4 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/build/intermediates/merged_res/release/mergeReleaseResources
+expo.modules.focusmode.expo-focus-mode-main-5 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/res
+expo.modules.focusmode.expo-focus-mode-release-6 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/release/res

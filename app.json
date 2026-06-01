@@ -1,44 +1,60 @@
 {
   "expo": {
-    "name": "app-foco",
-    "slug": "app-foco",
+    "name": "English Quest",
+    "slug": "english-quest",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "appfoco",
-    "userInterfaceStyle": "automatic",
+    "scheme": "englishquest",
+    "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "bundleIdentifier": "com.englishquest.app"
     },
     "android": {
+      "icon": "./assets/icon.png",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0a0a0f"
       },
+      "package": "com.englishquest.app",
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "bundler": "metro"
     },
     "plugins": [
-      "expo-router",
+      [
+        "expo-router",
+        {
+          "headers": {
+            "Cross-Origin-Embedder-Policy": "credentialless",
+            "Cross-Origin-Opener-Policy": "same-origin"
+          }
+        }
+      ],
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
-          "android": {
-            "image": "./assets/images/splash-icon.png",
-            "imageWidth": 76
-          }
+          "backgroundColor": "#0a0a0f",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200
         }
-      ]
+      ],
+      "expo-sqlite",
+      [
+        "expo-notifications",
+        {
+          "color": "#8b5cf6"
+        }
+      ],
+      "expo-sharing",
+      "expo-dev-client",
+      "expo-focus-mode",
+      "expo-audio"
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
+      "typedRoutes": true
     }
   }
 }

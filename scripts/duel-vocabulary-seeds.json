@@ -1,0 +1,8890 @@
+{
+  "A1": [
+    {
+      "lemma": "apple",
+      "translation": "maçã",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "book",
+      "translation": "livro",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "water",
+      "translation": "água",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "bread",
+      "translation": "pão",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "milk",
+      "translation": "leite",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "coffee",
+      "translation": "café",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "tea",
+      "translation": "chá",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "rice",
+      "translation": "arroz",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "egg",
+      "translation": "ovo",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "fish",
+      "translation": "peixe",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "meat",
+      "translation": "carne",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "fruit",
+      "translation": "fruta",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "sugar",
+      "translation": "açúcar",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "salt",
+      "translation": "sal",
+      "cefr": "A1",
+      "theme": "food"
+    },
+    {
+      "lemma": "house",
+      "translation": "casa",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "room",
+      "translation": "quarto",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "door",
+      "translation": "porta",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "window",
+      "translation": "janela",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "bed",
+      "translation": "cama",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "chair",
+      "translation": "cadeira",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "table",
+      "translation": "mesa",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "kitchen",
+      "translation": "cozinha",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "bathroom",
+      "translation": "banheiro",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "garden",
+      "translation": "jardim",
+      "cefr": "A1",
+      "theme": "home"
+    },
+    {
+      "lemma": "family",
+      "translation": "família",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "mother",
+      "translation": "mãe",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "father",
+      "translation": "pai",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "son",
+      "translation": "filho",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "daughter",
+      "translation": "filha",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "brother",
+      "translation": "irmão",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "sister",
+      "translation": "irmã",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "friend",
+      "translation": "amigo",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "baby",
+      "translation": "bebê",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "man",
+      "translation": "homem",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "woman",
+      "translation": "mulher",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "boy",
+      "translation": "menino",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "girl",
+      "translation": "menina",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "name",
+      "translation": "nome",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "age",
+      "translation": "idade",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "happy",
+      "translation": "feliz",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "sad",
+      "translation": "triste",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "hello",
+      "translation": "olá",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "goodbye",
+      "translation": "tchau",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "please",
+      "translation": "por favor",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "thanks",
+      "translation": "obrigado",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "sorry",
+      "translation": "desculpe",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "yes",
+      "translation": "sim",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "no",
+      "translation": "não",
+      "cefr": "A1",
+      "theme": "social"
+    },
+    {
+      "lemma": "dog",
+      "translation": "cachorro",
+      "cefr": "A1",
+      "theme": "animals"
+    },
+    {
+      "lemma": "cat",
+      "translation": "gato",
+      "cefr": "A1",
+      "theme": "animals"
+    },
+    {
+      "lemma": "bird",
+      "translation": "pássaro",
+      "cefr": "A1",
+      "theme": "animals"
+    },
+    {
+      "lemma": "horse",
+      "translation": "cavalo",
+      "cefr": "A1",
+      "theme": "animals"
+    },
+    {
+      "lemma": "school",
+      "translation": "escola",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "teacher",
+      "translation": "professor",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "student",
+      "translation": "estudante",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "class",
+      "translation": "aula",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "pen",
+      "translation": "caneta",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "paper",
+      "translation": "papel",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "read",
+      "translation": "ler",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "write",
+      "translation": "escrever",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "learn",
+      "translation": "aprender",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "study",
+      "translation": "estudar",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "library",
+      "translation": "biblioteca",
+      "cefr": "A1",
+      "theme": "education"
+    },
+    {
+      "lemma": "work",
+      "translation": "trabalhar",
+      "cefr": "A1",
+      "theme": "work"
+    },
+    {
+      "lemma": "job",
+      "translation": "emprego",
+      "cefr": "A1",
+      "theme": "work"
+    },
+    {
+      "lemma": "office",
+      "translation": "escritório",
+      "cefr": "A1",
+      "theme": "work"
+    },
+    {
+      "lemma": "money",
+      "translation": "dinheiro",
+      "cefr": "A1",
+      "theme": "work"
+    },
+    {
+      "lemma": "shop",
+      "translation": "loja",
+      "cefr": "A1",
+      "theme": "work"
+    },
+    {
+      "lemma": "buy",
+      "translation": "comprar",
+      "cefr": "A1",
+      "theme": "work"
+    },
+    {
+      "lemma": "sell",
+      "translation": "vender",
+      "cefr": "A1",
+      "theme": "work"
+    },
+    {
+      "lemma": "price",
+      "translation": "preço",
+      "cefr": "A1",
+      "theme": "work"
+    },
+    {
+      "lemma": "car",
+      "translation": "carro",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "bus",
+      "translation": "ônibus",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "train",
+      "translation": "trem",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "bike",
+      "translation": "bicicleta",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "walk",
+      "translation": "caminhar",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "travel",
+      "translation": "viajar",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "ticket",
+      "translation": "bilhete",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "airport",
+      "translation": "aeroporto",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "hotel",
+      "translation": "hotel",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "map",
+      "translation": "mapa",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "city",
+      "translation": "cidade",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "country",
+      "translation": "país",
+      "cefr": "A1",
+      "theme": "travel"
+    },
+    {
+      "lemma": "phone",
+      "translation": "telefone",
+      "cefr": "A1",
+      "theme": "tech"
+    },
+    {
+      "lemma": "call",
+      "translation": "ligar",
+      "cefr": "A1",
+      "theme": "tech"
+    },
+    {
+      "lemma": "message",
+      "translation": "mensagem",
+      "cefr": "A1",
+      "theme": "tech"
+    },
+    {
+      "lemma": "photo",
+      "translation": "foto",
+      "cefr": "A1",
+      "theme": "tech"
+    },
+    {
+      "lemma": "music",
+      "translation": "música",
+      "cefr": "A1",
+      "theme": "fun"
+    },
+    {
+      "lemma": "movie",
+      "translation": "filme",
+      "cefr": "A1",
+      "theme": "fun"
+    },
+    {
+      "lemma": "game",
+      "translation": "jogo",
+      "cefr": "A1",
+      "theme": "fun"
+    },
+    {
+      "lemma": "sport",
+      "translation": "esporte",
+      "cefr": "A1",
+      "theme": "fun"
+    },
+    {
+      "lemma": "ball",
+      "translation": "bola",
+      "cefr": "A1",
+      "theme": "fun"
+    },
+    {
+      "lemma": "sun",
+      "translation": "sol",
+      "cefr": "A1",
+      "theme": "nature"
+    },
+    {
+      "lemma": "rain",
+      "translation": "chuva",
+      "cefr": "A1",
+      "theme": "nature"
+    },
+    {
+      "lemma": "wind",
+      "translation": "vento",
+      "cefr": "A1",
+      "theme": "nature"
+    },
+    {
+      "lemma": "tree",
+      "translation": "árvore",
+      "cefr": "A1",
+      "theme": "nature"
+    },
+    {
+      "lemma": "flower",
+      "translation": "flor",
+      "cefr": "A1",
+      "theme": "nature"
+    },
+    {
+      "lemma": "river",
+      "translation": "rio",
+      "cefr": "A1",
+      "theme": "nature"
+    },
+    {
+      "lemma": "sea",
+      "translation": "mar",
+      "cefr": "A1",
+      "theme": "nature"
+    },
+    {
+      "lemma": "big",
+      "translation": "grande",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "small",
+      "translation": "pequeno",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "hot",
+      "translation": "quente",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "cold",
+      "translation": "frio",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "new",
+      "translation": "novo",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "old",
+      "translation": "velho",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "good",
+      "translation": "bom",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "bad",
+      "translation": "ruim",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "fast",
+      "translation": "rápido",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "slow",
+      "translation": "lento",
+      "cefr": "A1",
+      "theme": "desc"
+    },
+    {
+      "lemma": "red",
+      "translation": "vermelho",
+      "cefr": "A1",
+      "theme": "color"
+    },
+    {
+      "lemma": "blue",
+      "translation": "azul",
+      "cefr": "A1",
+      "theme": "color"
+    },
+    {
+      "lemma": "green",
+      "translation": "verde",
+      "cefr": "A1",
+      "theme": "color"
+    },
+    {
+      "lemma": "black",
+      "translation": "preto",
+      "cefr": "A1",
+      "theme": "color"
+    },
+    {
+      "lemma": "white",
+      "translation": "branco",
+      "cefr": "A1",
+      "theme": "color"
+    },
+    {
+      "lemma": "one",
+      "translation": "um",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "two",
+      "translation": "dois",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "three",
+      "translation": "três",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "four",
+      "translation": "quatro",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "five",
+      "translation": "cinco",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "six",
+      "translation": "seis",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "seven",
+      "translation": "sete",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "eight",
+      "translation": "oito",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "nine",
+      "translation": "nove",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "ten",
+      "translation": "dez",
+      "cefr": "A1",
+      "theme": "number"
+    },
+    {
+      "lemma": "time",
+      "translation": "tempo",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "day",
+      "translation": "dia",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "night",
+      "translation": "noite",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "morning",
+      "translation": "manhã",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "evening",
+      "translation": "noite",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "week",
+      "translation": "semana",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "month",
+      "translation": "mês",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "year",
+      "translation": "ano",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "today",
+      "translation": "hoje",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "tomorrow",
+      "translation": "amanhã",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "yesterday",
+      "translation": "ontem",
+      "cefr": "A1",
+      "theme": "time"
+    },
+    {
+      "lemma": "eat",
+      "translation": "comer",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "drink",
+      "translation": "beber",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "sleep",
+      "translation": "dormir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "run",
+      "translation": "correr",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "play",
+      "translation": "jogar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "speak",
+      "translation": "falar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "listen",
+      "translation": "ouvir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "see",
+      "translation": "ver",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "hear",
+      "translation": "ouvir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "look",
+      "translation": "olhar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "want",
+      "translation": "querer",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "need",
+      "translation": "precisar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "like",
+      "translation": "gostar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "love",
+      "translation": "amar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "help",
+      "translation": "ajudar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "open",
+      "translation": "abrir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "close",
+      "translation": "fechar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "start",
+      "translation": "começar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "stop",
+      "translation": "parar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "wait",
+      "translation": "esperar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "come",
+      "translation": "vir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "go",
+      "translation": "ir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "give",
+      "translation": "dar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "take",
+      "translation": "pegar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "make",
+      "translation": "fazer",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "think",
+      "translation": "pensar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "know",
+      "translation": "saber",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "find",
+      "translation": "achar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "use",
+      "translation": "usar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "live",
+      "translation": "morar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "feel",
+      "translation": "sentir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "ask",
+      "translation": "perguntar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "answer",
+      "translation": "responder",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "tell",
+      "translation": "contar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "show",
+      "translation": "mostrar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "try",
+      "translation": "tentar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "win",
+      "translation": "ganhar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "lose",
+      "translation": "perder",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "meet",
+      "translation": "encontrar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "leave",
+      "translation": "sair",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "stay",
+      "translation": "ficar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "bring",
+      "translation": "trazer",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "send",
+      "translation": "enviar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "pay",
+      "translation": "pagar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "cost",
+      "translation": "custar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "wear",
+      "translation": "vestir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "wash",
+      "translation": "lavar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "cook",
+      "translation": "cozinhar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "clean",
+      "translation": "limpar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "drive",
+      "translation": "dirigir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "fly",
+      "translation": "voar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "swim",
+      "translation": "nadar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "sing",
+      "translation": "cantar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "dance",
+      "translation": "dançar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "draw",
+      "translation": "desenhar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "paint",
+      "translation": "pintar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "build",
+      "translation": "construir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "break",
+      "translation": "quebrar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "fix",
+      "translation": "consertar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "cut",
+      "translation": "cortar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "push",
+      "translation": "empurrar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "pull",
+      "translation": "puxar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "throw",
+      "translation": "jogar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "catch",
+      "translation": "pegar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "hold",
+      "translation": "segurar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "carry",
+      "translation": "carregar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "climb",
+      "translation": "subir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "fall",
+      "translation": "cair",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "jump",
+      "translation": "pular",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "sit",
+      "translation": "sentar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "stand",
+      "translation": "ficar em pé",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "lie",
+      "translation": "deitar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "wake",
+      "translation": "acordar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "dream",
+      "translation": "sonhar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "smile",
+      "translation": "sorrir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "laugh",
+      "translation": "rir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "cry",
+      "translation": "chorar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "shout",
+      "translation": "gritar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "whisper",
+      "translation": "sussurrar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "hug",
+      "translation": "abraçar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "kiss",
+      "translation": "beijar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "fight",
+      "translation": "lutar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "hate",
+      "translation": "odiar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "hope",
+      "translation": "esperar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "fear",
+      "translation": "temer",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "trust",
+      "translation": "confiar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "choose",
+      "translation": "escolher",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "change",
+      "translation": "mudar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "grow",
+      "translation": "crescer",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "die",
+      "translation": "morrer",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "born",
+      "translation": "nascer",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "marry",
+      "translation": "casar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "divorce",
+      "translation": "divorciar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "visit",
+      "translation": "visitar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "return",
+      "translation": "voltar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "arrive",
+      "translation": "chegar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "pass",
+      "translation": "passar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "cross",
+      "translation": "cruzar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "follow",
+      "translation": "seguir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "lead",
+      "translation": "liderar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "teach",
+      "translation": "ensinar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "explain",
+      "translation": "explicar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "understand",
+      "translation": "entender",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "remember",
+      "translation": "lembrar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "forget",
+      "translation": "esquecer",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "believe",
+      "translation": "acreditar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "doubt",
+      "translation": "duvidar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "decide",
+      "translation": "decidir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "plan",
+      "translation": "planejar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "prepare",
+      "translation": "preparar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "finish",
+      "translation": "terminar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "continue",
+      "translation": "continuar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "repeat",
+      "translation": "repetir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "practice",
+      "translation": "praticar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "improve",
+      "translation": "melhorar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "fail",
+      "translation": "falhar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "succeed",
+      "translation": "ter sucesso",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "create",
+      "translation": "criar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "destroy",
+      "translation": "destruir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "save",
+      "translation": "salvar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "spend",
+      "translation": "gastar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "earn",
+      "translation": "ganhar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "borrow",
+      "translation": "pegar emprestado",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "lend",
+      "translation": "emprestar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "share",
+      "translation": "compartilhar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "hide",
+      "translation": "esconder",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "search",
+      "translation": "procurar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "discover",
+      "translation": "descobrir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "invent",
+      "translation": "inventar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "design",
+      "translation": "projetar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "test",
+      "translation": "testar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "check",
+      "translation": "verificar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "measure",
+      "translation": "medir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "count",
+      "translation": "contar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "compare",
+      "translation": "comparar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "describe",
+      "translation": "descrever",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "define",
+      "translation": "definir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "translate",
+      "translation": "traduzir",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "spell",
+      "translation": "soletrar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "pronounce",
+      "translation": "pronunciar",
+      "cefr": "A1",
+      "theme": "verb"
+    },
+    {
+      "lemma": "accent",
+      "translation": "sotaque",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "grammar",
+      "translation": "gramática",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "vocabulary",
+      "translation": "vocabulário",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "sentence",
+      "translation": "frase",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "word",
+      "translation": "palavra",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "letter",
+      "translation": "carta",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "language",
+      "translation": "idioma",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "english",
+      "translation": "inglês",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "portuguese",
+      "translation": "português",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "question",
+      "translation": "pergunta",
+      "cefr": "A1",
+      "theme": "language"
+    },
+    {
+      "lemma": "story",
+      "translation": "história",
+      "cefr": "A1",
+      "theme": "reading"
+    },
+    {
+      "lemma": "novel",
+      "translation": "romance",
+      "cefr": "A1",
+      "theme": "reading"
+    },
+    {
+      "lemma": "poem",
+      "translation": "poema",
+      "cefr": "A1",
+      "theme": "reading"
+    },
+    {
+      "lemma": "author",
+      "translation": "autor",
+      "cefr": "A1",
+      "theme": "reading"
+    },
+    {
+      "lemma": "page",
+      "translation": "página",
+      "cefr": "A1",
+      "theme": "reading"
+    },
+    {
+      "lemma": "chapter",
+      "translation": "capítulo",
+      "cefr": "A1",
+      "theme": "reading"
+    },
+    {
+      "lemma": "title",
+      "translation": "título",
+      "cefr": "A1",
+      "theme": "reading"
+    },
+    {
+      "lemma": "topic",
+      "translation": "tópico",
+      "cefr": "A1",
+      "theme": "reading"
+    },
+    {
+      "lemma": "idea",
+      "translation": "ideia",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "fact",
+      "translation": "fato",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "truth",
+      "translation": "verdade",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "reason",
+      "translation": "razão",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "result",
+      "translation": "resultado",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "problem",
+      "translation": "problema",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "solution",
+      "translation": "solução",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "example",
+      "translation": "exemplo",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "rule",
+      "translation": "regra",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "law",
+      "translation": "lei",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "right",
+      "translation": "certo",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "wrong",
+      "translation": "errado",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "easy",
+      "translation": "fácil",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "hard",
+      "translation": "difícil",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "possible",
+      "translation": "possível",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "impossible",
+      "translation": "impossível",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "important",
+      "translation": "importante",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "necessary",
+      "translation": "necessário",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "enough",
+      "translation": "suficiente",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "too",
+      "translation": "demais",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "very",
+      "translation": "muito",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "more",
+      "translation": "mais",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "less",
+      "translation": "menos",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "most",
+      "translation": "mais",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "least",
+      "translation": "menos",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "all",
+      "translation": "tudo",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "some",
+      "translation": "algum",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "none",
+      "translation": "nenhum",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "each",
+      "translation": "cada",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "every",
+      "translation": "cada",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "other",
+      "translation": "outro",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "same",
+      "translation": "mesmo",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "different",
+      "translation": "diferente",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "similar",
+      "translation": "similar",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "opposite",
+      "translation": "oposto",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "between",
+      "translation": "entre",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "among",
+      "translation": "entre",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "inside",
+      "translation": "dentro",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "outside",
+      "translation": "fora",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "above",
+      "translation": "acima",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "below",
+      "translation": "abaixo",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "near",
+      "translation": "perto",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "far",
+      "translation": "longe",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "here",
+      "translation": "aqui",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "there",
+      "translation": "lá",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "where",
+      "translation": "onde",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "when",
+      "translation": "quando",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "why",
+      "translation": "por que",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "how",
+      "translation": "como",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "what",
+      "translation": "o que",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "who",
+      "translation": "quem",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "which",
+      "translation": "qual",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "whose",
+      "translation": "de quem",
+      "cefr": "A1",
+      "theme": "thinking"
+    },
+    {
+      "lemma": "whom",
+      "translation": "quem",
+      "cefr": "A1",
+      "theme": "thinking"
+    }
+  ],
+  "A2": [
+    {
+      "lemma": "appointment",
+      "translation": "consulta",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "medicine",
+      "translation": "remédio",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "doctor",
+      "translation": "médico",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "nurse",
+      "translation": "enfermeiro",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "patient",
+      "translation": "paciente",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "fever",
+      "translation": "febre",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "pain",
+      "translation": "dor",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "rest",
+      "translation": "descanso",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "exercise",
+      "translation": "exercício",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "healthy",
+      "translation": "saudável",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "weather",
+      "translation": "clima",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "cloud",
+      "translation": "nuvem",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "storm",
+      "translation": "tempestade",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "snow",
+      "translation": "neve",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "ice",
+      "translation": "gelo",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "fire",
+      "translation": "fogo",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "earth",
+      "translation": "terra",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "sky",
+      "translation": "céu",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "moon",
+      "translation": "lua",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "star",
+      "translation": "estrela",
+      "cefr": "A2",
+      "theme": "nature"
+    },
+    {
+      "lemma": "beach",
+      "translation": "praia",
+      "cefr": "A2",
+      "theme": "travel"
+    },
+    {
+      "lemma": "mountain",
+      "translation": "montanha",
+      "cefr": "A2",
+      "theme": "travel"
+    },
+    {
+      "lemma": "forest",
+      "translation": "floresta",
+      "cefr": "A2",
+      "theme": "travel"
+    },
+    {
+      "lemma": "island",
+      "translation": "ilha",
+      "cefr": "A2",
+      "theme": "travel"
+    },
+    {
+      "lemma": "bridge",
+      "translation": "ponte",
+      "cefr": "A2",
+      "theme": "travel"
+    },
+    {
+      "lemma": "street",
+      "translation": "rua",
+      "cefr": "A2",
+      "theme": "travel"
+    },
+    {
+      "lemma": "road",
+      "translation": "estrada",
+      "cefr": "A2",
+      "theme": "travel"
+    },
+    {
+      "lemma": "corner",
+      "translation": "esquina",
+      "cefr": "A2",
+      "theme": "travel"
+    },
+    {
+      "lemma": "address",
+      "translation": "endereço",
+      "cefr": "A2",
+      "theme": "travel"
+    },
+    {
+      "lemma": "neighbor",
+      "translation": "vizinho",
+      "cefr": "A2",
+      "theme": "social"
+    },
+    {
+      "lemma": "party",
+      "translation": "festa",
+      "cefr": "A2",
+      "theme": "social"
+    },
+    {
+      "lemma": "gift",
+      "translation": "presente",
+      "cefr": "A2",
+      "theme": "social"
+    },
+    {
+      "lemma": "invite",
+      "translation": "convidar",
+      "cefr": "A2",
+      "theme": "social"
+    },
+    {
+      "lemma": "celebrate",
+      "translation": "celebrar",
+      "cefr": "A2",
+      "theme": "social"
+    },
+    {
+      "lemma": "holiday",
+      "translation": "feriado",
+      "cefr": "A2",
+      "theme": "social"
+    },
+    {
+      "lemma": "weekend",
+      "translation": "fim de semana",
+      "cefr": "A2",
+      "theme": "social"
+    },
+    {
+      "lemma": "vacation",
+      "translation": "férias",
+      "cefr": "A2",
+      "theme": "social"
+    },
+    {
+      "lemma": "hobby",
+      "translation": "hobby",
+      "cefr": "A2",
+      "theme": "fun"
+    },
+    {
+      "lemma": "camera",
+      "translation": "câmera",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "computer",
+      "translation": "computador",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "keyboard",
+      "translation": "teclado",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "screen",
+      "translation": "tela",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "internet",
+      "translation": "internet",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "website",
+      "translation": "site",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "password",
+      "translation": "senha",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "download",
+      "translation": "baixar",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "upload",
+      "translation": "enviar",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "email",
+      "translation": "e-mail",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "online",
+      "translation": "online",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "offline",
+      "translation": "offline",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "battery",
+      "translation": "bateria",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "charger",
+      "translation": "carregador",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "signal",
+      "translation": "sinal",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "noise",
+      "translation": "barulho",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "quiet",
+      "translation": "silencioso",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "loud",
+      "translation": "alto",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "soft",
+      "translation": "suave",
+      "cefr": "A2",
+      "theme": "tech"
+    },
+    {
+      "lemma": "strong",
+      "translation": "forte",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "weak",
+      "translation": "fraco",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "heavy",
+      "translation": "pesado",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "light",
+      "translation": "leve",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "empty",
+      "translation": "vazio",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "full",
+      "translation": "cheio",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "dirty",
+      "translation": "sujo",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "wet",
+      "translation": "molhado",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "dry",
+      "translation": "seco",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "clean",
+      "translation": "limpo",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "safe",
+      "translation": "seguro",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "dangerous",
+      "translation": "perigoso",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "careful",
+      "translation": "cuidadoso",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "careless",
+      "translation": "descuidado",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "polite",
+      "translation": "educado",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "rude",
+      "translation": "grosseiro",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "honest",
+      "translation": "honesto",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "lazy",
+      "translation": "preguiçoso",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "busy",
+      "translation": "ocupado",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "free",
+      "translation": "livre",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "ready",
+      "translation": "pronto",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "late",
+      "translation": "atrasado",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "early",
+      "translation": "cedo",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "often",
+      "translation": "frequentemente",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "sometimes",
+      "translation": "às vezes",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "never",
+      "translation": "nunca",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "always",
+      "translation": "sempre",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "already",
+      "translation": "já",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "still",
+      "translation": "ainda",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "yet",
+      "translation": "ainda",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "again",
+      "translation": "de novo",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "once",
+      "translation": "uma vez",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "twice",
+      "translation": "duas vezes",
+      "cefr": "A2",
+      "theme": "desc"
+    },
+    {
+      "lemma": "meeting",
+      "translation": "reunião",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "colleague",
+      "translation": "colega",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "manager",
+      "translation": "gerente",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "customer",
+      "translation": "cliente",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "service",
+      "translation": "serviço",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "product",
+      "translation": "produto",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "order",
+      "translation": "pedido",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "delivery",
+      "translation": "entrega",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "invoice",
+      "translation": "fatura",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "salary",
+      "translation": "salário",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "interview",
+      "translation": "entrevista",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "resume",
+      "translation": "currículo",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "experience",
+      "translation": "experiência",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "skill",
+      "translation": "habilidade",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "training",
+      "translation": "treinamento",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "project",
+      "translation": "projeto",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "deadline",
+      "translation": "prazo",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "report",
+      "translation": "relatório",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "presentation",
+      "translation": "apresentação",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "feedback",
+      "translation": "feedback",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "goal",
+      "translation": "meta",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "success",
+      "translation": "sucesso",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "failure",
+      "translation": "falha",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "mistake",
+      "translation": "erro",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "advice",
+      "translation": "conselho",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "suggestion",
+      "translation": "sugestão",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "opinion",
+      "translation": "opinião",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "agreement",
+      "translation": "acordo",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "contract",
+      "translation": "contrato",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "signature",
+      "translation": "assinatura",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "permission",
+      "translation": "permissão",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "responsibility",
+      "translation": "responsabilidade",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "opportunity",
+      "translation": "oportunidade",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "challenge",
+      "translation": "desafio",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "solution",
+      "translation": "solução",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "strategy",
+      "translation": "estratégia",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "budget",
+      "translation": "orçamento",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "profit",
+      "translation": "lucro",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "loss",
+      "translation": "perda",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "market",
+      "translation": "mercado",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "competition",
+      "translation": "concorrência",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "advertise",
+      "translation": "anunciar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "promote",
+      "translation": "promover",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "brand",
+      "translation": "marca",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "quality",
+      "translation": "qualidade",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "quantity",
+      "translation": "quantidade",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "discount",
+      "translation": "desconto",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "receipt",
+      "translation": "recibo",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "refund",
+      "translation": "reembolso",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "exchange",
+      "translation": "troca",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "guarantee",
+      "translation": "garantia",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "warranty",
+      "translation": "garantia",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "complaint",
+      "translation": "reclamação",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "apologize",
+      "translation": "pedir desculpas",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "forgive",
+      "translation": "perdoar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "argue",
+      "translation": "discutir",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "negotiate",
+      "translation": "negociar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "compromise",
+      "translation": "comprometer",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "cooperate",
+      "translation": "cooperar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "compete",
+      "translation": "competir",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "achieve",
+      "translation": "alcançar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "accomplish",
+      "translation": "realizar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "organize",
+      "translation": "organizar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "schedule",
+      "translation": "agendar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "postpone",
+      "translation": "adiar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "cancel",
+      "translation": "cancelar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "confirm",
+      "translation": "confirmar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "reserve",
+      "translation": "reservar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "register",
+      "translation": "registrar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "subscribe",
+      "translation": "inscrever",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "unsubscribe",
+      "translation": "cancelar inscrição",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "install",
+      "translation": "instalar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "update",
+      "translation": "atualizar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "delete",
+      "translation": "excluir",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "restore",
+      "translation": "restaurar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "backup",
+      "translation": "cópia de segurança",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "security",
+      "translation": "segurança",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "privacy",
+      "translation": "privacidade",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "policy",
+      "translation": "política",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "terms",
+      "translation": "termos",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "condition",
+      "translation": "condição",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "requirement",
+      "translation": "requisito",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "standard",
+      "translation": "padrão",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "average",
+      "translation": "média",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "maximum",
+      "translation": "máximo",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "minimum",
+      "translation": "mínimo",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "increase",
+      "translation": "aumentar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "decrease",
+      "translation": "diminuir",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "maintain",
+      "translation": "manter",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "support",
+      "translation": "apoiar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "assist",
+      "translation": "assistir",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "guide",
+      "translation": "guiar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "advise",
+      "translation": "aconselhar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "recommend",
+      "translation": "recomendar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "prefer",
+      "translation": "preferir",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "avoid",
+      "translation": "evitar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "prevent",
+      "translation": "prevenir",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "protect",
+      "translation": "proteger",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "defend",
+      "translation": "defender",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "attack",
+      "translation": "atacar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "threaten",
+      "translation": "ameaçar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "warn",
+      "translation": "avisar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "remind",
+      "translation": "lembrar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "notice",
+      "translation": "notar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "observe",
+      "translation": "observar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "ignore",
+      "translation": "ignorar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "respect",
+      "translation": "respeitar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "admire",
+      "translation": "admirar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "criticize",
+      "translation": "criticar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "praise",
+      "translation": "elogiar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "blame",
+      "translation": "culpar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "accuse",
+      "translation": "acusar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "deny",
+      "translation": "negar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "admit",
+      "translation": "admitir",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "confess",
+      "translation": "confessar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "promise",
+      "translation": "prometer",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "assure",
+      "translation": "assegurar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "convince",
+      "translation": "convencer",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "persuade",
+      "translation": "persuadir",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "influence",
+      "translation": "influenciar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "inspire",
+      "translation": "inspirar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "motivate",
+      "translation": "motivar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "encourage",
+      "translation": "encorajar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "discourage",
+      "translation": "desencorajar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "embarrass",
+      "translation": "envergonhar",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "ashamed",
+      "translation": "envergonhado",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "proud",
+      "translation": "orgulhoso",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "jealous",
+      "translation": "ciumento",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "lonely",
+      "translation": "solitário",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "bored",
+      "translation": "entediado",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "excited",
+      "translation": "animado",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "nervous",
+      "translation": "nervoso",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "calm",
+      "translation": "calmo",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "relaxed",
+      "translation": "relaxado",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "stressed",
+      "translation": "estressado",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "tired",
+      "translation": "cansado",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "energetic",
+      "translation": "energético",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "hungry",
+      "translation": "com fome",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "thirsty",
+      "translation": "com sede",
+      "cefr": "A2",
+      "theme": "work"
+    },
+    {
+      "lemma": "recipe",
+      "translation": "receita",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "ingredient",
+      "translation": "ingrediente",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "flavor",
+      "translation": "sabor",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "spicy",
+      "translation": "picante",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "sweet",
+      "translation": "doce",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "sour",
+      "translation": "azedo",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "bitter",
+      "translation": "amargo",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "delicious",
+      "translation": "delicioso",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "taste",
+      "translation": "provar",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "serve",
+      "translation": "servir",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "menu",
+      "translation": "cardápio",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "waiter",
+      "translation": "garçom",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "tip",
+      "translation": "gorjeta",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "bill",
+      "translation": "conta",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "cash",
+      "translation": "dinheiro vivo",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "card",
+      "translation": "cartão",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "wallet",
+      "translation": "carteira",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "purse",
+      "translation": "bolsa",
+      "cefr": "A2",
+      "theme": "food"
+    },
+    {
+      "lemma": "key",
+      "translation": "chave",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "lock",
+      "translation": "trancar",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "keychain",
+      "translation": "chaveiro",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "furniture",
+      "translation": "móvel",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "lamp",
+      "translation": "lâmpada",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "mirror",
+      "translation": "espelho",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "carpet",
+      "translation": "tapete",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "curtain",
+      "translation": "cortina",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "pillow",
+      "translation": "travesseiro",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "blanket",
+      "translation": "cobertor",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "towel",
+      "translation": "toalha",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "soap",
+      "translation": "sabonete",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "shampoo",
+      "translation": "shampoo",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "toothbrush",
+      "translation": "escova de dentes",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "toothpaste",
+      "translation": "pasta de dentes",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "comb",
+      "translation": "pente",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "brush",
+      "translation": "escovar",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "shave",
+      "translation": "barbear",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "makeup",
+      "translation": "maquiagem",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "perfume",
+      "translation": "perfume",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "jewelry",
+      "translation": "joia",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "watch",
+      "translation": "relógio",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "clock",
+      "translation": "relógio",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "calendar",
+      "translation": "calendário",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "alarm",
+      "translation": "alarme",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "routine",
+      "translation": "rotina",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "habit",
+      "translation": "hábito",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "custom",
+      "translation": "costume",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "tradition",
+      "translation": "tradição",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "culture",
+      "translation": "cultura",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "religion",
+      "translation": "religião",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "belief",
+      "translation": "crença",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "value",
+      "translation": "valor",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "principle",
+      "translation": "princípio",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "moral",
+      "translation": "moral",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "ethics",
+      "translation": "ética",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "justice",
+      "translation": "justiça",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "freedom",
+      "translation": "liberdade",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "equality",
+      "translation": "igualdade",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "rights",
+      "translation": "direitos",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "duty",
+      "translation": "dever",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "citizen",
+      "translation": "cidadão",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "government",
+      "translation": "governo",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "president",
+      "translation": "presidente",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "minister",
+      "translation": "ministro",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "election",
+      "translation": "eleição",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "vote",
+      "translation": "votar",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "campaign",
+      "translation": "campanha",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "protest",
+      "translation": "protesto",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "strike",
+      "translation": "greve",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "union",
+      "translation": "sindicato",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "tax",
+      "translation": "imposto",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "fine",
+      "translation": "multa",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "crime",
+      "translation": "crime",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "punish",
+      "translation": "punir",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "prison",
+      "translation": "prisão",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "court",
+      "translation": "tribunal",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "judge",
+      "translation": "juiz",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "lawyer",
+      "translation": "advogado",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "witness",
+      "translation": "testemunha",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "evidence",
+      "translation": "evidência",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "guilty",
+      "translation": "culpado",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "innocent",
+      "translation": "inocente",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "victim",
+      "translation": "vítima",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "survivor",
+      "translation": "sobrevivente",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "emergency",
+      "translation": "emergência",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "accident",
+      "translation": "acidente",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "injury",
+      "translation": "lesão",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "ambulance",
+      "translation": "ambulância",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "hospital",
+      "translation": "hospital",
+      "cefr": "A2",
+      "theme": "home"
+    },
+    {
+      "lemma": "clinic",
+      "translation": "clínica",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "pharmacy",
+      "translation": "farmácia",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "prescription",
+      "translation": "receita médica",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "symptom",
+      "translation": "sintoma",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "disease",
+      "translation": "doença",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "virus",
+      "translation": "vírus",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "bacteria",
+      "translation": "bactéria",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "infection",
+      "translation": "infecção",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "vaccine",
+      "translation": "vacina",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "allergy",
+      "translation": "alergia",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "asthma",
+      "translation": "asma",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "cancer",
+      "translation": "câncer",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "diabetes",
+      "translation": "diabetes",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "therapy",
+      "translation": "terapia",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "surgery",
+      "translation": "cirurgia",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "recover",
+      "translation": "recuperar",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "cure",
+      "translation": "curar",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "treat",
+      "translation": "tratar",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "diagnose",
+      "translation": "diagnosticar",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "examine",
+      "translation": "examinar",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "measure",
+      "translation": "medir",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "weigh",
+      "translation": "pesar",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "height",
+      "translation": "altura",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "weight",
+      "translation": "peso",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "temperature",
+      "translation": "temperatura",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "blood",
+      "translation": "sangue",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "heart",
+      "translation": "coração",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "brain",
+      "translation": "cérebro",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "bone",
+      "translation": "osso",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "muscle",
+      "translation": "músculo",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "skin",
+      "translation": "pele",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "stomach",
+      "translation": "estômago",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "lung",
+      "translation": "pulmão",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "liver",
+      "translation": "fígado",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "kidney",
+      "translation": "rim",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "tooth",
+      "translation": "dente",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "eye",
+      "translation": "olho",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "ear",
+      "translation": "orelha",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "nose",
+      "translation": "nariz",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "mouth",
+      "translation": "boca",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "tongue",
+      "translation": "língua",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "lip",
+      "translation": "lábio",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "finger",
+      "translation": "dedo",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "toe",
+      "translation": "dedo do pé",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "hand",
+      "translation": "mão",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "arm",
+      "translation": "braço",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "leg",
+      "translation": "perna",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "foot",
+      "translation": "pé",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "head",
+      "translation": "cabeça",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "neck",
+      "translation": "pescoço",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "shoulder",
+      "translation": "ombro",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "back",
+      "translation": "costas",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "chest",
+      "translation": "peito",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "waist",
+      "translation": "cintura",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "hip",
+      "translation": "quadril",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "knee",
+      "translation": "joelho",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "ankle",
+      "translation": "tornozelo",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "wrist",
+      "translation": "pulso",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "elbow",
+      "translation": "cotovelo",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "thumb",
+      "translation": "polegar",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "nail",
+      "translation": "unha",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "hair",
+      "translation": "cabelo",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "beard",
+      "translation": "barba",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "mustache",
+      "translation": "bigode",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "glasses",
+      "translation": "óculos",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "lens",
+      "translation": "lente",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "hearing",
+      "translation": "audição",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "vision",
+      "translation": "visão",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "smell",
+      "translation": "cheiro",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "touch",
+      "translation": "toque",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "sense",
+      "translation": "sentido",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "emotion",
+      "translation": "emoção",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "mood",
+      "translation": "humor",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "attitude",
+      "translation": "atitude",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "behavior",
+      "translation": "comportamento",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "personality",
+      "translation": "personalidade",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "character",
+      "translation": "caráter",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "reputation",
+      "translation": "reputação",
+      "cefr": "A2",
+      "theme": "health"
+    },
+    {
+      "lemma": "fame",
+      "translation": "fama",
+      "cefr": "A2",
+      "theme": "health"
+    }
+  ],
+  "B1": [
+    {
+      "lemma": "achieve",
+      "translation": "alcançar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "acquire",
+      "translation": "adquirir",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "allocate",
+      "translation": "alocar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "analyze",
+      "translation": "analisar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "anticipate",
+      "translation": "antecipar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "approach",
+      "translation": "abordar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "assess",
+      "translation": "avaliar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "assign",
+      "translation": "atribuir",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "assume",
+      "translation": "assumir",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "attain",
+      "translation": "atingir",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "attribute",
+      "translation": "atribuir",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "authorize",
+      "translation": "autorizar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "balance",
+      "translation": "equilibrar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "benchmark",
+      "translation": "referência",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "clarify",
+      "translation": "esclarecer",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "collaborate",
+      "translation": "colaborar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "commit",
+      "translation": "comprometer",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "communicate",
+      "translation": "comunicar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "compile",
+      "translation": "compilar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "comply",
+      "translation": "cumprir",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "conclude",
+      "translation": "concluir",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "conduct",
+      "translation": "conduzir",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "configure",
+      "translation": "configurar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "consolidate",
+      "translation": "consolidar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "consult",
+      "translation": "consultar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "contribute",
+      "translation": "contribuir",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "convert",
+      "translation": "converter",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "coordinate",
+      "translation": "coordenar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "corporate",
+      "translation": "corporativo",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "criteria",
+      "translation": "critérios",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "delegate",
+      "translation": "delegar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "deliver",
+      "translation": "entregar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "demonstrate",
+      "translation": "demonstrar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "deploy",
+      "translation": "implantar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "derive",
+      "translation": "derivar",
+      "cefr": "B1",
+      "theme": "work"
+    },
+    {
+      "lemma": "despite",
+      "translation": "apesar de",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "although",
+      "translation": "embora",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "whereas",
+      "translation": "enquanto que",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "therefore",
+      "translation": "portanto",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "however",
+      "translation": "contudo",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "moreover",
+      "translation": "além disso",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "furthermore",
+      "translation": "ademais",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "nevertheless",
+      "translation": "no entanto",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "meanwhile",
+      "translation": "enquanto isso",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "otherwise",
+      "translation": "caso contrário",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "consequently",
+      "translation": "consequentemente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "approximately",
+      "translation": "aproximadamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "significantly",
+      "translation": "significativamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "efficiently",
+      "translation": "eficientemente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "effectively",
+      "translation": "efetivamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "primarily",
+      "translation": "principalmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "specifically",
+      "translation": "especificamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "generally",
+      "translation": "geralmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "particularly",
+      "translation": "particularmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "relatively",
+      "translation": "relativamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "absolutely",
+      "translation": "absolutamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "completely",
+      "translation": "completamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "entirely",
+      "translation": "inteiramente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "slightly",
+      "translation": "ligeiramente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "barely",
+      "translation": "mal",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "hardly",
+      "translation": "quase não",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "scarcely",
+      "translation": "escassamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "frequently",
+      "translation": "raramente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "occasionally",
+      "translation": "ocasionalmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "constantly",
+      "translation": "constantemente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "gradually",
+      "translation": "gradualmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "suddenly",
+      "translation": "subitamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "immediately",
+      "translation": "imediatamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "eventually",
+      "translation": "eventualmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "ultimately",
+      "translation": "finalmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "initially",
+      "translation": "inicialmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "previously",
+      "translation": "anteriormente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "currently",
+      "translation": "atualmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "recently",
+      "translation": "recentemente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "formerly",
+      "translation": "anteriormente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "simultaneously",
+      "translation": "simultaneamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "separately",
+      "translation": "separadamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "jointly",
+      "translation": "conjuntamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "mutually",
+      "translation": "mutuamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "respectively",
+      "translation": "respectivamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "alternatively",
+      "translation": "alternativamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "preferably",
+      "translation": "preferencialmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "ideally",
+      "translation": "idealmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "realistically",
+      "translation": "realisticamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "theoretically",
+      "translation": "teoricamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "practically",
+      "translation": "praticamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "literally",
+      "translation": "literalmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "figuratively",
+      "translation": "figurativamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "ironically",
+      "translation": "ironicamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "surprisingly",
+      "translation": "surpreendentemente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "obviously",
+      "translation": "obviamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "apparently",
+      "translation": "aparentemente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "presumably",
+      "translation": "presumivelmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "supposedly",
+      "translation": "supostamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "allegedly",
+      "translation": "supostamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "reportedly",
+      "translation": "segundo relatos",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "undoubtedly",
+      "translation": "indubitavelmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "certainly",
+      "translation": "certamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "definitely",
+      "translation": "definitivamente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "probably",
+      "translation": "provavelmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "possibly",
+      "translation": "possivelmente",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "maybe",
+      "translation": "talvez",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "perhaps",
+      "translation": "talvez",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "likely",
+      "translation": "provável",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "unlikely",
+      "translation": "improvável",
+      "cefr": "B1",
+      "theme": "grammar"
+    },
+    {
+      "lemma": "aware",
+      "translation": "consciente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "conscious",
+      "translation": "consciente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "unaware",
+      "translation": "inconsciente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ignorant",
+      "translation": "ignorante",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "knowledgeable",
+      "translation": "bem informado",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "experienced",
+      "translation": "experiente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "inexperienced",
+      "translation": "inexperiente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "qualified",
+      "translation": "qualificado",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "unqualified",
+      "translation": "não qualificado",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "competent",
+      "translation": "competente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "incompetent",
+      "translation": "incompetente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "capable",
+      "translation": "capaz",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "incapable",
+      "translation": "incapaz",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "reliable",
+      "translation": "confiável",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "unreliable",
+      "translation": "não confiável",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "flexible",
+      "translation": "flexível",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "rigid",
+      "translation": "rígido",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "adaptable",
+      "translation": "adaptável",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "resistant",
+      "translation": "resistente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "sensitive",
+      "translation": "sensível",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "insensitive",
+      "translation": "insensível",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "objective",
+      "translation": "objetivo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "subjective",
+      "translation": "subjetivo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "neutral",
+      "translation": "neutro",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "biased",
+      "translation": "tendencioso",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "prejudiced",
+      "translation": "preconceituoso",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "tolerant",
+      "translation": "tolerante",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "intolerant",
+      "translation": "intolerante",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "generous",
+      "translation": "generoso",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "selfish",
+      "translation": "egoísta",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "modest",
+      "translation": "modesto",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "arrogant",
+      "translation": "arrogante",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "humble",
+      "translation": "humilde",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "confident",
+      "translation": "confiante",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "insecure",
+      "translation": "inseguro",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "optimistic",
+      "translation": "otimista",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "pessimistic",
+      "translation": "pessimista",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "realistic",
+      "translation": "realista",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "idealistic",
+      "translation": "idealista",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "pragmatic",
+      "translation": "pragmático",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "romantic",
+      "translation": "romântico",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "cynical",
+      "translation": "cínico",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "skeptical",
+      "translation": "cético",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "curious",
+      "translation": "curioso",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "indifferent",
+      "translation": "indiferente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "enthusiastic",
+      "translation": "entusiasta",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "apathetic",
+      "translation": "apático",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "passionate",
+      "translation": "apaixonado",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "detached",
+      "translation": "desapegado",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "attached",
+      "translation": "apegado",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "committed",
+      "translation": "comprometido",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "dedicated",
+      "translation": "dedicado",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "loyal",
+      "translation": "leal",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "faithful",
+      "translation": "fiel",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "betray",
+      "translation": "trair",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "deceive",
+      "translation": "enganar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "manipulate",
+      "translation": "manipular",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "exploit",
+      "translation": "explorar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "abuse",
+      "translation": "abusar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "neglect",
+      "translation": "negligenciar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "abandon",
+      "translation": "abandonar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "reject",
+      "translation": "rejeitar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "accept",
+      "translation": "aceitar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "approve",
+      "translation": "aprovar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "disapprove",
+      "translation": "desaprovar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "permit",
+      "translation": "permitir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "forbid",
+      "translation": "proibir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "allow",
+      "translation": "permitir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "restrict",
+      "translation": "restringir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "limit",
+      "translation": "limitar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "expand",
+      "translation": "expandir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "extend",
+      "translation": "estender",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "reduce",
+      "translation": "reduzir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "eliminate",
+      "translation": "eliminar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "remove",
+      "translation": "remover",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "add",
+      "translation": "adicionar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "combine",
+      "translation": "combinar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "separate",
+      "translation": "separar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "divide",
+      "translation": "dividir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "multiply",
+      "translation": "multiplicar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "calculate",
+      "translation": "calcular",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "estimate",
+      "translation": "estimar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "evaluate",
+      "translation": "avaliar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "review",
+      "translation": "revisar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "revise",
+      "translation": "revisar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "edit",
+      "translation": "editar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "proofread",
+      "translation": "revisar texto",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "publish",
+      "translation": "publicar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "distribute",
+      "translation": "distribuir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "circulate",
+      "translation": "circular",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "broadcast",
+      "translation": "transmitir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "announce",
+      "translation": "anunciar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "declare",
+      "translation": "declarar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "proclaim",
+      "translation": "proclamar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "state",
+      "translation": "afirmar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "claim",
+      "translation": "alegar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "assert",
+      "translation": "afirmar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "argue",
+      "translation": "argumentar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "debate",
+      "translation": "debater",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "discuss",
+      "translation": "discutir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "converse",
+      "translation": "conversar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "chat",
+      "translation": "conversar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "gossip",
+      "translation": "fofocar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "whisper",
+      "translation": "sussurrar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "murmur",
+      "translation": "murmurar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "mumble",
+      "translation": "murmurar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "stutter",
+      "translation": "gaguejar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "pronounce",
+      "translation": "pronunciar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "articulate",
+      "translation": "articular",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "express",
+      "translation": "expressar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "convey",
+      "translation": "transmitir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "imply",
+      "translation": "implicar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "infer",
+      "translation": "inferir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "suggest",
+      "translation": "sugerir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "indicate",
+      "translation": "indicar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "signify",
+      "translation": "significar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "symbolize",
+      "translation": "simbolizar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "represent",
+      "translation": "representar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "symbol",
+      "translation": "símbolo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "metaphor",
+      "translation": "metáfora",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "analogy",
+      "translation": "analogia",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "comparison",
+      "translation": "comparação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "contrast",
+      "translation": "contraste",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "distinction",
+      "translation": "distinção",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "similarity",
+      "translation": "similaridade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "difference",
+      "translation": "diferença",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "variety",
+      "translation": "variedade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "diversity",
+      "translation": "diversidade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "uniformity",
+      "translation": "uniformidade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "consistency",
+      "translation": "consistência",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "inconsistency",
+      "translation": "inconsistência",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "stability",
+      "translation": "estabilidade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "instability",
+      "translation": "instabilidade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "chaos",
+      "translation": "caos",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "order",
+      "translation": "ordem",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "structure",
+      "translation": "estrutura",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "framework",
+      "translation": "estrutura",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "system",
+      "translation": "sistema",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "process",
+      "translation": "processo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "procedure",
+      "translation": "procedimento",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "method",
+      "translation": "método",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "technique",
+      "translation": "técnica",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "perspective",
+      "translation": "perspectiva",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "viewpoint",
+      "translation": "ponto de vista",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "standpoint",
+      "translation": "ponto de vista",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "angle",
+      "translation": "ângulo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "aspect",
+      "translation": "aspecto",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "dimension",
+      "translation": "dimensão",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "factor",
+      "translation": "fator",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "element",
+      "translation": "elemento",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "component",
+      "translation": "componente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ingredient",
+      "translation": "ingrediente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "resource",
+      "translation": "recurso",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "asset",
+      "translation": "ativo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "liability",
+      "translation": "passivo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "debt",
+      "translation": "dívida",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "credit",
+      "translation": "crédito",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "loan",
+      "translation": "empréstimo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "interest",
+      "translation": "juros",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "investment",
+      "translation": "investimento",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "return",
+      "translation": "retorno",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "revenue",
+      "translation": "receita",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "income",
+      "translation": "renda",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "expense",
+      "translation": "despesa",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "saving",
+      "translation": "poupança",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "wealth",
+      "translation": "riqueza",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "poverty",
+      "translation": "pobreza",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "economy",
+      "translation": "economia",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "inflation",
+      "translation": "inflação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "recession",
+      "translation": "recessão",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "unemployment",
+      "translation": "desemprego",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "employment",
+      "translation": "emprego",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "workforce",
+      "translation": "força de trabalho",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "labor",
+      "translation": "trabalho",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "wage",
+      "translation": "salário",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "benefit",
+      "translation": "benefício",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "pension",
+      "translation": "aposentadoria",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "insurance",
+      "translation": "seguro",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "coverage",
+      "translation": "cobertura",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "compensation",
+      "translation": "compensação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "settlement",
+      "translation": "acordo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "lawsuit",
+      "translation": "processo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "litigation",
+      "translation": "litígio",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "arbitration",
+      "translation": "arbitragem",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "mediation",
+      "translation": "mediação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "negotiation",
+      "translation": "negociação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "bargain",
+      "translation": "pechinchar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "deal",
+      "translation": "acordo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "transaction",
+      "translation": "transação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "payment",
+      "translation": "pagamento",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "installment",
+      "translation": "parcela",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "deposit",
+      "translation": "depósito",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "withdrawal",
+      "translation": "saque",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "transfer",
+      "translation": "transferência",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "account",
+      "translation": "conta",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "statement",
+      "translation": "extrato",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "budget",
+      "translation": "orçamento",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "forecast",
+      "translation": "previsão",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "projection",
+      "translation": "projeção",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "quota",
+      "translation": "cota",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "target",
+      "translation": "meta",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "mission",
+      "translation": "missão",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "vision",
+      "translation": "visão",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "value",
+      "translation": "valor",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "priority",
+      "translation": "prioridade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "deadline",
+      "translation": "prazo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "milestone",
+      "translation": "marco",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "indicator",
+      "translation": "indicador",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "metric",
+      "translation": "métrica",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "performance",
+      "translation": "desempenho",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "productivity",
+      "translation": "produtividade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "efficiency",
+      "translation": "eficiência",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "effectiveness",
+      "translation": "eficácia",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "quality",
+      "translation": "qualidade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "quantity",
+      "translation": "quantidade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "capacity",
+      "translation": "capacidade",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "volume",
+      "translation": "volume",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "scale",
+      "translation": "escala",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "scope",
+      "translation": "escopo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "range",
+      "translation": "faixa",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "spectrum",
+      "translation": "espectro",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "category",
+      "translation": "categoria",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "classification",
+      "translation": "classificação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "taxonomy",
+      "translation": "taxonomia",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "hierarchy",
+      "translation": "hierarquia",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "rank",
+      "translation": "classificação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "status",
+      "translation": "status",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "level",
+      "translation": "nível",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "tier",
+      "translation": "nível",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "grade",
+      "translation": "nota",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "score",
+      "translation": "pontuação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "rating",
+      "translation": "avaliação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ranking",
+      "translation": "classificação",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "index",
+      "translation": "índice",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "coefficient",
+      "translation": "coeficiente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ratio",
+      "translation": "proporção",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "percentage",
+      "translation": "porcentagem",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "fraction",
+      "translation": "fração",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "decimal",
+      "translation": "decimal",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "integer",
+      "translation": "inteiro",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "variable",
+      "translation": "variável",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "constant",
+      "translation": "constante",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "parameter",
+      "translation": "parâmetro",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "function",
+      "translation": "função",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "algorithm",
+      "translation": "algoritmo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "data",
+      "translation": "dados",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "database",
+      "translation": "banco de dados",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "query",
+      "translation": "consulta",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "filter",
+      "translation": "filtrar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "sort",
+      "translation": "ordenar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "merge",
+      "translation": "mesclar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "split",
+      "translation": "dividir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "compress",
+      "translation": "comprimir",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "extract",
+      "translation": "extrair",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "import",
+      "translation": "importar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "export",
+      "translation": "exportar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "integrate",
+      "translation": "integrar",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "interface",
+      "translation": "interface",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "platform",
+      "translation": "plataforma",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "application",
+      "translation": "aplicativo",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "software",
+      "translation": "software",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "hardware",
+      "translation": "hardware",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "network",
+      "translation": "rede",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "server",
+      "translation": "servidor",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "client",
+      "translation": "cliente",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "cloud",
+      "translation": "nuvem",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "storage",
+      "translation": "armazenamento",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "memory",
+      "translation": "memória",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "processor",
+      "translation": "processador",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "bandwidth",
+      "translation": "largura de banda",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "latency",
+      "translation": "latência",
+      "cefr": "B1",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "throughput",
+      "translation": "taxa de transferência",
+      "cefr": "B1",
+      "theme": "abstract"
+    }
+  ],
+  "B2": [
+    {
+      "lemma": "abstraction",
+      "translation": "abstração",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ambiguity",
+      "translation": "ambiguidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "paradox",
+      "translation": "paradoxo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "dilemma",
+      "translation": "dilema",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "conundrum",
+      "translation": "enigma",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "hypothesis",
+      "translation": "hipótese",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "thesis",
+      "translation": "tese",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "antithesis",
+      "translation": "antítese",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "synthesis",
+      "translation": "síntese",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "analysis",
+      "translation": "análise",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "critique",
+      "translation": "crítica",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "discourse",
+      "translation": "discurso",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "rhetoric",
+      "translation": "retórica",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "eloquence",
+      "translation": "eloquência",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "articulation",
+      "translation": "articulação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "nuance",
+      "translation": "nuance",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "subtlety",
+      "translation": "subtileza",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "implication",
+      "translation": "implicação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "inference",
+      "translation": "inferência",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "deduction",
+      "translation": "dedução",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "induction",
+      "translation": "indução",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "correlation",
+      "translation": "correlação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "causation",
+      "translation": "causalidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "phenomenon",
+      "translation": "fenômeno",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "manifestation",
+      "translation": "manifestação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "manifesto",
+      "translation": "manifesto",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ideology",
+      "translation": "ideologia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "doctrine",
+      "translation": "doutrina",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "dogma",
+      "translation": "dogma",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "orthodoxy",
+      "translation": "ortodoxia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "heresy",
+      "translation": "heresia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "secular",
+      "translation": "secular",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "sacred",
+      "translation": "sagrado",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "profane",
+      "translation": "profano",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "transcendent",
+      "translation": "transcendente",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "immanent",
+      "translation": "imanente",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "metaphysical",
+      "translation": "metafísico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "existential",
+      "translation": "existencial",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "phenomenological",
+      "translation": "fenomenológico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "epistemological",
+      "translation": "epistemológico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ontological",
+      "translation": "ontológico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "empirical",
+      "translation": "empírico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "theoretical",
+      "translation": "teórico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "conceptual",
+      "translation": "conceitual",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "perceptual",
+      "translation": "perceptual",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "cognitive",
+      "translation": "cognitivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "affective",
+      "translation": "afetivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "behavioral",
+      "translation": "comportamental",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "developmental",
+      "translation": "desenvolvimental",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "evolutionary",
+      "translation": "evolutivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "revolutionary",
+      "translation": "revolucionário",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "reform",
+      "translation": "reforma",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "conservative",
+      "translation": "conservador",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "progressive",
+      "translation": "progressista",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "radical",
+      "translation": "radical",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "moderate",
+      "translation": "moderado",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "extremist",
+      "translation": "extremista",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "fundamentalist",
+      "translation": "fundamentalista",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "populist",
+      "translation": "populista",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "elitist",
+      "translation": "elitista",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "meritocracy",
+      "translation": "meritocracia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "oligarchy",
+      "translation": "oligarquia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "democracy",
+      "translation": "democracia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "autocracy",
+      "translation": "autocracia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "bureaucracy",
+      "translation": "burocracia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "technocracy",
+      "translation": "tecnocracia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "plutocracy",
+      "translation": "plutocracia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "sovereignty",
+      "translation": "soberania",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "jurisdiction",
+      "translation": "jurisdição",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "legislation",
+      "translation": "legislação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "regulation",
+      "translation": "regulamentação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "deregulation",
+      "translation": "desregulamentação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "sanction",
+      "translation": "sanção",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "embargo",
+      "translation": "embargo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "tariff",
+      "translation": "tarifa",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "subsidy",
+      "translation": "subsídio",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "austerity",
+      "translation": "austeridade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "stimulus",
+      "translation": "estímulo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "fiscal",
+      "translation": "fiscal",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "monetary",
+      "translation": "monetário",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "macroeconomic",
+      "translation": "macroeconômico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "microeconomic",
+      "translation": "microeconômico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "globalization",
+      "translation": "globalização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "localization",
+      "translation": "localização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "urbanization",
+      "translation": "urbanização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "industrialization",
+      "translation": "industrialização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "modernization",
+      "translation": "modernização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "digitization",
+      "translation": "digitalização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "automation",
+      "translation": "automação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "mechanization",
+      "translation": "mecanização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "commodification",
+      "translation": "mercantilização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "privatization",
+      "translation": "privatização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "nationalization",
+      "translation": "nacionalização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "centralization",
+      "translation": "centralização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "decentralization",
+      "translation": "descentralização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "federalization",
+      "translation": "federalização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "devolution",
+      "translation": "devolução de poder",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "secession",
+      "translation": "secessão",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "annexation",
+      "translation": "anexação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "colonization",
+      "translation": "colonização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "decolonization",
+      "translation": "descolonização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "imperialism",
+      "translation": "imperialismo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "nationalism",
+      "translation": "nacionalismo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "patriotism",
+      "translation": "patriotismo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "xenophobia",
+      "translation": "xenofobia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "cosmopolitan",
+      "translation": "cosmopolita",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "multicultural",
+      "translation": "multicultural",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "assimilation",
+      "translation": "assimilação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "integration",
+      "translation": "integração",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "segregation",
+      "translation": "segregação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "discrimination",
+      "translation": "discriminação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "prejudice",
+      "translation": "preconceito",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "stereotype",
+      "translation": "estereótipo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "bias",
+      "translation": "viés",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "privilege",
+      "translation": "privilégio",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "oppression",
+      "translation": "opressão",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "liberation",
+      "translation": "liberação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "empowerment",
+      "translation": "empoderamento",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "marginalization",
+      "translation": "marginalização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "exclusion",
+      "translation": "exclusão",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "inclusion",
+      "translation": "inclusão",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "diversity",
+      "translation": "diversidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "equity",
+      "translation": "equidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "justice",
+      "translation": "justiça",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "accountability",
+      "translation": "responsabilização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "transparency",
+      "translation": "transparência",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "integrity",
+      "translation": "integridade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "authenticity",
+      "translation": "autenticidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "legitimacy",
+      "translation": "legitimidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "credibility",
+      "translation": "credibilidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "reliability",
+      "translation": "confiabilidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "validity",
+      "translation": "validade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "relevance",
+      "translation": "relevância",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "significance",
+      "translation": "significância",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "magnitude",
+      "translation": "magnitude",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "proportion",
+      "translation": "proporção",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "disproportion",
+      "translation": "desproporção",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "anomaly",
+      "translation": "anomalia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "deviation",
+      "translation": "desvio",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "variance",
+      "translation": "variância",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "standard",
+      "translation": "padrão",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "norm",
+      "translation": "norma",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "convention",
+      "translation": "convenção",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "tradition",
+      "translation": "tradição",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "innovation",
+      "translation": "inovação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "disruption",
+      "translation": "disrupção",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "transformation",
+      "translation": "transformação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "transition",
+      "translation": "transição",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "continuity",
+      "translation": "continuidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "discontinuity",
+      "translation": "descontinuidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "permanence",
+      "translation": "permanência",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "temporality",
+      "translation": "temporalidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "chronology",
+      "translation": "cronologia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "simultaneity",
+      "translation": "simultaneidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "synchronicity",
+      "translation": "sincronicidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "asynchrony",
+      "translation": "assincronia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "duration",
+      "translation": "duração",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "interval",
+      "translation": "intervalo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "frequency",
+      "translation": "frequência",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "periodicity",
+      "translation": "periodicidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "cyclical",
+      "translation": "cíclico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "linear",
+      "translation": "linear",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "exponential",
+      "translation": "exponencial",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "logarithmic",
+      "translation": "logarítmico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "geometric",
+      "translation": "geométrico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "arithmetic",
+      "translation": "aritmético",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "statistical",
+      "translation": "estatístico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "probabilistic",
+      "translation": "probabilístico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "deterministic",
+      "translation": "determinístico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "stochastic",
+      "translation": "estocástico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "chaotic",
+      "translation": "caótico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ordered",
+      "translation": "ordenado",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "random",
+      "translation": "aleatório",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "systematic",
+      "translation": "sistemático",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "methodical",
+      "translation": "metódico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "rigorous",
+      "translation": "rigoroso",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "scrupulous",
+      "translation": "escrupuloso",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "meticulous",
+      "translation": "meticuloso",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "thorough",
+      "translation": "minucioso",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "superficial",
+      "translation": "superficial",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "cursory",
+      "translation": "superficial",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "perfunctory",
+      "translation": "perfunctório",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "comprehensive",
+      "translation": "abrangente",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "exhaustive",
+      "translation": "exaustivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "concise",
+      "translation": "conciso",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "verbose",
+      "translation": "prolixo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "redundant",
+      "translation": "redundante",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "succinct",
+      "translation": "sucinto",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "laconic",
+      "translation": "lacônico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "elliptical",
+      "translation": "elíptico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ambiguous",
+      "translation": "ambíguo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "explicit",
+      "translation": "explícito",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "implicit",
+      "translation": "implícito",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "overt",
+      "translation": "ostensivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "covert",
+      "translation": "encoberto",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "latent",
+      "translation": "latente",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "manifest",
+      "translation": "manifesto",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "tangible",
+      "translation": "tangível",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "intangible",
+      "translation": "intangível",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "concrete",
+      "translation": "concreto",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "abstract",
+      "translation": "abstrato",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "figurative",
+      "translation": "figurativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "literal",
+      "translation": "literal",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "metaphorical",
+      "translation": "metafórico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "allegorical",
+      "translation": "alegórico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "symbolic",
+      "translation": "simbólico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "iconic",
+      "translation": "icônico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "archetypal",
+      "translation": "arquetípico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "stereotypical",
+      "translation": "estereotipado",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "idiosyncratic",
+      "translation": "idiossincrático",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "quintessential",
+      "translation": "quintessencial",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "paradigmatic",
+      "translation": "paradigmático",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "exemplary",
+      "translation": "exemplar",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "prototypical",
+      "translation": "prototípico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "anomalous",
+      "translation": "anômalo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "atypical",
+      "translation": "atípico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "typical",
+      "translation": "típico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "normative",
+      "translation": "normativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "prescriptive",
+      "translation": "prescritivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "descriptive",
+      "translation": "descritivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "explanatory",
+      "translation": "explicativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "interpretive",
+      "translation": "interpretativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "hermeneutic",
+      "translation": "hermenêutico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "semantic",
+      "translation": "semântico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "syntactic",
+      "translation": "sintático",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "pragmatic",
+      "translation": "pragmático",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "lexical",
+      "translation": "lexical",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "morphological",
+      "translation": "morfológico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "phonological",
+      "translation": "fonológico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "prosodic",
+      "translation": "prosódico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "intonation",
+      "translation": "entonação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "stress",
+      "translation": "ênfase",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "rhythm",
+      "translation": "ritmo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "cadence",
+      "translation": "cadência",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "inflection",
+      "translation": "inflexão",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "conjugation",
+      "translation": "conjugação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "declension",
+      "translation": "declinação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "agreement",
+      "translation": "concordância",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "concord",
+      "translation": "concordância",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "collocation",
+      "translation": "colocação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "idiom",
+      "translation": "expressão idiomática",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "proverb",
+      "translation": "provérbio",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "maxim",
+      "translation": "máxima",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "aphorism",
+      "translation": "aforismo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "epigram",
+      "translation": "epigrama",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "witticism",
+      "translation": "piada espirituosa",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "pun",
+      "translation": "trocadilho",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "irony",
+      "translation": "ironia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "sarcasm",
+      "translation": "sarcasmo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "satire",
+      "translation": "sátira",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "parody",
+      "translation": "paródia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "pastiche",
+      "translation": "pasticho",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "homage",
+      "translation": "homenagem",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "tribute",
+      "translation": "tributo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "eulogy",
+      "translation": "elogio fúnebre",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "obituary",
+      "translation": "obituário",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "memoir",
+      "translation": "memórias",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "autobiography",
+      "translation": "autobiografia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "biography",
+      "translation": "biografia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "chronicle",
+      "translation": "crônica",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "narrative",
+      "translation": "narrativa",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "plot",
+      "translation": "enredo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "characterization",
+      "translation": "caracterização",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "protagonist",
+      "translation": "protagonista",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "antagonist",
+      "translation": "antagonista",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "foil",
+      "translation": "contraste",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "subplot",
+      "translation": "subtrama",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "climax",
+      "translation": "clímax",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "denouement",
+      "translation": "desfecho",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "foreshadowing",
+      "translation": "prefiguração",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "flashback",
+      "translation": "flashback",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "perspective",
+      "translation": "perspectiva",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "omniscient",
+      "translation": "onisciente",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "unreliable",
+      "translation": "não confiável",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "stream",
+      "translation": "fluxo de consciência",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "consciousness",
+      "translation": "consciência",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "subconscious",
+      "translation": "subconsciente",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "unconscious",
+      "translation": "inconsciente",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "psyche",
+      "translation": "psique",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ego",
+      "translation": "ego",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "id",
+      "translation": "id",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "superego",
+      "translation": "superego",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "archetype",
+      "translation": "arquétipo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "complex",
+      "translation": "complexo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "neurosis",
+      "translation": "neurose",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "psychosis",
+      "translation": "psicose",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "trauma",
+      "translation": "trauma",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "catharsis",
+      "translation": "catarse",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "resilience",
+      "translation": "resiliência",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "vulnerability",
+      "translation": "vulnerabilidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "fragility",
+      "translation": "fragilidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "robustness",
+      "translation": "robustez",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "tenacity",
+      "translation": "tenacidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "perseverance",
+      "translation": "perseverança",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "fortitude",
+      "translation": "fortaleza",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "stoicism",
+      "translation": "estoicismo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "hedonism",
+      "translation": "hedonismo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "utilitarianism",
+      "translation": "utilitarismo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "deontology",
+      "translation": "deontologia",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "virtue",
+      "translation": "virtude",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "vice",
+      "translation": "vício",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "morality",
+      "translation": "moralidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "immorality",
+      "translation": "imoralidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "amorality",
+      "translation": "amoralidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ethics",
+      "translation": "ética",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "aesthetics",
+      "translation": "estética",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "beauty",
+      "translation": "beleza",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ugliness",
+      "translation": "feiura",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "sublime",
+      "translation": "sublime",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "grotesque",
+      "translation": "grotesco",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "bizarre",
+      "translation": "bizarro",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "eccentric",
+      "translation": "excêntrico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "quirky",
+      "translation": "peculiar",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "mundane",
+      "translation": "mundano",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "prosaic",
+      "translation": "prosaico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "poetic",
+      "translation": "poético",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "lyrical",
+      "translation": "lírico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "epic",
+      "translation": "épico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "tragic",
+      "translation": "trágico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "comic",
+      "translation": "cômico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "dramatic",
+      "translation": "dramático",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "melodramatic",
+      "translation": "melodramático",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "theatrical",
+      "translation": "teatral",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "cinematic",
+      "translation": "cinematográfico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "visual",
+      "translation": "visual",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "auditory",
+      "translation": "auditivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "tactile",
+      "translation": "tátil",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "olfactory",
+      "translation": "olfativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "gustatory",
+      "translation": "gustativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "synesthetic",
+      "translation": "sinestésico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "multisensory",
+      "translation": "multissensorial",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "immersive",
+      "translation": "imersivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "interactive",
+      "translation": "interativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "participatory",
+      "translation": "participativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "collaborative",
+      "translation": "colaborativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "cooperative",
+      "translation": "cooperativo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "competitive",
+      "translation": "competitivo",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "adversarial",
+      "translation": "adversarial",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "antagonistic",
+      "translation": "antagonístico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "symbiotic",
+      "translation": "simbiótico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "parasitic",
+      "translation": "parasitário",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "mutualistic",
+      "translation": "mutualístico",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "commensal",
+      "translation": "comensal",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "predatory",
+      "translation": "predatório",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "prey",
+      "translation": "presa",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "predator",
+      "translation": "predador",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "ecosystem",
+      "translation": "ecossistema",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "biodiversity",
+      "translation": "biodiversidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "sustainability",
+      "translation": "sustentabilidade",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "renewable",
+      "translation": "renovável",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "nonrenewable",
+      "translation": "não renovável",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "depletion",
+      "translation": "esgotamento",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "pollution",
+      "translation": "poluição",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "contamination",
+      "translation": "contaminação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "remediation",
+      "translation": "remediação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "mitigation",
+      "translation": "mitigação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "adaptation",
+      "translation": "adaptação",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "exposure",
+      "translation": "exposição",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "hazard",
+      "translation": "risco",
+      "cefr": "B2",
+      "theme": "abstract"
+    },
+    {
+      "lemma": "risk",
+      "translation": "risco",
+      "cefr": "B2",
+      "theme": "abstract"
+    }
+  ]
+}

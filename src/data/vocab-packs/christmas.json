@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "packKey": "christmas_2026",
+  "title": "Vocabulário de Natal",
+  "farmIntegration": "weighted_mix",
+  "brickConversion": 1,
+  "words": [
+    { "term": "gingerbread", "translation": "biscoito de gengibre", "example": "We baked gingerbread cookies." },
+    { "term": "mistletoe", "translation": "visco", "example": "They kissed under the mistletoe." },
+    { "term": "stocking", "translation": "meia de Natal", "example": "Hang your stocking by the fireplace." },
+    { "term": "reindeer", "translation": "rena", "example": "Santa's reindeer fly at night." },
+    { "term": "carol", "translation": "canção natalina", "example": "We sang a carol together." },
+    { "term": "fireplace", "translation": "lareira", "example": "Gifts were left by the fireplace." },
+    { "term": "ornament", "translation": "enfeite", "example": "She hung an ornament on the tree." },
+    { "term": "sleigh", "translation": "trenó", "example": "The sleigh slid through the snow." },
+    { "term": "wreath", "translation": "guirlanda", "example": "A wreath hung on the front door." },
+    { "term": "eggnog", "translation": "gemada", "example": "Would you like some eggnog?" },
+    { "term": "chimney", "translation": "chaminé", "example": "Santa came down the chimney." },
+    { "term": "snowflake", "translation": "floco de neve", "example": "Each snowflake is unique." },
+    { "term": "holiday", "translation": "feriado / festa", "example": "Happy holiday season!" },
+    { "term": "gift", "translation": "presente", "example": "She wrapped the gift carefully." },
+    { "term": "frost", "translation": "geada", "example": "Frost covered the windows." }
+  ]
+}

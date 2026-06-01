@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "eventKey": "christmas_2026",
+  "templates": [
+    {
+      "templateKey": "xmas_town_hall_lights",
+      "poiKey": "town_hall",
+      "missionType": "study_day",
+      "title": "Acender as luzes da praça",
+      "description": "Estude hoje para iluminar o centro da cidade.",
+      "targetValue": 1,
+      "baseXp": 40,
+      "baseCoins": 30,
+      "baseLocalXp": 25,
+      "difficulty": "medium",
+      "minLocalLevel": 1
+    },
+    {
+      "templateKey": "xmas_library_vocab",
+      "poiKey": "central_library",
+      "missionType": "learn_event_vocab",
+      "title": "Palavras de Natal",
+      "description": "Aprenda 5 palavras do pacote festivo no farm.",
+      "targetValue": 5,
+      "baseXp": 55,
+      "baseCoins": 40,
+      "baseLocalXp": 35,
+      "difficulty": "medium",
+      "minLocalLevel": 1
+    },
+    {
+      "templateKey": "xmas_cafe_focus",
+      "poiKey": "study_cafe",
+      "missionType": "focus_session",
+      "title": "Café natalino",
+      "description": "Complete 1 sessão de foco com clima de festa.",
+      "targetValue": 1,
+      "baseXp": 45,
+      "baseCoins": 35,
+      "baseLocalXp": 28,
+      "difficulty": "easy",
+      "minLocalLevel": 1
+    },
+    {
+      "templateKey": "xmas_shop_vocab",
+      "poiKey": "corner_shop",
+      "missionType": "learn_event_vocab",
+      "title": "Lista de compras festiva",
+      "description": "Aprenda 3 palavras de Natal no farm.",
+      "targetValue": 3,
+      "baseXp": 35,
+      "baseCoins": 45,
+      "baseLocalXp": 22,
+      "difficulty": "easy",
+      "minLocalLevel": 1
+    },
+    {
+      "templateKey": "xmas_park_pet",
+      "poiKey": "city_park",
+      "missionType": "pet_visit",
+      "title": "Pet na neve",
+      "description": "Visite o parque com seu pet durante o Natal.",
+      "targetValue": 1,
+      "baseXp": 30,
+      "baseCoins": 25,
+      "baseLocalXp": 30,
+      "difficulty": "easy",
+      "minLocalLevel": 1
+    },
+    {
+      "templateKey": "xmas_market_hub_study",
+      "poiKey": "winter_market",
+      "missionType": "study_day",
+      "title": "Abrir o mercado",
+      "description": "Estude hoje para aquecer o mercado de inverno.",
+      "targetValue": 1,
+      "baseXp": 50,
+      "baseCoins": 50,
+      "baseLocalXp": 40,
+      "difficulty": "medium",
+      "minLocalLevel": 1
+    },
+    {
+      "templateKey": "xmas_market_vocab",
+      "poiKey": "winter_market",
+      "missionType": "learn_event_vocab",
+      "title": "Feira de palavras",
+      "description": "Aprenda 4 palavras festivas no farm.",
+      "targetValue": 4,
+      "baseXp": 60,
+      "baseCoins": 55,
+      "baseLocalXp": 45,
+      "difficulty": "medium",
+      "minLocalLevel": 1
+    }
+  ]
+}

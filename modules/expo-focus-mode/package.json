@@ -1,0 +1,15 @@
+{
+  "name": "expo-focus-mode",
+  "version": "1.0.0",
+  "description": "Android Accessibility Service for English Quest Focus Mode",
+  "main": "src/index.ts",
+  "scripts": {},
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  },
+  "dependencies": {
+    "expo-modules-core": "~3.0.29"
+  }
+}

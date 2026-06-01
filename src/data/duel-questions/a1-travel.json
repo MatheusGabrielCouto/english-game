@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "packKey": "a1-travel",
+  "patent": "tourist",
+  "theme": "travel",
+  "questions": [
+    {
+      "id": "mcq_travel_001",
+      "type": "mcq_meaning",
+      "lemma": "travel",
+      "patent": "tourist",
+      "theme": "travel",
+      "prompt": {
+        "stem": "What does \"travel\" mean?",
+        "choices": ["viagem", "bilhete", "mapa", "passaporte"],
+        "correctIndex": 0,
+        "hint": "It is about going somewhere."
+      }
+    },
+    {
+      "id": "mcq_travel_002",
+      "type": "mcq_translation",
+      "lemma": "ticket",
+      "patent": "tourist",
+      "theme": "travel",
+      "prompt": {
+        "stem": "Choose the English for: \"bilhete\"",
+        "choices": ["ticket", "airport", "map", "passport"],
+        "correctIndex": 0
+      }
+    },
+    {
+      "id": "mcq_travel_003",
+      "type": "mcq_meaning",
+      "lemma": "airport",
+      "patent": "tourist",
+      "theme": "travel",
+      "prompt": {
+        "stem": "What does \"airport\" mean?",
+        "choices": ["aeroporto", "cidade", "viagem", "mapa"],
+        "correctIndex": 0
+      }
+    },
+    {
+      "id": "mcq_travel_004",
+      "type": "mcq_translation",
+      "lemma": "passport",
+      "patent": "tourist",
+      "theme": "travel",
+      "prompt": {
+        "stem": "Choose the English for: \"passaporte\"",
+        "choices": ["passport", "ticket", "travel", "map"],
+        "correctIndex": 0
+      }
+    },
+    {
+      "id": "mcq_travel_005",
+      "type": "mcq_meaning",
+      "lemma": "map",
+      "patent": "tourist",
+      "theme": "travel",
+      "prompt": {
+        "stem": "What does \"map\" mean?",
+        "choices": ["mapa", "amigo", "ajudar", "cidade"],
+        "correctIndex": 0
+      }
+    },
+    {
+      "id": "mcq_travel_006",
+      "type": "mcq_translation",
+      "lemma": "travel",
+      "patent": "tourist",
+      "theme": "travel",
+      "prompt": {
+        "stem": "Choose the English for: \"viagem\"",
+        "choices": ["travel", "ticket", "airport", "passport"],
+        "correctIndex": 0
+      }
+    }
+  ]
+}

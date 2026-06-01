@@ -1,0 +1,251 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1780243973128,
+      "tag": "0000_initial",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1780244507095,
+      "tag": "0001_weekly_missions",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1780245000000,
+      "tag": "0002_weekly_missions_expand",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1780246000000,
+      "tag": "0003_streak_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1780247000000,
+      "tag": "0004_shield_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1780248000000,
+      "tag": "0005_pet_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1780249000000,
+      "tag": "0006_inventory_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1780250000000,
+      "tag": "0007_loot_box_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1780251000000,
+      "tag": "0008_achievements_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1780252000000,
+      "tag": "0009_shop_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1780253000000,
+      "tag": "0010_titles_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1780254000000,
+      "tag": "0011_international_city",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "6",
+      "when": 1780255000000,
+      "tag": "0012_contracts_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "6",
+      "when": 1780256000000,
+      "tag": "0013_statistics_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "6",
+      "when": 1780257000000,
+      "tag": "0014_game_design_expansion",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "6",
+      "when": 1780258000000,
+      "tag": "0015_game_design_expansion_fix",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "6",
+      "when": 1780259000000,
+      "tag": "0016_statistics_system_fix",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "6",
+      "when": 1780260000000,
+      "tag": "0017_notifications_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "6",
+      "when": 1780261000000,
+      "tag": "0018_career_metagame",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "6",
+      "when": 1780262000000,
+      "tag": "0019_infinite_progression",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "6",
+      "when": 1780263000000,
+      "tag": "0020_wishlist",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "6",
+      "when": 1780264000000,
+      "tag": "0021_balance_meta",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "6",
+      "when": 1780265000000,
+      "tag": "0022_pet_expansion",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "6",
+      "when": 1780267000000,
+      "tag": "0024_punishments_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "6",
+      "when": 1780268000000,
+      "tag": "0025_living_city",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "6",
+      "when": 1780269000000,
+      "tag": "0026_city_poi_missions",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "6",
+      "when": 1780270000000,
+      "tag": "0027_contract_issuer_poi",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "6",
+      "when": 1780271000000,
+      "tag": "0028_city_resources",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "6",
+      "when": 1780272000000,
+      "tag": "0029_city_living_state",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "6",
+      "when": 1780273000000,
+      "tag": "0030_city_events",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "6",
+      "when": 1780274000000,
+      "tag": "0031_city_polish",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "6",
+      "when": 1780275000000,
+      "tag": "0032_memory_wall",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "6",
+      "when": 1780276000000,
+      "tag": "0033_learning_systems",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "6",
+      "when": 1780277000000,
+      "tag": "0034_learning_integration",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "6",
+      "when": 1780278000000,
+      "tag": "0035_learning_analytics",
+      "breakpoints": true
+    }
+  ]
+}

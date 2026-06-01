@@ -1,0 +1,48 @@
+{
+    "logs": [
+        {
+            "outputFile": "expo.modules.focusmode.expo-focus-mode-release-3:/values/values.xml",
+            "map": [
+                {
+                    "source": "/Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "3,2",
+                        "startColumns": "2,2",
+                        "startOffsets": "138,53",
+                        "endColumns": "213,84",
+                        "endOffsets": "349,135"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,271",
+                        "endColumns": "215,86",
+                        "endOffsets": "266,353"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "expo.modules.focusmode.expo-focus-mode-mergeReleaseResources-1:/values/values.xml",
+            "map": [
+                {
+                    "source": "/Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "3,2",
+                        "startColumns": "2,2",
+                        "startOffsets": "138,53",
+                        "endColumns": "213,84",
+                        "endOffsets": "349,135"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,271",
+                        "endColumns": "215,86",
+                        "endOffsets": "266,353"
+                    }
+                }
+            ]
+        }
+    ]
+}

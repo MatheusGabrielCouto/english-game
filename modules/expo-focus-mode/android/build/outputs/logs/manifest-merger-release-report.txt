@@ -1,0 +1,40 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:1:1-16:12
+INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:1:1-16:12
+	package
+		INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:1:11-69
+application
+ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:2:3-15:17
+service#expo.modules.focusmode.FocusAccessibilityService
+ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:3:5-14:15
+	android:label
+		ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:6:7-64
+	android:exported
+		ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:5:7-30
+	android:permission
+		ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:7:7-73
+	android:name
+		ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:4:7-48
+intent-filter#action:name:android.accessibilityservice.AccessibilityService
+ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:8:7-10:23
+action#android.accessibilityservice.AccessibilityService
+ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:9:9-84
+	android:name
+		ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:9:17-81
+meta-data#android.accessibilityservice
+ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:11:7-13:70
+	android:resource
+		ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:13:9-67
+	android:name
+		ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml:12:9-52
+uses-sdk
+INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml
+INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-focus-mode/android/src/main/AndroidManifest.xml
