@@ -21,6 +21,8 @@ import { FlashDeckListTile } from './FlashDeckListTile';
 export const FlashDeckHubContent = () => {
   const decks = useFlashDeckStore((s) => s.decks);
   const totalDueCount = useFlashDeckStore((s) => s.totalDueCount);
+  const starterDeck = decks.find((deck) => deck.id === DEFAULT_FLASH_DECK_ID);
+  const starterTotal = starterDeck?.totalCards ?? 0;
   const isLoading = useFlashDeckStore((s) => s.isLoading);
   const refresh = useFlashDeckStore((s) => s.refresh);
 
@@ -59,7 +61,13 @@ export const FlashDeckHubContent = () => {
         eyebrow="Baralho Vivo"
         emoji={FLASH_DECK_UI.emoji}
         headline={FLASH_DECK_UI.dueCount(totalDueCount)}
-        subtitle={totalDueCount === 0 ? FLASH_DECK_UI.hubEmptyDue : FLASH_DECK_UI.dueHint}>
+        subtitle={
+          starterTotal > 0
+            ? `${starterTotal} palavras no baralho essencial · ${totalDueCount === 0 ? FLASH_DECK_UI.hubEmptyDue : FLASH_DECK_UI.dueHint}`
+            : totalDueCount === 0
+              ? FLASH_DECK_UI.hubEmptyDue
+              : FLASH_DECK_UI.dueHint
+        }>
         {totalDueCount > 0 ? (
           <Button label={FLASH_DECK_UI.startReview} onPress={handleStartReview} />
         ) : null}

@@ -4,17 +4,39 @@ Conteúdo editável em massa: missões, itens e (futuro) outros catálogos. Os a
 
 ## Arquivos
 
-| Arquivo             | Conteúdo                                                |
-| ------------------- | ------------------------------------------------------- |
-| `missions.json`     | `daily`, `weekly`, `epic` — todas as missões do sistema |
-| `items.json`        | `items` + `legacyAliases` (IDs antigos da loja)         |
-| `city.json`         | `districts` + `pois` — mapa (v2 inclui internacional)  |
-| `poi-missions.json` | Templates de missões por POI                            |
-| `contracts.json`    | Contratos base com `issuerPoiKey` (Cidade Viva Fase 3)  |
-| `poi-projects.json` | Obras semanais por POI (Biblioteca, Prefeitura — Fase 4) |
-| `poi-event-missions.json` | Missões de evento (Natal — Fase 6) |
-| `poi-chains.json` | Arcos narrativos em sequência por POI (Fase 7) |
-| `vocab-packs/christmas.json` | Palavras temáticas do evento |
+| Arquivo                                | Conteúdo                                                 |
+| -------------------------------------- | -------------------------------------------------------- |
+| `missions.json`                        | `daily`, `weekly`, `epic` — todas as missões do sistema  |
+| `items.json`                           | `items` + `legacyAliases` (IDs antigos da loja)          |
+| `city.json`                            | `districts` + `pois` — mapa (v2 inclui internacional)    |
+| `poi-missions.json`                    | Templates de missões por POI                             |
+| `contracts.json`                       | Contratos base com `issuerPoiKey` (Cidade Viva Fase 3)   |
+| `poi-projects.json`                    | Obras semanais por POI (Biblioteca, Prefeitura — Fase 4) |
+| `poi-event-missions.json`              | Missões de evento (Natal — Fase 6)                       |
+| `poi-chains.json`                      | Arcos narrativos em sequência por POI (Fase 7)           |
+| `vocab-packs/christmas.json`           | Palavras temáticas do evento                             |
+| `flash-deck-seeds/english-1000.json`   | 1000 palavras essenciais do baralho padrão (gerado)      |
+| `flash-deck-seeds/interview-tech.json` | Entrevistas internacionais em tech (~130 cartas, gerado) |
+
+### Baralho padrão (1000 palavras)
+
+O app cria o caderno `deck_default` com **1000 cartas** na primeira inicialização (vocabulário A1→B2 + palavras gramaticais de alta frequência). Para regenerar o JSON:
+
+```bash
+pnpm generate:english-1000
+```
+
+As cartas entram com liberação gradual (~10 novas por dia na fila de revisão).
+
+### Baralho entrevistas (tech)
+
+Caderno `deck_interview_tech` (💼): frases e vocabulário para entrevistas em inglês (abertura, STAR, remoto, salário, perguntas ao entrevistador) — sem jargão de linguagem de programação.
+
+```bash
+pnpm generate:interview-tech
+```
+
+Fonte editável: `scripts/data/interview-tech-seed.ts`. Liberação ~12 cartas novas por dia.
 
 ## Adicionar missões diárias
 

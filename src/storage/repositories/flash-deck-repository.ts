@@ -216,6 +216,28 @@ export const FlashDeckRepository = {
     await db.insert(flashCards).values(cardToInsert(card));
   },
 
+  async insertCardsBatch(cards: FlashCardRecord[]): Promise<void> {
+    if (cards.length === 0) return;
+
+    const db = getDb();
+    const chunkSize = 50;
+
+    for (let offset = 0; offset < cards.length; offset += chunkSize) {
+      const chunk = cards.slice(offset, offset + chunkSize);
+      await db.insert(flashCards).values(chunk.map(cardToInsert));
+    }
+  },
+
+  async countCardsBySource(deckId: string, source: FlashCardSource): Promise<number> {
+    const db = getDb();
+    const rows = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(flashCards)
+      .where(and(eq(flashCards.deckId, deckId), eq(flashCards.source, source)));
+
+    return Number(rows[0]?.count ?? 0);
+  },
+
   async updateCard(card: FlashCardRecord): Promise<void> {
     const db = getDb();
     await db.update(flashCards).set(cardToInsert(card)).where(eq(flashCards.id, card.id));

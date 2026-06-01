@@ -36,6 +36,8 @@ import m0032 from "./0032_memory_wall.sql";
 import m0033 from "./0033_learning_systems.sql";
 import m0034 from "./0034_learning_integration.sql";
 import m0035 from "./0035_learning_analytics.sql";
+import m0036 from "./0036_flash_deck_english_1000.sql";
+import m0037 from "./0037_flash_deck_interview_tech.sql";
 import journal from "./meta/_journal.json";
 
 export default {
@@ -77,5 +79,7 @@ export default {
     m0033,
     m0034,
     m0035,
+    m0036,
+    m0037,
   },
 };

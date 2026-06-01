@@ -77,3 +77,5 @@ export type FlashStudySessionRecord = {
 };
 
 export const DEFAULT_FLASH_DECK_ID = 'deck_default';
+
+export const INTERVIEW_TECH_DECK_ID = 'deck_interview_tech';

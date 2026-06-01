@@ -10,10 +10,6 @@ import { CityResourceService } from '@/features/city/services/city-resource-serv
 import { CityService } from '@/features/city/services/city-service';
 import { CityVitalityService } from '@/features/city/services/city-vitality-service';
 import { LexiconBrickService } from '@/features/city/services/lexicon-brick-service';
-import { LearningAnalyticsService } from '@/features/learning/services/learning-analytics-service';
-import { LearningIntegrationService } from '@/features/learning/services/learning-integration-service';
-import { LearningMissionBridge } from '@/features/learning/services/learning-mission-bridge';
-import { LemmaCompetenceService } from '@/features/learning/services/lemma-competence-service';
 import { CollectionBookService } from '@/features/collection-book/services/collection-book-service';
 import { ContractService } from '@/features/contracts/services/contract-service';
 import { EpicQuestService } from '@/features/epic-quests/services/epic-quest-service';
@@ -23,6 +19,10 @@ import { FocusModeService } from '@/features/focus-mode/services/focus-mode-serv
 import { FocusPetReactionService } from '@/features/focus-mode/services/focus-pet-reactions';
 import { BoosterModifierCache } from '@/features/game-design/services/booster-modifier-cache';
 import { InventoryService } from '@/features/inventory/services/inventory-service';
+import { LearningAnalyticsService } from '@/features/learning/services/learning-analytics-service';
+import { LearningIntegrationService } from '@/features/learning/services/learning-integration-service';
+import { LearningMissionBridge } from '@/features/learning/services/learning-mission-bridge';
+import { LemmaCompetenceService } from '@/features/learning/services/lemma-competence-service';
 import { MetagameService } from '@/features/metagame/services/metagame-service';
 import { NotificationService } from '@/features/notifications/services/notification-service';
 import { PetMemoryService } from '@/features/pet/services/pet-memory-service';
@@ -189,6 +189,9 @@ export const hydrateBackgroundServices = async (): Promise<void> => {
     PunishmentService.initialize(),
     CollectionBookService.initialize(),
     WishlistService.initialize(),
+    import('@/features/flash-deck/services/flash-deck-seed-service').then(({ FlashDeckSeedService }) =>
+      FlashDeckSeedService.initialize(),
+    ),
   ]);
 
   try {

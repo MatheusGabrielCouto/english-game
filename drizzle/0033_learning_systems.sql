@@ -123,11 +123,11 @@ INSERT OR IGNORE INTO flash_decks (
   created_at
 ) VALUES (
   'deck_default',
-  'Minhas palavras',
-  'Palavras que você quer lembrar',
-  '📒',
+  '1000 palavras essenciais',
+  'As palavras mais usadas em inglês — pronto para revisar',
+  '🌍',
   0,
-  10,
+  15,
   80,
   datetime('now')
 );

@@ -61,7 +61,7 @@ export type {
     DuelSessionRecord,
     DuelSessionStatus
 } from './duel';
-export { DEFAULT_FLASH_DECK_ID } from './flash-card';
+export { DEFAULT_FLASH_DECK_ID, INTERVIEW_TECH_DECK_ID } from './flash-card';
 export type {
     FlashCardRecord,
     FlashCardSource,

@@ -1,6 +1,7 @@
 export const FLASH_DECK_UI = {
   screenTitle: 'Baralho Vivo',
-  screenSubtitle: 'Palavras que você quer lembrar',
+  screenSubtitle: '1000 palavras essenciais + seus cadernos',
+  starterDeckName: '1000 palavras essenciais',
   emoji: '📒',
   dueCount: (count: number) =>
     count === 0
