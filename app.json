@@ -78,6 +78,35 @@
           "microphonePermission": "O English Quest precisa do microfone para gravar e transcrever notas de voz.",
           "speechRecognitionPermission": "O English Quest usa reconhecimento de fala para transcrever suas gravações em inglês."
         }
+      ],
+      [
+        "@react-native-community/datetimepicker",
+        {
+          "android": {
+            "timePicker": {
+              "background": {
+                "light": "#0f0f18",
+                "dark": "#0f0f18"
+              },
+              "headerBackground": {
+                "light": "#161622",
+                "dark": "#161622"
+              },
+              "numbersBackgroundColor": {
+                "light": "#0f0f18",
+                "dark": "#0f0f18"
+              },
+              "numbersTextColor": {
+                "light": "#fafafa",
+                "dark": "#fafafa"
+              },
+              "numbersSelectorColor": {
+                "light": "#8b5cf6",
+                "dark": "#8b5cf6"
+              }
+            }
+          }
+        }
       ]
     ],
     "experiments": {

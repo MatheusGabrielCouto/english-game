@@ -109,6 +109,21 @@ export const validateOptionalReward = (
   return { valid: true, error: null, normalized: String(amount), normalizedNumber: amount };
 };
 
+export const validateCustomRewardsPair = (
+  customXp: string,
+  customCoins: string,
+): { valid: boolean; error: string | null } => {
+  const hasXp = customXp.trim().length > 0;
+  const hasCoins = customCoins.trim().length > 0;
+  if (hasXp === hasCoins) {
+    return { valid: true, error: null };
+  }
+  return {
+    valid: false,
+    error: 'Informe XP e moedas juntas, ou deixe os dois vazios para usar o padrão.',
+  };
+};
+
 export type RoutineFormValidation = {
   valid: boolean;
   name: FieldValidation;
@@ -118,6 +133,7 @@ export type RoutineFormValidation = {
   duration: ReturnType<typeof validateOptionalDuration>;
   customXp: ReturnType<typeof validateOptionalReward>;
   customCoins: ReturnType<typeof validateOptionalReward>;
+  rewardsPair: ReturnType<typeof validateCustomRewardsPair>;
 };
 
 export const validateRoutineForm = (
@@ -139,6 +155,7 @@ export const validateRoutineForm = (
   const duration = validateOptionalDuration(values.expectedDurationMin);
   const customXp = validateOptionalReward(values.customXp, 'xp');
   const customCoins = validateOptionalReward(values.customCoins, 'coins');
+  const rewardsPair = validateCustomRewardsPair(values.customXp, values.customCoins);
 
   const valid =
     name.valid &&
@@ -147,7 +164,8 @@ export const validateRoutineForm = (
     weekdays.valid &&
     duration.valid &&
     customXp.valid &&
-    customCoins.valid;
+    customCoins.valid &&
+    rewardsPair.valid;
 
   return {
     valid,
@@ -158,5 +176,6 @@ export const validateRoutineForm = (
     duration,
     customXp,
     customCoins,
+    rewardsPair,
   };
 };

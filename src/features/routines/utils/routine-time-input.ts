@@ -74,3 +74,30 @@ export const formatReminderTimeForInput = (stored: string | null | undefined): s
   const result = validateReminderTime(stored);
   return result.normalized ?? maskReminderTimeInput(stored);
 };
+
+const DEFAULT_PICKER_HOURS = 9;
+const DEFAULT_PICKER_MINUTES = 0;
+
+/** Converte HH:MM (ou vazio) para Date usado no DateTimePicker nativo. */
+export const reminderTimeToDate = (value: string, fallback = new Date()): Date => {
+  const result = validateReminderTime(value);
+  const normalized = result.normalized;
+  const base = new Date(fallback);
+  base.setSeconds(0, 0);
+
+  if (!normalized) {
+    base.setHours(DEFAULT_PICKER_HOURS, DEFAULT_PICKER_MINUTES, 0, 0);
+    return base;
+  }
+
+  const [hours, minutes] = normalized.split(':').map(Number);
+  base.setHours(hours, minutes, 0, 0);
+  return base;
+};
+
+/** Converte Date do picker nativo para HH:MM. */
+export const dateToReminderTime = (date: Date): string => {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+};

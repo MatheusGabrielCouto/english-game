@@ -263,6 +263,33 @@ export const JournalRepository = {
     return Number(rows[0]?.count ?? 0);
   },
 
+  async getActiveEntryMetrics(): Promise<{
+    totalEntries: number;
+    totalVoiceNotes: number;
+    totalTextNotes: number;
+    totalVoiceMs: number;
+  }> {
+    const db = getDb();
+    const rows = await db
+      .select({
+        totalEntries: sql<number>`count(*)`,
+        totalVoiceNotes: sql<number>`sum(case when ${journalEntries.audioUri} is not null then 1 else 0 end)`,
+        totalVoiceMs: sql<number>`sum(coalesce(${journalEntries.audioDurationMs}, 0))`,
+      })
+      .from(journalEntries)
+      .where(eq(journalEntries.isArchived, false));
+
+    const totalEntries = Number(rows[0]?.totalEntries ?? 0);
+    const totalVoiceNotes = Number(rows[0]?.totalVoiceNotes ?? 0);
+
+    return {
+      totalEntries,
+      totalVoiceNotes,
+      totalTextNotes: Math.max(0, totalEntries - totalVoiceNotes),
+      totalVoiceMs: Number(rows[0]?.totalVoiceMs ?? 0),
+    };
+  },
+
   async getStats(): Promise<JournalStatsRecord> {
     const db = getDb();
     const rows = await db.select().from(journalStats).where(eq(journalStats.id, 1)).limit(1);

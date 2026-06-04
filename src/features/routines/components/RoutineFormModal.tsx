@@ -29,8 +29,6 @@ import {
 } from '../constants/routine-ui';
 import { RoutineService, type CreateRoutineInput } from '../services/routine-service';
 import {
-    validateOptionalDuration,
-    validateOptionalReward,
     validateRoutineDescription,
     validateRoutineForm,
     validateRoutineName,
@@ -40,11 +38,11 @@ import {
     frequencyRequiresWeekdays,
     frequencyShowsWeekdayPicker,
 } from '../utils/routine-weekdays';
-import { RoutineFormNumberField } from './RoutineFormNumberField';
 import { RoutineFormSection } from './RoutineFormSection';
 import { RoutineFormTextField } from './RoutineFormTextField';
 import { RoutineOptionSelect } from './RoutineOptionSelect';
 import { RoutineReminderTimeField } from './RoutineReminderTimeField';
+import { RoutineRewardsFields } from './RoutineRewardsFields';
 import { RoutineWeekdayPicker } from './RoutineWeekdayPicker';
 
 type RoutineFormModalProps = {
@@ -188,6 +186,7 @@ export const RoutineFormModal = ({
         formValidation.duration.error ??
         formValidation.customXp.error ??
         formValidation.customCoins.error ??
+        formValidation.rewardsPair.error ??
         'Revise os campos destacados';
       setError(firstError);
       return;
@@ -340,41 +339,21 @@ export const RoutineFormModal = ({
                 <RoutineFormSection
                   emoji="🎁"
                   title="Recompensas"
-                  hint="Opcional — vazio usa os valores padrão do jogo">
-                  <RoutineFormNumberField
-                    label={ROUTINE_UI.durationLabel}
-                    hint={ROUTINE_UI.durationHint}
-                    value={expectedDurationMin}
-                    onChange={setExpectedDurationMin}
-                    validate={validateOptionalDuration}
-                    placeholder={ROUTINE_UI.durationPlaceholder}
-                    maxDigits={3}
-                    suffix={ROUTINE_UI.durationSuffix}
-                    optionalDefaultHint={ROUTINE_UI.durationDefaultHint}
-                    forceShowError={submitAttempted}
-                  />
-
-                  <RoutineFormNumberField
-                    label={ROUTINE_UI.customXpLabel}
-                    hint={ROUTINE_UI.customXpHint}
-                    value={customXp}
-                    onChange={setCustomXp}
-                    validate={(v) => validateOptionalReward(v, 'xp')}
-                    placeholder={ROUTINE_UI.customXpPlaceholder}
-                    maxDigits={3}
-                    suffix={ROUTINE_UI.customXpSuffix}
-                    forceShowError={submitAttempted}
-                  />
-
-                  <RoutineFormNumberField
-                    label={ROUTINE_UI.customCoinsLabel}
-                    hint={ROUTINE_UI.customCoinsHint}
-                    value={customCoins}
-                    onChange={setCustomCoins}
-                    validate={(v) => validateOptionalReward(v, 'coins')}
-                    placeholder={ROUTINE_UI.customCoinsPlaceholder}
-                    maxDigits={3}
-                    suffix={ROUTINE_UI.customCoinsSuffix}
+                  hint="Veja o padrão do jogo ou defina valores próprios">
+                  <RoutineRewardsFields
+                    category={category}
+                    frequency={frequency}
+                    customXp={customXp}
+                    customCoins={customCoins}
+                    expectedDurationMin={expectedDurationMin}
+                    onChangeXp={setCustomXp}
+                    onChangeCoins={setCustomCoins}
+                    onChangeDuration={setExpectedDurationMin}
+                    rewardsPairError={
+                      submitAttempted && !formValidation.rewardsPair.valid
+                        ? formValidation.rewardsPair.error
+                        : null
+                    }
                     forceShowError={submitAttempted}
                   />
                 </RoutineFormSection>

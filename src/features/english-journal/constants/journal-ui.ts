@@ -86,7 +86,7 @@ export const JOURNAL_UI = {
   categoryLabel: 'Categoria',
   typeLabel: 'Tipo de registro',
   importanceLabel: 'Prioridade',
-  importanceHint: 'Escolha o quanto essa nota é urgente para você revisar',
+  importanceHint: 'Toque no nível — de referência até urgente',
   save: 'Salvar no journal',
   cancel: 'Cancelar',
   xpEarned: (xp: number) => `+${xp} XP`,

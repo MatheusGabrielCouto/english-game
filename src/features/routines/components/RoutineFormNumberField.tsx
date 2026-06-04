@@ -1,15 +1,16 @@
 import { useMemo, useState } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Pressable, Text, TextInput, View } from 'react-native';
 
 import { cn } from '@/utils';
 
 import { ROUTINE_FORM_INPUT } from '../constants/routine-form-limits';
+import { ROUTINE_UI } from '../constants/routine-ui';
 import type { FieldValidation } from '../utils/routine-form-input';
 import { maskDigitsInput } from '../utils/routine-form-input';
-import { RoutineFieldShell, routineInputBorderClass } from './RoutineFieldShell';
+import { routineInputBorderClass } from './RoutineFieldShell';
 
-const INPUT_BASE =
-  'w-full rounded-xl border bg-surface px-4 py-3 text-base text-foreground';
+const SUFFIX_SLOT_WIDTH = 40;
+const CLEAR_BUTTON_SIZE = 40;
 
 type RoutineFormNumberFieldProps = {
   label: string;
@@ -22,6 +23,9 @@ type RoutineFormNumberFieldProps = {
   suffix?: string;
   optionalDefaultHint?: string;
   forceShowError?: boolean;
+  /** Campos lado a lado (XP / moedas / min) — rótulo menor, sem rodapé de sucesso */
+  compact?: boolean;
+  showClear?: boolean;
 };
 
 export const RoutineFormNumberField = ({
@@ -35,6 +39,8 @@ export const RoutineFormNumberField = ({
   suffix,
   optionalDefaultHint,
   forceShowError = false,
+  compact = false,
+  showClear = true,
 }: RoutineFormNumberFieldProps) => {
   const [touched, setTouched] = useState(false);
 
@@ -44,7 +50,7 @@ export const RoutineFormNumberField = ({
     (forceShowError || touched) && !validation.valid && validation.error != null;
 
   const showSuccess =
-    touched && validation.valid && validation.normalized != null;
+    !compact && touched && validation.valid && validation.normalized != null;
 
   const handleChange = (raw: string) => {
     onChange(maskDigitsInput(raw, maxDigits));
@@ -56,42 +62,85 @@ export const RoutineFormNumberField = ({
   };
 
   const resolvedHint = hint ?? (value.length === 0 ? optionalDefaultHint : undefined);
+  const canClear = showClear && value.length > 0;
 
   return (
-    <RoutineFieldShell
-      label={label}
-      hint={resolvedHint}
-      error={showError ? validation.error : null}
-      footer={
-        showSuccess && validation.normalized
-          ? suffix
-            ? `${validation.normalized} ${suffix}`
-            : validation.normalized
-          : null
-      }
-      footerTone="success"
-      showClear={value.length > 0}
-      onClear={handleClear}>
-      <View className="relative w-full justify-center">
-        <TextInput
-          className={cn(INPUT_BASE, routineInputBorderClass(showError), suffix ? 'pr-14' : '')}
-          style={{ minHeight: 48 }}
-          value={value}
-          onChangeText={handleChange}
-          onBlur={() => setTouched(true)}
-          placeholder={placeholder}
-          placeholderTextColor={ROUTINE_FORM_INPUT.placeholderColor}
-          keyboardType="number-pad"
-          inputMode="numeric"
-          maxLength={maxDigits}
-          accessibilityLabel={label}
-        />
-        {suffix ? (
-          <View className="pointer-events-none absolute right-4">
-            <Text className="text-sm font-semibold text-muted">{suffix}</Text>
+    <View className={cn('w-full', compact && 'flex-1')}>
+      <Text
+        className={cn(
+          'font-semibold text-foreground',
+          compact ? 'text-center text-xs' : 'text-sm',
+        )}
+        numberOfLines={1}>
+        {label}
+      </Text>
+      {!compact && resolvedHint ? (
+        <Text className="mt-1 text-xs leading-4 text-foreground-secondary">{resolvedHint}</Text>
+      ) : null}
+
+      <View className={cn('w-full', compact ? 'mt-1.5' : 'mt-2')}>
+        <View className="flex-row items-center gap-1.5">
+          <View
+            className={cn(
+              'min-h-[48px] flex-1 flex-row items-center overflow-hidden rounded-xl border bg-surface',
+              routineInputBorderClass(showError),
+            )}>
+            <TextInput
+              className={cn(
+                'flex-1 px-3 py-3 text-foreground',
+                compact ? 'text-center font-semibold' : '',
+              )}
+              style={{ minHeight: 48 }}
+              value={value}
+              onChangeText={handleChange}
+              onBlur={() => setTouched(true)}
+              placeholder={placeholder}
+              placeholderTextColor={ROUTINE_FORM_INPUT.placeholderColor}
+              keyboardType="number-pad"
+              inputMode="numeric"
+              maxLength={maxDigits}
+              accessibilityLabel={label}
+            />
+            {suffix ? (
+              <View
+                style={{ width: SUFFIX_SLOT_WIDTH }}
+                className="items-center justify-center border-l border-border/50 px-1">
+                <Text className="text-[11px] font-bold text-muted" numberOfLines={1}>
+                  {suffix}
+                </Text>
+              </View>
+            ) : null}
           </View>
+
+          {showClear ? (
+            <Pressable
+              onPress={handleClear}
+              disabled={!canClear}
+              accessibilityRole="button"
+              accessibilityLabel={ROUTINE_UI.fieldClear}
+              accessibilityState={{ disabled: !canClear }}
+              style={{ width: CLEAR_BUTTON_SIZE, height: CLEAR_BUTTON_SIZE }}
+              className={cn(
+                'items-center justify-center rounded-xl border border-border bg-surface',
+                !canClear && 'opacity-0',
+              )}>
+              <Text className="text-base font-bold text-muted">✕</Text>
+            </Pressable>
+          ) : null}
+        </View>
+      </View>
+
+      <View className={cn(compact ? 'mt-1 min-h-[16px]' : 'mt-1.5 min-h-[18px]')}>
+        {showError ? (
+          <Text className="text-[10px] leading-3 text-danger" numberOfLines={2}>
+            {validation.error}
+          </Text>
+        ) : showSuccess && validation.normalized ? (
+          <Text className="text-xs text-success">
+            {suffix ? `${validation.normalized} ${suffix}` : validation.normalized}
+          </Text>
         ) : null}
       </View>
-    </RoutineFieldShell>
+    </View>
   );
 };

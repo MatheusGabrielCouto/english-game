@@ -237,6 +237,19 @@ export const VaultRepository = {
     return rows.map((r) => r.otherId).filter((id) => id !== entryId);
   },
 
+  async purgeEntryRelations(entryId: string): Promise<void> {
+    const db = getDb();
+    await db.delete(journalEntryCollections).where(eq(journalEntryCollections.entryId, entryId));
+    await db
+      .delete(journalEntryLinks)
+      .where(
+        or(
+          eq(journalEntryLinks.fromEntryId, entryId),
+          eq(journalEntryLinks.toEntryId, entryId),
+        ),
+      );
+  },
+
   async countConnections(): Promise<number> {
     const db = getDb();
     const rows = await db.select({ count: sql<number>`count(*)` }).from(journalEntryLinks);

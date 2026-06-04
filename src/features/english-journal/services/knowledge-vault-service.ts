@@ -38,8 +38,7 @@ import {
     scheduleNextReviewAfterStage,
 } from '../utils/journal-review';
 import { buildKnowledgeGraph } from '../utils/vault-graph-builder';
-import { buildFilteredMindMapTree, type MindMapSnapshot } from '../utils/vault-map-builder';
-import { buildVaultMapTree } from '../utils/vault-map-builder';
+import { buildFilteredMindMapTree, buildVaultMapTree, type MindMapSnapshot } from '../utils/vault-map-builder';
 import { applyKnowledgePoints, VAULT_KP } from '../utils/vault-progress';
 import { deleteJournalAudioFile, persistJournalRecording } from './journal-audio-storage';
 
@@ -99,13 +98,18 @@ const enrichEntry = async (entry: JournalEntryRecord): Promise<VaultEntryRecord>
 };
 
 const syncStatsAggregates = async (stats: JournalStatsRecord): Promise<JournalStatsRecord> => {
-  const [connections, collections] = await Promise.all([
+  const [connections, collections, entryMetrics] = await Promise.all([
     VaultRepository.countConnections(),
     VaultRepository.countCollections(),
+    JournalRepository.getActiveEntryMetrics(),
   ]);
   const next = applyKnowledgePoints(
     {
       ...stats,
+      totalEntries: entryMetrics.totalEntries,
+      totalVoiceNotes: entryMetrics.totalVoiceNotes,
+      totalTextNotes: entryMetrics.totalTextNotes,
+      totalVoiceMs: entryMetrics.totalVoiceMs,
       totalConnections: connections,
       totalCollections: collections,
     },
@@ -575,6 +579,8 @@ export const KnowledgeVaultService = {
       isArchived: true,
       updatedAt: new Date().toISOString(),
     });
+    const stats = await JournalRepository.getStats();
+    await syncStatsAggregates(stats);
     await refreshStore();
   },
 
@@ -582,7 +588,10 @@ export const KnowledgeVaultService = {
     const entry = await JournalRepository.findById(id);
     if (!entry) return;
     await deleteJournalAudioFile(entry.audioUri);
+    await VaultRepository.purgeEntryRelations(id);
     await JournalRepository.delete(id);
+    const stats = await JournalRepository.getStats();
+    await syncStatsAggregates(stats);
     await refreshStore();
   },
 
