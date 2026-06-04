@@ -4,11 +4,11 @@ import { View } from 'react-native';
 
 import { ScreenContainer, ScreenHeader } from '@/components/layout';
 import {
-  ShopPurchaseModal,
-  ShopScreenContent,
-  ShopSpPurchaseModal,
-  useShop,
-  useShopScreenStore,
+    ShopPurchaseModal,
+    ShopScreenContent,
+    ShopSpPurchaseModal,
+    useShop,
+    useShopScreenStore,
 } from '@/features/shop';
 
 export default function ShopScreen() {
@@ -32,11 +32,7 @@ export default function ShopScreen() {
   return (
     <View style={{ flex: 1 }}>
       <ScreenContainer scrollable>
-        <ScreenHeader
-          title="Loja"
-          subtitle="Moedas, Study Points e upgrades"
-          emoji="🛒"
-        />
+        <ScreenHeader title="Loja" subtitle="Moedas, Study Points e upgrades" emoji="🛒" />
         <ShopScreenContent shop={shop} />
       </ScreenContainer>
       <ShopPurchaseModal shop={shop} />

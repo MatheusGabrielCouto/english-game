@@ -8,12 +8,15 @@ import { reconcileCareerMetagameSchema } from './reconcile-career-metagame-schem
 import { reconcileCityEventsSchema } from './reconcile-city-events-schema';
 import { reconcileCityPolishSchema } from './reconcile-city-polish-schema';
 import { reconcileContractRunsSchema } from './reconcile-contract-runs-schema';
+import { reconcileEnglishJournalSchema } from './reconcile-english-journal-schema';
 import { reconcileFocusModeSchema } from './reconcile-focus-mode-schema';
 import { reconcileGameDesignSchema } from './reconcile-game-design-schema';
+import { reconcileKnowledgeVaultSchema } from './reconcile-knowledge-vault-schema';
 import { reconcileLearningSystemsSchema } from './reconcile-learning-systems-schema';
 import { reconcileLivingCitySchema } from './reconcile-living-city-schema';
 import { reconcileMemoryWallSchema } from './reconcile-memory-wall-schema';
 import { reconcileNotificationsSchema } from './reconcile-notifications-schema';
+import { reconcileUserRoutinesSchema } from './reconcile-user-routines-schema';
 import { reconcileWeeklyMissionsSchema } from './reconcile-weekly-missions-schema';
 import {
     buildMigrationEntriesFromBundle,
@@ -41,6 +44,9 @@ const repairSchema = (sqlite: ReturnType<typeof openDatabaseSync>): void => {
   reconcileMemoryWallSchema(sqlite);
   reconcileLearningSystemsSchema(sqlite);
   reconcileContractRunsSchema(sqlite);
+  reconcileUserRoutinesSchema(sqlite);
+  reconcileEnglishJournalSchema(sqlite);
+  reconcileKnowledgeVaultSchema(sqlite);
 };
 
 export const getDb = (): AppDatabase => {

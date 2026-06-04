@@ -1,9 +1,11 @@
+import { LEMMA_POOL } from '@/data/loaders/lemma-pool';
+import { VOCAB_PACKS_BY_KEY } from '@/data/loaders/vocab-packs';
 import {
     DAILY_FARM_COIN_CAP,
     DAILY_FARM_SOFT_CAP,
     FARM_ACTIVITY_BY_KEY,
+    FARM_BASE_MULTIPLIER,
     FARM_MANUAL_ACTION_COOLDOWN_MS,
-    FARM_MISSION_BONUS_MULTIPLIER,
     FARM_POST_MISSION_MULTIPLIER,
 } from '@/features/game-design/catalogs/farm-catalog';
 import { pickDeterministicSubset } from '@/features/game-design/utils/reward-scaling';
@@ -12,8 +14,6 @@ import { useMissionsStore } from '@/features/quests/store/missions-store';
 import { getTodayKey } from '@/features/quests/utils/date';
 import { StudyPointsService } from '@/features/study-points/services/study-points-service';
 import { GameEvents } from '@/services/game-events';
-import { LEMMA_POOL } from '@/data/loaders/lemma-pool';
-import { VOCAB_PACKS_BY_KEY } from '@/data/loaders/vocab-packs';
 import {
     getFarmStatsSince,
     getRecentFarmSessions,
@@ -23,8 +23,8 @@ import {
 } from '@/storage/repositories/farm-repository';
 import { FarmActivityType, type FarmActivityTypeValue } from '@/types/farm';
 
-import { useFarmStore } from '../store/farm-store';
 import { CityEventScheduler } from '@/features/city/services/city-event-scheduler';
+import { useFarmStore } from '../store/farm-store';
 
 let manualRecordInFlight = false;
 
@@ -37,7 +37,7 @@ const areDailyMissionsComplete = (): boolean => {
 };
 
 const computeMultiplier = (): number =>
-  areDailyMissionsComplete() ? FARM_POST_MISSION_MULTIPLIER : FARM_MISSION_BONUS_MULTIPLIER;
+  areDailyMissionsComplete() ? FARM_POST_MISSION_MULTIPLIER : FARM_BASE_MULTIPLIER;
 
 export const getManualFarmCooldownRemainingMs = (): number => {
   const endsAt = useFarmStore.getState().manualCooldownEndsAt;

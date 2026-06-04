@@ -10,17 +10,21 @@ import {
     LearningOutcomePanel,
     LearningProgressHeader,
 } from '@/features/learning/components/ui';
-import { DEFAULT_FLASH_DECK_ID } from '@/types/flash-card';
-
 import { FLASH_DECK_UI } from '../constants/flash-deck-ui';
 import { FlashDeckService } from '../services/flash-deck-service';
 import { useFlashDeckStore } from '../store/flash-deck-store';
+import {
+    loadFlashReviewQueue,
+    resolveFlashReviewParams,
+    sessionDeckIdForReview,
+} from '../utils/flash-deck-review-scope';
 
 const PATENT = 'tourist' as const;
 
 export const FlashDeckMcqReviewContent = () => {
-  const { deckId: deckIdParam } = useLocalSearchParams<{ deckId?: string }>();
-  const deckId = deckIdParam?.trim() || DEFAULT_FLASH_DECK_ID;
+  const params = useLocalSearchParams<{ deckId?: string; scope?: string }>();
+  const { scope, deckId } = resolveFlashReviewParams(params);
+  const refresh = useFlashDeckStore((s) => s.refresh);
   const refreshDeck = useFlashDeckStore((s) => s.refreshDeck);
 
   const [loading, setLoading] = useState(true);
@@ -32,13 +36,14 @@ export const FlashDeckMcqReviewContent = () => {
 
   useEffect(() => {
     void (async () => {
-      const due = await FlashDeckService.listDueCards(deckId);
-      const session = await FlashDeckService.startStudySession(deckId);
+      const due = await loadFlashReviewQueue(scope, deckId);
+      const sessionDeckId = sessionDeckIdForReview(scope, deckId, due);
+      const session = await FlashDeckService.startStudySession(sessionDeckId);
       setQueue(due);
       setSessionId(session);
       setLoading(false);
     })();
-  }, [deckId]);
+  }, [deckId, scope]);
 
   const current = queue[index] ?? null;
   const mcq = current
@@ -67,9 +72,14 @@ export const FlashDeckMcqReviewContent = () => {
 
   useEffect(() => {
     if (!loading && index >= queue.length && sessionId) {
-      void FlashDeckService.completeStudySession(sessionId, index).then(() => refreshDeck(deckId));
+      void FlashDeckService.completeStudySession(sessionId, index).then(async () => {
+        await refresh();
+        if (scope === 'deck') {
+          await refreshDeck(deckId);
+        }
+      });
     }
-  }, [loading, index, queue.length, sessionId, deckId, refreshDeck]);
+  }, [loading, index, queue.length, sessionId, deckId, refresh, refreshDeck, scope]);
 
   if (loading) {
     return (

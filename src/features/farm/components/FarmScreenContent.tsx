@@ -105,8 +105,8 @@ export const FarmScreenContent = () => {
       <GameCard variant="hero" glow>
         <Text className="text-xs font-bold uppercase tracking-widest text-primary">🌾 Farm Infinito</Text>
         <Text className="mt-1 text-sm text-foreground-secondary">
-          Continue estudando após as missões e ganhe Study Points + moedas. Vocabulário e speaking
-          também alimentam a cidade (tijolos e cimento no mapa).
+          Continue estudando após as missões e ganhe Study Points + moedas. Com as dailies
+          completas, você ganha +35% no farm. Vocabulário e speaking também alimentam a cidade.
         </Text>
         <View className="mt-4 flex-row gap-2">
           <StatPill label="Study Points" value={balance?.balance ?? 0} emoji="⚡" tone="accent" />

@@ -1,15 +1,15 @@
 import { STAGE_CONFIG, STAGE_ORDER } from '@/features/pet/constants';
 import { getRequiredXP } from '@/features/player/utils/xp';
-import type { PetStageValue } from '@/types/pet';
 import {
-  AchievementCategory,
-  AchievementStatus,
-  type AchievementDefinition,
-  type AchievementMetricType,
-  type AchievementProgress,
-  type AchievementStatsRecord,
-  type AchievementTarget,
+    AchievementCategory,
+    AchievementStatus,
+    type AchievementDefinition,
+    type AchievementMetricType,
+    type AchievementProgress,
+    type AchievementStatsRecord,
+    type AchievementTarget,
 } from '@/types/achievement';
+import type { PetStageValue } from '@/types/pet';
 
 export type AchievementMetricsSnapshot = {
   totalStudyDays: number;
@@ -57,6 +57,16 @@ export const getMetricValue = (
       return snapshot.stats.totalDuelWins;
     case 'total_flash_reviews':
       return snapshot.stats.totalFlashReviews;
+    case 'total_routines_completed':
+      return snapshot.stats.totalRoutinesCompleted;
+    case 'total_journal_entries':
+      return snapshot.stats.totalJournalEntries;
+    case 'total_journal_voice_notes':
+      return snapshot.stats.totalJournalVoiceNotes;
+    case 'total_journal_reviews':
+      return snapshot.stats.totalJournalReviews;
+    case 'total_journal_connections':
+      return snapshot.stats.totalJournalConnections;
     default:
       return 0;
   }

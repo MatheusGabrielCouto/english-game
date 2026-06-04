@@ -7,17 +7,17 @@ import type { BackupExportResult, GameBackupFile } from '@/types/backup';
 
 import { BACKUP_MESSAGES, BACKUP_MIME_TYPE } from '../constants/backup-tables';
 import {
-  buildGameBackupFile,
-  createBackupFileName,
-  serializeBackupFile,
+    buildGameBackupFile,
+    createBackupFileName,
+    serializeBackupFile,
 } from './backup-export-service';
 
 const resolveAppVersion = (): string =>
   Constants.expoConfig?.version ?? Constants.nativeAppVersion ?? '1.0.0';
 
 export const BackupService = {
-  createSnapshot(): GameBackupFile {
-    const file = buildGameBackupFile({
+  async createSnapshot(): Promise<GameBackupFile> {
+    const file = await buildGameBackupFile({
       appVersion: resolveAppVersion(),
       platform: Platform.OS,
     });
@@ -31,7 +31,7 @@ export const BackupService = {
 
   async exportAndShare(): Promise<BackupExportResult> {
     try {
-      const file = BackupService.createSnapshot();
+      const file = await BackupService.createSnapshot();
 
       if (!FileSystem.cacheDirectory) {
         return {

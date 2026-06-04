@@ -13,6 +13,7 @@ import { WeeklyQuestsSection } from '@/features/weekly-quests'
 import { MissionCard } from './MissionCard'
 import { QuestSectionHeader } from './QuestSectionHeader'
 import { QuestsDailySummary } from './QuestsDailySummary'
+import { QuestsRoutinesBanner } from './QuestsRoutinesBanner'
 
 export const QuestsScreenContent = () => {
   const missions = useMissionsStore((s) => s.missions)
@@ -65,6 +66,7 @@ export const QuestsScreenContent = () => {
 
   return (
     <View className="gap-6 pb-4">
+      <QuestsRoutinesBanner />
       <QuestsDailySummary missions={missions} />
 
       {currentStreak > 0 ? (

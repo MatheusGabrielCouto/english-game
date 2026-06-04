@@ -8,7 +8,7 @@ import type { BackupRestoreResult, BackupValidationResult, GameBackupFile } from
 import { BACKUP_MESSAGES, BACKUP_MIME_TYPE } from '../constants/backup-tables';
 import { buildBackupPreview } from '../utils/backup-preview';
 import { BackupAnalyticsService } from './backup-analytics-service';
-import { restoreBackupTables } from './backup-restore-service';
+import { restoreBackupSideEffects, restoreBackupTables } from './backup-restore-service';
 import { validateBackupJson } from './backup-validation-service';
 
 let validatedFile: GameBackupFile | null = null;
@@ -92,6 +92,7 @@ export const BackupRestoreService = {
     try {
       await initDatabase();
       restoreBackupTables(file);
+      await restoreBackupSideEffects(file);
       await refreshApplicationAfterRestore();
 
       await BackupAnalyticsService.recordRestoreCompleted(

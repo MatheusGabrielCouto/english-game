@@ -4,13 +4,20 @@ import { AppIcon, type AppIconName } from '@/components/ui/AppIcon';
 import { theme } from '@/constants';
 import { cn } from '@/utils';
 
-type StatPillProps = {
+export type StatPillProps = {
   icon?: AppIconName;
   emoji?: string;
   label: string;
   value: string | number;
   tone?: 'primary' | 'accent' | 'gold' | 'warning' | 'success';
+  /** stretch = equal width in a row; tile = fixed ~half width for flex-wrap grids */
+  layout?: 'stretch' | 'tile';
   className?: string;
+};
+
+const layoutStyles: Record<NonNullable<StatPillProps['layout']>, string> = {
+  stretch: 'min-w-0 flex-1',
+  tile: 'shrink-0 grow-0',
 };
 
 const toneContainerStyles = {
@@ -43,16 +50,24 @@ export const StatPill = ({
   label,
   value,
   tone = 'primary',
+  layout = 'stretch',
   className,
 }: StatPillProps) => (
-  <View className={cn('flex-1 rounded-xl border px-3 py-2.5', toneContainerStyles[tone], className)}>
-    <View className="flex-row items-center gap-1.5">
+  <View
+    className={cn('rounded-xl border px-3 py-2.5', layoutStyles[layout], toneContainerStyles[tone], className)}
+  >
+    <View className="flex-row flex-wrap items-center gap-1.5">
       {emoji ? <Text className="text-sm">{emoji}</Text> : null}
       {icon ? <AppIcon name={icon} size={14} color={iconColors[tone]} /> : null}
-      <Text className="text-[10px] font-semibold uppercase tracking-wide text-foreground-secondary">
+      <Text
+        className="shrink text-[10px] font-semibold uppercase tracking-wide text-foreground-secondary"
+        numberOfLines={2}
+      >
         {label}
       </Text>
     </View>
-    <Text className={cn('mt-1 text-lg font-black', toneTextStyles[tone])}>{value}</Text>
+    <Text className={cn('mt-1 text-lg font-black', toneTextStyles[tone])} numberOfLines={1}>
+      {value}
+    </Text>
   </View>
 );

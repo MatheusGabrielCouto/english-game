@@ -11,6 +11,11 @@ const DEFAULT_STATS: AchievementStatsRecord = {
   totalLootBoxesOpened: 0,
   totalDuelWins: 0,
   totalFlashReviews: 0,
+  totalRoutinesCompleted: 0,
+  totalJournalEntries: 0,
+  totalJournalVoiceNotes: 0,
+  totalJournalReviews: 0,
+  totalJournalConnections: 0,
 };
 
 const mapRow = (row: typeof achievementStats.$inferSelect): AchievementStatsRecord => ({
@@ -19,6 +24,11 @@ const mapRow = (row: typeof achievementStats.$inferSelect): AchievementStatsReco
   totalLootBoxesOpened: row.totalLootBoxesOpened,
   totalDuelWins: row.totalDuelWins ?? 0,
   totalFlashReviews: row.totalFlashReviews ?? 0,
+  totalRoutinesCompleted: row.totalRoutinesCompleted ?? 0,
+  totalJournalEntries: row.totalJournalEntries ?? 0,
+  totalJournalVoiceNotes: row.totalJournalVoiceNotes ?? 0,
+  totalJournalReviews: row.totalJournalReviews ?? 0,
+  totalJournalConnections: row.totalJournalConnections ?? 0,
 });
 
 export const AchievementStatsRepository = {
@@ -35,6 +45,11 @@ export const AchievementStatsRepository = {
       totalLootBoxesOpened: DEFAULT_STATS.totalLootBoxesOpened,
       totalDuelWins: DEFAULT_STATS.totalDuelWins,
       totalFlashReviews: DEFAULT_STATS.totalFlashReviews,
+      totalRoutinesCompleted: DEFAULT_STATS.totalRoutinesCompleted,
+      totalJournalEntries: DEFAULT_STATS.totalJournalEntries,
+      totalJournalVoiceNotes: DEFAULT_STATS.totalJournalVoiceNotes,
+      totalJournalReviews: DEFAULT_STATS.totalJournalReviews,
+      totalJournalConnections: DEFAULT_STATS.totalJournalConnections,
     });
 
     return DEFAULT_STATS;
@@ -51,6 +66,11 @@ export const AchievementStatsRepository = {
         totalLootBoxesOpened: record.totalLootBoxesOpened,
         totalDuelWins: record.totalDuelWins,
         totalFlashReviews: record.totalFlashReviews,
+        totalRoutinesCompleted: record.totalRoutinesCompleted,
+        totalJournalEntries: record.totalJournalEntries,
+        totalJournalVoiceNotes: record.totalJournalVoiceNotes,
+        totalJournalReviews: record.totalJournalReviews,
+        totalJournalConnections: record.totalJournalConnections,
       })
       .onConflictDoUpdate({
         target: achievementStats.id,
@@ -60,6 +80,11 @@ export const AchievementStatsRepository = {
           totalLootBoxesOpened: record.totalLootBoxesOpened,
           totalDuelWins: record.totalDuelWins,
           totalFlashReviews: record.totalFlashReviews,
+          totalRoutinesCompleted: record.totalRoutinesCompleted,
+          totalJournalEntries: record.totalJournalEntries,
+          totalJournalVoiceNotes: record.totalJournalVoiceNotes,
+          totalJournalReviews: record.totalJournalReviews,
+          totalJournalConnections: record.totalJournalConnections,
         },
       });
   },
@@ -111,6 +136,56 @@ export const AchievementStatsRepository = {
     const next = {
       ...stats,
       totalFlashReviews: stats.totalFlashReviews + amount,
+    };
+    await AchievementStatsRepository.save(next);
+    return next;
+  },
+
+  async incrementRoutines(amount = 1): Promise<AchievementStatsRecord> {
+    const stats = await AchievementStatsRepository.getOrCreate();
+    const next = {
+      ...stats,
+      totalRoutinesCompleted: stats.totalRoutinesCompleted + amount,
+    };
+    await AchievementStatsRepository.save(next);
+    return next;
+  },
+
+  async incrementJournalEntries(amount = 1): Promise<AchievementStatsRecord> {
+    const stats = await AchievementStatsRepository.getOrCreate();
+    const next = {
+      ...stats,
+      totalJournalEntries: stats.totalJournalEntries + amount,
+    };
+    await AchievementStatsRepository.save(next);
+    return next;
+  },
+
+  async incrementJournalVoiceNotes(amount = 1): Promise<AchievementStatsRecord> {
+    const stats = await AchievementStatsRepository.getOrCreate();
+    const next = {
+      ...stats,
+      totalJournalVoiceNotes: stats.totalJournalVoiceNotes + amount,
+    };
+    await AchievementStatsRepository.save(next);
+    return next;
+  },
+
+  async incrementJournalReviews(amount = 1): Promise<AchievementStatsRecord> {
+    const stats = await AchievementStatsRepository.getOrCreate();
+    const next = {
+      ...stats,
+      totalJournalReviews: stats.totalJournalReviews + amount,
+    };
+    await AchievementStatsRepository.save(next);
+    return next;
+  },
+
+  async incrementJournalConnections(amount = 1): Promise<AchievementStatsRecord> {
+    const stats = await AchievementStatsRepository.getOrCreate();
+    const next = {
+      ...stats,
+      totalJournalConnections: stats.totalJournalConnections + amount,
     };
     await AchievementStatsRepository.save(next);
     return next;

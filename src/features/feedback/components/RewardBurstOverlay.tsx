@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import Animated, {
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withTiming,
+    runOnJS,
+    useAnimatedStyle,
+    useSharedValue,
+    withDelay,
+    withTiming,
 } from 'react-native-reanimated';
 
 import { AppIcon } from '@/components/ui/AppIcon';
@@ -26,20 +26,35 @@ const RewardBurstItem = ({ burst, index, onDone }: RewardBurstItemProps) => {
 
   useEffect(() => {
     const delay = index * 80;
+    const lifetimeMs = 2200 + delay;
+    let removed = false;
+
+    const finishBurst = () => {
+      if (removed) return;
+      removed = true;
+      onDone(burst.id);
+    };
+
     opacity.value = withDelay(delay, withTiming(1, { duration: 200 }));
     translateY.value = withDelay(delay, withTiming(0, { duration: 350 }));
     scale.value = withDelay(delay, withTiming(1, { duration: 350 }));
 
-    const timeout = setTimeout(() => {
+    const fadeTimeout = setTimeout(() => {
       opacity.value = withTiming(0, { duration: 300 }, (finished) => {
         if (finished) {
-          runOnJS(onDone)(burst.id);
+          runOnJS(finishBurst)();
         }
       });
       translateY.value = withTiming(-30, { duration: 300 });
-    }, 2200 + delay);
+    }, lifetimeMs);
 
-    return () => clearTimeout(timeout);
+    const fallbackTimeout = setTimeout(finishBurst, lifetimeMs + 500);
+
+    return () => {
+      removed = true;
+      clearTimeout(fadeTimeout);
+      clearTimeout(fallbackTimeout);
+    };
   }, [burst.id, index, onDone, opacity, scale, translateY]);
 
   const style = useAnimatedStyle(() => ({

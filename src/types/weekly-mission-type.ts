@@ -6,6 +6,8 @@ export const WeeklyMissionType = {
   SPEAKING_SESSIONS: 'SPEAKING_SESSIONS',
   DUEL_WINS: 'DUEL_WINS',
   FLASH_REVIEWS: 'FLASH_REVIEWS',
+  JOURNAL_ENTRIES: 'JOURNAL_ENTRIES',
+  JOURNAL_REVIEWS: 'JOURNAL_REVIEWS',
 } as const;
 
 export type WeeklyMissionType =

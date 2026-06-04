@@ -3,12 +3,14 @@ import { Platform } from 'react-native';
 import { useAchievementsStore } from '@/features/achievements/store/achievements-store';
 import { useCityStore } from '@/features/city/store/city-store';
 import { useContractsStore } from '@/features/contracts/store/contracts-store';
+import { useEnglishJournalStore } from '@/features/english-journal/store/english-journal-store';
 import { useFarmStore } from '@/features/farm/store/farm-store';
 import { useFlashDeckStore } from '@/features/flash-deck/store/flash-deck-store';
 import { useFocusModeStore } from '@/features/focus-mode/store/focus-mode-store';
 import { InventoryService } from '@/features/inventory/services/inventory-service';
 import { useMetagameStore } from '@/features/metagame/store/metagame-store';
 import { usePlayerStore } from '@/features/player';
+import { useRoutinesStore } from '@/features/routines/store/routines-store';
 import { useTitlesStore } from '@/features/titles/store/titles-store';
 
 import type { ExploreItemId } from '../constants/profile-explore-catalog';
@@ -31,6 +33,8 @@ export const useExploreBadges = (): Record<ExploreItemId, ExploreBadge> => {
   const activeContract = useContractsStore((s) => s.activeContract);
   const todayStudyPoints = useFarmStore((s) => s.todayStudyPoints);
   const flashDueCount = useFlashDeckStore((s) => s.totalDueCount);
+  const pendingRoutines = useRoutinesStore((s) => s.pendingToday.length);
+  const journalDueReviews = useEnglishJournalStore((s) => s.dueReviews.length);
   const activeFocus = useFocusModeStore((s) => s.activeSession);
   const claimableSeasonTiers = useMetagameStore((s) => s.claimableSeasonTiers);
 
@@ -66,6 +70,14 @@ export const useExploreBadges = (): Record<ExploreItemId, ExploreBadge> => {
       todayStudyPoints > 0
         ? { label: `+${todayStudyPoints} SP`, tone: 'reward' }
         : { label: 'Coletar', tone: 'quest' },
+    routines:
+      pendingRoutines > 0
+        ? { label: `${pendingRoutines} hoje`, tone: 'quest' }
+        : { label: 'Hábitos', tone: 'default' },
+    'english-journal':
+      journalDueReviews > 0
+        ? { label: `${journalDueReviews} revisar`, tone: 'quest' }
+        : { label: 'Cofre', tone: 'default' },
     'flash-deck':
       flashDueCount > 0
         ? { label: `${flashDueCount} na mesa`, tone: 'quest' }

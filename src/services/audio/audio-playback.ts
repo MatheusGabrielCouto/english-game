@@ -62,6 +62,51 @@ export const configureAudioMode = async (): Promise<void> => {
   }
 }
 
+export const playAudioUri = async (
+  uri: string,
+  onFinished?: () => void,
+): Promise<AudioPlayer | null> => {
+  if (!(await ensureAudioNative()) || !expoAudioModule) return null
+
+  let player: AudioPlayer | null = null
+  let subscription: { remove: () => void } | null = null
+  let finished = false
+
+  const finish = () => {
+    if (finished) return
+    finished = true
+    subscription?.remove()
+    try {
+      player?.remove()
+    } catch {
+      // already released
+    }
+    player = null
+    onFinished?.()
+  }
+
+  const safetyTimeout = setTimeout(finish, 120_000)
+
+  try {
+    player = expoAudioModule.createAudioPlayer({ uri })
+    subscription = player.addListener('playbackStatusUpdate', (status) => {
+      if (status.didJustFinish) {
+        clearTimeout(safetyTimeout)
+        finish()
+      }
+    })
+    player.play()
+    return player
+  } catch (error) {
+    clearTimeout(safetyTimeout)
+    finish()
+    AppLogService.warn('audio.play_uri_failed', 'Failed to play journal audio', {
+      message: error instanceof Error ? error.message : String(error),
+    })
+    return null
+  }
+}
+
 export const playSoundAsset = async (
   source: number,
   volume: number,

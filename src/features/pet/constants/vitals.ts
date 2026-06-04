@@ -24,4 +24,8 @@ export const PET_VITAL_STUDY_BONUS = {
   STUDY_DAY: { hunger: 12, energy: 8, motivation: 6, happiness: 5 },
   FOCUS_SESSION: { hunger: 6, energy: 10, motivation: 8, happiness: 4 },
   DAILY_MISSION: { hunger: 4, energy: 5, motivation: 4, happiness: 3 },
+  ROUTINE_COMPLETED: { hunger: 3, energy: 4, motivation: 5, happiness: 6 },
+  JOURNAL_ENTRY: { hunger: 2, energy: 3, motivation: 4, happiness: 5 },
+  JOURNAL_REVIEW: { hunger: 1, energy: 2, motivation: 3, happiness: 4 },
+  ROUTINE_MISSED: { hunger: 0, energy: -2, motivation: -3, happiness: -4 },
 } as const;

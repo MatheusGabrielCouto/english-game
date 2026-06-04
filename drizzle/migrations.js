@@ -38,6 +38,9 @@ import m0034 from "./0034_learning_integration.sql";
 import m0035 from "./0035_learning_analytics.sql";
 import m0036 from "./0036_flash_deck_english_1000.sql";
 import m0037 from "./0037_flash_deck_interview_tech.sql";
+import m0038 from "./0038_user_routines.sql";
+import m0039 from "./0039_english_journal.sql";
+import m0040 from "./0040_knowledge_vault.sql";
 import journal from "./meta/_journal.json";
 
 export default {
@@ -81,5 +84,8 @@ export default {
     m0035,
     m0036,
     m0037,
+    m0038,
+    m0039,
+    m0040,
   },
 };

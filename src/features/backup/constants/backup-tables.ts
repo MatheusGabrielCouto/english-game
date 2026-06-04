@@ -1,22 +1,34 @@
-export const BACKUP_FORMAT_VERSION = 1;
+export const BACKUP_FORMAT_VERSION = 2
 
-export const BACKUP_APP_ID = 'english-quest';
+export const BACKUP_APP_ID = 'english-quest'
 
-export const BACKUP_FILE_EXTENSION = '.json';
+export const BACKUP_FILE_EXTENSION = '.json'
 
-export const BACKUP_MIME_TYPE = 'application/json';
+export const BACKUP_MIME_TYPE = 'application/json'
 
-/** SQLite tables included in every backup snapshot (Fase 18 restore). */
+/** Diário / Knowledge Vault — não entra no backup (dados locais separados). */
+export const BACKUP_VAULT_TABLE_NAMES = [
+  'journal_entries',
+  'journal_folders',
+  'journal_entry_links',
+  'journal_collections',
+  'journal_entry_collections',
+  'journal_stats',
+] as const
+
+/** SQLite tables included in every backup snapshot. */
 export const BACKUP_TABLE_NAMES = [
   'player',
   'app_settings',
-  'daily_missions',
-  'weekly_missions',
-  'weekly_missions_history',
+  'player_rpg',
   'study_days',
   'shield_usage_history',
   'shield_stats',
   'shield_milestones_claimed',
+  'daily_missions',
+  'weekly_missions',
+  'weekly_missions_history',
+  'epic_mission_progress',
   'pets',
   'pet_memories',
   'pet_analytics',
@@ -40,8 +52,17 @@ export const BACKUP_TABLE_NAMES = [
   'city_districts',
   'city_pois',
   'city_map_state',
+  'city_poi_visits',
+  'city_resources',
+  'city_poi_projects',
+  'city_poi_project_slot_progress',
+  'city_resource_delivery_caps',
   'city_poi_missions',
+  'city_poi_chain_progress',
+  'city_event_state',
   'city_analytics',
+  'lemma_mastery',
+  'lexicon_bricks',
   'contract_runs',
   'contract_analytics',
   'player_statistics',
@@ -52,14 +73,25 @@ export const BACKUP_TABLE_NAMES = [
   'career_events',
   'metagame_state',
   'legacy_milestones',
-  'player_rpg',
-  'epic_mission_progress',
   'active_boosters',
   'study_points',
   'study_points_history',
   'collection_book',
   'wishlist',
   'farm_sessions',
+  'user_routines',
+  'routine_completions',
+  'routine_stats',
+  'learning_app_state',
+  'learning_analytics',
+  'flash_decks',
+  'flash_cards',
+  'flash_review_log',
+  'flash_study_sessions',
+  'duel_player_profile',
+  'duel_sessions',
+  'duel_session_questions',
+  'lemma_competence',
   'focus_settings',
   'focus_blocked_apps',
   'focus_sessions',
@@ -69,9 +101,12 @@ export const BACKUP_TABLE_NAMES = [
   'punishment_history',
   'punishment_analytics',
   '__drizzle_migrations',
-] as const;
+] as const
 
-export type BackupTableName = (typeof BACKUP_TABLE_NAMES)[number];
+export type BackupTableName = (typeof BACKUP_TABLE_NAMES)[number]
+
+export const BACKUP_EXPORT_SUMMARY =
+  'Jogador, pet, missões, rotinas, cidade, flash decks, duelos, inventário, foco e favoritos do menu — sem áudios nem Knowledge Vault.'
 
 export const BACKUP_MESSAGES = {
   exportSuccess: 'Backup exportado. Escolha onde salvar o arquivo.',
@@ -92,10 +127,10 @@ export const BACKUP_MESSAGES = {
   restoreFailed: 'Falha ao restaurar o backup. Seus dados atuais foram preservados.',
   restoreConfirmTitle: 'Substituir progresso local?',
   restoreConfirmMessage:
-    'Todo o progresso atual será apagado e substituído pelos dados deste backup. Esta ação não pode ser desfeita.',
+    'Todo o progresso atual será apagado e substituído pelos dados deste backup. O Knowledge Vault local não será restaurado. Esta ação não pode ser desfeita.',
   restoreConfirmAction: 'Restaurar backup',
   restoreCancelAction: 'Cancelar',
-} as const;
+} as const
 
 /** Logical domains required in every valid backup (maps to SQLite tables). */
 export const BACKUP_REQUIRED_DOMAINS = {
@@ -107,4 +142,4 @@ export const BACKUP_REQUIRED_DOMAINS = {
     'inventory_analytics',
   ] as const,
   quests: ['daily_missions', 'weekly_missions', 'epic_mission_progress'] as const,
-} as const;
+} as const

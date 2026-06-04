@@ -14,9 +14,14 @@ export type GameBackupMeta = {
   playerLevel: number | null;
 };
 
+export type BackupPreferencesSnapshot = {
+  menuHubPinnedIds: string[];
+};
+
 export type GameBackupFile = {
   meta: GameBackupMeta;
   tables: BackupTableSnapshot;
+  preferences: BackupPreferencesSnapshot;
 };
 
 export type BackupExportResult =
@@ -40,6 +45,9 @@ export type BackupPreviewSummary = {
   petLabel: string | null;
   inventoryItemCount: number;
   achievementCount: number;
+  routineCount: number;
+  flashDeckCount: number;
+  menuFavoritesCount: number;
   exportedAt: string;
   appVersion: string;
   formatVersion: number;

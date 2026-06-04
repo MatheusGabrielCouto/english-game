@@ -38,6 +38,9 @@ export const BackupPreviewCard = ({ preview }: BackupPreviewCardProps) => (
       <PreviewStat label="Pet" value={preview.petLabel ?? '—'} />
       <PreviewStat label="Inventário" value={String(preview.inventoryItemCount)} />
       <PreviewStat label="Conquistas" value={String(preview.achievementCount)} />
+      <PreviewStat label="Rotinas" value={String(preview.routineCount)} />
+      <PreviewStat label="Flash decks" value={String(preview.flashDeckCount)} />
+      <PreviewStat label="Favoritos menu" value={String(preview.menuFavoritesCount)} />
     </View>
 
     <View className="rounded-lg border border-border/60 bg-surface/80 px-3 py-2">
@@ -49,7 +52,8 @@ export const BackupPreviewCard = ({ preview }: BackupPreviewCardProps) => (
     </View>
 
     <Text className="text-xs leading-5 text-warning">
-      ⚠️ Restaurar substituirá todo o progresso local por estes dados.
+      Restaurar substitui o progresso local por estes dados. O Knowledge Vault e gravações de voz não
+      são restaurados.
     </Text>
   </View>
 );

@@ -49,7 +49,12 @@ export type AchievementMetricType =
   | 'pet_stage'
   | 'total_loot_boxes_opened'
   | 'total_duel_wins'
-  | 'total_flash_reviews';
+  | 'total_flash_reviews'
+  | 'total_routines_completed'
+  | 'total_journal_entries'
+  | 'total_journal_voice_notes'
+  | 'total_journal_reviews'
+  | 'total_journal_connections';
 
 export type AchievementTarget = number | PetStageValue;
 
@@ -75,6 +80,11 @@ export type AchievementStatsRecord = {
   totalLootBoxesOpened: number;
   totalDuelWins: number;
   totalFlashReviews: number;
+  totalRoutinesCompleted: number;
+  totalJournalEntries: number;
+  totalJournalVoiceNotes: number;
+  totalJournalReviews: number;
+  totalJournalConnections: number;
 };
 
 export type AchievementAnalyticsRecord = {

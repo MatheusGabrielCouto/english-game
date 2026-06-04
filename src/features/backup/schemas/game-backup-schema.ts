@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-import { BACKUP_TABLE_NAMES } from '../constants/backup-tables';
 
 const backupRowSchema = z.record(z.string(), z.unknown());
 
@@ -20,9 +19,14 @@ export const gameBackupMetaSchema = z.object({
   playerLevel: z.number().nullable(),
 });
 
+const backupPreferencesSchema = z.object({
+  menuHubPinnedIds: z.array(z.string()),
+});
+
 export const gameBackupFileSchema = z.object({
   meta: gameBackupMetaSchema,
   tables: backupTableSnapshotSchema,
+  preferences: backupPreferencesSchema.optional(),
 });
 
 export type ParsedGameBackupFile = z.infer<typeof gameBackupFileSchema>;

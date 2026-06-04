@@ -89,7 +89,11 @@ export const useMissionsStore = create<MissionsState>()((set, get) => ({
       missions: missions.map((m) => (m.id === id ? { ...m, completed: true } : m)),
     })
 
-    runAfterInteractions(() => {
+    let rewardsApplied = false
+    const applyRewards = () => {
+      if (rewardsApplied) return
+      rewardsApplied = true
+
       usePlayerStore.getState().addMissionRewards(mission.xpReward, mission.coinReward)
 
       GameEvents.emit({
@@ -109,7 +113,12 @@ export const useMissionsStore = create<MissionsState>()((set, get) => ({
         await setMissionCompleted(missionsDate, id, true)
         await StudyService.recordStudyDay()
       })
-    })
+    }
+
+    runAfterInteractions(applyRewards)
+
+    // Fallback se animações do overlay travarem o InteractionManager
+    setTimeout(applyRewards, 400)
 
     return true
   },

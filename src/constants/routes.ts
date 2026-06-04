@@ -2,10 +2,12 @@ export const routes = {
   tabs: {
     home: '/',
     quests: '/(tabs)/quests',
-    inventory: '/(tabs)/inventory',
-    shop: '/(tabs)/shop',
+    knowledge: '/(tabs)/knowledge',
+    menu: '/(tabs)/menu',
     profile: '/(tabs)/profile',
   },
+  inventory: '/inventory',
+  shop: '/shop',
   pet: '/pet',
   lootBoxes: '/loot-boxes',
   achievements: '/achievements',
@@ -33,4 +35,6 @@ export const routes = {
   duelsPatentExam: '/duels/patent-exam',
   duelsRematchReview: '/duels/rematch-review',
   learningInsights: '/learning-insights',
+  routines: '/routines',
+  englishJournal: '/english-journal',
 } as const;

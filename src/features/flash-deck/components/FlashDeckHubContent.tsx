@@ -43,7 +43,7 @@ export const FlashDeckHubContent = () => {
   }, []);
 
   const handleStartReview = useCallback(() => {
-    router.push(flashDeckRoutes.review(DEFAULT_FLASH_DECK_ID));
+    router.push(flashDeckRoutes.reviewAll);
   }, []);
 
   if (isLoading) {
@@ -91,7 +91,7 @@ export const FlashDeckHubContent = () => {
           title={FLASH_DECK_UI.mcqReview}
           description={FLASH_DECK_UI.mcqReviewHint}
           variant="review"
-          onPress={() => router.push(flashDeckRoutes.mcqReview(DEFAULT_FLASH_DECK_ID))}
+          onPress={() => router.push(flashDeckRoutes.mcqReviewAll)}
           accessibilityLabel={FLASH_DECK_UI.mcqReview}
         />
         <LearningModeTile
@@ -99,7 +99,7 @@ export const FlashDeckHubContent = () => {
           title={FLASH_DECK_UI.blitzReview}
           description={FLASH_DECK_UI.blitzReviewHint}
           variant="deck"
-          onPress={() => router.push(flashDeckRoutes.blitz(DEFAULT_FLASH_DECK_ID))}
+          onPress={() => router.push(flashDeckRoutes.blitzAll)}
           accessibilityLabel={FLASH_DECK_UI.blitzReview}
         />
         <LearningModeTile

@@ -102,6 +102,23 @@ const handleGameEvent = (event: GameEvent) => {
       )
       break
 
+    case 'JOURNAL_ENTRY_REVIEWED':
+      haptics.success()
+      store.addRewardBurst({
+        title: 'Revisão concluída!',
+        xp: event.xp,
+        coins: 0,
+      })
+      break
+
+    case 'JOURNAL_LINK_CREATED':
+      haptics.success()
+      store.showToast(
+        event.count === 1 ? 'Conexão criada! Pet comemorou.' : `${event.count} conexões criadas!`,
+        'success',
+      )
+      break
+
     default:
       break
   }

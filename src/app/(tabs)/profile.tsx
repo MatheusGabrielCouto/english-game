@@ -15,7 +15,7 @@ export default function ProfileScreen() {
       <ScreenContainer scrollable>
         <ScreenHeader
           title={PROFILE_UI.screenTitle}
-          subtitle="Conta, progresso e atalhos"
+          subtitle={PROFILE_UI.screenSubtitle}
           emoji="👤"
         />
         <ProfileScreenContent

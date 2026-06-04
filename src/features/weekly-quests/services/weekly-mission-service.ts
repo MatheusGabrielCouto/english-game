@@ -1,7 +1,6 @@
 import { LootBoxService } from '@/features/loot-boxes/services/loot-box-service';
 import { PlayerService } from '@/features/player/services/player-service';
 import { usePlayerStore } from '@/features/player/store/player-store';
-import { LootBoxRarity } from '@/types/inventory';
 import { GameEvents, type GameEvent } from '@/services/game-events';
 import {
     getAppSettings,
@@ -9,15 +8,16 @@ import {
     setCurrentWeekStart,
 } from '@/storage/repositories/app-settings-repository';
 import { WeeklyMissionRepository } from '@/storage/repositories/weekly-mission-repository';
+import { LootBoxRarity } from '@/types/inventory';
 import type { WeeklyMission } from '@/types/weekly-mission';
 import type { WeeklyMissionType } from '@/types/weekly-mission-type';
 
-import { getDifficultyConfig } from '@/features/game-design/constants/difficulty';
 import {
-  buildWeeklyMissionFromTemplate,
-  type WeeklyMissionTemplate,
+    buildWeeklyMissionFromTemplate,
+    WEEKLY_MISSION_CATALOG,
+    type WeeklyMissionTemplate,
 } from '@/features/game-design/catalogs/weekly-mission-catalog';
-import { WEEKLY_MISSION_CATALOG } from '@/features/game-design/catalogs/weekly-mission-catalog';
+import { getDifficultyConfig } from '@/features/game-design/constants/difficulty';
 import { pickDeterministicSubset, scaleCoins, scaleReward } from '@/features/game-design/utils/reward-scaling';
 import { getLearningDifficulty } from '@/storage/repositories/game-settings-repository';
 import { applyProgressDelta, isMissionComplete } from '../utils/progress';
@@ -87,6 +87,12 @@ export const WeeklyMissionService = {
         if (event.cardsReviewed > 0) {
           await WeeklyMissionService.updateProgress('FLASH_REVIEWS', event.cardsReviewed);
         }
+        break;
+      case 'JOURNAL_ENTRY_CREATED':
+        await WeeklyMissionService.updateProgress('JOURNAL_ENTRIES', 1);
+        break;
+      case 'JOURNAL_ENTRY_REVIEWED':
+        await WeeklyMissionService.updateProgress('JOURNAL_REVIEWS', 1);
         break;
       default:
         break;

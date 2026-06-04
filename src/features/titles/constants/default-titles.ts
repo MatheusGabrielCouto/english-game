@@ -100,6 +100,48 @@ export const TITLE_DEFINITIONS: TitleDefinition[] = [
     requiredLevel: 1,
     icon: '🏛️',
   },
+  {
+    key: 'note_taker',
+    name: 'Note Taker',
+    description: 'Começou a registrar conhecimento no English Journal.',
+    requiredLevel: 1,
+    icon: '📝',
+  },
+  {
+    key: 'knowledge_collector',
+    name: 'Knowledge Collector',
+    description: 'Revisa e acumula aprendizado no journal.',
+    requiredLevel: 1,
+    icon: '📚',
+  },
+  {
+    key: 'study_historian',
+    name: 'Study Historian',
+    description: 'Histórico rico de estudos em inglês.',
+    requiredLevel: 1,
+    icon: '📜',
+  },
+  {
+    key: 'memory_master',
+    name: 'Memory Master',
+    description: 'Domina a revisão espaçada do journal.',
+    requiredLevel: 1,
+    icon: '🧠',
+  },
+  {
+    key: 'english_scholar',
+    name: 'English Scholar',
+    description: 'Biblioteca pessoal de inglês em expansão.',
+    requiredLevel: 1,
+    icon: '🎓',
+  },
+  {
+    key: 'second_brain',
+    name: 'Second Brain',
+    description: 'Rede densa de conhecimento no Knowledge Vault.',
+    requiredLevel: 1,
+    icon: '🧠',
+  },
   ...EXTENDED_TITLES,
 ];
 

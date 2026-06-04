@@ -3,6 +3,9 @@ import { DEFAULT_FLASH_DECK_ID } from '@/types/flash-card';
 
 import { FlashDeckRepository } from '@/storage/repositories/flash-deck-repository';
 
+import { LemmaCompetenceService } from '@/features/learning/services/lemma-competence-service';
+import { GameEvents } from '@/services/game-events';
+import type { FlashCardSource } from '@/types/flash-card';
 import {
     cardMatchesSearch,
     cardMatchesTag,
@@ -10,9 +13,6 @@ import {
     parseTagsInput,
 } from '../utils/flash-card-search';
 import { computeReviewStreakDays } from '../utils/review-streak';
-import { LemmaCompetenceService } from '@/features/learning/services/lemma-competence-service';
-import { GameEvents } from '@/services/game-events';
-import type { FlashCardSource } from '@/types/flash-card';
 
 import { FlashSrsService } from './flash-srs-service';
 
@@ -308,6 +308,20 @@ export const FlashDeckService = {
 
     const due = await FlashDeckRepository.listDue(deckId, remaining);
     return due;
+  },
+
+  /** Cartas due de todos os cadernos ativos (respeita teto diário por caderno). */
+  async listDueCardsForHubReview(): Promise<FlashCardRecord[]> {
+    const decks = await FlashDeckRepository.listDecks();
+    const activeDecks = decks.filter((deck) => !deck.archivedAt);
+    const collected: FlashCardRecord[] = [];
+
+    for (const deck of activeDecks) {
+      const due = await FlashDeckService.listDueCards(deck.id);
+      collected.push(...due);
+    }
+
+    return collected.sort((a, b) => a.dueAt.localeCompare(b.dueAt));
   },
 
   async createCard(input: CreateFlashCardInput): Promise<FlashCardRecord> {

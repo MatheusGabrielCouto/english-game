@@ -7,9 +7,9 @@ import { useCityStore } from '@/features/city/store/city-store';
 import { Confetti } from '@/features/feedback/components/Confetti';
 import { LevelUpModal } from '@/features/feedback/components/LevelUpModal';
 import { PetEvolutionModal } from '@/features/feedback/components/PetEvolutionModal';
-import { PrestigeAscensionCelebrationModal } from '@/features/prestige/components/PrestigeAscensionCelebrationModal';
 import { RewardBurstOverlay } from '@/features/feedback/components/RewardBurstOverlay';
 import { useFeedbackStore } from '@/features/feedback/store/feedback-store';
+import { PrestigeAscensionCelebrationModal } from '@/features/prestige/components/PrestigeAscensionCelebrationModal';
 import { TitleUnlockModal } from '@/features/titles/components/TitleUnlockModal';
 import { useTitlesStore } from '@/features/titles/store/titles-store';
 
@@ -24,32 +24,34 @@ export const CelebrationsHost = () => {
   const prestigeCelebration = useFeedbackStore((state) => state.prestigeCelebration);
 
   const hasLegacyCelebration = Boolean(achievementCelebration || titleCelebration || cityCelebration);
-  const hasFeedback =
-    showConfetti ||
-    activeLevelUp ||
-    petEvolution ||
-    prestigeCelebration ||
-    rewardBursts.length > 0 ||
-    hasLegacyCelebration;
+  const hasTransientEffects =
+    showConfetti || rewardBursts.length > 0 || hasLegacyCelebration;
+  const hasBlockingModal = Boolean(
+    activeLevelUp || petEvolution || prestigeCelebration || hasLegacyCelebration,
+  );
 
-  if (!hasFeedback) return null;
+  if (!hasTransientEffects && !hasBlockingModal) return null;
 
   return (
-    <View style={styles.host} pointerEvents="box-none">
-      <Confetti active={showConfetti || hasLegacyCelebration} />
-      <RewardBurstOverlay />
+    <>
+      {hasTransientEffects ? (
+        <View style={styles.effectsLayer} pointerEvents="none">
+          <Confetti active={showConfetti || hasLegacyCelebration} />
+          <RewardBurstOverlay />
+        </View>
+      ) : null}
       <LevelUpModal />
       <PetEvolutionModal />
       {achievementCelebration ? <AchievementUnlockModal /> : null}
       {titleCelebration ? <TitleUnlockModal /> : null}
       {cityCelebration ? <CityUnlockModal /> : null}
       {prestigeCelebration ? <PrestigeAscensionCelebrationModal /> : null}
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  host: {
+  effectsLayer: {
     ...StyleSheet.absoluteFill,
     zIndex: 50,
     elevation: 50,

@@ -2,7 +2,7 @@ import { Text, View } from 'react-native';
 
 import { Button, Card } from '@/components';
 
-import { BACKUP_TABLE_NAMES } from '../constants/backup-tables';
+import { BACKUP_EXPORT_SUMMARY, BACKUP_TABLE_NAMES } from '../constants/backup-tables';
 import { useBackupExport } from '../hooks/use-backup-export';
 import { useBackupRestore } from '../hooks/use-backup-restore';
 import { BackupPreviewCard } from './BackupPreviewCard';
@@ -32,8 +32,7 @@ export const BackupRestoreSection = () => {
           <View className="rounded-xl border border-border bg-surface px-3 py-3">
             <Text className="text-xs font-semibold uppercase tracking-widest text-muted">Inclui</Text>
             <Text className="mt-1 text-sm text-foreground-secondary">
-              {BACKUP_TABLE_NAMES.length} tabelas — jogador, pet, missões, inventário, conquistas e
-              histórico completo.
+              {BACKUP_TABLE_NAMES.length} tabelas — {BACKUP_EXPORT_SUMMARY}
             </Text>
             {lastExportedAt ? (
               <Text className="mt-2 text-xs text-accent">

@@ -23,7 +23,9 @@ export type ExploreItemId =
   | 'career'
   | 'prestige'
   | 'loot-catalog'
-  | 'metagame';
+  | 'metagame'
+  | 'routines'
+  | 'english-journal';
 
 export type ExploreItemDef = {
   id: ExploreItemId;
@@ -76,6 +78,22 @@ export const EXPLORE_CATEGORIES: ExploreCategoryDef[] = [
         route: routes.learningInsights as Href,
         tagline: 'Duelos & baralho',
       },
+      {
+        id: 'routines',
+        label: 'Rotinas',
+        emoji: '📋',
+        route: routes.routines as Href,
+        tagline: 'Hábitos pessoais',
+        featured: true,
+      },
+      {
+        id: 'english-journal',
+        label: 'Knowledge Vault',
+        emoji: '📓',
+        route: routes.englishJournal as Href,
+        tagline: 'Second brain',
+        featured: true,
+      },
       { id: 'focus', label: 'Focus', emoji: '🎯', route: routes.focusMode as Href, tagline: focusTagline, featured: true },
       { id: 'city', label: 'Cidade', emoji: '🏙️', route: routes.city as Href, tagline: 'Skyline', featured: true },
       { id: 'contracts', label: 'Contratos', emoji: '📜', route: routes.contracts as Href, tagline: 'Desafios', featured: true },
@@ -87,7 +105,7 @@ export const EXPLORE_CATEGORIES: ExploreCategoryDef[] = [
     emoji: '🎒',
     subtitle: 'Itens, loot e progresso pessoal',
     items: [
-      { id: 'inventory', label: 'Inventário', emoji: '🎒', route: '/(tabs)/inventory' as Href, tagline: 'Bolsa', featured: true },
+      { id: 'inventory', label: 'Inventário', emoji: '🎒', route: routes.inventory as Href, tagline: 'Bolsa', featured: true },
       { id: 'loot', label: 'Loot', emoji: '🎁', route: routes.lootBoxes as Href, tagline: 'Abrir caixas', featured: true },
       { id: 'achievements', label: 'Conquistas', emoji: '🏆', route: routes.achievements as Href, tagline: 'Badges', featured: true },
       { id: 'titles', label: 'Títulos', emoji: '👑', route: routes.titles as Href, tagline: 'Ranks', featured: true },

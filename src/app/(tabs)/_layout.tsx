@@ -17,8 +17,8 @@ export default function TabsLayout() {
         }}>
         <Tabs.Screen name="index" options={{ title: 'Início' }} />
         <Tabs.Screen name="quests" options={{ title: 'Missões' }} />
-        <Tabs.Screen name="inventory" options={{ title: 'Itens' }} />
-        <Tabs.Screen name="shop" options={{ title: 'Loja' }} />
+        <Tabs.Screen name="knowledge" options={{ title: 'Knowledge' }} />
+        <Tabs.Screen name="menu" options={{ title: 'Menu' }} />
         <Tabs.Screen name="profile" options={{ title: 'Perfil' }} />
       </Tabs>
       <CelebrationsHost />

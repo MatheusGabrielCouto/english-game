@@ -9,19 +9,22 @@ import {
     LearningProgressHeader,
 } from '@/features/learning/components/ui';
 import type { FlashSrsRating } from '@/types/flash-card';
-import { DEFAULT_FLASH_DECK_ID } from '@/types/flash-card';
 
 import { FLASH_DECK_UI } from '../constants/flash-deck-ui';
 import { FlashDeckService } from '../services/flash-deck-service';
 import { useFlashDeckStore } from '../store/flash-deck-store';
+import {
+    loadFlashReviewQueue,
+    resolveFlashReviewParams,
+    sessionDeckIdForReview,
+} from '../utils/flash-deck-review-scope';
 import { FlashCardSwipeReview } from './FlashCardSwipeReview';
 import { SrsButtonRow } from './SrsButtonRow';
 
 export const FlashDeckReviewContent = () => {
-  const { deckId: deckIdParam } = useLocalSearchParams<{ deckId?: string }>();
-  const deckId = deckIdParam?.trim() || DEFAULT_FLASH_DECK_ID;
+  const params = useLocalSearchParams<{ deckId?: string; scope?: string }>();
+  const { scope, deckId } = resolveFlashReviewParams(params);
 
-  const loadReviewQueue = useFlashDeckStore((s) => s.loadReviewQueue);
   const refresh = useFlashDeckStore((s) => s.refresh);
   const refreshDeck = useFlashDeckStore((s) => s.refreshDeck);
   const stats = useFlashDeckStore((s) => s.activeDeckStats);
@@ -41,9 +44,10 @@ export const FlashDeckReviewContent = () => {
 
     void (async () => {
       setLoading(true);
-      const sessionId = await FlashDeckService.startStudySession(deckId);
+      const cards = await loadFlashReviewQueue(scope, deckId);
+      const sessionDeckId = sessionDeckIdForReview(scope, deckId, cards);
+      const sessionId = await FlashDeckService.startStudySession(sessionDeckId);
       sessionIdRef.current = sessionId;
-      const cards = await loadReviewQueue(deckId);
       if (mounted) {
         setQueue(cards);
         setIndex(0);
@@ -54,7 +58,7 @@ export const FlashDeckReviewContent = () => {
     return () => {
       mounted = false;
     };
-  }, [deckId, loadReviewQueue]);
+  }, [deckId, scope]);
 
   const currentCard = queue[index] ?? null;
   const isComplete = !loading && queue.length > 0 && index >= queue.length;
@@ -75,8 +79,10 @@ export const FlashDeckReviewContent = () => {
       sessionIdRef.current = null;
     }
     await refresh();
-    await refreshDeck(deckId);
-  }, [deckId, refresh, refreshDeck]);
+    if (scope === 'deck') {
+      await refreshDeck(deckId);
+    }
+  }, [deckId, refresh, refreshDeck, scope]);
 
   const handleRating = useCallback(
     async (rating: FlashSrsRating) => {

@@ -6,19 +6,24 @@ import { Button } from '@/components';
 import { theme } from '@/constants';
 import { LearningOutcomePanel, LearningProgressHeader } from '@/features/learning/components/ui';
 import type { FlashSrsRating } from '@/types/flash-card';
-import { DEFAULT_FLASH_DECK_ID } from '@/types/flash-card';
 
 import { FLASH_DECK_UI } from '../constants/flash-deck-ui';
 import { FlashDeckService } from '../services/flash-deck-service';
 import { useFlashDeckStore } from '../store/flash-deck-store';
+import {
+    loadFlashReviewQueue,
+    resolveFlashReviewParams,
+    sessionDeckIdForReview,
+} from '../utils/flash-deck-review-scope';
 import { FlashCardSwipeReview } from './FlashCardSwipeReview';
 import { SrsButtonRow } from './SrsButtonRow';
 
 const BLITZ_SECONDS = 120;
 
 export const FlashDeckBlitzContent = () => {
-  const { deckId: deckIdParam } = useLocalSearchParams<{ deckId?: string }>();
-  const deckId = deckIdParam?.trim() || DEFAULT_FLASH_DECK_ID;
+  const params = useLocalSearchParams<{ deckId?: string; scope?: string }>();
+  const { scope, deckId } = resolveFlashReviewParams(params);
+  const refresh = useFlashDeckStore((s) => s.refresh);
   const refreshDeck = useFlashDeckStore((s) => s.refreshDeck);
 
   const [loading, setLoading] = useState(true);
@@ -32,12 +37,13 @@ export const FlashDeckBlitzContent = () => {
 
   useEffect(() => {
     void (async () => {
-      const due = await FlashDeckService.listDueCards(deckId);
-      sessionIdRef.current = await FlashDeckService.startStudySession(deckId);
+      const due = await loadFlashReviewQueue(scope, deckId);
+      const sessionDeckId = sessionDeckIdForReview(scope, deckId, due);
+      sessionIdRef.current = await FlashDeckService.startStudySession(sessionDeckId);
       setQueue(due);
       setLoading(false);
     })();
-  }, [deckId]);
+  }, [deckId, scope]);
 
   useEffect(() => {
     if (loading || done) return;
@@ -58,8 +64,11 @@ export const FlashDeckBlitzContent = () => {
       await FlashDeckService.completeStudySession(sessionIdRef.current, reviewedRef.current);
       sessionIdRef.current = null;
     }
-    await refreshDeck(deckId);
-  }, [deckId, refreshDeck]);
+    await refresh();
+    if (scope === 'deck') {
+      await refreshDeck(deckId);
+    }
+  }, [deckId, refresh, refreshDeck, scope]);
 
   useEffect(() => {
     if (done) {

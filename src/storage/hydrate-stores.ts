@@ -12,9 +12,12 @@ import { CityVitalityService } from '@/features/city/services/city-vitality-serv
 import { LexiconBrickService } from '@/features/city/services/lexicon-brick-service';
 import { CollectionBookService } from '@/features/collection-book/services/collection-book-service';
 import { ContractService } from '@/features/contracts/services/contract-service';
+import { JournalMissionBridge } from '@/features/english-journal/services/journal-mission-bridge';
+import { KnowledgeVaultService } from '@/features/english-journal/services/knowledge-vault-service';
 import { EpicQuestService } from '@/features/epic-quests/services/epic-quest-service';
 import { FarmService } from '@/features/farm/services/farm-service';
 import { FeedbackService } from '@/features/feedback/services/feedback-service';
+import { useFlashDeckStore } from '@/features/flash-deck/store/flash-deck-store';
 import { FocusModeService } from '@/features/focus-mode/services/focus-mode-service';
 import { FocusPetReactionService } from '@/features/focus-mode/services/focus-pet-reactions';
 import { BoosterModifierCache } from '@/features/game-design/services/booster-modifier-cache';
@@ -23,6 +26,7 @@ import { LearningAnalyticsService } from '@/features/learning/services/learning-
 import { LearningIntegrationService } from '@/features/learning/services/learning-integration-service';
 import { LearningMissionBridge } from '@/features/learning/services/learning-mission-bridge';
 import { LemmaCompetenceService } from '@/features/learning/services/lemma-competence-service';
+import { useMenuHubStore } from '@/features/menu-hub/store/menu-hub-store';
 import { MetagameService } from '@/features/metagame/services/metagame-service';
 import { NotificationService } from '@/features/notifications/services/notification-service';
 import { PetMemoryService } from '@/features/pet/services/pet-memory-service';
@@ -33,6 +37,7 @@ import { PunishmentService } from '@/features/punishments/services/punishment-se
 import { resetDailyMissionsInDatabase } from '@/features/quests/services/reset-daily-missions';
 import { useMissionsStore } from '@/features/quests/store/missions-store';
 import { getTodayKey } from '@/features/quests/utils/date';
+import { RoutineService } from '@/features/routines/services/routine-service';
 import { RpgService } from '@/features/rpg/services/rpg-service';
 import { ShopService } from '@/features/shop/services/shop-service';
 import { StatisticsService } from '@/features/statistics/services/statistics-service';
@@ -111,6 +116,7 @@ const initGameEventListeners = (): void => {
   LexiconBrickService.initListeners();
   LemmaCompetenceService.initListeners();
   LearningMissionBridge.initListeners();
+  JournalMissionBridge.initListeners();
   LearningIntegrationService.initListeners();
   LearningAnalyticsService.initListeners();
   CityVitalityService.initListeners();
@@ -148,6 +154,7 @@ export const hydrateCriticalStores = async (): Promise<void> => {
   });
 
   await loadDailyMissions();
+  await RoutineService.initialize();
 
   StudyService.resetSessionCache();
   await WeeklyMissionService.ensureCurrentWeek();
@@ -192,6 +199,7 @@ export const hydrateBackgroundServices = async (): Promise<void> => {
     import('@/features/flash-deck/services/flash-deck-seed-service').then(({ FlashDeckSeedService }) =>
       FlashDeckSeedService.initialize(),
     ),
+    KnowledgeVaultService.initialize(),
   ]);
 
   try {
@@ -267,10 +275,16 @@ export const refreshApplicationAfterRestore = async (): Promise<void> => {
   await MetagameService.refresh();
   await StudyPointsService.refresh();
   await FarmService.refresh();
+  await RoutineService.refresh();
+  await KnowledgeVaultService.refresh();
   await FocusModeService.refresh();
   await PunishmentService.refresh();
   await CollectionBookService.refresh();
   await WishlistService.refresh();
+
+  await LearningAnalyticsService.refresh();
+  void useFlashDeckStore.getState().refresh();
+  await useMenuHubStore.getState().hydrate();
 
   try {
     await NotificationService.initialize();

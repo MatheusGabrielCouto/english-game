@@ -81,7 +81,7 @@ export const useFeedbackStore = create<FeedbackState>()((set, get) => ({
     set({
       activeLevelUp: next ?? null,
       levelUpQueue: rest,
-      showConfetti: next ? true : get().showConfetti,
+      showConfetti: Boolean(next),
     });
   },
 
@@ -93,9 +93,18 @@ export const useFeedbackStore = create<FeedbackState>()((set, get) => ({
   },
 
   removeRewardBurst: (id) => {
-    set((state) => ({
-      rewardBursts: state.rewardBursts.filter((burst) => burst.id !== id),
-    }));
+    set((state) => {
+      const rewardBursts = state.rewardBursts.filter((burst) => burst.id !== id);
+      const hasBlockingCelebration =
+        state.activeLevelUp !== null ||
+        state.petEvolution !== null ||
+        state.prestigeCelebration !== null;
+
+      return {
+        rewardBursts,
+        showConfetti: hasBlockingCelebration ? state.showConfetti : rewardBursts.length > 0,
+      };
+    });
   },
 
   setPetEvolution: (celebration) => {

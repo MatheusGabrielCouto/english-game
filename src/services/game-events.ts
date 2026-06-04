@@ -322,7 +322,48 @@ export type GameEvent =
       recoveryDays: number;
       bonusXp: number;
       allCleared: boolean;
-    };
+    }
+  | { type: 'ROUTINE_CREATED'; routineId: string; templateKey: string | null }
+  | {
+      type: 'ROUTINE_COMPLETED';
+      routineId: string;
+      routineName: string;
+      category: string;
+      frequency: string;
+      periodKey: string;
+      xp: number;
+      coins: number;
+      studyPoints: number;
+      currentStreak: number;
+    }
+  | {
+      type: 'ROUTINE_MISSED';
+      routineId: string;
+      routineName: string;
+      periodKey: string;
+    }
+  | {
+      type: 'JOURNAL_ENTRY_CREATED';
+      entryId: string;
+      entryType: string;
+      category: string;
+      isVoice: boolean;
+      xp: number;
+    }
+  | {
+      type: 'JOURNAL_ENTRY_REVIEWED';
+      entryId: string;
+      reviewStage: number;
+      xp: number;
+    }
+  | {
+      type: 'JOURNAL_VOICE_REPLAYED';
+      entryId: string;
+      xp: number;
+    }
+  | { type: 'JOURNAL_LINK_CREATED'; fromId: string; count: number }
+  | { type: 'JOURNAL_COLLECTION_UPDATED'; entryId: string; collectionCount: number }
+  | { type: 'JOURNAL_LIBRARY_TIER_UP'; tier: number; knowledgePoints: number };
 
 type GameEventListener = (event: GameEvent) => void | Promise<void>;
 

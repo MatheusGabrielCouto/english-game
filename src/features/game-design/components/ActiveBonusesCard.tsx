@@ -28,21 +28,46 @@ export const ActiveBonusesCard = () => {
         accessibilityLabel="Ver detalhes dos bônus ativos">
         <View className="gap-2">
           <View className="flex-row items-center justify-between">
-            <Text className="text-xs font-bold uppercase tracking-widest text-muted">Bônus ativos</Text>
+            <Text className="text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+              Bônus ativos
+            </Text>
             <Text className="text-[10px] font-semibold text-primary">Toque para detalhes →</Text>
           </View>
           <View className="flex-row flex-wrap gap-2">
             {modifiers.xpPercent > 0 ? (
-              <StatPill label="XP" value={`+${modifiers.xpPercent}%`} emoji="⚡" tone="primary" />
+              <StatPill
+                layout="tile"
+                className="w-[48%] min-w-[140px]"
+                label="XP"
+                value={`+${modifiers.xpPercent}%`}
+                emoji="⚡"
+                tone="primary"
+              />
             ) : null}
             {modifiers.coinPercent > 0 ? (
-              <StatPill label="Moedas" value={`+${modifiers.coinPercent}%`} emoji="🪙" tone="gold" />
+              <StatPill
+                layout="tile"
+                className="w-[48%] min-w-[140px]"
+                label="Moedas"
+                value={`+${modifiers.coinPercent}%`}
+                emoji="🪙"
+                tone="gold"
+              />
             ) : null}
             {modifiers.lootLuckPercent > 0 ? (
-              <StatPill label="Loot" value={`+${modifiers.lootLuckPercent}%`} emoji="🎁" tone="accent" />
+              <StatPill
+                layout="tile"
+                className="w-[48%] min-w-[140px]"
+                label="Loot"
+                value={`+${modifiers.lootLuckPercent}%`}
+                emoji="🎁"
+                tone="accent"
+              />
             ) : null}
             {modifiers.lootBoxBonusChance > 0 ? (
               <StatPill
+                layout="tile"
+                className="w-[48%] min-w-[140px]"
                 label="Box extra"
                 value={`${Math.round(modifiers.lootBoxBonusChance * 100)}%`}
                 emoji="📦"

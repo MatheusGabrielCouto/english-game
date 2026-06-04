@@ -6,7 +6,7 @@ import { theme } from '@/constants';
 import { AudioDirector } from '@/services/audio';
 import { haptics } from '@/utils/haptics';
 
-type TabRouteName = 'index' | 'quests' | 'inventory' | 'shop' | 'profile';
+type TabRouteName = 'index' | 'quests' | 'knowledge' | 'menu' | 'profile';
 
 type TabRoute = {
   key: string;
@@ -29,10 +29,10 @@ type TabConfig = {
 };
 
 const TAB_CONFIG: Record<TabRouteName, TabConfig> = {
-  index: { icon: 'home-outline', label: 'Base', emoji: '🏠' },
-  quests: { icon: 'map-outline', label: 'Missões', emoji: '⚔️' },
-  inventory: { icon: 'briefcase-outline', label: 'Itens', emoji: '🎒' },
-  shop: { icon: 'cart-outline', label: 'Loja', emoji: '🛒' },
+  index: { icon: 'home-outline', label: 'Home', emoji: '🏠' },
+  quests: { icon: 'map-outline', label: 'Quests', emoji: '📜' },
+  knowledge: { icon: 'file-tray-outline', label: 'Vault', emoji: '📓' },
+  menu: { icon: 'cube-outline', label: 'Menu', emoji: '📋' },
   profile: { icon: 'person-outline', label: 'Perfil', emoji: '👤' },
 };
 
@@ -104,20 +104,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 8,
-    columnGap: 4,
+    paddingHorizontal: 6,
+    columnGap: 2,
   },
   tab: {
-    minWidth: 60,
+    minWidth: 56,
     flex: 1,
-    maxWidth: 76,
+    maxWidth: 72,
     alignItems: 'center',
   },
   tabInner: {
     width: '100%',
     alignItems: 'center',
     borderRadius: 16,
-    paddingHorizontal: 6,
+    paddingHorizontal: 4,
     paddingVertical: 8,
   },
   tabInnerFocused: {
@@ -132,8 +132,8 @@ const styles = StyleSheet.create({
   label: {
     marginTop: 4,
     textAlign: 'center',
-    fontSize: 10,
-    lineHeight: 12,
+    fontSize: 9,
+    lineHeight: 11,
   },
   labelFocused: {
     color: theme.colors.primary,

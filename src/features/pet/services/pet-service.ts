@@ -96,6 +96,34 @@ export const PetService = {
       case 'SHIELD_USED':
         await PetService.updateMood();
         break;
+      case 'ROUTINE_COMPLETED':
+        await PetService.addExperience(8);
+        await PetService.applyStudyBonus(PET_VITAL_STUDY_BONUS.ROUTINE_COMPLETED);
+        await PetService.triggerExcitedAnimation();
+        break;
+      case 'ROUTINE_MISSED':
+        await PetService.applyStudyBonus(PET_VITAL_STUDY_BONUS.ROUTINE_MISSED);
+        await PetService.updateMood();
+        break;
+      case 'JOURNAL_ENTRY_CREATED':
+        await PetService.addExperience(6);
+        await PetService.applyStudyBonus(PET_VITAL_STUDY_BONUS.JOURNAL_ENTRY);
+        await PetService.triggerExcitedAnimation();
+        break;
+      case 'JOURNAL_ENTRY_REVIEWED':
+        await PetService.addExperience(4);
+        await PetService.applyStudyBonus(PET_VITAL_STUDY_BONUS.JOURNAL_REVIEW);
+        break;
+      case 'JOURNAL_VOICE_REPLAYED':
+        await PetService.applyStudyBonus(PET_VITAL_STUDY_BONUS.JOURNAL_REVIEW);
+        break;
+      case 'JOURNAL_COLLECTION_UPDATED':
+        await PetService.addExperience(3);
+        await PetService.applyStudyBonus(PET_VITAL_STUDY_BONUS.JOURNAL_ENTRY);
+        break;
+      case 'JOURNAL_LINK_CREATED':
+        await PetService.addExperience(2);
+        break;
       default:
         break;
     }

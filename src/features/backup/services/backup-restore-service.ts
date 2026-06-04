@@ -1,23 +1,24 @@
-import { getSqlite } from '@/storage/database/client';
-import type { GameBackupFile } from '@/types/backup';
+import { getSqlite } from '@/storage/database/client'
+import type { GameBackupFile } from '@/types/backup'
 
-import { BACKUP_TABLE_NAMES } from '../constants/backup-tables';
+import { BACKUP_TABLE_NAMES, BACKUP_VAULT_TABLE_NAMES } from '../constants/backup-tables'
+import { restoreBackupPreferences } from './backup-preferences-service'
 
-type SqliteDatabase = ReturnType<typeof getSqlite>;
+type SqliteDatabase = ReturnType<typeof getSqlite>
 
 const tableExists = (sqlite: SqliteDatabase, tableName: string): boolean => {
   const rows = sqlite.getAllSync(
     `SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?`,
-    tableName,
-  ) as { name: string }[];
+    [tableName],
+  ) as { name: string }[]
 
-  return rows.length > 0;
-};
+  return rows.length > 0
+}
 
 const getTableColumns = (sqlite: SqliteDatabase, tableName: string): Set<string> => {
-  const rows = sqlite.getAllSync(`PRAGMA table_info("${tableName}")`) as { name: string }[];
-  return new Set(rows.map((row) => row.name));
-};
+  const rows = sqlite.getAllSync(`PRAGMA table_info("${tableName}")`) as { name: string }[]
+  return new Set(rows.map((row) => row.name))
+}
 
 const insertRow = (
   sqlite: SqliteDatabase,
@@ -25,43 +26,56 @@ const insertRow = (
   row: Record<string, unknown>,
   tableColumns: Set<string>,
 ): void => {
-  const columns = Object.keys(row).filter((column) => tableColumns.has(column));
-  if (columns.length === 0) return;
+  const columns = Object.keys(row).filter((column) => tableColumns.has(column))
+  if (columns.length === 0) return
 
-  const placeholders = columns.map(() => '?').join(', ');
-  const sql = `INSERT INTO "${tableName}" (${columns.map((column) => `"${column}"`).join(', ')}) VALUES (${placeholders})`;
+  const placeholders = columns.map(() => '?').join(', ')
+  const sql = `INSERT INTO "${tableName}" (${columns.map((column) => `"${column}"`).join(', ')}) VALUES (${placeholders})`
   const values = columns.map((column) => {
-    const value = row[column];
-    if (value === undefined) return null;
-    if (typeof value === 'boolean') return value ? 1 : 0;
-    if (typeof value === 'object' && value !== null) return JSON.stringify(value);
-    return value as string | number | null;
-  });
+    const value = row[column]
+    if (value === undefined) return null
+    if (typeof value === 'boolean') return value ? 1 : 0
+    if (typeof value === 'object' && value !== null) return JSON.stringify(value)
+    return value as string | number | null
+  })
 
-  sqlite.runSync(sql, values);
-};
+  sqlite.runSync(sql, values)
+}
+
+const clearVaultTables = (sqlite: SqliteDatabase): void => {
+  for (const tableName of BACKUP_VAULT_TABLE_NAMES) {
+    if (!tableExists(sqlite, tableName)) continue
+    sqlite.execSync(`DELETE FROM "${tableName}"`)
+  }
+}
 
 export const restoreBackupTables = (file: GameBackupFile): void => {
-  const sqlite = getSqlite();
+  const sqlite = getSqlite()
 
   sqlite.withTransactionSync(() => {
-    sqlite.execSync('PRAGMA foreign_keys = OFF');
+    sqlite.execSync('PRAGMA foreign_keys = OFF')
 
     for (const tableName of BACKUP_TABLE_NAMES) {
-      if (!tableExists(sqlite, tableName)) continue;
+      if (!tableExists(sqlite, tableName)) continue
 
-      sqlite.execSync(`DELETE FROM "${tableName}"`);
+      sqlite.execSync(`DELETE FROM "${tableName}"`)
 
-      const rows = file.tables[tableName] ?? [];
-      if (rows.length === 0) continue;
+      const rows = file.tables[tableName] ?? []
+      if (rows.length === 0) continue
 
-      const tableColumns = getTableColumns(sqlite, tableName);
+      const tableColumns = getTableColumns(sqlite, tableName)
 
       for (const row of rows) {
-        insertRow(sqlite, tableName, row, tableColumns);
+        insertRow(sqlite, tableName, row, tableColumns)
       }
     }
 
-    sqlite.execSync('PRAGMA foreign_keys = ON');
-  });
-};
+    clearVaultTables(sqlite)
+
+    sqlite.execSync('PRAGMA foreign_keys = ON')
+  })
+}
+
+export const restoreBackupSideEffects = async (file: GameBackupFile): Promise<void> => {
+  await restoreBackupPreferences(file.preferences)
+}

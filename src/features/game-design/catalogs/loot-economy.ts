@@ -1,15 +1,15 @@
 import { CollectibleRarity } from '@/types/collectible';
 import { LootBoxRarity } from '@/types/inventory';
 
-/** Study Points exchange rates */
+/** Study Points exchange rates (espelha farm-catalog) */
 export const STUDY_POINTS_RATES = {
-  WORD_LEARNED: 1,
-  MINUTE_READING: 2,
-  MINUTE_LISTENING: 2,
-  MINUTE_SPEAKING: 3,
-  MINUTE_PROGRAMMING: 2,
-  EXERCISE_CORRECT: 1,
-  REVIEW_COMPLETED: 1,
+  WORD_LEARNED: 3,
+  MINUTE_READING: 5,
+  MINUTE_LISTENING: 5,
+  MINUTE_SPEAKING: 8,
+  MINUTE_PROGRAMMING: 5,
+  EXERCISE_CORRECT: 3,
+  REVIEW_COMPLETED: 2,
 } as const;
 
 /** Loot box upgrade chain: combine lower → higher */

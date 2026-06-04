@@ -1,18 +1,21 @@
 import 'react-native-gesture-handler';
 
+import '@/splash-bootstrap';
 import '@/global.css';
 import '@/nativewind-setup';
 
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AppProviders } from '@/components/layout/AppProviders';
 import { theme } from '@/constants';
 
 export default function RootLayout() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <AppProviders>
+    <SafeAreaProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <AppProviders>
         <Stack
           screenOptions={{
             headerShown: false,
@@ -21,7 +24,8 @@ export default function RootLayout() {
             freezeOnBlur: true,
           }}
         />
-      </AppProviders>
-    </GestureHandlerRootView>
+        </AppProviders>
+      </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 }

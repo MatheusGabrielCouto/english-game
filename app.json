@@ -13,8 +13,8 @@
     "android": {
       "icon": "./assets/icon.png",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#0a0a0f"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#06060b"
       },
       "package": "com.englishquest.app",
       "predictiveBackGestureEnabled": false
@@ -36,9 +36,24 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0a0a0f",
+          "backgroundColor": "#06060b",
           "image": "./assets/splash-icon.png",
-          "imageWidth": 200
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "dark": {
+            "backgroundColor": "#06060b",
+            "image": "./assets/splash-icon.png"
+          },
+          "ios": {
+            "backgroundColor": "#06060b",
+            "image": "./assets/splash-icon.png",
+            "imageWidth": 220
+          },
+          "android": {
+            "backgroundColor": "#06060b",
+            "image": "./assets/splash-icon.png",
+            "imageWidth": 220
+          }
         }
       ],
       "expo-sqlite",
@@ -51,7 +66,19 @@
       "expo-sharing",
       "expo-dev-client",
       "expo-focus-mode",
-      "expo-audio"
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "O English Quest precisa do microfone para gravar notas de voz no seu diário de inglês."
+        }
+      ],
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "O English Quest precisa do microfone para gravar e transcrever notas de voz.",
+          "speechRecognitionPermission": "O English Quest usa reconhecimento de fala para transcrever suas gravações em inglês."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

@@ -214,12 +214,25 @@ const reconcileStats = async (): Promise<void> => {
   const missionCount = await countCompletedMissions();
   const lifetimeXp = computeLifetimeXp(player.level, player.xp);
 
+  const { RoutineRepository } = await import('@/storage/repositories/routine-repository');
+  const routineCompletions = await RoutineRepository.countTotalCompletions();
+
+  const { JournalRepository } = await import('@/storage/repositories/journal-repository');
+  const journalEntries = await JournalRepository.countActive();
+  const journalVoice = await JournalRepository.countVoiceNotes();
+  const journalStats = await JournalRepository.getStats();
+
   const next: AchievementStatsRecord = {
     totalMissionsCompleted: Math.max(stats.totalMissionsCompleted, missionCount),
     totalXpEarned: Math.max(stats.totalXpEarned, lifetimeXp),
     totalLootBoxesOpened: Math.max(stats.totalLootBoxesOpened, lootAnalytics.totalOpened),
     totalDuelWins: stats.totalDuelWins,
     totalFlashReviews: stats.totalFlashReviews,
+    totalRoutinesCompleted: Math.max(stats.totalRoutinesCompleted, routineCompletions),
+    totalJournalEntries: Math.max(stats.totalJournalEntries, journalEntries),
+    totalJournalVoiceNotes: Math.max(stats.totalJournalVoiceNotes, journalVoice),
+    totalJournalReviews: Math.max(stats.totalJournalReviews, journalStats.totalReviews),
+    totalJournalConnections: Math.max(stats.totalJournalConnections, journalStats.totalConnections),
   };
 
   if (
@@ -227,7 +240,12 @@ const reconcileStats = async (): Promise<void> => {
     next.totalXpEarned !== stats.totalXpEarned ||
     next.totalLootBoxesOpened !== stats.totalLootBoxesOpened ||
     next.totalDuelWins !== stats.totalDuelWins ||
-    next.totalFlashReviews !== stats.totalFlashReviews
+    next.totalFlashReviews !== stats.totalFlashReviews ||
+    next.totalRoutinesCompleted !== stats.totalRoutinesCompleted ||
+    next.totalJournalEntries !== stats.totalJournalEntries ||
+    next.totalJournalVoiceNotes !== stats.totalJournalVoiceNotes ||
+    next.totalJournalReviews !== stats.totalJournalReviews ||
+    next.totalJournalConnections !== stats.totalJournalConnections
   ) {
     await AchievementStatsRepository.save(next);
   }
@@ -268,6 +286,25 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
         cachedStats = await AchievementStatsRepository.incrementFlashReviews(event.cardsReviewed);
         scheduleAchievementCheck(false);
       }
+      break;
+    case 'ROUTINE_COMPLETED':
+      cachedStats = await AchievementStatsRepository.incrementRoutines();
+      scheduleAchievementCheck(true);
+      break;
+    case 'JOURNAL_ENTRY_CREATED':
+      cachedStats = await AchievementStatsRepository.incrementJournalEntries();
+      if (event.isVoice) {
+        cachedStats = await AchievementStatsRepository.incrementJournalVoiceNotes();
+      }
+      scheduleAchievementCheck(true);
+      break;
+    case 'JOURNAL_ENTRY_REVIEWED':
+      cachedStats = await AchievementStatsRepository.incrementJournalReviews();
+      scheduleAchievementCheck(true);
+      break;
+    case 'JOURNAL_LINK_CREATED':
+      cachedStats = await AchievementStatsRepository.incrementJournalConnections(event.count);
+      scheduleAchievementCheck(true);
       break;
     default:
       break;

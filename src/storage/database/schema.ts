@@ -1,4 +1,4 @@
-import { integer, primaryKey, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { integer, primaryKey, real, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core';
 
 export const player = sqliteTable('player', {
   id: integer('id').primaryKey(),
@@ -160,6 +160,138 @@ export const achievementStats = sqliteTable('achievement_stats', {
   totalLootBoxesOpened: integer('total_loot_boxes_opened').notNull().default(0),
   totalDuelWins: integer('total_duel_wins').notNull().default(0),
   totalFlashReviews: integer('total_flash_reviews').notNull().default(0),
+  totalRoutinesCompleted: integer('total_routines_completed').notNull().default(0),
+  totalJournalEntries: integer('total_journal_entries').notNull().default(0),
+  totalJournalVoiceNotes: integer('total_journal_voice_notes').notNull().default(0),
+  totalJournalReviews: integer('total_journal_reviews').notNull().default(0),
+  totalJournalConnections: integer('total_journal_connections').notNull().default(0),
+});
+
+export const userRoutines = sqliteTable('user_routines', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  description: text('description'),
+  category: text('category').notNull(),
+  frequency: text('frequency').notNull(),
+  reminderTime: text('reminder_time'),
+  weekdaysJson: text('weekdays_json').notNull().default('[]'),
+  expectedDurationMin: integer('expected_duration_min'),
+  customXp: integer('custom_xp'),
+  customCoins: integer('custom_coins'),
+  templateKey: text('template_key'),
+  isArchived: integer('is_archived', { mode: 'boolean' }).notNull().default(false),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const routineCompletions = sqliteTable(
+  'routine_completions',
+  {
+    id: text('id').primaryKey(),
+    routineId: text('routine_id').notNull(),
+    periodKey: text('period_key').notNull(),
+    completedAt: text('completed_at').notNull(),
+    xpAwarded: integer('xp_awarded').notNull().default(0),
+    coinsAwarded: integer('coins_awarded').notNull().default(0),
+    studyPointsAwarded: integer('study_points_awarded').notNull().default(0),
+  },
+  (table) => ({
+    routinePeriodUnique: unique().on(table.routineId, table.periodKey),
+  }),
+);
+
+export const routineStats = sqliteTable('routine_stats', {
+  routineId: text('routine_id').primaryKey(),
+  totalCompleted: integer('total_completed').notNull().default(0),
+  totalMissed: integer('total_missed').notNull().default(0),
+  currentStreak: integer('current_streak').notNull().default(0),
+  bestStreak: integer('best_streak').notNull().default(0),
+  lastCompletedPeriod: text('last_completed_period'),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const journalEntries = sqliteTable('journal_entries', {
+  id: text('id').primaryKey(),
+  entryType: text('entry_type').notNull(),
+  title: text('title').notNull(),
+  body: text('body'),
+  category: text('category').notNull(),
+  importance: text('importance').notNull().default('medium'),
+  tagsJson: text('tags_json').notNull().default('[]'),
+  audioUri: text('audio_uri'),
+  audioDurationMs: integer('audio_duration_ms'),
+  isFavorite: integer('is_favorite', { mode: 'boolean' }).notNull().default(false),
+  isPinned: integer('is_pinned', { mode: 'boolean' }).notNull().default(false),
+  isArchived: integer('is_archived', { mode: 'boolean' }).notNull().default(false),
+  spaceKey: text('space_key').notNull().default('personal_notes'),
+  folderId: text('folder_id'),
+  reviewStage: integer('review_stage').notNull().default(0),
+  reviewCount: integer('review_count').notNull().default(0),
+  nextReviewAt: text('next_review_at'),
+  lastReviewedAt: text('last_reviewed_at'),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const journalFolders = sqliteTable('journal_folders', {
+  id: text('id').primaryKey(),
+  spaceKey: text('space_key').notNull(),
+  parentId: text('parent_id'),
+  name: text('name').notNull(),
+  slug: text('slug').notNull(),
+  sortOrder: integer('sort_order').notNull().default(0),
+  createdAt: text('created_at').notNull(),
+});
+
+export const journalEntryLinks = sqliteTable(
+  'journal_entry_links',
+  {
+    fromEntryId: text('from_entry_id').notNull(),
+    toEntryId: text('to_entry_id').notNull(),
+    createdAt: text('created_at').notNull(),
+  },
+  (table) => ({
+    linkPairPk: unique().on(table.fromEntryId, table.toEntryId),
+  }),
+);
+
+export const journalCollections = sqliteTable('journal_collections', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  description: text('description'),
+  emoji: text('emoji').notNull().default('📚'),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const journalEntryCollections = sqliteTable(
+  'journal_entry_collections',
+  {
+    entryId: text('entry_id').notNull(),
+    collectionId: text('collection_id').notNull(),
+    createdAt: text('created_at').notNull(),
+  },
+  (table) => ({
+    entryCollectionPk: unique().on(table.entryId, table.collectionId),
+  }),
+);
+
+export const journalStats = sqliteTable('journal_stats', {
+  id: integer('id').primaryKey(),
+  totalEntries: integer('total_entries').notNull().default(0),
+  totalVoiceNotes: integer('total_voice_notes').notNull().default(0),
+  totalTextNotes: integer('total_text_notes').notNull().default(0),
+  totalReviews: integer('total_reviews').notNull().default(0),
+  totalVoiceMs: integer('total_voice_ms').notNull().default(0),
+  totalXpFromJournal: integer('total_xp_from_journal').notNull().default(0),
+  knowledgeProgress: integer('knowledge_progress').notNull().default(0),
+  knowledgePoints: integer('knowledge_points').notNull().default(0),
+  knowledgeLevel: integer('knowledge_level').notNull().default(1),
+  knowledgeMasteryBps: integer('knowledge_mastery_bps').notNull().default(0),
+  totalConnections: integer('total_connections').notNull().default(0),
+  totalCollections: integer('total_collections').notNull().default(0),
+  libraryTier: integer('library_tier').notNull().default(0),
+  updatedAt: text('updated_at').notNull(),
 });
 
 export const learningAppState = sqliteTable('learning_app_state', {
@@ -940,6 +1072,15 @@ export const schema = {
   studyPointsHistory,
   collectionBook,
   farmSessions,
+  userRoutines,
+  routineCompletions,
+  routineStats,
+  journalEntries,
+  journalFolders,
+  journalEntryLinks,
+  journalCollections,
+  journalEntryCollections,
+  journalStats,
   focusSettings,
   focusBlockedApps,
   focusSessions,

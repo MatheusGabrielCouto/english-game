@@ -260,6 +260,27 @@
       "when": 1780280000000,
       "tag": "0037_flash_deck_interview_tech",
       "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "6",
+      "when": 1780281000000,
+      "tag": "0038_user_routines",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "6",
+      "when": 1780282000000,
+      "tag": "0039_english_journal",
+      "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "6",
+      "when": 1780283000000,
+      "tag": "0040_knowledge_vault",
+      "breakpoints": true
     }
   ]
 }
