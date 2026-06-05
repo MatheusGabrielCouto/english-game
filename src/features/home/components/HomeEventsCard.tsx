@@ -3,16 +3,16 @@ import { Text, View } from 'react-native'
 
 import { GameCard, PressableScale } from '@/components/ui/game'
 import { routes } from '@/constants'
-import { HOME_UI } from '@/features/home/constants/home-ui'
 import { HomeCardRow } from '@/features/home/components/shared/HomeCardRow'
 import { HomeSectionLabel } from '@/features/home/components/shared/HomeSectionLabel'
 import { HomeStatPill } from '@/features/home/components/shared/HomeStatPill'
 import { RpgProgressBar } from '@/features/home/components/shared/RpgProgressBar'
 import { HOME_LAYOUT } from '@/features/home/constants/home-layout'
+import { HOME_UI } from '@/features/home/constants/home-ui'
+import type { HomeSeasonSnapshot } from '@/features/home/hooks/use-home-events'
 import { useHomeEvents } from '@/features/home/hooks/use-home-events'
 import { formatDaysRemainingLabel } from '@/features/home/utils/home-events'
 import type { ActiveCityEventViewModel } from '@/types/city-event'
-import type { HomeSeasonSnapshot } from '@/features/home/hooks/use-home-events'
 
 type HomeEventBlockProps = {
   emoji: string
@@ -119,28 +119,20 @@ const SeasonEventBlock = ({ season }: { season: HomeSeasonSnapshot }) => (
 )
 
 export const HomeEventsCard = () => {
-  const { cityEvent, season, hasRealContent, isLoading } = useHomeEvents()
+  const { cityEvent, season, hasRealContent } = useHomeEvents()
+
+  if (!hasRealContent) {
+    return null
+  }
 
   return (
     <GameCard variant="default" className="border-border/80">
       <HomeSectionLabel emoji="🎪" title={HOME_UI.events.title} tone="accent" />
 
-      {hasRealContent ? (
-        <View className="mt-3 gap-3">
-          {cityEvent ? <CityEventBlock event={cityEvent} /> : null}
-          {season ? <SeasonEventBlock season={season} /> : null}
-        </View>
-      ) : isLoading ? (
-        <Text className="mt-3 text-sm text-foreground-secondary">{HOME_UI.events.loading}</Text>
-      ) : (
-        <HomeCardRow className="mt-3 gap-3">
-          <View className={HOME_LAYOUT.growBlock}>
-            <Text className="text-base font-bold text-foreground">{HOME_UI.events.comingSoon}</Text>
-            <Text className="mt-1 text-sm leading-5 text-foreground-secondary">{HOME_UI.events.body}</Text>
-          </View>
-          <HomeStatPill emoji="🔒" label={HOME_UI.events.badge} value="—" tone="accent" />
-        </HomeCardRow>
-      )}
+      <View className="mt-3 gap-3">
+        {cityEvent ? <CityEventBlock event={cityEvent} /> : null}
+        {season ? <SeasonEventBlock season={season} /> : null}
+      </View>
     </GameCard>
   )
 }

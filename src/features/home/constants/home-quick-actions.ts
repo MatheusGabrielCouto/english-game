@@ -15,6 +15,7 @@ export type HomeQuickActionId =
   | 'focus'
   | 'city'
   | 'pet'
+  | 'shop'
   | 'inventory'
 
 export type HomeQuickActionDef = {
@@ -34,14 +35,14 @@ export const HOME_QUICK_ACTIONS: HomeQuickActionDef[] = [
     id: 'quests',
     label: 'Missões',
     emoji: '🎯',
-    route: routes.tabs.quests as Href,
+    route: routes.tabs.play as Href,
     tagline: 'Diárias e semanais',
   },
   {
     id: 'english-journal',
     label: 'Vault',
     emoji: '📓',
-    route: routes.englishJournal as Href,
+    route: routes.tabs.knowledge as Href,
     tagline: 'Notas e mapa',
     exploreId: 'english-journal',
   },
@@ -105,6 +106,13 @@ export const HOME_QUICK_ACTIONS: HomeQuickActionDef[] = [
     exploreId: 'pet',
   },
   {
+    id: 'shop',
+    label: 'Loja',
+    emoji: '🛒',
+    route: routes.shop as Href,
+    tagline: 'Compre upgrades e itens',
+  },
+  {
     id: 'inventory',
     label: 'Inventário',
     emoji: '🎒',
@@ -114,5 +122,50 @@ export const HOME_QUICK_ACTIONS: HomeQuickActionDef[] = [
   },
 ]
 
+export const HOME_QUICK_ACTION_VISIBLE_IDS: HomeQuickActionId[] = [
+  'quests',
+  'english-journal',
+  'city',
+  'pet',
+  'shop',
+  'flash-deck',
+]
+
+/** Fills the Home grid when a featured action is disabled (e.g. flash-deck flag). */
+export const HOME_QUICK_ACTION_OVERFLOW_IDS: HomeQuickActionId[] = [
+  'routines',
+  'inventory',
+  'farm',
+  'duels',
+  'focus',
+]
+
+export const HOME_QUICK_ACTIONS_LIMIT = 6
+
 export const getEnabledHomeQuickActions = (): HomeQuickActionDef[] =>
   HOME_QUICK_ACTIONS.filter((action) => action.isEnabled?.() ?? true)
+
+export const getHomeQuickActionsForDisplay = (): HomeQuickActionDef[] => {
+  const enabledById = new Map(
+    getEnabledHomeQuickActions().map((action) => [action.id, action]),
+  )
+
+  const visible: HomeQuickActionDef[] = []
+
+  for (const id of HOME_QUICK_ACTION_VISIBLE_IDS) {
+    const action = enabledById.get(id)
+    if (action) visible.push(action)
+  }
+
+  if (visible.length < HOME_QUICK_ACTIONS_LIMIT) {
+    for (const id of HOME_QUICK_ACTION_OVERFLOW_IDS) {
+      if (visible.length >= HOME_QUICK_ACTIONS_LIMIT) break
+      const action = enabledById.get(id)
+      if (action && !visible.some((item) => item.id === action.id)) {
+        visible.push(action)
+      }
+    }
+  }
+
+  return visible.slice(0, HOME_QUICK_ACTIONS_LIMIT)
+}

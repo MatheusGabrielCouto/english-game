@@ -1,7 +1,8 @@
 import { useRouter, type Href } from 'expo-router';
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Text, View } from 'react-native';
 import Animated, {
+    runOnJS,
     useAnimatedScrollHandler,
     useAnimatedStyle,
     useSharedValue,
@@ -13,14 +14,28 @@ import { routes } from '@/constants';
 
 import { PET_FARM_MAP_BUILDINGS } from '../catalogs/pet-farm-map-catalog';
 import { PET_FARM_ISLAND_VIEW_H } from '../constants/pet-farm-island-layout';
+import {
+  PET_FARM_ONBOARDING_TARGET_KEYS,
+  PET_FARM_ONBOARDING_UI,
+  type PetFarmOnboardingTargetKey,
+} from '../constants/pet-farm-onboarding-ui';
 import { PET_FARM_MAP_UI } from '../constants/pet-farm-map-ui';
 import { PET_FARM_UI } from '../constants/pet-farm-ui';
+import { usePetFarmOnboarding } from '../hooks/use-pet-farm-onboarding';
 import { PetFarmService } from '../services/pet-farm-service';
+import { usePetFarmOnboardingStore } from '../store/pet-farm-onboarding-store';
 import { usePetFarmStore } from '../store/pet-farm-store';
 import { PetFarmIslandBackdrop } from './PetFarmIslandBackdrop';
 import { PetFarmMapBuilding } from './PetFarmMapBuilding';
+import { PetFarmOnboardingHost } from './PetFarmOnboardingHost';
+import { PetFarmOnboardingWelcomeCard } from './PetFarmOnboardingWelcomeCard';
 
 const SCENE_HEIGHT = PET_FARM_ISLAND_VIEW_H;
+
+const isOnboardingTarget = (
+  key: string,
+): key is PetFarmOnboardingTargetKey =>
+  (PET_FARM_ONBOARDING_TARGET_KEYS as readonly string[]).includes(key);
 
 export const PetFarmMapScreen = () => {
   const router = useRouter();
@@ -30,6 +45,22 @@ export const PetFarmMapScreen = () => {
   const academySessions = usePetFarmStore((s) => s.academySessions);
   const instances = usePetFarmStore((s) => s.instances);
   const scrollY = useSharedValue(0);
+
+  const { shouldShowWelcome, complete } = usePetFarmOnboarding();
+  const isOnboardingActive = usePetFarmOnboardingStore((s) => s.isActive);
+  const isOnboardingActiveRef = useRef(isOnboardingActive);
+  const startOnboarding = usePetFarmOnboardingStore((s) => s.start);
+  const requestRemeasure = usePetFarmOnboardingStore((s) => s.requestRemeasure);
+
+  useEffect(() => {
+    isOnboardingActiveRef.current = isOnboardingActive;
+  }, [isOnboardingActive]);
+
+  const remeasureIfActive = useCallback(() => {
+    if (isOnboardingActiveRef.current) {
+      requestRemeasure();
+    }
+  }, [requestRemeasure]);
 
   const readyEggs = useMemo(
     () => incubators.filter((e) => new Date(e.hatchAt).getTime() <= Date.now()).length,
@@ -49,6 +80,12 @@ export const PetFarmMapScreen = () => {
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
       scrollY.value = event.contentOffset.y;
+    },
+    onEndDrag: () => {
+      runOnJS(remeasureIfActive)();
+    },
+    onMomentumEnd: () => {
+      runOnJS(remeasureIfActive)();
     },
   });
 
@@ -88,6 +125,13 @@ export const PetFarmMapScreen = () => {
 
   return (
     <View className="gap-4">
+      {shouldShowWelcome && !isOnboardingActive ? (
+        <PetFarmOnboardingWelcomeCard
+          onStart={startOnboarding}
+          onSkip={complete}
+        />
+      ) : null}
+
       <Card className="gap-1 border-emerald-500/25 bg-emerald-950/15">
         <Text className="text-xs text-muted">{PET_FARM_UI.bonuses}</Text>
         <Text className="text-sm font-bold text-foreground">
@@ -123,19 +167,33 @@ export const PetFarmMapScreen = () => {
                 <Text className="text-[10px] font-bold uppercase tracking-[0.18em] text-sky-100">
                   {PET_FARM_MAP_UI.islandTitle}
                 </Text>
-                <Text className="text-[9px] text-sky-200/75">{PET_FARM_MAP_UI.tapBuilding}</Text>
+                <Text className="text-[9px] text-sky-200/75">
+                  {shouldShowWelcome && !isOnboardingActive
+                    ? PET_FARM_ONBOARDING_UI.incubatorHint
+                    : PET_FARM_MAP_UI.tapBuilding}
+                </Text>
               </View>
             </Animated.View>
 
             <View className="absolute inset-0 z-20">
-              {PET_FARM_MAP_BUILDINGS.map((building) => (
-                <PetFarmMapBuilding
-                  key={building.key}
-                  building={building}
-                  badge={badgeFor(building.key)}
-                  onPress={() => handleBuildingPress(building.route)}
-                />
-              ))}
+              {PET_FARM_MAP_BUILDINGS.map((building) => {
+                const highlighted =
+                  (shouldShowWelcome && !isOnboardingActive && building.key === 'incubator') ||
+                  (isOnboardingActive && building.key === 'incubator');
+
+                return (
+                  <PetFarmMapBuilding
+                    key={building.key}
+                    building={building}
+                    badge={badgeFor(building.key)}
+                    highlighted={highlighted}
+                    onboardingTargetKey={
+                      isOnboardingTarget(building.key) ? building.key : undefined
+                    }
+                    onPress={() => handleBuildingPress(building.route)}
+                  />
+                );
+              })}
             </View>
           </View>
         </Animated.ScrollView>
@@ -173,6 +231,8 @@ export const PetFarmMapScreen = () => {
           </Text>
         </PressableScale>
       ) : null}
+
+      <PetFarmOnboardingHost onComplete={complete} />
     </View>
   );
 };

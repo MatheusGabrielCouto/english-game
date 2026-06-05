@@ -33,6 +33,17 @@ export const VAULT_UI = {
   searchHint: 'Título, texto ou tags (#grammar)',
   searchPlaceholder: 'Ex.: past perfect, although, entrevista…',
 
+  globalSearchTitle: 'Busca global',
+  globalSearchSubtitle: 'Todas as notas, áreas e tags do vault',
+  globalSearchTrigger: 'Buscar em todo o vault…',
+  globalSearchTriggerHint: 'Título, corpo, tags e área',
+  globalSearchEmptyQuery: 'Digite para buscar em todas as notas do vault.',
+  globalSearchNoResults: 'Nenhuma nota encontrada. Tente outra palavra ou área.',
+  globalSearchResults: (count: number) =>
+    count === 1 ? '1 resultado' : `${count} resultados`,
+  globalSearchFilterAll: 'Todas as áreas',
+  globalSearchOpen: 'Abrir busca global do vault',
+
   statsNotes: (n: number) => `${n} notas`,
   statsVoice: (n: number) => `${n} áudios`,
   statsReviewsDue: (n: number) => (n === 1 ? '1 revisão hoje' : `${n} revisões pendentes`),
@@ -165,14 +176,15 @@ export const VAULT_UI = {
   collectionFormError: 'Corrija os campos destacados',
   collectionSaveError: 'Não foi possível salvar a lista',
 
-  emptyLibraryTitle: 'Sua biblioteca está vazia',
+  emptyLibraryTitle: 'Comece seu caderno de inglês',
   emptyLibraryBody:
-    'Registre a primeira coisa que aprendeu hoje — uma palavra, correção do professor ou áudio. Em segundos você monta seu histórico de inglês.',
-  emptyLibraryCta: 'Criar primeira nota',
+    'Anote uma palavra, correção ou áudio de hoje. Cada nota alimenta suas revisões e o mapa de conhecimento.',
+  emptyLibraryCta: 'Registrar primeira nota',
 
-  emptyCollectionsTitle: 'Nenhuma lista ainda',
+  emptyCollectionsTitle: 'Organize notas em listas',
   emptyCollectionsBody:
-    'Listas servem para juntar notas de um mesmo objetivo — entrevista, curso, IELTS. Crie uma lista e associe notas ao salvar.',
+    'Junte notas do mesmo objetivo — entrevista, curso ou IELTS. Crie uma lista e associe notas ao salvar.',
+  emptyCollectionsCta: 'Criar primeira lista',
 
   reviewBanner: (count: number) =>
     count === 1

@@ -1,9 +1,10 @@
 import { type Href, router, useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 import { Button } from '@/components';
-import { routes, theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
+import { routes } from '@/constants';
 import { isDuelsEnabled } from '@/constants/feature-flags';
 import {
     LearningHeroPanel,
@@ -47,11 +48,7 @@ export const FlashDeckHubContent = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <View className="items-center py-16">
-        <ActivityIndicator color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="learning" className="gap-5 pb-0" />;
   }
 
   return (

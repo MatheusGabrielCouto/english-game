@@ -1,9 +1,9 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 import { Button } from '@/components';
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { McqQuestionCard } from '@/features/duels/components/McqQuestionCard';
 import { McqQuestionService } from '@/features/learning';
 import {
@@ -82,11 +82,7 @@ export const FlashDeckMcqReviewContent = () => {
   }, [loading, index, queue.length, sessionId, deckId, refresh, refreshDeck, scope]);
 
   if (loading) {
-    return (
-      <View className="items-center py-16">
-        <ActivityIndicator color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="session" />;
   }
 
   if (queue.length === 0) {

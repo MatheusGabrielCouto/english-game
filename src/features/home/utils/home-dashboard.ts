@@ -80,7 +80,7 @@ export const resolveHomeNextReward = (params: {
       title: `Nível ${params.level + 1}`,
       subtitle: `${xpProgress.current}/${xpProgress.required} XP`,
       percent: xpPercent,
-      route: '/(tabs)/profile',
+      route: '/profile',
     }
   }
 
@@ -153,7 +153,7 @@ export const resolveHomeNextReward = (params: {
     title: 'Continue evoluindo',
     subtitle: currentPrestige?.name ?? 'Complete missões hoje',
     percent: Math.max(xpPercent, 12),
-    route: '/(tabs)/quests',
+    route: '/(tabs)/play',
   }
 }
 

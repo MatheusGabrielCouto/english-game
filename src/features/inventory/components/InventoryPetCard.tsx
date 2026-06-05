@@ -8,21 +8,24 @@ import { InventorySectionHeader } from './InventorySectionHeader';
 
 type InventoryPetCardProps = {
   pet: InventoryPetSnapshot | null;
+  hideHeader?: boolean;
 };
 
-export const InventoryPetCard = ({ pet }: InventoryPetCardProps) => {
+export const InventoryPetCard = ({ pet, hideHeader = false }: InventoryPetCardProps) => {
   const handleOpenPet = () => {
     router.push('/pet' as Href);
   };
 
   if (!pet) {
     return (
-      <View className="gap-3">
-        <InventorySectionHeader
-          emoji="🐾"
-          title="Companheiro"
-          subtitle="Seu pet de aventura"
-        />
+      <View className={hideHeader ? 'gap-0' : 'gap-3'}>
+        {hideHeader ? null : (
+          <InventorySectionHeader
+            emoji="🐾"
+            title="Companheiro"
+            subtitle="Seu pet de aventura"
+          />
+        )}
         <GameCard variant="default" className="items-center py-6">
           <Text className="text-4xl opacity-40">🥚</Text>
           <Text className="mt-3 text-sm font-semibold text-foreground">Nenhum companheiro</Text>
@@ -35,13 +38,15 @@ export const InventoryPetCard = ({ pet }: InventoryPetCardProps) => {
   }
 
   return (
-    <View className="gap-3">
-      <InventorySectionHeader
-        emoji="🐾"
-        title="Companheiro"
-        subtitle="Toque para cuidar do seu pet"
-        badge={`Nv. ${pet.level}`}
-      />
+    <View className={hideHeader ? 'gap-0' : 'gap-3'}>
+      {hideHeader ? null : (
+        <InventorySectionHeader
+          emoji="🐾"
+          title="Companheiro"
+          subtitle="Toque para cuidar do seu pet"
+          badge={`Nv. ${pet.level}`}
+        />
+      )}
 
       <PressableScale
         onPress={handleOpenPet}

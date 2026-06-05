@@ -10,9 +10,9 @@ import { COLLECTION_TEMPLATES } from '../../catalogs/collection-templates-catalo
 import { VAULT_UI } from '../../constants/vault-ui'
 import { KnowledgeVaultService } from '../../services/knowledge-vault-service'
 import { useEnglishJournalStore } from '../../store/english-journal-store'
-import { VaultEmptyState } from './VaultEmptyState'
 import { VaultCollectionFormModal } from './VaultCollectionFormModal'
 import { VaultCollectionListItem } from './VaultCollectionListItem'
+import { VaultEmptyState } from './VaultEmptyState'
 
 export const VaultCollectionsScreenContent = () => {
   const collections = useEnglishJournalStore((s) => s.collections)
@@ -106,7 +106,7 @@ export const VaultCollectionsScreenContent = () => {
           emoji="📁"
           title={VAULT_UI.emptyCollectionsTitle}
           body={VAULT_UI.emptyCollectionsBody}
-          ctaLabel={VAULT_UI.newCollection}
+          ctaLabel={VAULT_UI.emptyCollectionsCta}
           onCta={openCreate}
         />
       ) : (

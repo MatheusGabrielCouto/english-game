@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 
 import { ProgressBar } from '@/components';
 import { GameCard, LevelBadge } from '@/components/ui/game';
+import { SHARED_TRANSITION_TAGS } from '@/constants';
 
 import { usePunishmentStore } from '@/features/punishments/store/punishment-store';
 import type { CityProgress, CitySummary } from '@/types/city';
@@ -21,7 +22,7 @@ export const CityHeroCard = ({ level, summary, progress }: CityHeroCardProps) =>
     summary.total > 0 ? Math.round((summary.unlocked / summary.total) * 100) : 0;
 
   return (
-    <GameCard variant="hero" glow>
+    <GameCard variant="hero" glow sharedTransitionTag={SHARED_TRANSITION_TAGS.cityHero}>
       <Text className="text-xs font-bold uppercase tracking-widest text-primary">
         🏙️ {CITY_UI.heroTitle}
       </Text>

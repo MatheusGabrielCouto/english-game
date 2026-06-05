@@ -6,24 +6,17 @@ import { PressableScale } from '@/components/ui/game';
 import { PetInteractionType, type PetInteractionTypeValue } from '@/types/pet-expansion';
 import { cn } from '@/utils';
 
+import { PET_INTERACTION_CATALOG } from '../constants/pet-interaction-catalog';
+import { PET_UI } from '../constants/pet-ui';
 import { DEFAULT_FOOD_KEY } from '../catalogs/pet-foods-catalog';
 import { DEFAULT_TOY_KEY } from '../catalogs/pet-toys-catalog';
 import { usePet } from '../hooks/use-pet';
 import { PetInteractionService } from '../services/pet-interaction-service';
 import { PetVitalsService } from '../services/pet-vitals-service';
 import { usePetScreenStore } from '../store/pet-screen-store';
+import { getPetRecommendedAction } from '../utils/get-pet-recommended-action';
 import { formatInteractionCooldown, getInteractionCooldown } from '../utils/interaction-cooldown';
-
-const INTERACTIONS: { type: PetInteractionTypeValue; label: string; emoji: string }[] = [
-  { type: PetInteractionType.PET, label: 'Carinho', emoji: '🤲' },
-  { type: PetInteractionType.FEED, label: 'Alimentar', emoji: '🍎' },
-  { type: PetInteractionType.PLAY, label: 'Brincar', emoji: '🎾' },
-  { type: PetInteractionType.TALK, label: 'Conversar', emoji: '💬' },
-  { type: PetInteractionType.TRAIN, label: 'Treinar', emoji: '📖' },
-  { type: PetInteractionType.GIFT, label: 'Presente', emoji: '🎁' },
-  { type: PetInteractionType.PHOTO, label: 'Foto', emoji: '📸' },
-  { type: PetInteractionType.ACCESSORY, label: 'Acessório', emoji: '👒' },
-];
+import { PetBestActionHighlight } from './PetBestActionHighlight';
 
 type PetInteractionGridProps = {
   onInteraction?: (message: string) => void;
@@ -38,10 +31,12 @@ export const PetInteractionGrid = ({ onInteraction }: PetInteractionGridProps) =
   const cooldown = getInteractionCooldown(pet?.lastInteractionAt ?? null, nowMs);
   const cooldownLabel = formatInteractionCooldown(cooldown.remainingMs);
 
+  const recommendedAction = useMemo(() => getPetRecommendedAction(pet), [pet]);
+
   const vitalBlocks = useMemo(() => {
     if (!pet) return {} as Partial<Record<PetInteractionTypeValue, string>>;
     return Object.fromEntries(
-      INTERACTIONS.map((item) => [
+      PET_INTERACTION_CATALOG.map((item) => [
         item.type,
         PetVitalsService.getBlockMessage(pet, item.type),
       ]),
@@ -103,11 +98,18 @@ export const PetInteractionGrid = ({ onInteraction }: PetInteractionGridProps) =
         </Text>
       ) : null}
 
+      {recommendedAction ? (
+        <View className="mb-3">
+          <PetBestActionHighlight action={recommendedAction} />
+        </View>
+      ) : null}
+
       <View className="flex-row flex-wrap gap-2">
-        {INTERACTIONS.map((item) => {
+        {PET_INTERACTION_CATALOG.map((item) => {
           const vitalBlocked = Boolean(vitalBlocks[item.type]);
           const cooldownBlocked = !cooldown.canInteract;
           const disabled = cooldownBlocked || vitalBlocked || busyType !== null;
+          const isRecommended = recommendedAction?.type === item.type;
 
           return (
             <PressableScale
@@ -115,20 +117,31 @@ export const PetInteractionGrid = ({ onInteraction }: PetInteractionGridProps) =
               onPress={() => void handlePress(item.type)}
               disabled={disabled && !vitalBlocked}
               accessibilityRole="button"
-              accessibilityLabel={item.label}
+              accessibilityLabel={
+                isRecommended ? `${item.label}. ${PET_UI.bestActionBadge}` : item.label
+              }
               accessibilityState={{ disabled }}
               className="min-w-[22%] shrink-0 grow">
               <View
                 className={cn(
-                  'items-center rounded-2xl border px-2 py-3',
+                  'relative items-center rounded-2xl border px-2 py-3',
                   busyType === item.type
                     ? 'border-accent bg-accent/10'
-                    : vitalBlocked
-                      ? 'border-warning/40 bg-warning/5 opacity-80'
-                      : cooldownBlocked
-                        ? 'border-border bg-surface opacity-50'
-                        : 'border-border bg-surface',
+                    : isRecommended
+                      ? 'border-primary bg-primary/12'
+                      : vitalBlocked
+                        ? 'border-warning/40 bg-warning/5 opacity-80'
+                        : cooldownBlocked
+                          ? 'border-border bg-surface opacity-50'
+                          : 'border-border bg-surface',
                 )}>
+                {isRecommended ? (
+                  <View className="absolute -right-1 -top-1 rounded-full border border-primary/40 bg-primary px-1.5 py-0.5">
+                    <Text className="text-[8px] font-bold uppercase text-primary-foreground">
+                      {PET_UI.bestActionBadge}
+                    </Text>
+                  </View>
+                ) : null}
                 <Text className="text-2xl">{item.emoji}</Text>
                 <Text className="mt-1 text-center text-xs font-semibold text-foreground">{item.label}</Text>
                 {vitalBlocked ? (

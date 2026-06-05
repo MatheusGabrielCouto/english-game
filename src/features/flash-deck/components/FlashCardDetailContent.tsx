@@ -1,9 +1,9 @@
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { ActivityIndicator, Alert, Text, TextInput, View } from 'react-native';
+import { Alert, Text, TextInput, View } from 'react-native';
 
 import { Button } from '@/components';
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { useAsyncAction } from '@/hooks';
 import type { FlashCardRecord } from '@/types/flash-card';
 
@@ -94,11 +94,7 @@ export const FlashCardDetailContent = () => {
   }
 
   if (loading) {
-    return (
-      <View className="items-center py-16">
-        <ActivityIndicator color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="session" />;
   }
 
   if (!card) {

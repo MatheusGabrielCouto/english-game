@@ -10,8 +10,11 @@ import {
   MAX_DAILY_NOTIFICATIONS,
   NOTIFICATION_PRIORITY,
   NOTIFICATION_TITLE,
+  STREAK_RISK_HOURS,
 } from '../constants/categories';
-import { pickNotificationMessage } from '../constants/messages';
+import { buildStreakRiskBody, pickNotificationMessage } from '../constants/messages';
+
+const STREAK_RISK_MS = STREAK_RISK_HOURS * 60 * 60 * 1000;
 
 export const isCategoryEnabled = (
   settings: NotificationSettings,
@@ -21,6 +24,7 @@ export const isCategoryEnabled = (
     case NotificationCategory.DAILY_REMINDER:
       return settings.dailyReminder;
     case NotificationCategory.STREAK_REMINDER:
+    case NotificationCategory.STREAK_RISK:
       return settings.streakReminder;
     case NotificationCategory.SHIELD_WARNING:
       return settings.shieldWarning;
@@ -46,6 +50,65 @@ export const shouldIncludePetReminder = (context: NotificationContext): boolean 
 
 export const buildNotificationIdentifier = (dateKey: string, category: string): string =>
   `eq-${dateKey}-${category}`;
+
+export const computeStreakRiskScheduleTime = (
+  context: NotificationContext,
+  settings: NotificationSettings,
+  referenceDate = new Date(),
+): Date | null => {
+  if (context.studiedToday) return null
+  if (context.currentStreak <= 0) return null
+  if (!isCategoryEnabled(settings, NotificationCategory.STREAK_RISK)) return null
+  if (!context.lastStudyDate) return null
+
+  const [year, month, day] = context.lastStudyDate.split('-').map(Number)
+  if (!year || !month || !day) return null
+
+  const lastStudyAt = new Date(
+    year,
+    month - 1,
+    day,
+    settings.preferredHour,
+    settings.preferredMinute,
+    0,
+    0,
+  )
+  const riskAt = new Date(lastStudyAt.getTime() + STREAK_RISK_MS)
+  const now = referenceDate.getTime()
+
+  if (riskAt.getTime() > now) {
+    return riskAt
+  }
+
+  const eveningCutoff = new Date(referenceDate)
+  eveningCutoff.setHours(20, 0, 0, 0)
+  if (eveningCutoff.getTime() > now) {
+    return eveningCutoff
+  }
+
+  const lastChance = new Date(referenceDate)
+  lastChance.setHours(settings.preferredHour + 2, settings.preferredMinute, 0, 0)
+  if (lastChance.getTime() > now) {
+    return lastChance
+  }
+
+  return new Date(now + 2 * 60 * 1000)
+}
+
+export const buildStreakRiskCandidate = (
+  context: NotificationContext,
+  settings: NotificationSettings,
+  seed = 0,
+): NotificationCandidate | null => {
+  if (!computeStreakRiskScheduleTime(context, settings)) return null
+
+  return {
+    category: NotificationCategory.STREAK_RISK,
+    title: NOTIFICATION_TITLE,
+    body: buildStreakRiskBody(context.currentStreak, seed),
+    priority: NOTIFICATION_PRIORITY[NotificationCategory.STREAK_RISK] ?? 0,
+  }
+}
 
 export const computeScheduleTimes = (
   preferredHour: number,

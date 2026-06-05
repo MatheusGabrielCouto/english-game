@@ -1,6 +1,7 @@
 import { CityMapService } from '@/features/city/services/city-map-service';
 import { useCityMapStore } from '@/features/city/store/city-map-store';
 import { applyLocalXpToPoi } from '@/features/city/utils/apply-local-xp';
+import { showGameToast } from '@/features/feedback/services/feedback-service';
 import { RewardModifierService } from '@/features/game-design/services/reward-modifier-service';
 import { LootBoxService } from '@/features/loot-boxes/services/loot-box-service';
 import { PlayerService } from '@/features/player/services/player-service';
@@ -159,8 +160,9 @@ const completeActiveContract = async (
 
   await refreshStore();
 
-  useContractsStore.getState().showToast(
+  showGameToast(
     `${CONTRACT_MESSAGES.completed} ${CONTRACT_MESSAGES.rewardsDelivered} ${CONTRACT_MESSAGES.localXpGranted}`,
+    'success',
   );
 
   return {
@@ -192,7 +194,6 @@ const failActiveContract = async (run: ContractRunRecord): Promise<void> => {
   });
 
   await refreshStore();
-  useContractsStore.getState().showToast(CONTRACT_MESSAGES.failed, 'info');
 };
 
 const handleStudyDayRecorded = async (): Promise<void> => {
@@ -225,7 +226,7 @@ const handleStudyDayRecorded = async (): Promise<void> => {
   };
 
   await refreshStore();
-  useContractsStore.getState().showToast(CONTRACT_MESSAGES.progress, 'info');
+  showGameToast(CONTRACT_MESSAGES.progress, 'info');
 };
 
 const handleStreakBroken = async (): Promise<void> => {
@@ -342,7 +343,7 @@ export const ContractService = {
     });
 
     await refreshStore();
-    useContractsStore.getState().showToast(CONTRACT_MESSAGES.started);
+    showGameToast(CONTRACT_MESSAGES.started, 'success');
 
     return { success: true, run };
   },

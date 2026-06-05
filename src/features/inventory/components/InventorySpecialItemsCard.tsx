@@ -17,9 +17,13 @@ import { UseConsumableModal } from './UseConsumableModal';
 
 type InventorySpecialItemsCardProps = {
   items: SpecialItemRecord[];
+  hideHeader?: boolean;
 };
 
-export const InventorySpecialItemsCard = ({ items }: InventorySpecialItemsCardProps) => {
+export const InventorySpecialItemsCard = ({
+  items,
+  hideHeader = false,
+}: InventorySpecialItemsCardProps) => {
   const [selected, setSelected] = useState<SpecialItemRecord | null>(null);
   const [isUsing, setIsUsing] = useState(false);
   const [boosterRevision, setBoosterRevision] = useState(0);
@@ -51,18 +55,30 @@ export const InventorySpecialItemsCard = ({ items }: InventorySpecialItemsCardPr
     setSelected(null);
   }, [selected, isUsing]);
 
-  if (items.length === 0 && activeBoosters.length === 0) return null;
+  if (items.length === 0 && activeBoosters.length === 0) {
+    if (hideHeader) {
+      return (
+        <Text className="py-2 text-center text-sm text-muted">
+          Nenhum item especial no momento.
+        </Text>
+      )
+    }
+
+    return null
+  }
 
   const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <View className="gap-3">
-      <InventorySectionHeader
-        emoji="✨"
-        title="Itens Especiais"
-        subtitle="Toque para usar boosters, tickets e consumíveis"
-        badge={`${totalQuantity} un.`}
-      />
+      {hideHeader ? null : (
+        <InventorySectionHeader
+          emoji="✨"
+          title="Itens Especiais"
+          subtitle="Toque para usar boosters, tickets e consumíveis"
+          badge={`${totalQuantity} un.`}
+        />
+      )}
 
       {activeBoosters.length > 0 ? (
         <GameCard variant="default" className="gap-2 p-3">

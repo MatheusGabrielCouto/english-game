@@ -1,5 +1,7 @@
-import { EnglishJournalScreen } from '@/features/english-journal';
+import { Redirect } from 'expo-router'
 
-export default function EnglishJournalIndexRoute() {
-  return <EnglishJournalScreen />;
+import { routes } from '@/constants'
+
+export default function EnglishJournalIndexRedirect() {
+  return <Redirect href={routes.vault.library} />
 }

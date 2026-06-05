@@ -1,3 +1,5 @@
+import { typography } from './typography'
+
 export const theme = {
   colors: {
     background: '#06060b',
@@ -12,6 +14,7 @@ export const theme = {
     danger: '#ef4444',
     muted: '#71717a',
     foreground: '#fafafa',
+    foregroundSecondary: '#a1a1aa',
     glow: '#a78bfa',
     gold: '#fbbf24',
     epic: '#c084fc',
@@ -37,6 +40,7 @@ export const theme = {
     xl: 20,
     full: 9999,
   },
+  typography,
   shadows: {
     glow: {
       shadowColor: '#8b5cf6',
@@ -53,13 +57,13 @@ export const theme = {
       elevation: 6,
     },
   },
-} as const;
+} as const
 
-export type Theme = typeof theme;
+export type Theme = typeof theme
 
 export const RARITY_COLORS = {
   common: theme.colors.common,
   rare: theme.colors.rare,
   epic: theme.colors.epic,
   legendary: theme.colors.legendary,
-} as const;
+} as const

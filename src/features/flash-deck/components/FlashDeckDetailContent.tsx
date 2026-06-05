@@ -1,7 +1,6 @@
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import {
-    ActivityIndicator,
     Alert,
     Pressable,
     ScrollView,
@@ -11,7 +10,7 @@ import {
 } from 'react-native';
 
 import { Button } from '@/components';
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { LearningHeroPanel } from '@/features/learning/components/ui';
 import type { FlashCardRecord, FlashDeckRecord } from '@/types/flash-card';
 import { DEFAULT_FLASH_DECK_ID } from '@/types/flash-card';
@@ -112,11 +111,7 @@ export const FlashDeckDetailContent = () => {
   }
 
   if (loading && !deck) {
-    return (
-      <View className="items-center py-16">
-        <ActivityIndicator color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="learning" className="gap-5 pb-0" />;
   }
 
   if (!deck) {

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { PetInstanceRepository } from '@/storage/repositories/pet-instance-repository';
 import type { PetInstance } from '@/types/pet-instance';
 
@@ -51,11 +52,7 @@ export const PetInstanceDetailScreenContent = ({ instanceId }: PetInstanceDetail
   };
 
   if (loading || !instance) {
-    return (
-      <View className="py-12">
-        <Text className="text-center text-muted">Carregando…</Text>
-      </View>
-    );
+    return <ScreenSkeleton variant="pet" className="pb-8" />;
   }
 
   return (

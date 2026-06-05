@@ -62,16 +62,11 @@ export const useShop = () => {
   const selectedStockItem = useShopScreenStore((state) => state.selectedStockItem);
   const selectedSpProduct = useShopScreenStore((state) => state.selectedSpProduct);
   const isPurchasing = useShopScreenStore((state) => state.isPurchasing);
-  const toastMessage = useShopScreenStore((state) => state.toastMessage);
-  const toastKey = useShopScreenStore((state) => state.toastKey);
-  const toastVariant = useShopScreenStore((state) => state.toastVariant);
   const setSelectedProduct = useShopScreenStore((state) => state.setSelectedProduct);
   const setSelectedDailyOffer = useShopScreenStore((state) => state.setSelectedDailyOffer);
   const setSelectedStockItem = useShopScreenStore((state) => state.setSelectedStockItem);
   const setSelectedSpProduct = useShopScreenStore((state) => state.setSelectedSpProduct);
   const setIsPurchasing = useShopScreenStore((state) => state.setIsPurchasing);
-  const showToast = useShopScreenStore((state) => state.showToast);
-  const clearToast = useShopScreenStore((state) => state.clearToast);
 
   const refresh = useCallback(async () => {
     const [, , offers, stockSnapshot] = await Promise.all([
@@ -115,12 +110,12 @@ export const useShop = () => {
   const handleSelectProduct = useCallback(
     (product: ShopProduct) => {
       if (!product.available) {
-        showToast(SHOP_MESSAGES.unavailable, 'info');
+        showGameToast(SHOP_MESSAGES.unavailable, 'info');
         return;
       }
       setSelectedProduct(product);
     },
-    [setSelectedProduct, showToast],
+    [setSelectedProduct, showGameToast],
   );
 
   const handleSelectSpProduct = useCallback(
@@ -132,18 +127,18 @@ export const useShop = () => {
 
   const handleCancelPurchase = useCallback(() => {
     setSelectedProduct(null);
-    showToast(SHOP_MESSAGES.purchaseCanceled, 'info');
-  }, [setSelectedProduct, showToast]);
+    showGameToast(SHOP_MESSAGES.purchaseCanceled, 'info');
+  }, [setSelectedProduct, showGameToast]);
 
   const handleCancelSpPurchase = useCallback(() => {
     setSelectedSpProduct(null);
-    showToast(SP_SHOP_MESSAGES.purchaseCanceled, 'info');
-  }, [setSelectedSpProduct, showToast]);
+    showGameToast(SP_SHOP_MESSAGES.purchaseCanceled, 'info');
+  }, [setSelectedSpProduct, showGameToast]);
 
   const handleSelectDailyOffer = useCallback(
     (offer: ShopDailyOffer) => {
       if (offer.purchased) {
-        showToast(
+        showGameToast(
           offer.shopKind === ShopOfferKind.COINS
             ? SHOP_OFFER_MESSAGES.alreadyPurchased
             : SP_SHOP_OFFER_MESSAGES.alreadyPurchased,
@@ -153,29 +148,29 @@ export const useShop = () => {
       }
       setSelectedDailyOffer(offer);
     },
-    [setSelectedDailyOffer, showToast],
+    [setSelectedDailyOffer, showGameToast],
   );
 
   const handleCancelOfferPurchase = useCallback(() => {
     setSelectedDailyOffer(null);
-    showToast(SHOP_MESSAGES.purchaseCanceled, 'info');
-  }, [setSelectedDailyOffer, showToast]);
+    showGameToast(SHOP_MESSAGES.purchaseCanceled, 'info');
+  }, [setSelectedDailyOffer, showGameToast]);
 
   const handleSelectStockItem = useCallback(
     (item: ShopStockItem) => {
       if (item.stockRemaining <= 0) {
-        showToast(SHOP_STOCK_MESSAGES.outOfStock, 'info');
+        showGameToast(SHOP_STOCK_MESSAGES.outOfStock, 'info');
         return;
       }
       setSelectedStockItem(item);
     },
-    [setSelectedStockItem, showToast],
+    [setSelectedStockItem, showGameToast],
   );
 
   const handleCancelStockPurchase = useCallback(() => {
     setSelectedStockItem(null);
-    showToast(SHOP_STOCK_MESSAGES.purchaseCanceled, 'info');
-  }, [setSelectedStockItem, showToast]);
+    showGameToast(SHOP_STOCK_MESSAGES.purchaseCanceled, 'info');
+  }, [setSelectedStockItem, showGameToast]);
 
   const handleConfirmStockPurchase = useCallback(async () => {
     if (!selectedStockItem || isPurchasing) return;
@@ -189,28 +184,28 @@ export const useShop = () => {
 
     if (!result.success) {
       if (result.reason === ShopStockFailureReason.OUT_OF_STOCK) {
-        showToast(SHOP_STOCK_MESSAGES.outOfStock, 'info');
+        showGameToast(SHOP_STOCK_MESSAGES.outOfStock, 'info');
         await refresh();
         return;
       }
       if (result.reason === 'insufficient_coins') {
-        showToast(
+        showGameToast(
           isCoinsStock ? SHOP_STOCK_MESSAGES.insufficientCoins : SHOP_STOCK_MESSAGES.insufficientSp,
           'info',
         );
         return;
       }
-      showToast(SHOP_STOCK_MESSAGES.unavailable, 'info');
+      showGameToast(SHOP_STOCK_MESSAGES.unavailable, 'info');
       return;
     }
 
-    showToast(
+    showGameToast(
       `${SHOP_STOCK_MESSAGES.purchaseCompleted} ${SHOP_STOCK_MESSAGES.itemReceived}`,
       'success',
     );
     await InventoryService.refresh();
     await refresh();
-  }, [isPurchasing, refresh, selectedStockItem, setIsPurchasing, setSelectedStockItem, showToast]);
+  }, [isPurchasing, refresh, selectedStockItem, setIsPurchasing, setSelectedStockItem, showGameToast]);
 
   const handleConfirmOfferPurchase = useCallback(async () => {
     if (!selectedDailyOffer || isPurchasing) return;
@@ -224,7 +219,7 @@ export const useShop = () => {
 
     if (!result.success) {
       if (result.reason === ShopOfferFailureReason.ALREADY_PURCHASED) {
-        showToast(
+        showGameToast(
           isCoinsOffer
             ? SHOP_OFFER_MESSAGES.alreadyPurchased
             : SP_SHOP_OFFER_MESSAGES.alreadyPurchased,
@@ -234,7 +229,7 @@ export const useShop = () => {
         return;
       }
       if (result.reason === 'insufficient_coins') {
-        showToast(
+        showGameToast(
           isCoinsOffer
             ? SHOP_OFFER_MESSAGES.insufficientCoins
             : SP_SHOP_OFFER_MESSAGES.insufficientSp,
@@ -242,7 +237,7 @@ export const useShop = () => {
         );
         return;
       }
-      showToast(
+      showGameToast(
         isCoinsOffer ? SHOP_OFFER_MESSAGES.unavailable : SP_SHOP_OFFER_MESSAGES.unavailable,
         'info',
       );
@@ -250,12 +245,12 @@ export const useShop = () => {
     }
 
     const messages = isCoinsOffer ? SHOP_OFFER_MESSAGES : SP_SHOP_OFFER_MESSAGES;
-    showToast(`${messages.purchaseCompleted} ${messages.itemReceived}`, 'success');
+    showGameToast(`${messages.purchaseCompleted} ${messages.itemReceived}`, 'success');
     if (!isCoinsOffer) {
       await InventoryService.refresh();
     }
     await refresh();
-  }, [isPurchasing, refresh, selectedDailyOffer, setIsPurchasing, setSelectedDailyOffer, showToast]);
+  }, [isPurchasing, refresh, selectedDailyOffer, setIsPurchasing, setSelectedDailyOffer, showGameToast]);
 
   const handleConfirmPurchase = useCallback(async () => {
     if (!selectedProduct || isPurchasing) return;
@@ -269,11 +264,11 @@ export const useShop = () => {
 
     if (!result.success) {
       if (result.reason === 'insufficient_coins') {
-        showToast(SHOP_MESSAGES.insufficientCoins, 'info');
+        showGameToast(SHOP_MESSAGES.insufficientCoins, 'info');
         return;
       }
 
-      showToast(SHOP_MESSAGES.unavailable, 'info');
+      showGameToast(SHOP_MESSAGES.unavailable, 'info');
       return;
     }
 
@@ -289,14 +284,14 @@ export const useShop = () => {
     setSelectedSpProduct(null);
 
     if (!success) {
-      showToast(SP_SHOP_MESSAGES.insufficientSp, 'info');
+      showGameToast(SP_SHOP_MESSAGES.insufficientSp, 'info');
       return;
     }
 
     await InventoryService.refresh();
     showGameToast(`${SP_SHOP_MESSAGES.purchaseCompleted} ${SP_SHOP_MESSAGES.itemReceived}`, 'success');
     await refresh();
-  }, [isPurchasing, refresh, selectedSpProduct, setIsPurchasing, setSelectedSpProduct, showToast]);
+  }, [isPurchasing, refresh, selectedSpProduct, setIsPurchasing, setSelectedSpProduct, showGameToast]);
 
   const handleUpgradeLootBox = useCallback(
     async (fromRarity: LootBoxRarityValue) => {
@@ -306,14 +301,14 @@ export const useShop = () => {
       const result = await StudyPointsService.upgradeLootBox(fromRarity);
       setIsPurchasing(false);
 
-      showToast(SP_UPGRADE_MESSAGES[result], result === 'success' ? 'success' : 'info');
+      showGameToast(SP_UPGRADE_MESSAGES[result], result === 'success' ? 'success' : 'info');
 
       if (result === 'success') {
         await InventoryService.refresh();
         await refresh();
       }
     },
-    [isPurchasing, refresh, setIsPurchasing, showToast],
+    [isPurchasing, refresh, setIsPurchasing, showGameToast],
   );
 
   const canAfford = useCallback(
@@ -360,9 +355,6 @@ export const useShop = () => {
     selectedStockItem,
     selectedSpProduct,
     isPurchasing,
-    toastMessage,
-    toastKey,
-    toastVariant,
     canAfford,
     canAffordOffer,
     canAffordStock,
@@ -380,7 +372,6 @@ export const useShop = () => {
     handleConfirmPurchase,
     handleConfirmSpPurchase,
     handleUpgradeLootBox,
-    clearToast,
   };
 };
 

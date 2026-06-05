@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { Button, ProgressBar } from '@/components';
-import { theme } from '@/constants';
+import { ListItemSkeleton } from '@/components/ui/skeleton';
 import type { CityPoiProjectViewModel, CityResourceBalances } from '@/types/city-resource';
 
 import { DAILY_DELIVERY_CAP } from '../constants/city-resource-config';
@@ -108,8 +108,9 @@ export const CityPoiDeliverSection = ({ poiKey, isUnlocked }: CityPoiDeliverSect
       <CityResourceStrip balances={balances} />
 
       {loading ? (
-        <View className="items-center py-6">
-          <ActivityIndicator color={theme.colors.primary} />
+        <View className="gap-3 py-2">
+          <ListItemSkeleton />
+          <ListItemSkeleton />
         </View>
       ) : null}
 

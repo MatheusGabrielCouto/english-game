@@ -1,11 +1,12 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Pressable, Text, View } from 'react-native';
+import { Alert, Pressable, Text, View } from 'react-native';
 
 import { Button } from '@/components';
 import { ScreenContainer, ScreenHeader } from '@/components/layout';
 import { GameCard } from '@/components/ui/game';
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
+import { vaultEntryHref } from '@/constants';
 import type { VaultEntryRecord, VaultReviewBundle } from '@/types/knowledge-vault';
 
 import { JournalEntryBodyTranslation } from '@/features/english-journal/components/JournalEntryBodyTranslation';
@@ -97,7 +98,7 @@ export default function VaultEntryDetailRoute() {
   if (loading) {
     return (
       <ScreenContainer>
-        <ActivityIndicator color={theme.colors.primary} className="mt-20" />
+        <ScreenSkeleton variant="vault" className="mt-4" />
       </ScreenContainer>
     );
   }
@@ -233,7 +234,7 @@ export default function VaultEntryDetailRoute() {
                 {reviewBundle.relatedEntries.map((related) => (
                   <Pressable
                     key={related.id}
-                    onPress={() => router.push(`/english-journal/entry/${related.id}` as never)}
+                    onPress={() => router.push(vaultEntryHref(related.id))}
                     accessibilityRole="button"
                     accessibilityLabel={related.title}>
                     <Text className="text-sm font-medium text-primary">· {related.title}</Text>

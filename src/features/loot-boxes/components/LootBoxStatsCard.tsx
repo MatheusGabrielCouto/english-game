@@ -1,6 +1,8 @@
 import { Text, View } from 'react-native';
 
 import { Card } from '@/components';
+import { SharedHeroTransition } from '@/components/ui/game';
+import { SHARED_TRANSITION_TAGS } from '@/constants';
 import type { LootBoxAnalyticsRecord } from '@/types/loot-box';
 
 type LootBoxStatsCardProps = {
@@ -9,6 +11,7 @@ type LootBoxStatsCardProps = {
 };
 
 export const LootBoxStatsCard = ({ analytics, availableCount }: LootBoxStatsCardProps) => (
+  <SharedHeroTransition tag={SHARED_TRANSITION_TAGS.lootHero}>
   <Card elevated accent>
     <Text className="mb-1 text-base font-semibold text-foreground">Estatísticas</Text>
     <Text className="mb-4 text-sm text-foreground-secondary">
@@ -33,4 +36,5 @@ export const LootBoxStatsCard = ({ analytics, availableCount }: LootBoxStatsCard
       </View>
     </View>
   </Card>
+  </SharedHeroTransition>
 );

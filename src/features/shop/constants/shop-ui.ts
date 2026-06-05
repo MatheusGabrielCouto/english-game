@@ -1,3 +1,22 @@
+export type ShopTab = 'coins' | 'offers' | 'sp'
+
+export const SHOP_UI = {
+  tabs: {
+    coins: 'Moedas',
+    offers: 'Ofertas',
+    sp: 'SP',
+  },
+  coins: {
+    kicker: '🪙 Catálogo permanente',
+    title: 'Loja de moedas',
+    subtitle: 'Itens sempre disponíveis — fora do estoque rotativo e das ofertas.',
+  },
+  offers: {
+    emptyTitle: 'Nenhuma oferta ativa',
+    emptyDescription: 'Volte amanhã para novas promoções e reposição de estoque.',
+  },
+} as const
+
 /** Classes de texto otimizadas para fundo escuro — evitar `text-muted` na loja. */
 export const SHOP_TEXT = {
   kickerGold: 'text-xs font-bold uppercase tracking-widest text-gold',

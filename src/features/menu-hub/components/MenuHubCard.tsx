@@ -5,9 +5,9 @@ import { PressableScale } from '@/components/ui/game'
 import { theme } from '@/constants'
 import type { MenuHubItemDef } from '@/features/menu-hub/constants/menu-hub-catalog'
 import {
-  MENU_HUB_CARD_HEIGHT,
-  MENU_HUB_FEATURED_WIDTH,
-  MENU_HUB_TILE_WIDTH,
+    MENU_HUB_CARD_HEIGHT,
+    MENU_HUB_FEATURED_WIDTH,
+    MENU_HUB_TILE_WIDTH,
 } from '@/features/menu-hub/constants/menu-hub-layout'
 import { MENU_HUB_UI } from '@/features/menu-hub/constants/menu-hub-ui'
 import { useMenuHubBadge } from '@/features/menu-hub/hooks/use-menu-hub-badge'
@@ -50,7 +50,7 @@ export const MenuHubCard = ({ item, variant = 'grid', showPin = true }: MenuHubC
   const isPinned = useMenuHubStore((s) => s.isPinned(item.id))
   const togglePin = useMenuHubStore((s) => s.togglePin)
   const isLocked = badge.tone === 'locked'
-  const showPinControl = showPin && item.pinnable !== false
+  const showPinControl = showPin && item.pinnable !== false && !isLocked
 
   const handleOpen = () => {
     if (isLocked) return
@@ -58,6 +58,7 @@ export const MenuHubCard = ({ item, variant = 'grid', showPin = true }: MenuHubC
   }
 
   const handlePin = () => {
+    if (isLocked) return
     const ok = togglePin(item.id)
     if (!ok) {
       Alert.alert(MENU_HUB_UI.favoritesTitle, MENU_HUB_UI.favoritesMax)
@@ -72,7 +73,12 @@ export const MenuHubCard = ({ item, variant = 'grid', showPin = true }: MenuHubC
       onPress={handleOpen}
       disabled={isLocked}
       accessibilityRole="button"
-      accessibilityLabel={`${item.label}. ${item.hint}`}
+      accessibilityLabel={
+        isLocked && item.requiredLevel != null
+          ? MENU_HUB_UI.lockedAccessibility(item.label, item.requiredLevel)
+          : `${item.label}. ${item.hint}`
+      }
+      accessibilityState={{ disabled: isLocked }}
       className={cn(
         isFeatured ? MENU_HUB_FEATURED_WIDTH : MENU_HUB_TILE_WIDTH,
         MENU_HUB_CARD_HEIGHT,
@@ -127,7 +133,9 @@ export const MenuHubCard = ({ item, variant = 'grid', showPin = true }: MenuHubC
         <Text
           className="mt-0.5 min-h-[28px] text-[10px] leading-3.5 text-foreground-secondary"
           numberOfLines={2}>
-          {item.hint}
+          {isLocked && item.requiredLevel != null
+            ? MENU_HUB_UI.lockedHint(item.requiredLevel)
+            : item.hint}
         </Text>
       </View>
     </PressableScale>

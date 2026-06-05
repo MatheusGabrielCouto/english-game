@@ -20,10 +20,16 @@ export default function RootLayout() {
           screenOptions={{
             headerShown: false,
             contentStyle: { backgroundColor: theme.colors.background },
-            animation: 'simple_push',
+            animation: 'default',
             freezeOnBlur: true,
-          }}
-        />
+          }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="pet" />
+          <Stack.Screen name="city" />
+          <Stack.Screen name="inventory" />
+          <Stack.Screen name="loot-boxes" />
+          <Stack.Screen name="profile" />
+        </Stack>
         </AppProviders>
       </GestureHandlerRootView>
     </SafeAreaProvider>

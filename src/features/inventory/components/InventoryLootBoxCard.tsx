@@ -12,9 +12,10 @@ import { InventorySectionHeader } from './InventorySectionHeader';
 
 type InventoryLootBoxCardProps = {
   lootBoxes: InventoryLootBoxSnapshot;
+  hideHeader?: boolean;
 };
 
-export const InventoryLootBoxCard = ({ lootBoxes }: InventoryLootBoxCardProps) => {
+export const InventoryLootBoxCard = ({ lootBoxes, hideHeader = false }: InventoryLootBoxCardProps) => {
   const handleOpenLootBoxes = () => {
     router.push('/loot-boxes' as Href);
   };
@@ -25,16 +26,18 @@ export const InventoryLootBoxCard = ({ lootBoxes }: InventoryLootBoxCardProps) =
 
   return (
     <View className="gap-3">
-      <InventorySectionHeader
-        emoji="📦"
-        title="Loot Boxes"
-        subtitle={
-          lootBoxes.total > 0
-            ? 'Toque em uma caixa ou abra todas de uma vez'
-            : 'Caixas de recompensa aparecem aqui'
-        }
-        badge={lootBoxes.total > 0 ? `${lootBoxes.total} fechadas` : undefined}
-      />
+      {hideHeader ? null : (
+        <InventorySectionHeader
+          emoji="📦"
+          title="Loot Boxes"
+          subtitle={
+            lootBoxes.total > 0
+              ? 'Toque em uma caixa ou abra todas de uma vez'
+              : 'Caixas de recompensa aparecem aqui'
+          }
+          badge={lootBoxes.total > 0 ? `${lootBoxes.total} fechadas` : undefined}
+        />
+      )}
 
       {lootBoxes.total > 0 ? (
         <Button

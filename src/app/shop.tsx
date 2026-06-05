@@ -20,7 +20,6 @@ export default function ShopScreen() {
   const setSelectedStockItem = useShopScreenStore((state) => state.setSelectedStockItem);
   const setSelectedSpProduct = useShopScreenStore((state) => state.setSelectedSpProduct);
   const setIsPurchasing = useShopScreenStore((state) => state.setIsPurchasing);
-  const clearToast = useShopScreenStore((state) => state.clearToast);
 
   useFocusEffect(
     useCallback(() => {
@@ -30,10 +29,8 @@ export default function ShopScreen() {
         setSelectedStockItem(null);
         setSelectedSpProduct(null);
         setIsPurchasing(false);
-        clearToast();
       };
     }, [
-      clearToast,
       setIsPurchasing,
       setSelectedDailyOffer,
       setSelectedStockItem,

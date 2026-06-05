@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { theme } from '@/constants';
+import { ListItemSkeleton } from '@/components/ui/skeleton';
 import type { PoiChainViewModel } from '@/types/city-poi-chain';
 import type { CityPoiMission } from '@/types/city-poi-mission';
 import { getPoiMissionStatus } from '@/types/city-poi-mission';
@@ -51,8 +51,9 @@ export const CityPoiChainSection = ({
 
   if (loading) {
     return (
-      <View className="items-center py-4">
-        <ActivityIndicator color={theme.colors.primary} />
+      <View className="gap-3 py-2">
+        <ListItemSkeleton />
+        <ListItemSkeleton />
       </View>
     );
   }

@@ -1,6 +1,12 @@
+export type ProfileTab = 'identity' | 'settings'
+
 export const PROFILE_UI = {
   screenTitle: 'Perfil',
   screenSubtitle: 'Quem sou eu e como personalizo minha jornada',
+  tabs: {
+    identity: 'Identidade',
+    settings: 'Configurações',
+  },
   playerEditLabel: 'Editar nome',
   playerLevelLabel: 'Nível',
   frameLabel: 'Moldura',

@@ -39,6 +39,8 @@ export type StatisticsInsight = {
   id: string;
   message: string;
   category: StatisticsMilestoneCategoryValue | 'general';
+  ctaLabel: string;
+  route: string;
 };
 
 export type StatisticsOverview = {

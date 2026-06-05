@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
 
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 
-import { CityEventService } from '../services/city-event-service';
 import { useCityMap } from '../hooks/use-city-map';
+import { CityEventService } from '../services/city-event-service';
 import { CityEventBanner } from './CityEventBanner';
 import { CityEventIntroModal } from './CityEventIntroModal';
 import { CityMapView } from './CityMapView';
@@ -53,12 +52,7 @@ export const CityMapTabContent = ({ poiDetailInitialTab }: CityMapTabContentProp
   };
 
   if (isLoading || !summary) {
-    return (
-      <View className="items-center justify-center py-16">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-        <Text className="mt-3 text-sm text-foreground-secondary">Carregando mapa...</Text>
-      </View>
-    );
+    return <ScreenSkeleton variant="map" className="gap-4 pb-0" />;
   }
 
   const handlePoiPress = (poiKey: string) => {

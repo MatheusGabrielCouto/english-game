@@ -1,10 +1,16 @@
 import { Text, View } from 'react-native';
 
 import { GameCard } from '@/components/ui/game';
+import { useHowItWorksSeen } from '@/hooks';
 
 import { TITLES_UI } from '../constants/titles-ui';
 
-export const TitlesHowItWorksCard = () => (
+export const TitlesHowItWorksCard = () => {
+  const { shouldShow } = useHowItWorksSeen('titles');
+
+  if (!shouldShow) return null;
+
+  return (
   <GameCard variant="default" className="gap-3 p-4">
     <Text className="text-xs font-bold uppercase tracking-wide text-muted">Como funciona</Text>
     {TITLES_UI.howItWorks.map((line) => (
@@ -14,4 +20,5 @@ export const TitlesHowItWorksCard = () => (
       </View>
     ))}
   </GameCard>
-);
+  );
+};

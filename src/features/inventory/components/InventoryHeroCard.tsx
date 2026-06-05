@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 
 import { GameCard, StatPill } from '@/components/ui/game';
+import { SHARED_TRANSITION_TAGS } from '@/constants';
 import type { InventoryAnalyticsRecord } from '@/types/inventory';
 
 type InventoryHeroCardProps = {
@@ -10,16 +11,32 @@ type InventoryHeroCardProps = {
   analytics: InventoryAnalyticsRecord;
 };
 
+const formatLootOpenBadge = (count: number): string =>
+  count === 1 ? '1 para abrir' : `${count} para abrir`
+
 export const InventoryHeroCard = ({
   shields,
   lootBoxes,
   specialItems,
   analytics,
 }: InventoryHeroCardProps) => (
-  <GameCard variant="hero" glow className="overflow-hidden">
-    <Text className="text-xs font-bold uppercase tracking-widest text-accent">
-      🎒 Bolsa do Aventureiro
-    </Text>
+  <GameCard
+    variant="hero"
+    glow
+    sharedTransitionTag={SHARED_TRANSITION_TAGS.inventoryHero}
+    className="overflow-hidden">
+    <View className="flex-row items-center justify-between gap-3">
+      <Text className="text-xs font-bold uppercase tracking-widest text-accent">
+        🎒 Bolsa do Aventureiro
+      </Text>
+      {lootBoxes > 0 ? (
+        <View className="rounded-full border border-warning/40 bg-warning/15 px-3 py-1">
+          <Text className="text-[10px] font-bold text-warning">
+            {formatLootOpenBadge(lootBoxes)}
+          </Text>
+        </View>
+      ) : null}
+    </View>
     <View className="mt-3 flex-row items-center justify-between gap-3">
       <View className="flex-1">
         <Text className="text-sm text-foreground-secondary">Itens na jornada</Text>

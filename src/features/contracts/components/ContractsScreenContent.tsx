@@ -1,8 +1,7 @@
 import { useRouter } from 'expo-router';
-import { ActivityIndicator, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
-import { Toast } from '@/components';
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 
 import { CONTRACTS_UI } from '../constants/contracts-ui';
 import { CONTRACT_ORDER } from '../constants/default-contracts';
@@ -27,20 +26,13 @@ export const ContractsScreenContent = ({ contracts }: ContractsScreenContentProp
     analytics,
     availableKeys,
     isLoading,
-    toastMessage,
-    toastVariant,
     getDefinition,
     canAfford,
     handleSelectContract,
-    clearToast,
   } = contracts;
 
   if (isLoading || !analytics) {
-    return (
-      <View className="items-center justify-center py-20">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="hero-list" listCount={3} />;
   }
 
   return (
@@ -96,7 +88,6 @@ export const ContractsScreenContent = ({ contracts }: ContractsScreenContentProp
       <ContractStatsCard analytics={analytics} />
       <ContractHistoryList history={history} />
       <ContractAcceptModal contracts={contracts} />
-      <Toast message={toastMessage} variant={toastVariant} onDismiss={clearToast} />
     </View>
   );
 };

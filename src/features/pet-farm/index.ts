@@ -1,4 +1,5 @@
 export { PetFarmMapScreen } from './components/PetFarmMapScreen';
+export { usePetFarmOnboarding } from './hooks/use-pet-farm-onboarding';
 export { PetFarmScreen } from './components/PetFarmScreen';
 export { PetSpeciesIcon } from './components/PetSpeciesIcon';
 export { PetFarmBonusCache } from './services/pet-farm-bonus-cache';

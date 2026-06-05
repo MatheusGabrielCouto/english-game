@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
+import { showGameToast } from '@/features/feedback/services/feedback-service';
 import { usePlayerStore } from '@/features/player';
 import type { ContractDefinition } from '@/types/contract';
 
@@ -14,15 +15,12 @@ export const useContracts = () => {
   const analytics = useContractsStore((state) => state.analytics);
   const availableKeys = useContractsStore((state) => state.availableKeys);
   const isLoading = useContractsStore((state) => state.isLoading);
-  const toastMessage = useContractsStore((state) => state.toastMessage);
-  const toastVariant = useContractsStore((state) => state.toastVariant);
   const selectedContractKey = useContractsStore((state) => state.selectedContractKey);
   const selectedAcceptIssuerPoiKey = useContractsStore((state) => state.selectedAcceptIssuerPoiKey);
   const setSelectedContractKey = useContractsStore((state) => state.setSelectedContractKey);
   const setSelectedAcceptIssuerPoiKey = useContractsStore(
     (state) => state.setSelectedAcceptIssuerPoiKey,
   );
-  const clearToast = useContractsStore((state) => state.clearToast);
 
   useEffect(() => {
     void ContractService.refresh();
@@ -41,7 +39,7 @@ export const useContracts = () => {
   const handleSelectContract = useCallback(
     (definition: ContractDefinition, issuerPoiKey?: string) => {
       if (activeContract) {
-        useContractsStore.getState().showToast(CONTRACT_MESSAGES.alreadyActive, 'info');
+        showGameToast(CONTRACT_MESSAGES.alreadyActive, 'info');
         return;
       }
       setSelectedContractKey(definition.key);
@@ -67,11 +65,11 @@ export const useContracts = () => {
 
     if (!result.success) {
       if (result.reason === 'insufficient_coins') {
-        useContractsStore.getState().showToast(CONTRACT_MESSAGES.insufficientCoins, 'info');
+        showGameToast(CONTRACT_MESSAGES.insufficientCoins, 'info');
       } else if (result.reason === 'already_active') {
-        useContractsStore.getState().showToast(CONTRACT_MESSAGES.alreadyActive, 'info');
+        showGameToast(CONTRACT_MESSAGES.alreadyActive, 'info');
       } else if (result.reason === 'requirements_not_met') {
-        useContractsStore.getState().showToast(CONTRACT_MESSAGES.requirementsNotMet, 'info');
+        showGameToast(CONTRACT_MESSAGES.requirementsNotMet, 'info');
       }
       return false;
     }
@@ -91,15 +89,12 @@ export const useContracts = () => {
     analytics,
     availableKeys,
     isLoading,
-    toastMessage,
-    toastVariant,
     selectedContractKey,
     getDefinition,
     canAfford,
     handleSelectContract,
     handleCancelAccept,
     handleConfirmAccept,
-    clearToast,
   };
 };
 

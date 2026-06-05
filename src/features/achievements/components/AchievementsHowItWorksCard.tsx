@@ -1,10 +1,16 @@
 import { Text, View } from 'react-native';
 
 import { GameCard } from '@/components/ui/game';
+import { useHowItWorksSeen } from '@/hooks';
 
 import { ACHIEVEMENTS_UI } from '../constants/achievements-ui';
 
-export const AchievementsHowItWorksCard = () => (
+export const AchievementsHowItWorksCard = () => {
+  const { shouldShow } = useHowItWorksSeen('achievements');
+
+  if (!shouldShow) return null;
+
+  return (
   <GameCard variant="default" className="gap-3 p-4">
     <Text className="text-xs font-bold uppercase tracking-wide text-muted">Como funciona</Text>
     {ACHIEVEMENTS_UI.howItWorks.map((line) => (
@@ -14,4 +20,5 @@ export const AchievementsHowItWorksCard = () => (
       </View>
     ))}
   </GameCard>
-);
+  );
+};

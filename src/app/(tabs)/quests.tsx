@@ -1,15 +1,7 @@
-import { ScreenContainer, ScreenHeader } from '@/components/layout';
-import { QuestsScreenContent } from '@/features/quests';
+import { Redirect } from 'expo-router'
 
-export default function QuestsScreen() {
-  return (
-    <ScreenContainer scrollable>
-      <ScreenHeader
-        title="Missões"
-        subtitle="Complete, evolua e mantenha sua streak"
-        emoji="⚔️"
-      />
-      <QuestsScreenContent />
-    </ScreenContainer>
-  );
+import { routes } from '@/constants'
+
+export default function QuestsTabRedirect() {
+  return <Redirect href={routes.tabs.play} />
 }

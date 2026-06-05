@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
     Modal as RNModal,
     ScrollView,
@@ -10,7 +9,6 @@ import {
 } from 'react-native';
 
 import { Button } from '@/components';
-import { useAppStore } from '@/features/app/store/app-store';
 import { cn } from '@/utils';
 
 import {
@@ -18,8 +16,6 @@ import {
     GAME_TUTORIAL_STEPS,
 } from '../constants/game-tutorial-steps';
 import { useGameTutorial } from '../hooks/use-game-tutorial';
-import { useTutorialStore } from '../store/tutorial-store';
-
 export const GameTutorialModal = () => {
   const { height: windowHeight } = useWindowDimensions();
   const maxBodyHeight = Math.min(windowHeight * 0.45, 360);
@@ -129,19 +125,7 @@ export const GameTutorialModal = () => {
   );
 };
 
-export const GameTutorialHost = () => {
-  const hasHydrated = useAppStore((state) => state._hasHydrated);
-  const hasOnboarded = useAppStore((state) => state.hasOnboarded);
-  const wizardCompleted = useTutorialStore((state) => state.wizardCompleted);
-  const open = useTutorialStore((state) => state.open);
-
-  useEffect(() => {
-    if (!hasHydrated || hasOnboarded || !wizardCompleted) return;
-    open(0);
-  }, [hasHydrated, hasOnboarded, wizardCompleted, open]);
-
-  return <GameTutorialModal />;
-};
+export const GameTutorialHost = () => <GameTutorialModal />;
 
 const styles = StyleSheet.create({
   scrollContent: {

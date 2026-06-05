@@ -2,7 +2,7 @@ import { type Href, router } from 'expo-router'
 import { Text, View } from 'react-native'
 
 import { GameCard, PressableScale } from '@/components/ui/game'
-import { routes } from '@/constants'
+import { playTabHref } from '@/constants/routes'
 import { useRoutinesStore } from '@/features/routines/store/routines-store'
 
 export const QuestsRoutinesBanner = () => {
@@ -12,7 +12,7 @@ export const QuestsRoutinesBanner = () => {
   return (
     <PressableScale
       fill
-      onPress={() => router.push(routes.routines as Href)}
+      onPress={() => router.push(playTabHref('routines') as Href)}
       accessibilityRole="button"
       accessibilityLabel="Rotinas de hoje">
       <GameCard className="border-accent/30 bg-accent/5">

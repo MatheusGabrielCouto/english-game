@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-    ActivityIndicator,
     Modal as RNModal,
     ScrollView,
     StyleSheet,
@@ -12,7 +11,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components';
-import { theme } from '@/constants';
+import { ListItemSkeleton } from '@/components/ui/skeleton';
 import { useClaimLoading } from '@/hooks';
 import type { CityPoiViewModel } from '@/types/city-map';
 import type { CityPoiMission } from '@/types/city-poi-mission';
@@ -154,8 +153,10 @@ export const CityPoiDetailModal = ({
           </View>
 
           {loadingMissions ? (
-            <View className="items-center py-8">
-              <ActivityIndicator color={theme.colors.primary} />
+            <View className="gap-3 py-4">
+              <ListItemSkeleton />
+              <ListItemSkeleton />
+              <ListItemSkeleton />
             </View>
           ) : missions.length === 0 ? (
             <Text className="text-sm text-muted">{CITY_UI.poiMissionsEmpty}</Text>

@@ -2,8 +2,9 @@ import { useRouter } from 'expo-router'
 import { Pressable, Text, View } from 'react-native'
 
 import { Button } from '@/components'
-import type { MindMapEntryMeta } from '../../utils/vault-map-builder'
+import { vaultEntryHref } from '@/constants'
 import { GRAPH_UI } from '../../constants/vault-graph-ui'
+import type { MindMapEntryMeta } from '../../utils/vault-map-builder'
 
 type KnowledgeMapNoteSheetProps = {
   title: string
@@ -74,7 +75,7 @@ export const KnowledgeMapNoteSheet = ({
       <Button
         label={GRAPH_UI.openNote}
         size="sm"
-        onPress={() => router.push(`/english-journal/entry/${entryId}` as never)}
+        onPress={() => router.push(vaultEntryHref(entryId))}
       />
     </View>
   )

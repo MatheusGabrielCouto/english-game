@@ -2,11 +2,12 @@ import { type Href, router } from 'expo-router';
 import { Text, View } from 'react-native';
 
 import { GameCard, PressableScale } from '@/components/ui/game';
+import { profileHref } from '@/constants/routes';
 import { HOME_UI } from '@/features/home/constants/home-ui';
 
 export const HomeExploreFooter = () => (
   <PressableScale
-    onPress={() => router.push('/(tabs)/profile' as Href)}
+    onPress={() => router.push(profileHref() as Href)}
     accessibilityRole="button"
     accessibilityLabel={HOME_UI.explore.cta}
   >

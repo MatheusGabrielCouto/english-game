@@ -1,8 +1,8 @@
 import { router, type Href } from 'expo-router';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 import { Button } from '@/components';
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { routes } from '@/constants/routes';
 
 import { useLootBoxes } from '../hooks/use-loot-boxes';
@@ -28,11 +28,7 @@ export const LootBoxScreenContent = () => {
   } = useLootBoxes();
 
   if (isLoading || !analytics) {
-    return (
-      <View className="flex-1 items-center justify-center py-20">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="hero-list" listCount={3} />;
   }
 
   return (

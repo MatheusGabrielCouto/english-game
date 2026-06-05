@@ -1,6 +1,6 @@
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { AchievementCategory } from '@/types/achievement';
 
 import { useAchievements } from '../hooks/use-achievements';
@@ -21,11 +21,7 @@ export const AchievementsScreenContent = () => {
   const { achievements, summary, isLoading } = useAchievements();
 
   if (isLoading) {
-    return (
-      <View className="items-center justify-center py-20">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="hero-list" listCount={4} />;
   }
 
   return (

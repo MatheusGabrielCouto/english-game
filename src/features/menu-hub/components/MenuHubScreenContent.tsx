@@ -2,19 +2,21 @@ import { useEffect, useMemo, useState } from 'react'
 import { Text, View } from 'react-native'
 
 import { GameCard } from '@/components/ui/game'
+import { MenuHubCard } from '@/features/menu-hub/components/MenuHubCard'
 import { MenuHubFavoritesRow } from '@/features/menu-hub/components/MenuHubFavoritesRow'
 import { MenuHubHero } from '@/features/menu-hub/components/MenuHubHero'
 import { MenuHubQuickActions } from '@/features/menu-hub/components/MenuHubQuickActions'
 import { MenuHubSearchField } from '@/features/menu-hub/components/MenuHubSearchField'
 import { MenuHubSection } from '@/features/menu-hub/components/MenuHubSection'
-import { MenuHubCard } from '@/features/menu-hub/components/MenuHubCard'
 import {
-  getEnabledMenuHubItems,
-  type MenuHubCategoryId,
-  type MenuHubItemDef,
+    getEnabledMenuHubItems,
+    type MenuHubCategoryId,
+    type MenuHubItemDef,
 } from '@/features/menu-hub/constants/menu-hub-catalog'
 import { MENU_HUB_UI } from '@/features/menu-hub/constants/menu-hub-ui'
 import { useMenuHubStore } from '@/features/menu-hub/store/menu-hub-store'
+import { isMenuHubItemUnlocked } from '@/features/menu-hub/utils/menu-hub-unlock'
+import { usePlayerStore } from '@/features/player'
 
 const CATEGORY_ORDER: MenuHubCategoryId[] = [
   'progression',
@@ -40,6 +42,7 @@ export const MenuHubScreenContent = () => {
   const [search, setSearch] = useState('')
   const hydrate = useMenuHubStore((s) => s.hydrate)
   const pinnedIds = useMenuHubStore((s) => s.pinnedIds)
+  const playerLevel = usePlayerStore((s) => s.level)
 
   useEffect(() => {
     void hydrate()
@@ -68,11 +71,16 @@ export const MenuHubScreenContent = () => {
     () =>
       CATEGORY_ORDER.map((category) => ({
         category,
-        items: filtered.filter(
-          (item) => item.category === category && !pinnedSet.has(item.id),
-        ),
+        items: filtered
+          .filter((item) => item.category === category && !pinnedSet.has(item.id))
+          .sort((left, right) => {
+            const leftLocked = !isMenuHubItemUnlocked(left, playerLevel)
+            const rightLocked = !isMenuHubItemUnlocked(right, playerLevel)
+            if (leftLocked === rightLocked) return 0
+            return leftLocked ? 1 : -1
+          }),
       })).filter((section) => section.items.length > 0),
-    [filtered, pinnedSet],
+    [filtered, pinnedSet, playerLevel],
   )
 
   return (

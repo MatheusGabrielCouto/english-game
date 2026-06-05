@@ -24,11 +24,14 @@ import { getTodayKey } from '@/features/quests/utils/date';
 
 import { AppLogService } from '@/services/app-log-service';
 
+import { MAX_DAILY_NOTIFICATIONS } from '../constants/categories';
 import { buildNotificationContext } from '../utils/context';
 import {
     buildNotificationCandidates,
     buildNotificationIdentifier,
+    buildStreakRiskCandidate,
     computeScheduleTimes,
+    computeStreakRiskScheduleTime,
     getDayStartIso,
     selectNotificationsForDay,
 } from '../utils/scheduling';
@@ -92,22 +95,53 @@ const refreshSchedule = async (): Promise<void> => {
       countNotificationsSentToday(dayStartIso),
     ]);
 
-    const candidates = buildNotificationCandidates(context, settings, new Date().getDate());
-    const selected = selectNotificationsForDay(candidates, sentCategories, sentCount);
+    const seed = new Date().getDate();
+    const candidates = buildNotificationCandidates(context, settings, seed);
+    const blockedCategories = [...sentCategories];
+    let scheduledTodayCount = sentCount;
+
+    await cancelAllEqNotifications();
+
+    const streakRiskCandidate = buildStreakRiskCandidate(context, settings, seed);
+    const streakRiskTime = computeStreakRiskScheduleTime(context, settings);
+
+    if (
+      streakRiskCandidate &&
+      streakRiskTime &&
+      streakRiskTime.getTime() > Date.now() &&
+      !blockedCategories.includes(streakRiskCandidate.category) &&
+      scheduledTodayCount < MAX_DAILY_NOTIFICATIONS
+    ) {
+      const streakIdentifier = buildNotificationIdentifier(todayKey, streakRiskCandidate.category);
+      await scheduleLocalNotification({
+        candidate: streakRiskCandidate,
+        identifier: streakIdentifier,
+        triggerDate: streakRiskTime,
+      });
+      await recordNotificationScheduled({
+        category: streakRiskCandidate.category,
+        title: streakRiskCandidate.title,
+        body: streakRiskCandidate.body,
+        identifier: streakIdentifier,
+        scheduledFor: streakRiskTime.toISOString(),
+      });
+      blockedCategories.push(streakRiskCandidate.category);
+      scheduledTodayCount += 1;
+    }
+
+    const selected = selectNotificationsForDay(candidates, blockedCategories, scheduledTodayCount);
     const scheduleTimes = computeScheduleTimes(
       settings.preferredHour,
       settings.preferredMinute,
       selected.length,
     );
 
-    await cancelAllEqNotifications();
-
     for (let index = 0; index < selected.length; index += 1) {
       const candidate = selected[index];
       const triggerDate = scheduleTimes[index];
       const identifier = buildNotificationIdentifier(todayKey, candidate.category);
 
-      if (sentCategories.includes(candidate.category)) continue;
+      if (blockedCategories.includes(candidate.category)) continue;
       if (triggerDate.getTime() <= Date.now()) continue;
 
       await scheduleLocalNotification({ candidate, identifier, triggerDate });

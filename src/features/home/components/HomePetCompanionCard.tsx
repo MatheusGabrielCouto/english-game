@@ -14,7 +14,7 @@ import { HomeCardRow } from '@/features/home/components/shared/HomeCardRow'
 import { HomeStatGrid } from '@/features/home/components/shared/HomeStatGrid'
 import { HomeStatPill } from '@/features/home/components/shared/HomeStatPill'
 import { HOME_LAYOUT } from '@/features/home/constants/home-layout'
-import { routes } from '@/constants'
+import { routes, SHARED_TRANSITION_TAGS } from '@/constants'
 import { HOME_UI } from '@/features/home/constants/home-ui'
 import { HomeCardSkeleton } from '@/features/home/components/HomeCardSkeleton'
 import { HomeSectionLabel } from '@/features/home/components/shared/HomeSectionLabel'
@@ -22,7 +22,9 @@ import { RpgProgressBar } from '@/features/home/components/shared/RpgProgressBar
 import { PET_ANIMATIONS_BY_KEY } from '@/features/pet/catalogs/pet-animations-catalog'
 import { usePet } from '@/features/pet/hooks/use-pet'
 import { getAffinityTier } from '@/features/pet/utils/affinity'
+import { PetBestActionHighlight } from '@/features/pet/components/PetBestActionHighlight'
 import { getPetDisplayInfo, isPetIncubating } from '@/features/pet/utils/display'
+import { getPetRecommendedAction } from '@/features/pet/utils/get-pet-recommended-action'
 import { getPetXPProgress } from '@/features/pet/utils/xp'
 import { PetMood } from '@/types/pet'
 
@@ -82,6 +84,7 @@ export const HomePetCompanionCard = () => {
   const incubating = isPetIncubating(pet)
   const animation = PET_ANIMATIONS_BY_KEY[pet.currentAnimationKey]
   const { current, required } = getPetXPProgress(pet.level, pet.experience)
+  const recommendedAction = incubating ? null : getPetRecommendedAction(pet)
 
   return (
     <PressableScale
@@ -90,7 +93,11 @@ export const HomePetCompanionCard = () => {
       accessibilityRole="button"
       accessibilityLabel={HOME_UI.pet.viewPet}
     >
-      <GameCard variant="quest" glow className="border-legendary/35 overflow-hidden">
+      <GameCard
+        variant="quest"
+        glow
+        sharedTransitionTag={SHARED_TRANSITION_TAGS.petHero}
+        className="border-legendary/35 overflow-hidden">
         <View className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-legendary/10" />
         <HomeCardRow className="gap-3">
           <Animated.View
@@ -117,6 +124,12 @@ export const HomePetCompanionCard = () => {
             </Text>
           </View>
         </HomeCardRow>
+
+        {recommendedAction ? (
+          <View className="mt-4">
+            <PetBestActionHighlight action={recommendedAction} compact />
+          </View>
+        ) : null}
 
         <HomeStatGrid className="mt-4">
           <HomeStatPill emoji="⚡" label={HOME_UI.pet.energy} value={`${pet.energy}%`} tone="accent" />

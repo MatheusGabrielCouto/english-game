@@ -1,5 +1,7 @@
-import { RoutinesScreen } from '@/features/routines';
+import { Redirect } from 'expo-router'
 
-export default function RoutinesRoute() {
-  return <RoutinesScreen />;
+import { playTabHref } from '@/constants/routes'
+
+export default function RoutinesRouteRedirect() {
+  return <Redirect href={playTabHref('routines')} />
 }

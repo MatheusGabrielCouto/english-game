@@ -23,9 +23,18 @@ module.exports = {
         epic: "#c084fc",
         legendary: "#f472b6",
         rare: "#60a5fa",
+        common: "#94a3b8",
         streak: "#fb923c",
         xp: "#a78bfa",
         coin: "#38bdf8",
+      },
+      fontSize: {
+        "game-label": ["12px", { lineHeight: "16px", fontWeight: "700", letterSpacing: "0.08em" }],
+        "game-body": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+        "game-title": ["16px", { lineHeight: "22px", fontWeight: "900" }],
+        "game-hero": ["24px", { lineHeight: "30px", fontWeight: "900" }],
+        "game-caption": ["10px", { lineHeight: "14px", fontWeight: "600" }],
+        "game-subtitle": ["12px", { lineHeight: "18px", fontWeight: "500" }],
       },
       borderRadius: {
         game: "20px",

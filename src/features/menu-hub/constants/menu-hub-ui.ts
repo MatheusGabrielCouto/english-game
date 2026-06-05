@@ -27,6 +27,9 @@ export const MENU_HUB_UI = {
   quickActionsTitle: 'Começar agora',
   quickActionsHint: 'Atalhos para o dia a dia',
   openMode: 'Abrir',
+  lockedHint: (level: number) => `Desbloqueia no nível ${level}`,
+  lockedAccessibility: (label: string, level: number) =>
+    `${label}. Bloqueado até o nível ${level}`,
   sectionExpand: (title: string) => `${title}, expandir seção`,
   sectionCollapse: (title: string) => `${title}, recolher seção`,
   categories: {

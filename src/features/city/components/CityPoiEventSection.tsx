@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { theme } from '@/constants';
-import { useClaimLoading } from '@/hooks';
+import { ListItemSkeleton } from '@/components/ui/skeleton';
 import { CONTRACTS_BY_KEY } from '@/data/loaders/contracts';
 import { ActiveContractCard } from '@/features/contracts/components/ActiveContractCard';
 import { AvailableContractCard } from '@/features/contracts/components/AvailableContractCard';
@@ -10,6 +9,7 @@ import { ContractAcceptModal } from '@/features/contracts/components/ContractAcc
 import { CONTRACT_MESSAGES } from '@/features/contracts/constants/default-contracts';
 import { useContracts } from '@/features/contracts/hooks/use-contracts';
 import { ContractService } from '@/features/contracts/services/contract-service';
+import { useClaimLoading } from '@/hooks';
 import type { ActiveCityEventViewModel } from '@/types/city-event';
 import type { CityPoiMission } from '@/types/city-poi-mission';
 import type { PoiContractsState } from '@/types/contract';
@@ -99,8 +99,9 @@ export const CityPoiEventSection = ({
         <Text className="text-xs leading-5 text-foreground-secondary">{CITY_UI.eventMissionsHint}</Text>
 
         {loading ? (
-          <View className="items-center py-6">
-            <ActivityIndicator color={theme.colors.primary} />
+          <View className="gap-3 py-2">
+            <ListItemSkeleton />
+            <ListItemSkeleton />
           </View>
         ) : missions.length === 0 ? (
           <Text className="text-sm text-muted">{CITY_UI.poiMissionsEmpty}</Text>

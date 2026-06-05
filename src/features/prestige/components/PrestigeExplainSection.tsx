@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 
 import { Card } from '@/components';
 import { GameCard } from '@/components/ui/game';
+import { useHowItWorksSeen } from '@/hooks';
 
 import { PRESTIGE_UI } from '../constants/prestige-ui';
 
@@ -18,7 +19,12 @@ export const PrestigeWhatIsSection = () => (
   </Card>
 );
 
-export const PrestigeHowItWorksSection = () => (
+export const PrestigeHowItWorksSection = () => {
+  const { shouldShow } = useHowItWorksSeen('prestige');
+
+  if (!shouldShow) return null;
+
+  return (
   <Card elevated className="gap-4">
     <Text className="text-xs font-bold uppercase tracking-widest text-muted">
       {PRESTIGE_UI.howItWorksTitle}
@@ -35,7 +41,8 @@ export const PrestigeHowItWorksSection = () => (
       </View>
     ))}
   </Card>
-);
+  );
+};
 
 export const PrestigeKeepsAndGainsSection = () => (
   <GameCard variant="default" className="gap-4">

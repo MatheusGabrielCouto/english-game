@@ -1,18 +1,20 @@
 import { type Href, router } from 'expo-router'
 import { Text, View } from 'react-native'
 
-import { ProgressBar } from '@/components/ui/ProgressBar'
 import { Avatar } from '@/components/ui/Avatar'
 import { GameCard, LevelBadge, PressableScale } from '@/components/ui/game'
+import { ProgressBar } from '@/components/ui/ProgressBar'
+import { profileHref, SHARED_TRANSITION_TAGS } from '@/constants'
+import { useAppStore } from '@/features/app/store/app-store'
+import { ActiveBonusesCard } from '@/features/game-design/components/ActiveBonusesCard'
 import { HomeCardRow } from '@/features/home/components/shared/HomeCardRow'
 import { HomePlayerResourceTile } from '@/features/home/components/shared/HomePlayerResourceTile'
 import { HOME_LAYOUT } from '@/features/home/constants/home-layout'
-import { useAppStore } from '@/features/app/store/app-store'
-import { ActiveBonusesCard } from '@/features/game-design/components/ActiveBonusesCard'
 import { HOME_UI } from '@/features/home/constants/home-ui'
 import { useHomeDashboard } from '@/features/home/hooks/use-home-dashboard'
 import { usePlayerStore } from '@/features/player'
 import { formatNumber } from '@/features/statistics/utils/formatters'
+import { CoachMarkTarget } from '@/features/tutorial'
 
 export const HomePlayerHeader = () => {
   const name = usePlayerStore((s) => s.name)
@@ -27,22 +29,38 @@ export const HomePlayerHeader = () => {
     xpRequired > 0 ? Math.min(100, Math.max(0, Math.round((xpCurrent / xpRequired) * 100))) : 0
   const xpRemaining = Math.max(0, xpRequired - xpCurrent)
 
+  const handleOpenProfile = () => {
+    router.push(profileHref() as Href)
+  }
+
+  const handleEditAvatar = () => {
+    router.push(profileHref({ edit: true }) as Href)
+  }
+
   return (
-    <GameCard variant="hero" glow className="overflow-hidden">
+    <GameCard
+      variant="hero"
+      glow
+      sharedTransitionTag={SHARED_TRANSITION_TAGS.playerHero}
+      className="overflow-hidden">
       <Text className="text-[10px] font-black uppercase tracking-[0.22em] text-primary">
         {HOME_UI.playerHeader.brand}
       </Text>
 
       <HomeCardRow className="mt-4 gap-3">
         <PressableScale
-          onPress={() => router.push('/(tabs)/profile' as Href)}
+          onPress={handleEditAvatar}
           accessibilityRole="button"
-          accessibilityLabel={HOME_UI.playerHeader.viewProfile}
-        >
+          accessibilityLabel={HOME_UI.playerHeader.editAvatar}>
           <Avatar name={name} size="xl" frameKey={avatarFrame} badgeKey={avatarBadge} ring />
         </PressableScale>
 
-        <View className={HOME_LAYOUT.growBlock}>
+        <PressableScale
+          fill
+          onPress={handleOpenProfile}
+          accessibilityRole="button"
+          accessibilityLabel={HOME_UI.playerHeader.openProfile}
+          className={HOME_LAYOUT.growBlock}>
           <Text className="text-2xl font-black text-foreground" numberOfLines={1}>
             {name}
           </Text>
@@ -61,17 +79,22 @@ export const HomePlayerHeader = () => {
               </Text>
             </View>
           ) : null}
-        </View>
+          <Text className="mt-2 text-xs font-bold text-primary">
+            {HOME_UI.playerHeader.viewProfileHint}
+          </Text>
+        </PressableScale>
       </HomeCardRow>
 
       <View className="mt-4 flex-row gap-3">
-        <HomePlayerResourceTile
-          emoji="🪙"
-          label={HOME_UI.playerHeader.coinsLabel}
-          value={formatNumber(coins)}
-          tone="gold"
-          className="flex-1"
-        />
+        <CoachMarkTarget coachKey="home-player-coins" className="flex-1">
+          <HomePlayerResourceTile
+            emoji="🪙"
+            label={HOME_UI.playerHeader.coinsLabel}
+            value={formatNumber(coins)}
+            tone="gold"
+            className="flex-1"
+          />
+        </CoachMarkTarget>
         <HomePlayerResourceTile
           emoji="📚"
           label={HOME_UI.playerHeader.studyPointsLabel}

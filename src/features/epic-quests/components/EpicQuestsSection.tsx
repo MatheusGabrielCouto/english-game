@@ -2,11 +2,13 @@ import { Text, View } from 'react-native';
 
 import { Card, EmptyState, ProgressBar } from '@/components';
 import { QuestSectionHeader } from '@/features/quests/components/QuestSectionHeader';
+import { QUESTS_UI } from '@/features/quests/constants/quests-ui';
 import type { EpicMissionViewModel } from '@/types/epic-mission';
 import { cn } from '@/utils';
 
 type EpicQuestsSectionProps = {
   missions: EpicMissionViewModel[];
+  showHeader?: boolean;
 };
 
 const DIFFICULTY_EMOJI: Record<string, string> = {
@@ -16,13 +18,13 @@ const DIFFICULTY_EMOJI: Record<string, string> = {
   expert: '🔴',
 };
 
-export const EpicQuestsSection = ({ missions }: EpicQuestsSectionProps) => {
+export const EpicQuestsSection = ({ missions, showHeader = true }: EpicQuestsSectionProps) => {
   if (missions.length === 0) {
     return (
       <EmptyState
         icon="map-outline"
-        title="Nenhuma missão épica ativa"
-        description="Continue evoluindo para desbloquear metas de longo prazo."
+        title={QUESTS_UI.epic.emptyTitle}
+        description={QUESTS_UI.epic.emptyDescription}
       />
     );
   }
@@ -31,12 +33,14 @@ export const EpicQuestsSection = ({ missions }: EpicQuestsSectionProps) => {
 
   return (
     <View className="gap-3">
-      <QuestSectionHeader
-        emoji="🐉"
-        title="Épicas"
-        subtitle="Metas de longo prazo com recompensas maiores"
-        badge={`${activeCount} ativas`}
-      />
+      {showHeader ? (
+        <QuestSectionHeader
+          emoji="🐉"
+          title="Épicas"
+          subtitle={QUESTS_UI.epic.subtitle}
+          badge={`${activeCount} ativas`}
+        />
+      ) : null}
 
       {missions.map((mission) => (
         <Card

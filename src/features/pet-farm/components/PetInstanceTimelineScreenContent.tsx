@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { Card } from '@/components';
+import { ListItemSkeleton } from '@/components/ui/skeleton';
 import { PetInstanceRepository } from '@/storage/repositories/pet-instance-repository';
 import type { PetInstanceMemoryRecord } from '@/types/pet-instance-memory';
 
@@ -41,8 +42,10 @@ export const PetInstanceTimelineScreenContent = ({
 
   if (loading) {
     return (
-      <View className="py-12">
-        <Text className="text-center text-muted">Carregando…</Text>
+      <View className="gap-3 py-4">
+        <ListItemSkeleton />
+        <ListItemSkeleton />
+        <ListItemSkeleton />
       </View>
     );
   }

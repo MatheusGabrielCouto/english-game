@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
 import { PressableScale } from '@/components/ui/game';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 
 import { PET_GEN_UI } from '../constants/pet-gen-ui';
 import { PetLineageService, type LineageTreeNode } from '../services/pet-lineage-service';
@@ -29,11 +30,7 @@ export const PetLineageTreeScreenContent = ({ instanceId }: PetLineageTreeScreen
   }, [load]);
 
   if (!root) {
-    return (
-      <View className="py-12">
-        <Text className="text-center text-muted">Carregando árvore…</Text>
-      </View>
-    );
+    return <ScreenSkeleton variant="pet" className="pb-8" />;
   }
 
   return (

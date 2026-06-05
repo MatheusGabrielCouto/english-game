@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Text, View, type StyleProp, type ViewStyle } from 'react-native';
 
-import { Card } from '@/components';
+import { Card, EmptyState } from '@/components';
 import { PressableScale } from '@/components/ui/game';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { cn } from '@/utils';
@@ -71,6 +71,7 @@ export const PetFarmSectionHint = ({ children }: { children: string }) => (
   <Text className="text-[10px] leading-relaxed text-muted">{children}</Text>
 );
 
+/** @deprecated Use `<EmptyState variant="farm" />` from `@/components`. */
 export const PetFarmEmptyState = ({
   emoji,
   title,
@@ -79,15 +80,7 @@ export const PetFarmEmptyState = ({
   emoji: string;
   title: string;
   subtitle?: string;
-}) => (
-  <View className="items-center gap-2 py-6">
-    <Text className="text-3xl">{emoji}</Text>
-    <Text className="text-center text-sm font-bold text-foreground">{title}</Text>
-    {subtitle ? (
-      <Text className="max-w-[260px] text-center text-xs leading-relaxed text-muted">{subtitle}</Text>
-    ) : null}
-  </View>
-);
+}) => <EmptyState variant="farm" emoji={emoji} title={title} description={subtitle} />;
 
 export const PetFarmAlertCard = ({
   title,

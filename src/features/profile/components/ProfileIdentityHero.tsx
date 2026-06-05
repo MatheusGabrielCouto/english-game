@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 import { XPBar } from '@/components'
 import { Avatar } from '@/components/ui/Avatar'
 import { GameCard, LevelBadge, PressableScale } from '@/components/ui/game'
-import { routes } from '@/constants'
+import { routes, SHARED_TRANSITION_TAGS } from '@/constants'
 import { useAchievementsStore } from '@/features/achievements/store/achievements-store'
 import { useAppStore } from '@/features/app/store/app-store'
 import type { AvatarBadgeKey, AvatarFrameKey } from '@/features/avatar/constants/avatar-customization'
@@ -42,7 +42,11 @@ export const ProfileIdentityHero = ({ onEditName }: ProfileIdentityHeroProps) =>
   const lifetimeXp = computeLifetimeXp(level, xp)
 
   return (
-    <GameCard variant="hero" glow className="items-center gap-4 py-6">
+    <GameCard
+      variant="hero"
+      glow
+      sharedTransitionTag={SHARED_TRANSITION_TAGS.playerHero}
+      className="items-center gap-4 py-6">
       <PressableScale onPress={onEditName} accessibilityRole="button" accessibilityLabel={PROFILE_UI.playerEditLabel}>
         <Avatar name={name} size="xl" frameKey={avatarFrame} badgeKey={avatarBadge} ring />
       </PressableScale>

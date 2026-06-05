@@ -1,9 +1,9 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 import { Button } from '@/components';
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { LearningOutcomePanel, LearningProgressHeader } from '@/features/learning/components/ui';
 import type { FlashSrsRating } from '@/types/flash-card';
 
@@ -96,11 +96,7 @@ export const FlashDeckBlitzContent = () => {
   const current = queue[index] ?? null;
 
   if (loading) {
-    return (
-      <View className="items-center py-16">
-        <ActivityIndicator color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="session" />;
   }
 
   if (done) {

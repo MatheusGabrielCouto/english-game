@@ -1,3 +1,8 @@
+/**
+ * Card utilitário — configurações, formulários e painéis neutros.
+ * Gameplay (missões, recompensas, cidade): use `GameCard` + `PressableScale`.
+ * @see docs/DESIGN_SYSTEM.md
+ */
 import { View, type ViewProps } from 'react-native';
 
 import { cn } from '@/utils';

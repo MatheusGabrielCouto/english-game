@@ -1,8 +1,9 @@
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { ActivityIndicator, Text, TextInput, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 
-import { routes, theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
+import { routes, vaultEntryHref } from '@/constants';
 import { JournalEntryType, type JournalEntryRecord, type JournalEntryTypeValue } from '@/types/journal';
 import type { VaultSpaceKey } from '@/types/knowledge-vault';
 
@@ -10,11 +11,10 @@ import { VAULT_UI } from '../constants/vault-ui';
 import { KnowledgeVaultService } from '../services/knowledge-vault-service';
 import { useEnglishJournalStore } from '../store/english-journal-store';
 import { getSpaceLabel } from '../utils/vault-map-builder';
-import { HomeCardSkeleton } from '@/features/home/components/HomeCardSkeleton';
-
 import { JournalEntryCard } from './JournalEntryCard';
 import { JournalEntryFormModal } from './JournalEntryFormModal';
 import { VaultEmptyState } from './vault/VaultEmptyState';
+import { VaultGlobalSearchTrigger } from './vault/VaultGlobalSearchTrigger';
 import { VaultHelpCard } from './vault/VaultHelpCard';
 import { VaultHeroCard } from './vault/VaultHeroCard';
 import { VaultQuickAction } from './vault/VaultQuickAction';
@@ -61,7 +61,7 @@ export const EnglishJournalScreenContent = ({ hubLinkMode = 'stack' }: EnglishJo
   };
 
   const openEntry = (entry: JournalEntryRecord) => {
-    router.push(`/english-journal/entry/${entry.id}` as never);
+    router.push(vaultEntryHref(entry.id));
   };
 
   const handleReview = useCallback(
@@ -88,29 +88,17 @@ export const EnglishJournalScreenContent = ({ hubLinkMode = 'stack' }: EnglishJo
   );
 
   const clearSpaceFilter = () => {
-    router.replace(routes.englishJournal as never);
+    router.replace(routes.vault.library);
   };
 
   if (isLoading) {
-    return (
-      <View className="gap-4 pb-6">
-        <View className="h-14 rounded-2xl border border-border bg-surface" />
-        <HomeCardSkeleton variant="hero" />
-        <View className="flex-row flex-wrap gap-2">
-          <View className="h-24 min-w-[47%] flex-1 rounded-2xl bg-surface-elevated" />
-          <View className="h-24 min-w-[47%] flex-1 rounded-2xl bg-surface-elevated" />
-        </View>
-        <HomeCardSkeleton />
-        <View className="items-center py-4">
-          <ActivityIndicator color={theme.colors.primary} />
-        </View>
-      </View>
-    );
+    return <ScreenSkeleton variant="vault" className="gap-5 pb-6" />;
   }
 
   return (
     <View className="gap-5 pb-6">
       <VaultHubNav active="library" linkMode={hubLinkMode} />
+      <VaultGlobalSearchTrigger query={search} />
 
       <VaultHeroCard
         stats={stats}
@@ -119,7 +107,17 @@ export const EnglishJournalScreenContent = ({ hubLinkMode = 'stack' }: EnglishJo
         onClearSpaceFilter={spaceFilter ? clearSpaceFilter : undefined}
       />
 
-      <VaultHelpCard body={VAULT_UI.howItWorksBody} defaultOpen={isEmpty} />
+      {isEmpty ? (
+        <VaultEmptyState
+          emoji="📓"
+          title={VAULT_UI.emptyLibraryTitle}
+          body={VAULT_UI.emptyLibraryBody}
+          ctaLabel={VAULT_UI.emptyLibraryCta}
+          onCta={() => openCreate()}
+        />
+      ) : null}
+
+      <VaultHelpCard body={VAULT_UI.howItWorksBody} />
 
       {!isEmpty ? (
         <>
@@ -212,15 +210,7 @@ export const EnglishJournalScreenContent = ({ hubLinkMode = 'stack' }: EnglishJo
         </View>
       ) : null}
 
-      {isEmpty ? (
-        <VaultEmptyState
-          emoji="📓"
-          title={VAULT_UI.emptyLibraryTitle}
-          body={VAULT_UI.emptyLibraryBody}
-          ctaLabel={VAULT_UI.emptyLibraryCta}
-          onCta={() => openCreate()}
-        />
-      ) : (
+      {!isEmpty ? (
         <View className="gap-3">
           <VaultSectionHeader emoji="🕐" title={VAULT_UI.sectionRecent} />
           {(search.trim() ? entries : recent).map((entry) => (
@@ -233,7 +223,7 @@ export const EnglishJournalScreenContent = ({ hubLinkMode = 'stack' }: EnglishJo
             />
           ))}
         </View>
-      )}
+      ) : null}
 
       {favorites.length > 0 && !isEmpty ? (
         <View className="gap-3">

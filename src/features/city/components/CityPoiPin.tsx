@@ -38,11 +38,41 @@ export const CityPoiPin = ({
   onPress,
 }: CityPoiPinProps) => {
   const isLocked = !poi.isUnlocked;
+  const isClaimable = Boolean(hasClaimableMission && !isLocked);
   const stageStyle = getPoiVisualStageStyle(poi.visualStage);
   const pulse = useSharedValue(1);
+  const claimGlow = useSharedValue(0.35);
 
   useEffect(() => {
-    if (isLocked || !stageStyle.usePulse) {
+    if (isLocked) {
+      pulse.value = 1;
+      claimGlow.value = 0;
+      return;
+    }
+
+    if (isClaimable) {
+      pulse.value = withRepeat(
+        withSequence(
+          withTiming(1.12, { duration: 520, easing: Easing.inOut(Easing.ease) }),
+          withTiming(1, { duration: 520, easing: Easing.inOut(Easing.ease) }),
+        ),
+        -1,
+        false,
+      );
+      claimGlow.value = withRepeat(
+        withSequence(
+          withTiming(1, { duration: 520, easing: Easing.inOut(Easing.ease) }),
+          withTiming(0.3, { duration: 520, easing: Easing.inOut(Easing.ease) }),
+        ),
+        -1,
+        false,
+      );
+      return;
+    }
+
+    claimGlow.value = 0;
+
+    if (!stageStyle.usePulse) {
       pulse.value = 1;
       return;
     }
@@ -55,10 +85,15 @@ export const CityPoiPin = ({
       -1,
       false,
     );
-  }, [isLocked, stageStyle.usePulse, pulse]);
+  }, [isClaimable, isLocked, stageStyle.usePulse, pulse, claimGlow]);
 
   const pulseStyle = useAnimatedStyle(() => ({
     transform: [{ scale: pulse.value }],
+  }));
+
+  const claimGlowStyle = useAnimatedStyle(() => ({
+    opacity: claimGlow.value,
+    transform: [{ scale: 1 + claimGlow.value * 0.18 }],
   }));
 
   const lockLabel = poi.specialLockReason
@@ -85,6 +120,7 @@ export const CityPoiPin = ({
     >
       <Animated.View style={[styles.markerColumn, pulseStyle]}>
         <View style={styles.markerHeadWrap}>
+          {isClaimable ? <Animated.View style={[styles.claimPulseRing, claimGlowStyle]} /> : null}
           {isLocked ? (
             <View style={[styles.markerHead, styles.markerHeadLocked]}>
               <Text style={styles.markerLockIcon}>🔒</Text>
@@ -101,7 +137,7 @@ export const CityPoiPin = ({
               style={[styles.markerTail, { borderTopColor: CITY_MAP_GMAPS.pinLocked }]}
             />
           )}
-          {hasClaimableMission && !isLocked ? <View style={styles.claimBadge} /> : null}
+          {isClaimable ? <View style={styles.claimBadge} /> : null}
           {eventBadge && !isLocked ? (
             <View style={styles.eventBadge}>
               <Text style={styles.eventBadgeText}>{eventBadge}</Text>
@@ -212,6 +248,16 @@ const styles = StyleSheet.create({
     fontSize: 8,
     color: CITY_MAP_GMAPS.roadLabel,
     textAlign: 'center',
+  },
+  claimPulseRing: {
+    position: 'absolute',
+    top: -7,
+    left: -7,
+    right: -7,
+    bottom: -7,
+    borderRadius: 24,
+    borderWidth: 2.5,
+    borderColor: '#f9ab00',
   },
   claimBadge: {
     position: 'absolute',

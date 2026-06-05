@@ -6,7 +6,9 @@ import { NotificationCategory } from '@/types/notification';
 import { isStudyReminderIdentifier } from '../../constants/categories';
 import {
     buildNotificationCandidates,
+    buildStreakRiskCandidate,
     computeScheduleTimes,
+    computeStreakRiskScheduleTime,
     selectNotificationsForDay,
 } from '../scheduling';
 
@@ -29,6 +31,7 @@ describe('buildNotificationCandidates', () => {
     const candidates = buildNotificationCandidates(
       {
         studiedToday: true,
+        lastStudyDate: '2026-05-31',
         currentStreak: 5,
         shields: 1,
         hasActiveContract: true,
@@ -49,6 +52,7 @@ describe('buildNotificationCandidates', () => {
     const candidates = buildNotificationCandidates(
       {
         studiedToday: false,
+        lastStudyDate: '2026-05-30',
         currentStreak: 4,
         shields: 0,
         hasActiveContract: true,
@@ -73,6 +77,7 @@ describe('selectNotificationsForDay', () => {
     const candidates = buildNotificationCandidates(
       {
         studiedToday: false,
+        lastStudyDate: '2026-05-30',
         currentStreak: 4,
         shields: 0,
         hasActiveContract: true,
@@ -90,6 +95,104 @@ describe('selectNotificationsForDay', () => {
 
     assert.equal(selected.length, 2);
     assert.ok(selected.every((item) => item.category !== NotificationCategory.STREAK_REMINDER));
+  });
+});
+
+describe('computeStreakRiskScheduleTime', () => {
+  it('schedules 20h after the last study session when still in the future', () => {
+    const context = {
+      studiedToday: false,
+      lastStudyDate: '2026-05-30',
+      currentStreak: 7,
+      shields: 1,
+      hasActiveContract: false,
+      contractName: null,
+      petMood: null,
+      hasNearAchievement: false,
+      nearAchievementName: null,
+      cityLevelsUntilNext: null,
+      nextBuildingName: null,
+    };
+
+    const reference = new Date('2026-05-31T10:00:00');
+    const riskAt = computeStreakRiskScheduleTime(context, baseSettings, reference);
+
+    assert.ok(riskAt);
+    assert.equal(riskAt?.getFullYear(), 2026);
+    assert.equal(riskAt?.getMonth(), 4);
+    assert.equal(riskAt?.getDate(), 31);
+    assert.equal(riskAt?.getHours(), 15);
+    assert.equal(riskAt?.getMinutes(), 0);
+  });
+
+  it('falls back to 20:00 when the 20h window already passed', () => {
+    const context = {
+      studiedToday: false,
+      lastStudyDate: '2026-05-30',
+      currentStreak: 3,
+      shields: 0,
+      hasActiveContract: false,
+      contractName: null,
+      petMood: null,
+      hasNearAchievement: false,
+      nearAchievementName: null,
+      cityLevelsUntilNext: null,
+      nextBuildingName: null,
+    };
+
+    const reference = new Date('2026-05-31T18:30:00');
+    const riskAt = computeStreakRiskScheduleTime(context, baseSettings, reference);
+
+    assert.ok(riskAt);
+    assert.equal(riskAt?.getHours(), 20);
+    assert.equal(riskAt?.getMinutes(), 0);
+  });
+
+  it('returns null when the player already studied today', () => {
+    const riskAt = computeStreakRiskScheduleTime(
+      {
+        studiedToday: true,
+        lastStudyDate: '2026-05-31',
+        currentStreak: 5,
+        shields: 1,
+        hasActiveContract: false,
+        contractName: null,
+        petMood: null,
+        hasNearAchievement: false,
+        nearAchievementName: null,
+        cityLevelsUntilNext: null,
+        nextBuildingName: null,
+      },
+      baseSettings,
+    );
+
+    assert.equal(riskAt, null);
+  });
+});
+
+describe('buildStreakRiskCandidate', () => {
+  it('builds an urgent streak risk notification with the current streak', () => {
+    const candidate = buildStreakRiskCandidate(
+      {
+        studiedToday: false,
+        lastStudyDate: '2026-05-30',
+        currentStreak: 9,
+        shields: 0,
+        hasActiveContract: false,
+        contractName: null,
+        petMood: null,
+        hasNearAchievement: false,
+        nearAchievementName: null,
+        cityLevelsUntilNext: null,
+        nextBuildingName: null,
+      },
+      baseSettings,
+      0,
+    );
+
+    assert.ok(candidate);
+    assert.equal(candidate?.category, NotificationCategory.STREAK_RISK);
+    assert.match(candidate?.body ?? '', /9 dias em risco/);
   });
 });
 

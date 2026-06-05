@@ -16,7 +16,8 @@ export default function TabsLayout() {
           freezeOnBlur: true,
         }}>
         <Tabs.Screen name="index" options={{ title: 'Início' }} />
-        <Tabs.Screen name="quests" options={{ title: 'Missões' }} />
+        <Tabs.Screen name="play" options={{ title: 'Jogar' }} />
+        <Tabs.Screen name="quests" options={{ href: null }} />
         <Tabs.Screen name="knowledge" options={{ title: 'Knowledge' }} />
         <Tabs.Screen name="menu" options={{ title: 'Menu' }} />
         <Tabs.Screen name="profile" options={{ title: 'Perfil' }} />

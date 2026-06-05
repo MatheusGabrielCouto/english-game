@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 
 import { Button } from '@/components';
 import { GameCard } from '@/components/ui/game';
+import { routes } from '@/constants';
 import type { VaultDashboardSnapshot } from '@/types/knowledge-vault';
 import { VAULT_UI } from '../../constants/vault-ui';
 
@@ -26,7 +27,7 @@ export const VaultDashboardPanel = ({ snapshot }: VaultDashboardPanelProps) => {
           <Button
             label={VAULT_UI.dashboardReviewCta}
             size="sm"
-            onPress={() => router.replace('/english-journal' as never)}
+            onPress={() => router.replace(routes.vault.library)}
           />
         </GameCard>
       ) : null}

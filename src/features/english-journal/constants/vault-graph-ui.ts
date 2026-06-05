@@ -5,8 +5,10 @@ export const GRAPH_UI = {
   filterSpace: 'Área',
   filterAll: 'Todas',
   filterReviewsOnly: 'Só revisões',
-  emptyTitle: 'Mapa ainda vazio',
-  emptyBody: 'Crie notas no Vault — elas aparecem aqui por área e pasta.',
+  emptyTitle: 'Seu mapa aparece quando você anota',
+  emptyBody:
+    'Crie notas na biblioteca — elas se organizam aqui por área e pasta automaticamente.',
+  emptyCta: 'Ir para a biblioteca',
   summaryNotes: (n: number) => `${n} nota${n === 1 ? '' : 's'}`,
   summaryLinks: (n: number) => `${n} vínculo${n === 1 ? '' : 's'}`,
   summaryReviews: (n: number) => (n === 1 ? '1 revisão' : `${n} revisões`),

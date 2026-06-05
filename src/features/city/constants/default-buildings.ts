@@ -6,8 +6,12 @@ import { INTERMEDIATE_CITY_BUILDINGS } from './balance-buildings';
 export const CITY_MESSAGES = {
   cityGrown: 'Sua cidade cresceu.',
   buildingUnlocked: 'Um novo edifício foi desbloqueado.',
+  constructing: 'Construindo novo marco…',
+  constructingHint: (name: string) => `Ergendo ${name}`,
   nextMilestone: 'Continue estudando para expandir sua cidade.',
 } as const;
+
+export const CITY_BUILDING_UNLOCK_ANIMATION_MS = 1500;
 
 export const BUILDING_DEFINITIONS: CityBuildingDefinition[] = [
   {

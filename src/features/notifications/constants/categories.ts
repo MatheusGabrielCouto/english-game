@@ -4,7 +4,10 @@ export const NOTIFICATION_TITLE = 'English Quest';
 
 export const MAX_DAILY_NOTIFICATIONS = 3;
 
+export const STREAK_RISK_HOURS = 20;
+
 export const NOTIFICATION_PRIORITY: Record<string, number> = {
+  [NotificationCategory.STREAK_RISK]: 0,
   [NotificationCategory.STREAK_REMINDER]: 1,
   [NotificationCategory.SHIELD_WARNING]: 2,
   [NotificationCategory.CONTRACT_REMINDER]: 3,
@@ -24,6 +27,7 @@ export const STUDY_TIME_PRESETS = [
 export const CATEGORY_LABELS: Record<string, string> = {
   [NotificationCategory.DAILY_REMINDER]: 'Lembrete diário',
   [NotificationCategory.STREAK_REMINDER]: 'Sequência',
+  [NotificationCategory.STREAK_RISK]: 'Sequência em risco',
   [NotificationCategory.SHIELD_WARNING]: 'Escudos',
   [NotificationCategory.PET_REMINDER]: 'Pet',
   [NotificationCategory.CONTRACT_REMINDER]: 'Contratos',

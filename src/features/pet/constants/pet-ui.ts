@@ -22,4 +22,6 @@ export const PET_UI = {
     'Estou confortável aqui. Quando o timer zerar, finalmente poderei sair desta cápsula!',
   farmCta: 'Fazenda de Pets',
   farmCtaHint: 'Pasto, cruzamento e glossário',
+  bestActionTitle: 'Melhor ação agora',
+  bestActionBadge: 'Agora',
 } as const;

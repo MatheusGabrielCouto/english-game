@@ -1,6 +1,7 @@
 export const NotificationCategory = {
   DAILY_REMINDER: 'daily_reminder',
   STREAK_REMINDER: 'streak_reminder',
+  STREAK_RISK: 'streak_risk',
   SHIELD_WARNING: 'shield_warning',
   PET_REMINDER: 'pet_reminder',
   CONTRACT_REMINDER: 'contract_reminder',
@@ -89,6 +90,7 @@ export type NotificationCandidate = {
 
 export type NotificationContext = {
   studiedToday: boolean;
+  lastStudyDate: string | null;
   currentStreak: number;
   shields: number;
   hasActiveContract: boolean;

@@ -8,7 +8,10 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated';
 
+import { SharedHeroTransition } from '@/components/ui/game';
+import { SHARED_TRANSITION_TAGS } from '@/constants';
 import { PetSpeciesIcon } from '@/features/pet-farm/components/PetSpeciesIcon';
+import { CoachMarkTarget } from '@/features/tutorial';
 import type { Pet } from '@/types/pet';
 
 import { PET_ANIMATIONS_BY_KEY } from '../catalogs/pet-animations-catalog';
@@ -52,7 +55,10 @@ export const PetHeroDisplay = ({ pet }: PetHeroDisplayProps) => {
     .filter(Boolean);
 
   return (
-    <View className="items-center rounded-3xl border border-legendary/30 bg-legendary/5 px-4 py-8">
+    <CoachMarkTarget coachKey="pet-hero">
+    <SharedHeroTransition
+      tag={SHARED_TRANSITION_TAGS.petHero}
+      className="items-center rounded-3xl border border-legendary/30 bg-legendary/5 px-4 py-8">
       <View className="mb-2 flex-row items-center gap-2">
         <Text className="text-xs font-bold uppercase tracking-widest text-legendary">
           {routine.emoji} {routine.label}
@@ -87,6 +93,7 @@ export const PetHeroDisplay = ({ pet }: PetHeroDisplayProps) => {
       <Text className="mt-1 text-sm text-foreground-secondary">
         {display.speciesName} · {display.stageLabel} · Nv. {display.level}
       </Text>
-    </View>
+    </SharedHeroTransition>
+    </CoachMarkTarget>
   );
 };

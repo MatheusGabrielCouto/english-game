@@ -1,12 +1,12 @@
-import { DarkTheme, ThemeProvider } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { type ReactNode } from 'react';
+import { SplashGate } from '@/components/splash';
 import { theme } from '@/constants';
 import { OnboardingWizardModal } from '@/features/onboarding';
 import { PunishmentHost } from '@/features/punishments';
-import { GameTutorialHost } from '@/features/tutorial';
+import { CoachMarkHost, GameTutorialHost } from '@/features/tutorial';
 import { useAppHydration } from '@/hooks';
-import { SplashGate } from '@/components/splash';
+import { DarkTheme, ThemeProvider } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { type ReactNode } from 'react';
 
 import { ErrorBoundary } from './ErrorBoundary';
 import { ToastHost } from './ToastHost';
@@ -38,6 +38,7 @@ export const AppProviders = ({ children }: AppProvidersProps) => {
           <StatusBar style="light" />
           {children}
           <OnboardingWizardModal />
+          <CoachMarkHost />
           <GameTutorialHost />
           <PunishmentHost />
           <ToastHost />

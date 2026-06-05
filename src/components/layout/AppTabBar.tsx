@@ -3,10 +3,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppIcon, type AppIconName } from '@/components/ui/AppIcon';
 import { theme } from '@/constants';
+import { CoachMarkTarget } from '@/features/tutorial';
 import { AudioDirector } from '@/services/audio';
 import { haptics } from '@/utils/haptics';
 
-type TabRouteName = 'index' | 'quests' | 'knowledge' | 'menu' | 'profile';
+type TabRouteName = 'index' | 'play' | 'knowledge' | 'menu' | 'profile';
 
 type TabRoute = {
   key: string;
@@ -30,7 +31,7 @@ type TabConfig = {
 
 const TAB_CONFIG: Record<TabRouteName, TabConfig> = {
   index: { icon: 'home-outline', label: 'Home', emoji: '🏠' },
-  quests: { icon: 'map-outline', label: 'Quests', emoji: '📜' },
+  play: { icon: 'flash', label: 'Jogar', emoji: '🎯' },
   knowledge: { icon: 'file-tray-outline', label: 'Vault', emoji: '📓' },
   menu: { icon: 'cube-outline', label: 'Menu', emoji: '📋' },
   profile: { icon: 'person-outline', label: 'Perfil', emoji: '👤' },
@@ -54,6 +55,44 @@ export const AppTabBar = ({ state, navigation }: AppTabBarProps) => {
 
           if (!config) return null;
 
+          const tabInner = (
+            <View style={[styles.tabInner, isFocused && styles.tabInnerFocused]}>
+              {isFocused ? (
+                <Text style={styles.emoji}>{config.emoji}</Text>
+              ) : (
+                <AppIcon name={config.icon} size={22} color={theme.colors.muted} />
+              )}
+              <Text
+                numberOfLines={1}
+                style={[styles.label, isFocused ? styles.labelFocused : styles.labelMuted]}>
+                {config.label}
+              </Text>
+            </View>
+          );
+
+          const handlePress = () => {
+            if (isFocused) return;
+            haptics.selection();
+            AudioDirector.playUI('ui_tab_switch');
+            navigation.navigate(route.name as TabRouteName);
+          };
+
+          if (route.name === 'menu') {
+            return (
+              <CoachMarkTarget key={route.key} coachKey="tab-menu" style={styles.tab}>
+                <TouchableOpacity
+                  accessibilityRole="button"
+                  accessibilityState={isFocused ? { selected: true } : {}}
+                  accessibilityLabel={config.label}
+                  activeOpacity={0.75}
+                  style={styles.tabPressable}
+                  onPress={handlePress}>
+                  {tabInner}
+                </TouchableOpacity>
+              </CoachMarkTarget>
+            );
+          }
+
           return (
             <TouchableOpacity
               key={route.key}
@@ -62,24 +101,8 @@ export const AppTabBar = ({ state, navigation }: AppTabBarProps) => {
               accessibilityLabel={config.label}
               activeOpacity={0.75}
               style={styles.tab}
-              onPress={() => {
-                if (isFocused) return;
-                haptics.selection();
-                AudioDirector.playUI('ui_tab_switch');
-                navigation.navigate(route.name as TabRouteName);
-              }}>
-              <View style={[styles.tabInner, isFocused && styles.tabInnerFocused]}>
-                {isFocused ? (
-                  <Text style={styles.emoji}>{config.emoji}</Text>
-                ) : (
-                  <AppIcon name={config.icon} size={22} color={theme.colors.muted} />
-                )}
-                <Text
-                  numberOfLines={1}
-                  style={[styles.label, isFocused ? styles.labelFocused : styles.labelMuted]}>
-                  {config.label}
-                </Text>
-              </View>
+              onPress={handlePress}>
+              {tabInner}
             </TouchableOpacity>
           );
         })}
@@ -111,6 +134,10 @@ const styles = StyleSheet.create({
     minWidth: 56,
     flex: 1,
     maxWidth: 72,
+    alignItems: 'center',
+  },
+  tabPressable: {
+    width: '100%',
     alignItems: 'center',
   },
   tabInner: {

@@ -1,9 +1,10 @@
 import { router, useLocalSearchParams, type Href } from 'expo-router';
 import { useCallback, useEffect, useRef } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 
 import { ScreenContainer, ScreenHeader } from '@/components/layout';
-import { routes, theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
+import { routes } from '@/constants';
 import { FocusStudyType, type FocusStudyTypeValue } from '@/types/focus-mode';
 
 import { FocusActiveSession } from '@/features/focus-mode/components/FocusActiveSession';
@@ -72,8 +73,8 @@ export default function FocusSessionScreen() {
 
   if (!liveSession) {
     return (
-      <View className="flex-1 items-center justify-center bg-background">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
+      <View className="flex-1 bg-background px-4 pt-8">
+        <ScreenSkeleton variant="focus" />
       </View>
     );
   }

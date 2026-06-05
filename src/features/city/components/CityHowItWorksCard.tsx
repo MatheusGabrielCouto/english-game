@@ -1,10 +1,16 @@
 import { Text, View } from 'react-native';
 
 import { GameCard } from '@/components/ui/game';
+import { useHowItWorksSeen } from '@/hooks';
 
 import { CITY_UI } from '../constants/city-ui';
 
-export const CityHowItWorksCard = () => (
+export const CityHowItWorksCard = () => {
+  const { shouldShow } = useHowItWorksSeen('city');
+
+  if (!shouldShow) return null;
+
+  return (
   <GameCard variant="quest">
     <Text className="text-xs font-bold uppercase tracking-widest text-accent">
       💡 {CITY_UI.howItWorksTitle}
@@ -20,4 +26,5 @@ export const CityHowItWorksCard = () => (
       ))}
     </View>
   </GameCard>
-);
+  );
+};

@@ -1,6 +1,23 @@
 export const HOME_UI = {
   screenTitle: 'English Quest',
   screenSubtitle: 'Seu mundo de evolução',
+  zones: {
+    now: {
+      emoji: '⚡',
+      title: 'Agora',
+      subtitle: 'Identidade, streak e o que fazer hoje',
+    },
+    progress: {
+      emoji: '📈',
+      title: 'Progresso',
+      subtitle: 'Metas do dia e próximas recompensas',
+    },
+    explore: {
+      emoji: '🧭',
+      title: 'Explorar',
+      subtitle: 'Mundo vivo, atalhos e descobertas',
+    },
+  },
   playerHeader: {
     brand: 'Base do jogador',
     xpLabel: 'Experiência',
@@ -9,14 +26,45 @@ export const HOME_UI = {
     studyPointsLabel: 'Pontos',
     studyPointsSuffix: 'SP',
     viewProfile: 'Ver perfil completo',
+    editAvatar: 'Editar personagem',
+    openProfile: 'Abrir perfil e identidade',
+    viewProfileHint: 'Ver perfil →',
     xpProgress: (current: number, required: number, percent: number) =>
       `${current.toLocaleString('pt-BR')} / ${required.toLocaleString('pt-BR')} XP · ${percent}%`,
     xpRemaining: (remaining: number) =>
       `${remaining.toLocaleString('pt-BR')} XP para o próximo nível`,
   },
+  activeObjectives: {
+    title: 'Objetivos ativos',
+    subtitle: (count: number) =>
+      count === 1 ? '1 meta em andamento' : `${count} metas em andamento`,
+    emptySubtitle: 'Tudo em dia por agora',
+    emptyBody: 'Quando houver missões, rotinas ou recompensas pendentes, elas aparecem aqui.',
+    emptyCta: 'Abrir Jogar',
+    overflow: (count: number) =>
+      count === 1 ? '+1 objetivo no Jogar' : `+${count} objetivos no Jogar`,
+  },
+  doNow: {
+    title: 'Faça agora',
+    cta: 'Fazer agora',
+    viewQuests: 'Ver missões',
+    empty: 'Suas missões diárias estão a caminho…',
+    allDoneTitle: 'Missões do dia concluídas',
+    allDoneBody: (count: number) =>
+      count === 1
+        ? 'Você completou 1 missão hoje. Continue evoluindo no jogo.'
+        : `Você completou ${count} missões hoje. Continue evoluindo no jogo.`,
+    missionHint: (pending: number) =>
+      pending === 1 ? '1 missão pendente hoje' : `${pending} missões pendentes hoje`,
+    rewardLine: (xp: number, coins: number) =>
+      `+${xp} XP · +${coins.toLocaleString('pt-BR')} 🪙`,
+  },
   quickActions: {
     title: 'Acesso rápido',
-    hint: 'Atalhos para os modos que você mais usa',
+    hint: '6 atalhos principais — o restante fica no Menu',
+    moreLabel: 'Mais',
+    moreTagline: 'Menu completo',
+    moreEmoji: '☰',
   },
   streak: {
     title: 'Sequência de estudo',

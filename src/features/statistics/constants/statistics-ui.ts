@@ -1,15 +1,13 @@
 export const STATISTICS_UI = {
   screenTitle: 'Estatísticas',
-  screenSubtitle: 'Dashboard da sua jornada',
-  heroTitle: 'Painel do jogador',
+  screenSubtitle: 'Seu próximo passo, em um lugar',
+  heroTitle: 'Resumo do jogador',
   sections: {
-    consistency: { title: 'Consistência', emoji: '🔥', subtitle: 'Streak, dias e escudos' },
-    quests: { title: 'Missões', emoji: '⚔️', subtitle: 'Daily e weekly quests' },
-    collection: { title: 'Coleção', emoji: '🎒', subtitle: 'Pet, loot e conquistas' },
-    world: { title: 'Mundo', emoji: '🌍', subtitle: 'Contratos e cidade' },
-    history: { title: 'Histórico', emoji: '📜', subtitle: 'Marcos da evolução' },
+    progress: { title: 'Progresso', emoji: '🔥', subtitle: 'Streak, dias e visão geral' },
+    activity: { title: 'Atividade', emoji: '⚔️', subtitle: 'Missões, contratos e cidade' },
+    collection: { title: 'Coleção & histórico', emoji: '🎒', subtitle: 'Pet, loot, conquistas e marcos' },
   },
-  insightsTitle: 'Destaques',
+  insightsTitle: 'Próximo passo',
   milestonesMore: (count: number) => `+${count} marcos anteriores`,
   milestonesPreview: 5,
 } as const;

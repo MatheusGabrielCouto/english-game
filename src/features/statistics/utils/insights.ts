@@ -1,66 +1,144 @@
-import type { StatisticsDashboard, StatisticsInsight } from '@/types/statistics';
-import { StatisticsMilestoneCategory } from '@/types/statistics';
+import type { StatisticsDashboard, StatisticsInsight } from '@/types/statistics'
 
-import { formatNumber } from './formatters';
+const INSIGHT_ROUTES = {
+  home: '/',
+  quests: '/(tabs)/play',
+  lootBoxes: '/loot-boxes',
+  pet: '/pet',
+  city: '/city',
+  achievements: '/achievements',
+  contracts: '/contracts',
+} as const
+import { StatisticsMilestoneCategory } from '@/types/statistics'
+
+type InsightCandidate = StatisticsInsight & { priority: number }
+
+const pushInsight = (list: InsightCandidate[], insight: InsightCandidate | null) => {
+  if (insight) list.push(insight)
+}
 
 export const buildStatisticsInsights = (dashboard: StatisticsDashboard): StatisticsInsight[] => {
-  const insights: StatisticsInsight[] = [];
+  const candidates: InsightCandidate[] = []
+  const { overview, consistency, quests, pet, lootBoxes, achievements, contracts, city } = dashboard
 
-  if (dashboard.overview.totalStudyDays > 0) {
-    insights.push({
-      id: 'consistency-days',
+  const dailyPending = Math.max(0, quests.dailyTotal - quests.dailyCompleted)
+  const weeklyPending = Math.max(0, quests.weeklyTotal - quests.weeklyCompleted)
+  const lootPending = Math.max(0, lootBoxes.totalReceived - lootBoxes.totalOpened)
+
+  if (dailyPending > 0) {
+    pushInsight(candidates, {
+      id: 'daily-quests-pending',
       category: StatisticsMilestoneCategory.STUDY,
-      message: `Você estudou por ${formatNumber(dashboard.overview.totalStudyDays)} dias.`,
-    });
+      priority: 1,
+      message:
+        dailyPending === 1
+          ? 'Falta 1 missão diária para fechar o dia com força.'
+          : `Faltam ${dailyPending} missões diárias — um bloco curto resolve.`,
+      ctaLabel: 'Ver missões',
+      route: INSIGHT_ROUTES.quests,
+    })
   }
 
-  if (dashboard.consistency.bestStreak > 0) {
-    insights.push({
-      id: 'best-streak',
-      category: StatisticsMilestoneCategory.STREAK,
-      message: `Sua maior streak é de ${formatNumber(dashboard.consistency.bestStreak)} dias.`,
-    });
+  if (lootPending > 0) {
+    pushInsight(candidates, {
+      id: 'loot-unopened',
+      category: StatisticsMilestoneCategory.LOOT_BOX,
+      priority: 2,
+      message:
+        lootPending === 1
+          ? 'Você tem 1 loot box fechada esperando recompensa.'
+          : `${lootPending} loot boxes fechadas — abra antes que esqueça.`,
+      ctaLabel: 'Abrir loot',
+      route: INSIGHT_ROUTES.lootBoxes,
+    })
   }
 
-  if (dashboard.contracts.totalCompleted > 0) {
-    insights.push({
-      id: 'contracts-completed',
-      category: StatisticsMilestoneCategory.CONTRACT,
-      message: `Você concluiu ${formatNumber(dashboard.contracts.totalCompleted)} desafios.`,
-    });
+  if (weeklyPending > 0 && quests.weeklyCompletionRate < 100) {
+    pushInsight(candidates, {
+      id: 'weekly-quests-pending',
+      category: StatisticsMilestoneCategory.STUDY,
+      priority: 3,
+      message: `Missões semanais em ${quests.weeklyCompletionRate}% — ainda dá para recuperar.`,
+      ctaLabel: 'Missões da semana',
+      route: INSIGHT_ROUTES.quests,
+    })
   }
 
-  if (dashboard.city.totalUnlocked > 0) {
-    insights.push({
-      id: 'city-growing',
-      category: StatisticsMilestoneCategory.CITY,
-      message: 'Sua cidade está crescendo.',
-    });
-  }
-
-  if (dashboard.pet.stageLabel !== 'Ovo') {
-    insights.push({
-      id: 'pet-stage',
+  if (pet.averageMoodScore < 55) {
+    pushInsight(candidates, {
+      id: 'pet-low-mood',
       category: StatisticsMilestoneCategory.PET,
-      message: `Seu pet alcançou o estágio ${dashboard.pet.stageLabel}.`,
-    });
+      priority: 4,
+      message: `Seu pet está ${pet.averageMoodLabel.toLowerCase()}. Um estudo rápido anima o time.`,
+      ctaLabel: 'Cuidar do pet',
+      route: INSIGHT_ROUTES.pet,
+    })
   }
 
-  if (dashboard.achievements.unlocked > 0) {
-    insights.push({
-      id: 'achievements-unlocked',
+  if (city.progressPercentage < 100 && city.totalUnlocked < city.totalBuildings) {
+    pushInsight(candidates, {
+      id: 'city-progress',
+      category: StatisticsMilestoneCategory.CITY,
+      priority: 5,
+      message: `Cidade em ${city.progressPercentage}% — estude para erguer ${city.currentBuildingLabel}.`,
+      ctaLabel: 'Ver cidade',
+      route: INSIGHT_ROUTES.city,
+    })
+  }
+
+  if (achievements.unlocked < achievements.total && achievements.completionRate < 90) {
+    pushInsight(candidates, {
+      id: 'achievements-near',
       category: StatisticsMilestoneCategory.ACHIEVEMENT,
-      message: `${formatNumber(dashboard.achievements.unlocked)} conquistas desbloqueadas.`,
-    });
+      priority: 6,
+      message: `${achievements.unlocked}/${achievements.total} conquistas — falta pouco para o próximo marco.`,
+      ctaLabel: 'Ver conquistas',
+      route: INSIGHT_ROUTES.achievements,
+    })
   }
 
-  if (dashboard.overview.totalStudyTimeLabel !== '0 min') {
-    insights.push({
-      id: 'study-time',
+  if (contracts.totalAccepted > contracts.totalCompleted) {
+    pushInsight(candidates, {
+      id: 'contracts-active',
+      category: StatisticsMilestoneCategory.CONTRACT,
+      priority: 7,
+      message: 'Você tem contratos em andamento. Mantenha o ritmo para não perder o bônus.',
+      ctaLabel: 'Ver contratos',
+      route: INSIGHT_ROUTES.contracts,
+    })
+  }
+
+  if (consistency.currentStreak > 0) {
+    pushInsight(candidates, {
+      id: 'streak-active',
+      category: StatisticsMilestoneCategory.STREAK,
+      priority: 8,
+      message: `Sequência de ${consistency.currentStreak} dias — estude hoje para não quebrar.`,
+      ctaLabel: 'Ir para Home',
+      route: INSIGHT_ROUTES.home,
+    })
+  }
+
+  if (candidates.length === 0) {
+    pushInsight(candidates, {
+      id: 'fallback-study',
       category: 'general',
-      message: `Tempo total de estudo: ${dashboard.overview.totalStudyTimeLabel}.`,
-    });
+      priority: 99,
+      message:
+        overview.totalStudyDays > 0
+          ? `${overview.totalStudyDays} dias de jornada. Escolha a próxima missão e siga evoluindo.`
+          : 'Comece com uma missão diária — o progresso aparece rápido aqui.',
+      ctaLabel: 'Começar agora',
+      route: INSIGHT_ROUTES.quests,
+    })
   }
 
-  return insights.slice(0, 6);
-};
+  return candidates
+    .sort((a, b) => a.priority - b.priority)
+    .slice(0, 3)
+    .map(({ priority: _priority, ...insight }) => insight)
+}
+
+export const getPrimaryStatisticsInsight = (
+  insights: StatisticsInsight[],
+): StatisticsInsight | null => insights[0] ?? null

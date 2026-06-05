@@ -2,6 +2,7 @@ import { type Href, router } from 'expo-router'
 import { Text, View } from 'react-native'
 
 import { GameCard, PressableScale } from '@/components/ui/game'
+import { SHARED_TRANSITION_TAGS } from '@/constants'
 import { HOME_UI } from '@/features/home/constants/home-ui'
 import { useHomeDashboard } from '@/features/home/hooks/use-home-dashboard'
 import { HomeCardRow } from '@/features/home/components/shared/HomeCardRow'
@@ -26,7 +27,13 @@ export const HomeNextRewardCard = () => {
       accessibilityLabel={`${HOME_UI.nextReward.title}: ${nextReward.title}`}
       disabled={!nextReward.route}
     >
-      <GameCard variant="reward" glow className="border-gold/40">
+      <GameCard
+        variant="reward"
+        glow
+        sharedTransitionTag={
+          nextReward.key === 'loot' ? SHARED_TRANSITION_TAGS.lootHero : undefined
+        }
+        className="border-gold/40">
         <HomeSectionLabel emoji="🎁" title={HOME_UI.nextReward.title} tone="gold" />
         <HomeCardRow className="mt-3 items-center gap-3">
           <Text className="shrink-0 text-4xl">{nextReward.emoji}</Text>

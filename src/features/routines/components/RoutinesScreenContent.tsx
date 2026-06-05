@@ -1,10 +1,10 @@
 import { useFocusEffect } from 'expo-router';
 import { useCallback, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { Button } from '@/components';
 import { GameCard } from '@/components/ui/game';
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { LearningSectionHeader } from '@/features/learning/components/ui';
 import type { UserRoutineRecord } from '@/types/routine';
 
@@ -15,7 +15,11 @@ import { useRoutinesStore } from '../store/routines-store';
 import { RoutineFormModal } from './RoutineFormModal';
 import { RoutineListItem } from './RoutineListItem';
 
-export const RoutinesScreenContent = () => {
+type RoutinesScreenContentProps = {
+  embedded?: boolean;
+};
+
+export const RoutinesScreenContent = ({ embedded = false }: RoutinesScreenContentProps) => {
   const dueToday = useRoutinesStore((s) => s.dueToday);
   const pendingToday = useRoutinesStore((s) => s.pendingToday);
   const completedToday = useRoutinesStore((s) => s.completedToday);
@@ -64,24 +68,22 @@ export const RoutinesScreenContent = () => {
   };
 
   if (isLoading) {
-    return (
-      <View className="items-center py-16">
-        <ActivityIndicator color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="quest" className="gap-5 pb-0" />;
   }
 
   const upcoming = todayItems.filter((item) => !item.isDueToday && !item.completed);
 
   return (
     <View className="gap-5">
-      <GameCard variant="quest" glow>
-        <Text className="text-xs font-bold uppercase tracking-widest text-primary">
-          {ROUTINE_UI.screenTitle}
-        </Text>
-        <Text className="mt-1 text-sm text-foreground-secondary">{ROUTINE_UI.screenSubtitle}</Text>
-        <Text className="mt-2 text-[10px] text-muted">{ROUTINE_UI.questsDivider}</Text>
-      </GameCard>
+      {embedded ? null : (
+        <GameCard variant="quest" glow>
+          <Text className="text-xs font-bold uppercase tracking-widest text-primary">
+            {ROUTINE_UI.screenTitle}
+          </Text>
+          <Text className="mt-1 text-sm text-foreground-secondary">{ROUTINE_UI.screenSubtitle}</Text>
+          <Text className="mt-2 text-[10px] text-muted">{ROUTINE_UI.questsDivider}</Text>
+        </GameCard>
+      )}
 
       <LearningSectionHeader emoji="☀️" title={ROUTINE_UI.todayTitle} hint={ROUTINE_UI.todayHint} />
 

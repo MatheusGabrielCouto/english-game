@@ -1,19 +1,3 @@
-import { View } from 'react-native'
+import { ScreenSkeleton } from '@/components/ui/skeleton'
 
-import { HomeCardSkeleton } from './HomeCardSkeleton'
-
-export const HomeScreenSkeleton = () => (
-  <View className="gap-4">
-    <HomeCardSkeleton variant="hero" />
-    <HomeCardSkeleton />
-    <HomeCardSkeleton />
-    <HomeCardSkeleton />
-    <HomeCardSkeleton />
-    <HomeCardSkeleton />
-    <HomeCardSkeleton variant="row" />
-    <HomeCardSkeleton />
-    <HomeCardSkeleton />
-    <HomeCardSkeleton />
-    <HomeCardSkeleton />
-  </View>
-)
+export const HomeScreenSkeleton = () => <ScreenSkeleton variant="home" />

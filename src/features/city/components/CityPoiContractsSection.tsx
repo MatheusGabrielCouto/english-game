@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { theme } from '@/constants';
+import { ListItemSkeleton } from '@/components/ui/skeleton';
 import { ActiveContractCard } from '@/features/contracts/components/ActiveContractCard';
 import { AvailableContractCard } from '@/features/contracts/components/AvailableContractCard';
 import { ContractAcceptModal } from '@/features/contracts/components/ContractAcceptModal';
@@ -50,8 +50,9 @@ export const CityPoiContractsSection = ({ poiKey, isUnlocked }: CityPoiContracts
       <Text className="text-xs text-foreground-secondary">{CITY_UI.poiContractsHint}</Text>
 
       {loading ? (
-        <View className="items-center py-6">
-          <ActivityIndicator color={theme.colors.primary} />
+        <View className="gap-3 py-2">
+          <ListItemSkeleton />
+          <ListItemSkeleton />
         </View>
       ) : null}
 

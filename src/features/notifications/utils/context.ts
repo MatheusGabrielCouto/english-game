@@ -28,6 +28,7 @@ export const buildNotificationContext = (): NotificationContext => {
 
   return {
     studiedToday,
+    lastStudyDate: player.lastStudyDate,
     currentStreak: player.currentStreak,
     shields: player.shields,
     hasActiveContract: activeContract !== null,

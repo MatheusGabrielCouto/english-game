@@ -25,6 +25,8 @@ export type MenuHubItemDef = {
   searchKeywords: string[]
   exploreId?: ExploreItemId
   pinnable?: boolean
+  /** Nível mínimo do jogador para abrir o modo (omitir = disponível desde o início). */
+  requiredLevel?: number
   isEnabled?: () => boolean
 }
 
@@ -41,6 +43,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     searchKeywords: ['cidade', 'city', 'skyline', 'evolução'],
     exploreId: 'city',
     pinnable: true,
+    requiredLevel: 5,
   },
   {
     id: 'pet',
@@ -62,6 +65,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'progression',
     searchKeywords: ['fazenda', 'pet', 'breeding', 'cruzar', 'pasto'],
     pinnable: true,
+    requiredLevel: 30,
   },
   {
     id: 'inventory',
@@ -73,6 +77,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     searchKeywords: ['inventário', 'inventory', 'itens', 'bolsa'],
     exploreId: 'inventory',
     pinnable: true,
+    requiredLevel: 5,
   },
   {
     id: 'loot',
@@ -84,6 +89,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     searchKeywords: ['loot', 'caixa', 'box', 'recompensa'],
     exploreId: 'loot',
     pinnable: true,
+    requiredLevel: 10,
   },
   {
     id: 'shop',
@@ -94,6 +100,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'progression',
     searchKeywords: ['loja', 'shop', 'comprar', 'moedas'],
     pinnable: true,
+    requiredLevel: 10,
   },
   {
     id: 'contracts',
@@ -105,6 +112,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     searchKeywords: ['contratos', 'contracts', 'desafio', 'aposta'],
     exploreId: 'contracts',
     pinnable: true,
+    requiredLevel: 15,
   },
   {
     id: 'achievements',
@@ -115,6 +123,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'progression',
     searchKeywords: ['conquistas', 'achievements', 'badge'],
     exploreId: 'achievements',
+    requiredLevel: 5,
   },
   {
     id: 'titles',
@@ -125,6 +134,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'progression',
     searchKeywords: ['títulos', 'titles', 'rank', 'international'],
     exploreId: 'titles',
+    requiredLevel: 10,
   },
   {
     id: 'prestige',
@@ -135,12 +145,13 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'progression',
     searchKeywords: ['prestígio', 'prestige', 'endgame'],
     exploreId: 'prestige',
+    requiredLevel: 50,
   },
   {
     id: 'english-journal',
     label: 'Diário em inglês',
     emoji: '📓',
-    route: routes.englishJournal as Href,
+    route: routes.tabs.knowledge as Href,
     hint: 'Notas, áudio e revisões',
     category: 'knowledge',
     searchKeywords: ['vault', 'knowledge', 'notas', 'journal', 'inglês'],
@@ -151,7 +162,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     id: 'knowledge-map',
     label: 'Mapa de ideias',
     emoji: '🗺️',
-    route: '/english-journal/map' as Href,
+    route: routes.vault.map as Href,
     hint: 'Conecte o que você aprendeu',
     category: 'knowledge',
     searchKeywords: ['mapa', 'map', 'grafo', 'conexões'],
@@ -161,7 +172,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     id: 'knowledge-collections',
     label: 'Coleções',
     emoji: '📚',
-    route: '/english-journal/collections' as Href,
+    route: routes.vault.collections as Href,
     hint: 'Organize temas de estudo',
     category: 'knowledge',
     searchKeywords: ['coleções', 'collections', 'listas'],
@@ -186,6 +197,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'productivity',
     searchKeywords: ['focus', 'foco', 'bloqueio', 'concentração'],
     exploreId: 'focus',
+    requiredLevel: 5,
     isEnabled: focusEnabled,
   },
   {
@@ -197,6 +209,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'productivity',
     searchKeywords: ['estatísticas', 'statistics', 'stats', 'métricas'],
     exploreId: 'statistics',
+    requiredLevel: 20,
   },
   {
     id: 'farm',
@@ -207,6 +220,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'productivity',
     searchKeywords: ['farm', 'study points', 'sp'],
     exploreId: 'farm',
+    requiredLevel: 10,
   },
   {
     id: 'flash-deck',
@@ -217,6 +231,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'knowledge',
     searchKeywords: ['baralho', 'flash', 'cards', 'deck'],
     exploreId: 'flash-deck',
+    requiredLevel: 15,
     isEnabled: isFlashDeckEnabled,
   },
   {
@@ -228,6 +243,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'productivity',
     searchKeywords: ['duelos', 'duels', 'arena', 'batalha'],
     exploreId: 'duels',
+    requiredLevel: 20,
     isEnabled: isDuelsEnabled,
   },
   {
@@ -239,6 +255,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'productivity',
     searchKeywords: ['métricas', 'insights', 'learning'],
     exploreId: 'learning-insights',
+    requiredLevel: 20,
   },
   {
     id: 'collection-book',
@@ -249,6 +266,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'collection',
     searchKeywords: ['relíquias', 'códex', 'collection'],
     exploreId: 'collection-book',
+    requiredLevel: 15,
   },
   {
     id: 'career',
@@ -259,6 +277,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'meta',
     searchKeywords: ['carreira', 'career', 'profissional'],
     exploreId: 'career',
+    requiredLevel: 30,
   },
   {
     id: 'metagame',
@@ -269,6 +288,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'meta',
     searchKeywords: ['temporada', 'metagame', 'season'],
     exploreId: 'metagame',
+    requiredLevel: 50,
   },
   {
     id: 'loot-catalog',
@@ -279,6 +299,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'meta',
     searchKeywords: ['loot', 'catálogo', 'odds'],
     exploreId: 'loot-catalog',
+    requiredLevel: 10,
   },
 ]
 
@@ -295,7 +316,7 @@ export const MENU_HUB_QUICK_ACTIONS: MenuQuickActionDef[] = [
     id: 'note',
     label: 'Nova nota',
     emoji: '✍️',
-    route: routes.englishJournal as Href,
+    route: routes.tabs.knowledge as Href,
   },
   {
     id: 'loot',

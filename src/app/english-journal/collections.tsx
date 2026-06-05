@@ -1,21 +1,7 @@
-import { ScreenContainer, ScreenHeader } from '@/components/layout'
+import { Redirect } from 'expo-router'
 
-import { VaultCollectionsScreenContent } from '@/features/english-journal/components/vault/VaultCollectionsScreenContent'
-import { VaultScreenBody } from '@/features/english-journal/components/vault/VaultScreenBody'
-import { VAULT_UI } from '@/features/english-journal/constants/vault-ui'
+import { routes } from '@/constants'
 
-export default function VaultCollectionsRoute() {
-  return (
-    <ScreenContainer scrollable>
-      <ScreenHeader
-        showBack
-        title={VAULT_UI.collectionsTitle}
-        subtitle={VAULT_UI.collectionsIntro}
-        emoji="📁"
-      />
-      <VaultScreenBody hubActive="collections" helpText={VAULT_UI.collectionsIntro}>
-        <VaultCollectionsScreenContent />
-      </VaultScreenBody>
-    </ScreenContainer>
-  )
+export default function EnglishJournalCollectionsRedirect() {
+  return <Redirect href={routes.vault.collections} />
 }

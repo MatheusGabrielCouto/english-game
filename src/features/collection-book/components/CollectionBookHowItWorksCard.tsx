@@ -1,10 +1,16 @@
 import { Text, View } from 'react-native';
 
 import { GameCard } from '@/components/ui/game';
+import { useHowItWorksSeen } from '@/hooks';
 
 import { COLLECTION_BOOK_UI } from '../constants/collection-book-ui';
 
-export const CollectionBookHowItWorksCard = () => (
+export const CollectionBookHowItWorksCard = () => {
+  const { shouldShow } = useHowItWorksSeen('collection-book');
+
+  if (!shouldShow) return null;
+
+  return (
   <GameCard variant="default" className="gap-3 p-4">
     <Text className="text-xs font-bold uppercase tracking-wide text-muted">Como funciona</Text>
     {COLLECTION_BOOK_UI.howItWorks.map((line) => (
@@ -14,4 +20,5 @@ export const CollectionBookHowItWorksCard = () => (
       </View>
     ))}
   </GameCard>
-);
+  );
+};

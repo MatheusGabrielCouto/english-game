@@ -1,6 +1,6 @@
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 
 import { TITLES_UI } from '../constants/titles-ui';
 import { useTitles } from '../hooks/use-titles';
@@ -12,11 +12,7 @@ export const TitlesScreenContent = () => {
   const { titles, progress, summary, isLoading } = useTitles();
 
   if (isLoading || !progress) {
-    return (
-      <View className="items-center justify-center py-20">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="hero-list" listCount={5} />;
   }
 
   const sortedTitles = [...titles].sort((a, b) => a.requiredLevel - b.requiredLevel);

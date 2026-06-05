@@ -55,7 +55,7 @@ export const HomeDailyQuestsCard = () => {
   return (
     <PressableScale
       fill
-      onPress={() => router.push(routes.tabs.quests as Href)}
+      onPress={() => router.push(routes.tabs.play as Href)}
       accessibilityRole="button"
       accessibilityLabel={HOME_UI.quests.viewAll}
     >

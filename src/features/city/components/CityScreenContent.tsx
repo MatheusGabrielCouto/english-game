@@ -1,6 +1,6 @@
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { ProfileSectionHeader } from '@/features/profile/components/ProfileSectionHeader';
 
 import type { CityBuildingViewModel } from '@/types/city';
@@ -31,12 +31,7 @@ export const CityScreenContent = () => {
   const { buildings, progress, summary, level, isLoading } = useCity();
 
   if (isLoading || !progress || !summary) {
-    return (
-      <View className="flex-1 items-center justify-center py-20">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-        <Text className="mt-3 text-sm text-foreground-secondary">Carregando sua cidade...</Text>
-      </View>
-    );
+    return <ScreenSkeleton variant="city" className="pb-8" />;
   }
 
   const mainBuildings = buildings.filter((b) => !isDistrictBuilding(b.key));

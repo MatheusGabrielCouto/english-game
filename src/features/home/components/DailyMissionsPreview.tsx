@@ -3,6 +3,7 @@ import { useEffect, useMemo } from 'react'
 import { Text, View } from 'react-native'
 
 import { Card, ProgressBar } from '@/components'
+import { routes } from '@/constants'
 import { PressableScale } from '@/components/ui/game'
 import { HomeCardSkeleton } from '@/features/home/components/HomeCardSkeleton'
 import { useMissionsStore } from '@/features/quests/store/missions-store'
@@ -51,7 +52,7 @@ export const DailyMissionsPreview = () => {
 
   return (
     <PressableScale
-      onPress={() => router.push('/(tabs)/quests' as Href)}
+      onPress={() => router.push(routes.tabs.play as Href)}
       accessibilityRole="button"
       accessibilityLabel="Ver missões do dia">
       <Card accent className="overflow-hidden border-primary/40">

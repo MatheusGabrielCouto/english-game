@@ -7,16 +7,19 @@ import { InventorySectionHeader } from './InventorySectionHeader';
 
 type InventoryShieldCardProps = {
   quantity: number;
+  hideHeader?: boolean;
 };
 
-export const InventoryShieldCard = ({ quantity }: InventoryShieldCardProps) => (
-  <View className="gap-3">
-    <InventorySectionHeader
-      emoji="🛡️"
-      title="Escudos de Streak"
-      subtitle="Protegem sua sequência nos dias perdidos"
-      badge={quantity > 0 ? `${quantity} em estoque` : 'Vazio'}
-    />
+export const InventoryShieldCard = ({ quantity, hideHeader = false }: InventoryShieldCardProps) => (
+  <View className={hideHeader ? 'gap-0' : 'gap-3'}>
+    {hideHeader ? null : (
+      <InventorySectionHeader
+        emoji="🛡️"
+        title="Escudos de Streak"
+        subtitle="Protegem sua sequência nos dias perdidos"
+        badge={quantity > 0 ? `${quantity} em estoque` : 'Vazio'}
+      />
+    )}
 
     <GameCard variant="quest" className="p-4">
       <View className="flex-row items-center gap-4">

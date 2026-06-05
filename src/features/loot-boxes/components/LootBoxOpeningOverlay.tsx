@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { Modal, StyleSheet, Text, View } from 'react-native'
+import { useCallback, useEffect, useState } from 'react'
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native'
 import Animated, {
     Easing,
     runOnJS,
@@ -12,6 +12,7 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import { LOOT_BOX_RARITY_CONFIG } from '@/features/inventory/constants'
+import { LOOT_BOX_MESSAGES } from '@/features/loot-boxes/constants'
 import { AudioDirector } from '@/services/audio'
 import type { LootBoxRarityValue } from '@/types/inventory'
 import { haptics } from '@/utils/haptics'
@@ -25,6 +26,8 @@ const RARITY_GLOW: Record<LootBoxRarityValue, string> = {
   mythic: 'rgba(250, 204, 21, 0.7)',
   ancient: 'rgba(248, 113, 113, 0.65)',
 }
+
+type OpeningPhase = 'shake' | 'tap' | 'crack'
 
 type LootBoxOpeningOverlayProps = {
   visible: boolean
@@ -70,6 +73,26 @@ const Sparkle = ({ delay, index }: { delay: number; index: number }) => {
   )
 }
 
+const resetMotion = (
+  shakeX: Animated.SharedValue<number>,
+  boxScale: Animated.SharedValue<number>,
+  boxRotate: Animated.SharedValue<number>,
+  ringScale: Animated.SharedValue<number>,
+  ringOpacity: Animated.SharedValue<number>,
+  backdropOpacity: Animated.SharedValue<number>,
+  statusOpacity: Animated.SharedValue<number>,
+  tapPulse: Animated.SharedValue<number>,
+) => {
+  shakeX.value = 0
+  boxScale.value = 1
+  boxRotate.value = 0
+  ringScale.value = 0.6
+  ringOpacity.value = 0
+  backdropOpacity.value = 0
+  statusOpacity.value = 0
+  tapPulse.value = 1
+}
+
 export const LootBoxOpeningOverlay = ({
   visible,
   rarity,
@@ -77,6 +100,7 @@ export const LootBoxOpeningOverlay = ({
 }: LootBoxOpeningOverlayProps) => {
   const config = LOOT_BOX_RARITY_CONFIG[rarity]
   const glowColor = RARITY_GLOW[rarity]
+  const [phase, setPhase] = useState<OpeningPhase>('shake')
 
   const shakeX = useSharedValue(0)
   const boxScale = useSharedValue(1)
@@ -85,18 +109,32 @@ export const LootBoxOpeningOverlay = ({
   const ringOpacity = useSharedValue(0)
   const backdropOpacity = useSharedValue(0)
   const statusOpacity = useSharedValue(0)
+  const tapPulse = useSharedValue(1)
+  const phaseValue = useSharedValue(0)
+
+  const goToTapPhase = useCallback(() => {
+    setPhase('tap')
+  }, [])
+
+  const startCrackPhase = useCallback(() => {
+    setPhase('crack')
+  }, [])
+
+  useEffect(() => {
+    phaseValue.value = phase === 'shake' ? 0 : phase === 'tap' ? 1 : 2
+  }, [phase, phaseValue])
 
   useEffect(() => {
     if (!visible) {
-      shakeX.value = 0
-      boxScale.value = 1
-      boxRotate.value = 0
-      ringScale.value = 0.6
-      ringOpacity.value = 0
-      backdropOpacity.value = 0
-      statusOpacity.value = 0
+      setPhase('shake')
+      phaseValue.value = 0
+      resetMotion(shakeX, boxScale, boxRotate, ringScale, ringOpacity, backdropOpacity, statusOpacity, tapPulse)
       return
     }
+
+    setPhase('shake')
+    phaseValue.value = 0
+    resetMotion(shakeX, boxScale, boxRotate, ringScale, ringOpacity, backdropOpacity, statusOpacity, tapPulse)
 
     haptics.medium()
     void AudioDirector.playSFX('loot_shake', { family: 'loot_shake', priority: 'high' })
@@ -113,54 +151,70 @@ export const LootBoxOpeningOverlay = ({
       ),
       3,
       false,
+      (finished) => {
+        if (finished) {
+          runOnJS(goToTapPhase)()
+        }
+      },
     )
-
-    boxRotate.value = withDelay(
-      900,
-      withSequence(
-        withTiming(-6, { duration: 80 }),
-        withTiming(6, { duration: 80 }),
-        withTiming(0, { duration: 80 }),
-      ),
-    )
-
-    ringOpacity.value = withDelay(
-      850,
-      withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 350 })),
-    )
-
-    ringScale.value = withDelay(
-      850,
-      withTiming(2.2, { duration: 550, easing: Easing.out(Easing.cubic) }),
-    )
-
-    boxScale.value = withDelay(
-      900,
-      withSequence(
-        withTiming(1.12, { duration: 180, easing: Easing.out(Easing.ease) }),
-        withTiming(0.92, { duration: 120 }),
-        withTiming(1.35, { duration: 280, easing: Easing.out(Easing.back(1.6)) }),
-        withTiming(0, { duration: 220, easing: Easing.in(Easing.ease) }, (finished) => {
-          if (finished) {
-            runOnJS(haptics.success)()
-            runOnJS(onFinished)()
-          }
-        }),
-      ),
-    )
-
-    statusOpacity.value = withDelay(1700, withTiming(0, { duration: 200 }))
   }, [
     backdropOpacity,
     boxRotate,
     boxScale,
-    onFinished,
+    goToTapPhase,
     ringOpacity,
     ringScale,
     shakeX,
     statusOpacity,
+    phaseValue,
+    tapPulse,
     visible,
   ])
+
+  useEffect(() => {
+    if (!visible || phase !== 'tap') return
+
+    tapPulse.value = withRepeat(
+      withSequence(
+        withTiming(1.08, { duration: 520, easing: Easing.inOut(Easing.ease) }),
+        withTiming(1, { duration: 520, easing: Easing.inOut(Easing.ease) }),
+      ),
+      -1,
+      false,
+    )
+  }, [phase, tapPulse, visible])
+
+  useEffect(() => {
+    if (!visible || phase !== 'crack') return
+
+    tapPulse.value = 1
+    void AudioDirector.playSFX('loot_shake', { family: 'loot_shake', priority: 'high' })
+    haptics.heavy()
+
+    boxRotate.value = withSequence(
+      withTiming(-6, { duration: 80 }),
+      withTiming(6, { duration: 80 }),
+      withTiming(0, { duration: 80 }),
+    )
+
+    ringOpacity.value = withSequence(withTiming(1, { duration: 200 }), withTiming(0, { duration: 350 }))
+
+    ringScale.value = withTiming(2.2, { duration: 550, easing: Easing.out(Easing.cubic) })
+
+    boxScale.value = withSequence(
+      withTiming(1.12, { duration: 180, easing: Easing.out(Easing.ease) }),
+      withTiming(0.92, { duration: 120 }),
+      withTiming(1.35, { duration: 280, easing: Easing.out(Easing.back(1.6)) }),
+      withTiming(0, { duration: 220, easing: Easing.in(Easing.ease) }, (finished) => {
+        if (finished) {
+          runOnJS(haptics.success)()
+          runOnJS(onFinished)()
+        }
+      }),
+    )
+
+    statusOpacity.value = withDelay(700, withTiming(0, { duration: 200 }))
+  }, [boxRotate, boxScale, onFinished, phase, ringOpacity, ringScale, statusOpacity, tapPulse, visible])
 
   const backdropStyle = useAnimatedStyle(() => ({
     opacity: backdropOpacity.value,
@@ -169,7 +223,7 @@ export const LootBoxOpeningOverlay = ({
   const boxStyle = useAnimatedStyle(() => ({
     transform: [
       { translateX: shakeX.value },
-      { scale: boxScale.value },
+      { scale: phaseValue.value === 1 ? tapPulse.value : boxScale.value },
       { rotate: `${boxRotate.value}deg` },
     ],
   }))
@@ -183,7 +237,27 @@ export const LootBoxOpeningOverlay = ({
     opacity: statusOpacity.value,
   }))
 
+  const statusText =
+    phase === 'shake'
+      ? LOOT_BOX_MESSAGES.shaking
+      : phase === 'tap'
+        ? LOOT_BOX_MESSAGES.tapToCrack
+        : LOOT_BOX_MESSAGES.opened
+
+  const handleTapToCrack = () => {
+    if (phase !== 'tap') return
+    startCrackPhase()
+  }
+
   if (!visible) return null
+
+  const boxContent = (
+    <Animated.View style={[styles.boxWrap, boxStyle]}>
+      <View style={[styles.boxCard, { borderColor: glowColor }]}>
+        <Text style={styles.boxEmoji}>{config.emoji}</Text>
+      </View>
+    </Animated.View>
+  )
 
   return (
     <Modal visible transparent animationType="none" statusBarTranslucent onRequestClose={() => {}}>
@@ -195,22 +269,30 @@ export const LootBoxOpeningOverlay = ({
             style={[styles.glowRing, ringStyle, { borderColor: glowColor, shadowColor: glowColor }]}
           />
 
-          <View style={styles.sparkleRing}>
-            <Sparkle delay={200} index={0} />
-            <Sparkle delay={450} index={1} />
-            <Sparkle delay={700} index={2} />
-            <Sparkle delay={950} index={3} />
-          </View>
-
-          <Animated.View style={[styles.boxWrap, boxStyle]}>
-            <View style={[styles.boxCard, { borderColor: glowColor }]}>
-              <Text style={styles.boxEmoji}>{config.emoji}</Text>
+          {phase === 'crack' ? (
+            <View style={styles.sparkleRing}>
+              <Sparkle delay={0} index={0} />
+              <Sparkle delay={120} index={1} />
+              <Sparkle delay={240} index={2} />
+              <Sparkle delay={360} index={3} />
             </View>
-          </Animated.View>
+          ) : null}
+
+          {phase === 'tap' ? (
+            <Pressable
+              onPress={handleTapToCrack}
+              accessibilityRole="button"
+              accessibilityLabel={LOOT_BOX_MESSAGES.tapToCrack}
+              style={styles.tapTarget}>
+              {boxContent}
+            </Pressable>
+          ) : (
+            boxContent
+          )}
 
           <Animated.View style={statusStyle}>
             <Text style={styles.statusLabel}>{config.label}</Text>
-            <Text style={styles.statusText}>Abrindo...</Text>
+            <Text style={[styles.statusText, phase === 'tap' && styles.statusTextTap]}>{statusText}</Text>
           </Animated.View>
         </View>
       </View>
@@ -259,6 +341,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#fbbf24',
   },
+  tapTarget: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 160,
+    minHeight: 160,
+  },
   boxWrap: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -291,5 +379,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '800',
     color: '#f8fafc',
+  },
+  statusTextTap: {
+    color: '#fbbf24',
   },
 })

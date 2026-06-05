@@ -1,10 +1,11 @@
 import { router, type Href } from 'expo-router';
 import { useEffect } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { Card } from '@/components';
 import { GameCard, StatPill } from '@/components/ui/game';
-import { routes, theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
+import { routes } from '@/constants';
 import type { FocusStudyTypeValue } from '@/types/focus-mode';
 
 import { useFocusMode } from '../hooks/use-focus-mode';
@@ -26,12 +27,7 @@ export const FocusModeScreenContent = () => {
   };
 
   if (isLoading || !settings) {
-    return (
-      <View className="items-center justify-center py-16">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-        <Text className="mt-3 text-sm text-foreground-secondary">Carregando Focus Mode...</Text>
-      </View>
-    );
+    return <ScreenSkeleton variant="focus" className="gap-5 pb-8" />;
   }
 
   return (

@@ -1,8 +1,12 @@
-import { router } from 'expo-router'
+import { router, type Href } from 'expo-router'
 import { Text, View } from 'react-native'
 
 import { GameCard, PressableScale } from '@/components/ui/game'
-import { getEnabledHomeQuickActions, type HomeQuickActionDef } from '@/features/home/constants/home-quick-actions'
+import { routes } from '@/constants'
+import {
+    getHomeQuickActionsForDisplay,
+    type HomeQuickActionDef,
+} from '@/features/home/constants/home-quick-actions'
 import { HOME_UI } from '@/features/home/constants/home-ui'
 import { useExploreBadges, type ExploreBadge } from '@/features/profile/hooks/use-explore-badges'
 import { useMissionsStore } from '@/features/quests/store/missions-store'
@@ -34,7 +38,7 @@ const QuickActionTile = ({ action, badge }: QuickActionTileProps) => (
     onPress={() => router.push(action.route)}
     accessibilityRole="button"
     accessibilityLabel={`${action.label}. ${action.tagline}`}
-    className="w-[31%] min-w-[100px] grow">
+    className="min-h-11 min-w-11 w-[31%] min-w-[100px] grow">
     <View className="relative min-h-[92px] rounded-2xl border border-border bg-surface px-2.5 py-3">
       {badge.label ? (
         <View
@@ -60,12 +64,30 @@ const QuickActionTile = ({ action, badge }: QuickActionTileProps) => (
   </PressableScale>
 )
 
+const MoreQuickActionTile = () => (
+  <PressableScale
+    onPress={() => router.push(routes.tabs.menu as Href)}
+    accessibilityRole="button"
+    accessibilityLabel={`${HOME_UI.quickActions.moreLabel}. ${HOME_UI.quickActions.moreTagline}`}
+    className="min-h-11 min-w-11 w-[31%] min-w-[100px] grow">
+    <View className="min-h-[92px] rounded-2xl border border-primary/35 bg-primary/8 px-2.5 py-3">
+      <Text className="text-2xl">{HOME_UI.quickActions.moreEmoji}</Text>
+      <Text className="mt-2 text-xs font-bold text-primary" numberOfLines={1}>
+        {HOME_UI.quickActions.moreLabel}
+      </Text>
+      <Text className="mt-0.5 text-[10px] leading-3.5 text-foreground-secondary" numberOfLines={2}>
+        {HOME_UI.quickActions.moreTagline}
+      </Text>
+    </View>
+  </PressableScale>
+)
+
 export const HomeQuickActionsCard = () => {
   const exploreBadges = useExploreBadges()
   const missions = useMissionsStore((s) => s.missions)
   const pendingMissions = missions.filter((m) => !m.completed).length
 
-  const actions = getEnabledHomeQuickActions()
+  const actions = getHomeQuickActionsForDisplay()
 
   const resolveBadge = (action: HomeQuickActionDef): ExploreBadge | { label: string; tone: ExploreBadge['tone'] } => {
     if (action.id === 'quests') {
@@ -91,6 +113,7 @@ export const HomeQuickActionsCard = () => {
         {actions.map((action) => (
           <QuickActionTile key={action.id} action={action} badge={resolveBadge(action)} />
         ))}
+        <MoreQuickActionTile />
       </View>
     </GameCard>
   )

@@ -90,7 +90,7 @@ export const EXPLORE_CATEGORIES: ExploreCategoryDef[] = [
         id: 'english-journal',
         label: 'Knowledge Vault',
         emoji: '📓',
-        route: routes.englishJournal as Href,
+        route: routes.tabs.knowledge as Href,
         tagline: 'Second brain',
         featured: true,
       },

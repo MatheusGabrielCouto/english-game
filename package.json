@@ -3,6 +3,11 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "packageManager": "pnpm@10.33.4",
+  "reanimated": {
+    "staticFeatureFlags": {
+      "ENABLE_SHARED_ELEMENT_TRANSITIONS": true
+    }
+  },
   "dependencies": {
     "@expo/ui": "~56.0.15",
     "@expo/vector-icons": "^15.0.2",

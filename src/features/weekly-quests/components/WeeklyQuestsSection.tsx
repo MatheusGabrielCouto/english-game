@@ -1,13 +1,18 @@
 import { useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
+import { ListItemSkeleton } from '@/components/ui/skeleton';
 import { Toast } from '@/components/ui/Toast';
 import { QuestSectionHeader } from '@/features/quests/components/QuestSectionHeader';
 
 import { useWeeklyMissionsStore } from '../store/weekly-missions-store';
 import { WeeklyMissionCard } from './WeeklyMissionCard';
 
-export const WeeklyQuestsSection = () => {
+type WeeklyQuestsSectionProps = {
+  showHeader?: boolean
+}
+
+export const WeeklyQuestsSection = ({ showHeader = true }: WeeklyQuestsSectionProps) => {
   const missions = useWeeklyMissionsStore((s) => s.missions);
   const isLoading = useWeeklyMissionsStore((s) => s.isLoading);
   const claimMessage = useWeeklyMissionsStore((s) => s.claimMessage);
@@ -36,20 +41,23 @@ export const WeeklyQuestsSection = () => {
 
   return (
     <View className="relative gap-3">
-      <QuestSectionHeader
-        emoji="📅"
-        title="Semanais"
-        subtitle="Progresso automático enquanto você joga"
-        badge={
-          claimableCount > 0
-            ? `${claimableCount} para resgatar`
-            : `${completedCount}/${missions.length}`
-        }
-      />
+      {showHeader ? (
+        <QuestSectionHeader
+          emoji="📅"
+          title="Semanais"
+          subtitle="Progresso automático enquanto você joga"
+          badge={
+            claimableCount > 0
+              ? `${claimableCount} para resgatar`
+              : `${completedCount}/${missions.length}`
+          }
+        />
+      ) : null}
 
       {isLoading ? (
-        <View className="rounded-2xl border border-border bg-surface px-4 py-6">
-          <Text className="text-center text-sm text-muted">Carregando missões semanais…</Text>
+        <View className="gap-3">
+          <ListItemSkeleton />
+          <ListItemSkeleton />
         </View>
       ) : (
         <View className="gap-3">

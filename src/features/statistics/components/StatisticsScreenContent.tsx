@@ -1,37 +1,30 @@
-import { ActivityIndicator, Text, View } from 'react-native';
+import { View } from 'react-native'
 
-import { theme } from '@/constants';
-
-import { STATISTICS_MESSAGES } from '../constants/default-statistics';
-import { STATISTICS_UI } from '../constants/statistics-ui';
-import type { UseStatisticsReturn } from '../hooks/use-statistics';
-import { AchievementsSection } from './AchievementsSection';
-import { CitySection } from './CitySection';
-import { ConsistencySection } from './ConsistencySection';
-import { ContractsSection } from './ContractsSection';
-import { LootBoxesSection } from './LootBoxesSection';
-import { OverviewSection } from './OverviewSection';
-import { PetSection } from './PetSection';
-import { QuestsSection } from './QuestsSection';
-import { StatisticsCollapsibleSection } from './StatisticsCollapsibleSection';
-import { StatisticsHeroCard } from './StatisticsHeroCard';
-import { StatisticsInsightsCard } from './StatisticsInsightsCard';
-import { StatisticsMilestoneList } from './StatisticsMilestoneList';
+import { ScreenSkeleton } from '@/components/ui/skeleton'
+import { STATISTICS_UI } from '../constants/statistics-ui'
+import type { UseStatisticsReturn } from '../hooks/use-statistics'
+import { AchievementsSection } from './AchievementsSection'
+import { CitySection } from './CitySection'
+import { ConsistencySection } from './ConsistencySection'
+import { ContractsSection } from './ContractsSection'
+import { LootBoxesSection } from './LootBoxesSection'
+import { OverviewSection } from './OverviewSection'
+import { PetSection } from './PetSection'
+import { QuestsSection } from './QuestsSection'
+import { StatisticsCollapsibleSection } from './StatisticsCollapsibleSection'
+import { StatisticsHeroCard } from './StatisticsHeroCard'
+import { StatisticsInsightsCard } from './StatisticsInsightsCard'
+import { StatisticsMilestoneList } from './StatisticsMilestoneList'
 
 type StatisticsScreenContentProps = {
-  statistics: UseStatisticsReturn;
-};
+  statistics: UseStatisticsReturn
+}
 
 export const StatisticsScreenContent = ({ statistics }: StatisticsScreenContentProps) => {
-  const { dashboard, isLoading } = statistics;
+  const { dashboard, isLoading } = statistics
 
   if (isLoading || !dashboard) {
-    return (
-      <View className="items-center justify-center py-20">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-        <Text className="mt-3 text-sm text-foreground-secondary">{STATISTICS_MESSAGES.loading}</Text>
-      </View>
-    );
+    return <ScreenSkeleton variant="hero-list" listCount={3} className="gap-3" />
   }
 
   return (
@@ -40,19 +33,22 @@ export const StatisticsScreenContent = ({ statistics }: StatisticsScreenContentP
       <StatisticsInsightsCard insights={dashboard.insights} />
 
       <StatisticsCollapsibleSection
-        title={STATISTICS_UI.sections.consistency.title}
-        emoji={STATISTICS_UI.sections.consistency.emoji}
-        subtitle={STATISTICS_UI.sections.consistency.subtitle}
+        title={STATISTICS_UI.sections.progress.title}
+        emoji={STATISTICS_UI.sections.progress.emoji}
+        subtitle={STATISTICS_UI.sections.progress.subtitle}
         defaultOpen>
         <ConsistencySection consistency={dashboard.consistency} />
         <OverviewSection overview={dashboard.overview} />
       </StatisticsCollapsibleSection>
 
       <StatisticsCollapsibleSection
-        title={STATISTICS_UI.sections.quests.title}
-        emoji={STATISTICS_UI.sections.quests.emoji}
-        subtitle={STATISTICS_UI.sections.quests.subtitle}>
+        title={STATISTICS_UI.sections.activity.title}
+        emoji={STATISTICS_UI.sections.activity.emoji}
+        subtitle={STATISTICS_UI.sections.activity.subtitle}
+        defaultOpen>
         <QuestsSection quests={dashboard.quests} />
+        <ContractsSection contracts={dashboard.contracts} />
+        <CitySection city={dashboard.city} />
       </StatisticsCollapsibleSection>
 
       <StatisticsCollapsibleSection
@@ -62,22 +58,8 @@ export const StatisticsScreenContent = ({ statistics }: StatisticsScreenContentP
         <PetSection pet={dashboard.pet} />
         <LootBoxesSection lootBoxes={dashboard.lootBoxes} />
         <AchievementsSection achievements={dashboard.achievements} />
-      </StatisticsCollapsibleSection>
-
-      <StatisticsCollapsibleSection
-        title={STATISTICS_UI.sections.world.title}
-        emoji={STATISTICS_UI.sections.world.emoji}
-        subtitle={STATISTICS_UI.sections.world.subtitle}>
-        <ContractsSection contracts={dashboard.contracts} />
-        <CitySection city={dashboard.city} />
-      </StatisticsCollapsibleSection>
-
-      <StatisticsCollapsibleSection
-        title={STATISTICS_UI.sections.history.title}
-        emoji={STATISTICS_UI.sections.history.emoji}
-        subtitle={STATISTICS_UI.sections.history.subtitle}>
         <StatisticsMilestoneList milestones={dashboard.milestones} />
       </StatisticsCollapsibleSection>
     </View>
-  );
-};
+  )
+}

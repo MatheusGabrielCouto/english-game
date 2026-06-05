@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 
 import { Card } from '@/components';
 import { PressableScale } from '@/components/ui/game';
+import { ListItemSkeleton } from '@/components/ui/skeleton';
 import { routes } from '@/constants';
 import { PetFarmRepository } from '@/storage/repositories/pet-farm-repository';
 import { PetInstanceRepository } from '@/storage/repositories/pet-instance-repository';
@@ -36,9 +37,10 @@ export const PetInstanceBreedHistoryTab = ({ instanceId }: PetInstanceBreedHisto
 
   if (loading) {
     return (
-      <Card className="py-6">
-        <Text className="text-center text-xs text-muted">Carregando…</Text>
-      </Card>
+      <View className="gap-3">
+        <ListItemSkeleton />
+        <ListItemSkeleton />
+      </View>
     );
   }
 

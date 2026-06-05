@@ -10,6 +10,7 @@ import { InventorySectionHeader } from './InventorySectionHeader';
 
 type InventoryHistoryListProps = {
   history: AcquisitionHistoryRecord[];
+  hideHeader?: boolean;
 };
 
 const CATEGORY_EMOJI: Record<string, string> = {
@@ -31,7 +32,7 @@ const formatRelativeDate = (isoDate: string): string => {
   return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
 };
 
-export const InventoryHistoryList = ({ history }: InventoryHistoryListProps) => {
+export const InventoryHistoryList = ({ history, hideHeader = false }: InventoryHistoryListProps) => {
   if (history.length === 0) {
     return (
       <EmptyState
@@ -45,13 +46,15 @@ export const InventoryHistoryList = ({ history }: InventoryHistoryListProps) => 
   const recentHistory = history.slice(0, 8);
 
   return (
-    <View className="gap-3">
-      <InventorySectionHeader
-        emoji="📜"
-        title="Registro de Loot"
-        subtitle="Últimas aquisições da sua aventura"
-        badge={`${history.length} entradas`}
-      />
+    <View className={hideHeader ? 'gap-0' : 'gap-3'}>
+      {hideHeader ? null : (
+        <InventorySectionHeader
+          emoji="📜"
+          title="Registro de Loot"
+          subtitle="Últimas aquisições da sua aventura"
+          badge={`${history.length} entradas`}
+        />
+      )}
 
       <GameCard variant="default" className="gap-0 p-0">
         {recentHistory.map((entry, index) => {

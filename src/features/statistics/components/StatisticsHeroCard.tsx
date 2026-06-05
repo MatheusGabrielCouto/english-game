@@ -1,6 +1,5 @@
 import { Text, View } from 'react-native';
 
-import { ProgressBar } from '@/components';
 import { GameCard, LevelBadge } from '@/components/ui/game';
 import type { StatisticsDashboard } from '@/types/statistics';
 import { cn } from '@/utils';
@@ -42,8 +41,7 @@ const HeroStat = ({ emoji, label, value, tone = 'primary' }: HeroStatProps) => (
 );
 
 export const StatisticsHeroCard = ({ dashboard }: StatisticsHeroCardProps) => {
-  const { overview, consistency, quests, achievements, city } = dashboard;
-  const questAvg = Math.round((quests.dailyCompletionRate + quests.weeklyCompletionRate) / 2);
+  const { overview, consistency } = dashboard;
 
   return (
     <GameCard variant="hero" glow className="gap-4 p-4">
@@ -66,34 +64,13 @@ export const StatisticsHeroCard = ({ dashboard }: StatisticsHeroCardProps) => {
       <View className="flex-row flex-wrap gap-2">
         <HeroStat emoji="⚡" label="XP" value={formatNumber(overview.totalXp)} tone="primary" />
         <HeroStat emoji="📅" label="Dias" value={String(overview.totalStudyDays)} tone="accent" />
+        <HeroStat emoji="🔥" label="Streak" value={String(consistency.currentStreak)} tone="warning" />
         <HeroStat
           emoji="🪙"
           label="Moedas"
           value={formatNumber(overview.totalCoinsEarned)}
           tone="warning"
         />
-        <HeroStat emoji="🔥" label="Streak" value={String(consistency.currentStreak)} tone="warning" />
-        <HeroStat emoji="🏆" label="Recorde" value={String(consistency.bestStreak)} tone="success" />
-        <HeroStat emoji="🏗️" label="Cidade" value={`${city.progressPercentage}%`} tone="accent" />
-      </View>
-
-      <View className="gap-3">
-        <View className="gap-1.5">
-          <View className="flex-row items-center justify-between gap-2">
-            <Text className="shrink text-xs font-semibold text-muted">Missões (média)</Text>
-            <Text className="shrink-0 text-xs font-bold text-xp">{questAvg}%</Text>
-          </View>
-          <ProgressBar value={questAvg} max={100} variant="xp" height="sm" />
-        </View>
-        <View className="gap-1.5">
-          <View className="flex-row items-center justify-between gap-2">
-            <Text className="shrink text-xs font-semibold text-muted">Conquistas</Text>
-            <Text className="shrink-0 text-xs font-bold text-gold">
-              {achievements.unlocked}/{achievements.total}
-            </Text>
-          </View>
-          <ProgressBar value={achievements.completionRate} max={100} variant="gold" height="sm" />
-        </View>
       </View>
     </GameCard>
   );

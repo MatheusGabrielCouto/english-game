@@ -1,9 +1,10 @@
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { Button } from '@/components';
-import { theme } from '@/constants';
+import { ListItemSkeleton } from '@/components/ui/skeleton';
+import { vaultEntryHref } from '@/constants';
 import { JournalEntryType } from '@/types/journal';
 import type { VaultSpaceKey } from '@/types/knowledge-vault';
 
@@ -12,6 +13,7 @@ import { VAULT_UI } from '../constants/vault-ui';
 import { useEnglishJournalStore } from '../store/english-journal-store';
 import { JournalEntryFormModal } from './JournalEntryFormModal';
 import { VaultEmptyState } from './vault/VaultEmptyState';
+import { VaultGlobalSearchTrigger } from './vault/VaultGlobalSearchTrigger';
 import { VaultSpaceFoldersView } from './vault/VaultSpaceFoldersView';
 import { VaultHubNav } from './VaultHubNav';
 
@@ -41,7 +43,7 @@ export const VaultSpaceDetailContent = ({ spaceKey }: VaultSpaceDetailContentPro
   );
 
   const openEntry = (id: string) => {
-    router.push(`/english-journal/entry/${id}` as never);
+    router.push(vaultEntryHref(id));
   };
 
   const openCreateInFolder = (folderId: string | null) => {
@@ -59,6 +61,7 @@ export const VaultSpaceDetailContent = ({ spaceKey }: VaultSpaceDetailContentPro
   return (
     <View className="gap-4">
       <VaultHubNav active="spaces" />
+      <VaultGlobalSearchTrigger />
 
       <View className="rounded-2xl border border-border bg-surface p-4">
         <Text className="text-2xl">{space.emoji}</Text>
@@ -72,7 +75,11 @@ export const VaultSpaceDetailContent = ({ spaceKey }: VaultSpaceDetailContentPro
       <Button label={VAULT_UI.spaceAddNote} size="sm" onPress={() => openCreateInFolder(null)} />
 
       {isLoading ? (
-        <ActivityIndicator color={theme.colors.primary} />
+        <View className="gap-3">
+          <ListItemSkeleton />
+          <ListItemSkeleton />
+          <ListItemSkeleton />
+        </View>
       ) : !hasFolders && !hasNotes ? (
         <VaultEmptyState
           emoji={space.emoji}

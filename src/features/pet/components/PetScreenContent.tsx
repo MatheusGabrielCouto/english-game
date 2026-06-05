@@ -1,9 +1,10 @@
 import { useRouter, type Href } from 'expo-router';
-import { ActivityIndicator, RefreshControl, Text, View } from 'react-native';
+import { RefreshControl, Text, View } from 'react-native';
 
 import { ScreenContainer, ScreenHeader } from '@/components/layout';
 import { PressableScale } from '@/components/ui/game';
-import { routes, theme } from '@/constants';
+import { ScreenSkeleton } from '@/components/ui/skeleton';
+import { routes } from '@/constants';
 
 import { PET_UI } from '../constants/pet-ui';
 import { usePet } from '../hooks/use-pet';
@@ -39,11 +40,7 @@ export const PetScreenContent = () => {
   const incubating = pet ? isPetIncubating(pet) : false;
 
   if (isLoading || !pet) {
-    return (
-      <View className="flex-1 items-center justify-center py-20">
-        <ActivityIndicator size="large" color={theme.colors.primary} />
-      </View>
-    );
+    return <ScreenSkeleton variant="pet" />;
   }
 
   if (incubating) {

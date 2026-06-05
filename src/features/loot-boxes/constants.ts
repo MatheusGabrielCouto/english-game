@@ -121,6 +121,8 @@ export const LOOT_BOX_MESSAGES = {
   opened: 'Loot Box aberta!',
   empty: 'Nenhuma loot box disponível para abrir.',
   confirmOpen: 'Deseja abrir esta loot box?',
+  shaking: 'A caixa está tremendo…',
+  tapToCrack: 'Toque para quebrar!',
 } as const;
 
 export const LOOT_BOX_RARITY_COLORS: Record<LootBoxRarityValue, string> = {

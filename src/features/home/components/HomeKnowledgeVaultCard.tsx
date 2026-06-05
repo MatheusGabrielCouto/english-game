@@ -2,12 +2,12 @@ import { type Href, router } from 'expo-router'
 import { Text, View } from 'react-native'
 
 import { GameCard, PressableScale } from '@/components/ui/game'
-import { HomeStatGrid } from '@/features/home/components/shared/HomeStatGrid'
-import { HomeStatPill } from '@/features/home/components/shared/HomeStatPill'
 import { routes } from '@/constants'
 import { useEnglishJournalStore } from '@/features/english-journal/store/english-journal-store'
-import { HOME_UI } from '@/features/home/constants/home-ui'
 import { HomeSectionLabel } from '@/features/home/components/shared/HomeSectionLabel'
+import { HomeStatGrid } from '@/features/home/components/shared/HomeStatGrid'
+import { HomeStatPill } from '@/features/home/components/shared/HomeStatPill'
+import { HOME_UI } from '@/features/home/constants/home-ui'
 
 export const HomeKnowledgeVaultCard = () => {
   const stats = useEnglishJournalStore((s) => s.stats)
@@ -39,7 +39,7 @@ export const HomeKnowledgeVaultCard = () => {
   return (
     <PressableScale
       fill
-      onPress={() => router.push('/english-journal/map' as Href)}
+      onPress={() => router.push(routes.vault.map as Href)}
       accessibilityRole="button"
       accessibilityLabel={HOME_UI.vault.openMap}
     >
