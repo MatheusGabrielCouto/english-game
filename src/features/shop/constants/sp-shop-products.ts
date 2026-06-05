@@ -27,6 +27,31 @@ const SP_ITEM_META: Record<string, { description: string; icon: string; detail: 
     icon: '🎁',
     detail: 'Ticket de loot',
   },
+  booster_study: {
+    description: '+25% de XP por 30 minutos.',
+    icon: '⚡',
+    detail: 'Booster',
+  },
+  xp_potion_small: {
+    description: 'Ganhe +40 XP instantâneo.',
+    icon: '🧪',
+    detail: 'Consumível',
+  },
+  legendary_collector: {
+    description: '+30% de loot luck por 30 minutos.',
+    icon: '🧲',
+    detail: 'Booster',
+  },
+  double_xp_1h: {
+    description: 'XP em dobro (+100%) por 1 hora.',
+    icon: '✨',
+    detail: 'Booster',
+  },
+  kit_escudo: {
+    description: 'Restaura 1 escudo de streak.',
+    icon: '🧰',
+    detail: 'Consumível',
+  },
 };
 
 const buildSpShopProduct = (
@@ -90,5 +115,13 @@ export const SP_UPGRADE_MESSAGES = {
 export const SP_SHOP_SECTION = {
   emoji: '⚡',
   title: 'Loja de Study Points',
-  subtitle: 'Loot boxes e itens exclusivos — pague apenas com SP',
+  subtitle: 'Loot boxes, boosters e itens exclusivos — pague apenas com SP',
+} as const;
+
+export const SP_SHOP_OFFER_MESSAGES = {
+  purchaseCompleted: 'Oferta SP resgatada!',
+  itemReceived: 'Item adicionado ao seu inventário.',
+  insufficientSp: 'Study Points insuficientes para esta oferta.',
+  alreadyPurchased: 'Você já aproveitou a oferta SP de hoje.',
+  unavailable: 'Esta oferta não está mais disponível.',
 } as const;

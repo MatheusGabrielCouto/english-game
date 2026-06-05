@@ -12,11 +12,13 @@ export type ShopCategoryValue = (typeof ShopCategory)[keyof typeof ShopCategory]
 export const ShopProductRewardType = {
   SHIELD: 'shield',
   LOOT_BOX: 'loot_box',
+  SPECIAL_ITEM: 'special_item',
 } as const;
 
 export type ShopProductReward =
   | { type: typeof ShopProductRewardType.SHIELD; quantity: number }
-  | { type: typeof ShopProductRewardType.LOOT_BOX; rarity: LootBoxRarityValue; quantity: number };
+  | { type: typeof ShopProductRewardType.LOOT_BOX; rarity: LootBoxRarityValue; quantity: number }
+  | { type: typeof ShopProductRewardType.SPECIAL_ITEM; itemKey: string; quantity: number };
 
 export type ShopProduct = {
   key: string;

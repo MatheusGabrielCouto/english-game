@@ -41,6 +41,11 @@ import { buildKnowledgeGraph } from '../utils/vault-graph-builder';
 import { buildFilteredMindMapTree, buildVaultMapTree, type MindMapSnapshot } from '../utils/vault-map-builder';
 import { applyKnowledgePoints, VAULT_KP } from '../utils/vault-progress';
 import { deleteJournalAudioFile, persistJournalRecording } from './journal-audio-storage';
+import {
+    deleteJournalImagesForEntry,
+    JOURNAL_MAX_IMAGES_PER_ENTRY,
+    reconcileJournalImages,
+} from './journal-image-storage';
 
 const createId = (prefix: string) =>
   `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
@@ -57,6 +62,7 @@ export type CreateVaultEntryInput = {
   tags?: string[];
   audioTempUri?: string | null;
   audioDurationMs?: number | null;
+  imageUris?: string[];
   relatedEntryIds?: string[];
   collectionIds?: string[];
   isPinned?: boolean;
@@ -367,6 +373,15 @@ export const KnowledgeVaultService = {
       audioUri = await persistJournalRecording(input.audioTempUri, id);
     }
 
+    const imageUris =
+      input.imageUris && input.imageUris.length > 0
+        ? await reconcileJournalImages([], input.imageUris, id)
+        : [];
+
+    if (imageUris.length > JOURNAL_MAX_IMAGES_PER_ENTRY) {
+      throw new Error(`Máximo de ${JOURNAL_MAX_IMAGES_PER_ENTRY} imagens por nota`);
+    }
+
     const tags = (input.tags ?? normalizeTagsInput(input.tagsInput ?? '')).map((t) =>
       t.startsWith('#') ? t.slice(1) : t,
     );
@@ -383,6 +398,7 @@ export const KnowledgeVaultService = {
       tags,
       audioUri,
       audioDurationMs: input.audioDurationMs ?? null,
+      images: imageUris,
       spaceKey: input.spaceKey,
       folderId: input.folderId ?? null,
       nextReviewAt: scheduleFirstReviewAt(),
@@ -467,6 +483,14 @@ export const KnowledgeVaultService = {
       throw new Error('Grave um áudio antes de salvar a nota de voz');
     }
 
+    let images = existing.images;
+    if (input.imageUris) {
+      if (input.imageUris.length > JOURNAL_MAX_IMAGES_PER_ENTRY) {
+        throw new Error(`Máximo de ${JOURNAL_MAX_IMAGES_PER_ENTRY} imagens por nota`);
+      }
+      images = await reconcileJournalImages(existing.images, input.imageUris, id);
+    }
+
     const tags =
       input.tags ??
       (input.tagsInput != null ? normalizeTagsInput(input.tagsInput) : existing.tags);
@@ -481,6 +505,7 @@ export const KnowledgeVaultService = {
       tags,
       audioUri,
       audioDurationMs,
+      images,
       isFavorite: input.isFavorite ?? existing.isFavorite,
       isPinned: input.isPinned ?? existing.isPinned,
       spaceKey: input.spaceKey ?? existing.spaceKey,
@@ -588,6 +613,7 @@ export const KnowledgeVaultService = {
     const entry = await JournalRepository.findById(id);
     if (!entry) return;
     await deleteJournalAudioFile(entry.audioUri);
+    await deleteJournalImagesForEntry(id, entry.images);
     await VaultRepository.purgeEntryRelations(id);
     await JournalRepository.delete(id);
     const stats = await JournalRepository.getStats();
@@ -622,6 +648,9 @@ export const KnowledgeVaultService = {
       reviewStage: updated.reviewStage,
       xp: JOURNAL_XP.reviewNote,
     });
+
+    const { JournalNotificationService } = await import('./journal-notification-service');
+    void JournalNotificationService.rescheduleAll();
 
     await refreshStore();
     return updated;

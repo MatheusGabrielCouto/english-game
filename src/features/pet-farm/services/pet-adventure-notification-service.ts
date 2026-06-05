@@ -4,7 +4,10 @@ import {
     NOTIFICATION_IDENTIFIER_PREFIX,
     NOTIFICATION_PRIORITY,
 } from '@/features/notifications/constants/categories';
-import { scheduleLocalNotification } from '@/features/notifications/services/notification-scheduler';
+import {
+    cancelScheduledNotification,
+    scheduleLocalNotification,
+} from '@/features/notifications/services/notification-scheduler';
 import { NotificationCategory } from '@/types/notification';
 import type { PetAdventureEntry } from '@/types/pet-adventure';
 
@@ -16,6 +19,10 @@ const adventureNotificationId = (adventureId: number) =>
 
 export const PetAdventureNotificationService = {
   adventureNotificationId,
+
+  async cancelReturn(adventureId: number): Promise<void> {
+    await cancelScheduledNotification(adventureNotificationId(adventureId));
+  },
 
   async scheduleReturn(adventure: PetAdventureEntry): Promise<void> {
     if (Platform.OS === 'web') return;

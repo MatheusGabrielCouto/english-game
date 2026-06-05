@@ -4,9 +4,11 @@ import { View } from 'react-native';
 
 import { ScreenContainer, ScreenHeader } from '@/components/layout';
 import {
+    ShopOfferPurchaseModal,
     ShopPurchaseModal,
     ShopScreenContent,
     ShopSpPurchaseModal,
+    ShopStockPurchaseModal,
     useShop,
     useShopScreenStore,
 } from '@/features/shop';
@@ -14,6 +16,8 @@ import {
 export default function ShopScreen() {
   const shop = useShop();
   const setSelectedProduct = useShopScreenStore((state) => state.setSelectedProduct);
+  const setSelectedDailyOffer = useShopScreenStore((state) => state.setSelectedDailyOffer);
+  const setSelectedStockItem = useShopScreenStore((state) => state.setSelectedStockItem);
   const setSelectedSpProduct = useShopScreenStore((state) => state.setSelectedSpProduct);
   const setIsPurchasing = useShopScreenStore((state) => state.setIsPurchasing);
   const clearToast = useShopScreenStore((state) => state.clearToast);
@@ -22,20 +26,31 @@ export default function ShopScreen() {
     useCallback(() => {
       return () => {
         setSelectedProduct(null);
+        setSelectedDailyOffer(null);
+        setSelectedStockItem(null);
         setSelectedSpProduct(null);
         setIsPurchasing(false);
         clearToast();
       };
-    }, [clearToast, setIsPurchasing, setSelectedProduct, setSelectedSpProduct]),
+    }, [
+      clearToast,
+      setIsPurchasing,
+      setSelectedDailyOffer,
+      setSelectedStockItem,
+      setSelectedProduct,
+      setSelectedSpProduct,
+    ]),
   );
 
   return (
     <View style={{ flex: 1 }}>
       <ScreenContainer scrollable>
-        <ScreenHeader title="Loja" subtitle="Moedas, Study Points e upgrades" emoji="🛒" />
+        <ScreenHeader showBack title="Loja" subtitle="Moedas, Study Points e upgrades" emoji="🛒" />
         <ShopScreenContent shop={shop} />
       </ScreenContainer>
       <ShopPurchaseModal shop={shop} />
+      <ShopOfferPurchaseModal shop={shop} />
+      <ShopStockPurchaseModal shop={shop} />
       <ShopSpPurchaseModal
         product={shop.selectedSpProduct}
         balance={shop.studyPointsBalance}

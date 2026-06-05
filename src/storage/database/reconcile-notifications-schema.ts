@@ -2,6 +2,11 @@ import type { SQLiteDatabase } from 'expo-sqlite';
 
 import { ensureMigrationApplied } from './resilient-migrator';
 
+const columnExists = (sqlite: SQLiteDatabase, table: string, column: string): boolean => {
+  const rows = sqlite.getAllSync(`PRAGMA table_info(${table})`) as { name: string }[];
+  return rows.some((row) => row.name === column);
+};
+
 const tableExists = (sqlite: SQLiteDatabase, table: string): boolean => {
   const rows = sqlite.getAllSync(
     `SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?`,
@@ -55,6 +60,29 @@ export const reconcileNotificationsSchema = (sqlite: SQLiteDatabase): void => {
         created_at text NOT NULL
       )
     `);
+  }
+
+  if (tableExists(sqlite, 'notification_settings')) {
+    const featureColumns = [
+      'routine_reminder',
+      'journal_review',
+      'flash_due',
+      'weekly_mission',
+      'loot_reminder',
+      'duel_reminder',
+      'lexicon_reminder',
+      'season_reminder',
+      'prestige_reminder',
+      'shop_offer_reminder',
+    ] as const;
+
+    for (const column of featureColumns) {
+      if (!columnExists(sqlite, 'notification_settings', column)) {
+        sqlite.execSync(
+          `ALTER TABLE notification_settings ADD COLUMN ${column} integer DEFAULT 1 NOT NULL`,
+        );
+      }
+    }
   }
 
   ensureMigrationApplied(sqlite, '0017_notifications_system');

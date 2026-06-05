@@ -27,9 +27,15 @@ export const STUDY_POINTS_SHOP = [
   { key: 'box_uncommon', label: 'Loot Box Incomum', cost: 240, lootRarity: LootBoxRarity.UNCOMMON },
   { key: 'box_rare', label: 'Loot Box Rara', cost: 480, lootRarity: LootBoxRarity.RARE },
   { key: 'box_epic', label: 'Loot Box Épica', cost: 960, lootRarity: LootBoxRarity.EPIC },
+  { key: 'box_legendary', label: 'Loot Box Lendária', cost: 1920, lootRarity: LootBoxRarity.LEGENDARY },
   { key: 'pet_egg', label: 'Ovo de Pet', cost: 3200, itemKey: 'pet_egg' },
   { key: 'golden_ticket', label: 'Ticket Dourado', cost: 380, itemKey: 'golden_ticket' },
   { key: 'free_loot_ticket', label: 'Ticket de Loot', cost: 220, itemKey: 'free_loot_ticket' },
+  { key: 'booster_study', label: 'Booster de Estudo', cost: 140, itemKey: 'booster_study' },
+  { key: 'xp_potion_small', label: 'Soro de XP', cost: 85, itemKey: 'xp_potion_small' },
+  { key: 'legendary_collector', label: 'Colecionador Lendário', cost: 520, itemKey: 'legendary_collector' },
+  { key: 'double_xp_1h', label: 'Elixir de XP em Dobro', cost: 680, itemKey: 'double_xp_1h' },
+  { key: 'kit_escudo', label: 'Kit de Escudo', cost: 75, itemKey: 'kit_escudo' },
 ] as const;
 
 /** Drop weights for collectible rarity inside a loot box tier */

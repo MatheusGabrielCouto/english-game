@@ -15,6 +15,7 @@ import { PetStatsService } from '@/features/pet-farm/services/pet-stats-service'
 import { PetInstanceRepository } from '@/storage/repositories/pet-instance-repository';
 
 import { PetCollectionService } from './pet-collection-service';
+import { PetEggHatchNotificationService } from './pet-egg-hatch-notification-service';
 import { PetService } from './pet-service';
 
 const PET_EGG_ITEM_KEYS = new Set(['pet_egg', 'ovo_pet']);
@@ -137,6 +138,8 @@ export const PetEggService = {
     }
 
     await InventoryService.refresh();
+
+    await PetEggHatchNotificationService.schedule(updatedPet);
 
     GameEvents.emit({
       type: 'PET_EGG_USED',

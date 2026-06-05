@@ -28,6 +28,9 @@ export const reconcileKnowledgeVaultSchema = (sqlite: SQLiteDatabase): void => {
     if (!columnExists(sqlite, 'journal_entries', 'is_pinned')) {
       sqlite.execSync(`ALTER TABLE journal_entries ADD COLUMN is_pinned integer DEFAULT 0 NOT NULL`);
     }
+    if (!columnExists(sqlite, 'journal_entries', 'images_json')) {
+      sqlite.execSync(`ALTER TABLE journal_entries ADD COLUMN images_json text DEFAULT '[]' NOT NULL`);
+    }
   }
 
   if (!tableExists(sqlite, 'journal_folders')) {
@@ -105,4 +108,5 @@ export const reconcileKnowledgeVaultSchema = (sqlite: SQLiteDatabase): void => {
   }
 
   ensureMigrationApplied(sqlite, '0040_knowledge_vault');
+  ensureMigrationApplied(sqlite, '0041_journal_entry_images');
 };

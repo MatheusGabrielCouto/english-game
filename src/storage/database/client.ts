@@ -16,6 +16,7 @@ import { reconcileLearningSystemsSchema } from './reconcile-learning-systems-sch
 import { reconcileLivingCitySchema } from './reconcile-living-city-schema';
 import { reconcileMemoryWallSchema } from './reconcile-memory-wall-schema';
 import { reconcileNotificationsSchema } from './reconcile-notifications-schema';
+import { reconcileShopOffersSchema } from './reconcile-shop-offers-schema';
 import { reconcileUserRoutinesSchema } from './reconcile-user-routines-schema';
 import { reconcileWeeklyMissionsSchema } from './reconcile-weekly-missions-schema';
 import {
@@ -47,6 +48,7 @@ const repairSchema = (sqlite: ReturnType<typeof openDatabaseSync>): void => {
   reconcileUserRoutinesSchema(sqlite);
   reconcileEnglishJournalSchema(sqlite);
   reconcileKnowledgeVaultSchema(sqlite);
+  reconcileShopOffersSchema(sqlite);
 };
 
 export const getDb = (): AppDatabase => {

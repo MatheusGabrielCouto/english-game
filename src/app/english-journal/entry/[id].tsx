@@ -10,6 +10,7 @@ import type { VaultEntryRecord, VaultReviewBundle } from '@/types/knowledge-vaul
 
 import { JournalEntryBodyTranslation } from '@/features/english-journal/components/JournalEntryBodyTranslation';
 import { JournalEntryFormModal } from '@/features/english-journal/components/JournalEntryFormModal';
+import { JournalEntryImageGallery } from '@/features/english-journal/components/JournalEntryImageGallery';
 import { JournalVoicePlayer } from '@/features/english-journal/components/JournalVoicePlayer';
 import { JournalImportanceBadge } from '@/features/english-journal/components/vault/JournalImportanceBadge';
 import { VaultSectionHeader } from '@/features/english-journal/components/vault/VaultSectionHeader';
@@ -167,6 +168,9 @@ export default function VaultEntryDetailRoute() {
               {entry.isPinned ? ` · ${VAULT_UI.pinnedKnowledge}` : ''}
             </Text>
           </View>
+          {entry.images.length > 0 ? (
+            <JournalEntryImageGallery images={entry.images} />
+          ) : null}
           {entry.audioUri ? (
             <JournalVoicePlayer
               entryId={entry.id}

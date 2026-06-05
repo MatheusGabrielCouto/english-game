@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import { AppState, Platform } from 'react-native';
 
-import { GameEvents } from '@/services/game-events';
+import { GameEvents, type GameEvent } from '@/services/game-events';
 import {
     countNotificationsSentToday,
     getCategoriesSentToday,
@@ -15,7 +15,10 @@ import {
     getOrCreateNotificationSettings,
     saveNotificationSettings,
 } from '@/storage/repositories/notification-settings-repository';
-import type { NotificationSettings } from '@/types/notification';
+import {
+    NotificationPermissionStatus,
+    type NotificationSettings,
+} from '@/types/notification';
 
 import { getTodayKey } from '@/features/quests/utils/date';
 
@@ -31,12 +34,14 @@ import {
 } from '../utils/scheduling';
 
 import { useNotificationsStore } from '../store/notifications-store';
+import { FeatureNotificationSyncService } from './feature-notification-sync-service';
 import {
     configureNotificationHandler,
     ensureAndroidChannel,
     getPermissionStatus,
     requestNotificationPermissions,
 } from './notification-permissions';
+
 import { cancelAllEqNotifications, scheduleLocalNotification } from './notification-scheduler';
 
 let initialized = false;
@@ -61,59 +66,64 @@ const syncStoreFromDb = async (): Promise<void> => {
 const refreshSchedule = async (): Promise<void> => {
   if (Platform.OS === 'web') return;
 
-  const settings = await getNotificationSettings();
-  if (!settings.enabled) {
+  try {
+    const settings = await getNotificationSettings();
+    if (!settings.enabled) {
+      await cancelAllEqNotifications();
+      await FeatureNotificationSyncService.cancelAll();
+      return;
+    }
+
+    const permissionStatus = await getPermissionStatus();
+    if (permissionStatus !== 'granted') {
+      return;
+    }
+
+    const context = buildNotificationContext();
+    if (context.studiedToday) {
+      await cancelAllEqNotifications();
+      return;
+    }
+
+    const todayKey = getTodayKey();
+    const dayStartIso = getDayStartIso(todayKey);
+    const [sentCategories, sentCount] = await Promise.all([
+      getCategoriesSentToday(dayStartIso),
+      countNotificationsSentToday(dayStartIso),
+    ]);
+
+    const candidates = buildNotificationCandidates(context, settings, new Date().getDate());
+    const selected = selectNotificationsForDay(candidates, sentCategories, sentCount);
+    const scheduleTimes = computeScheduleTimes(
+      settings.preferredHour,
+      settings.preferredMinute,
+      selected.length,
+    );
+
     await cancelAllEqNotifications();
-    return;
+
+    for (let index = 0; index < selected.length; index += 1) {
+      const candidate = selected[index];
+      const triggerDate = scheduleTimes[index];
+      const identifier = buildNotificationIdentifier(todayKey, candidate.category);
+
+      if (sentCategories.includes(candidate.category)) continue;
+      if (triggerDate.getTime() <= Date.now()) continue;
+
+      await scheduleLocalNotification({ candidate, identifier, triggerDate });
+      await recordNotificationScheduled({
+        category: candidate.category,
+        title: candidate.title,
+        body: candidate.body,
+        identifier,
+        scheduledFor: triggerDate.toISOString(),
+      });
+    }
+
+    await syncStoreFromDb();
+  } finally {
+    await FeatureNotificationSyncService.rescheduleAll();
   }
-
-  const permissionStatus = await getPermissionStatus();
-  if (permissionStatus !== 'granted') {
-    return;
-  }
-
-  const context = buildNotificationContext();
-  if (context.studiedToday) {
-    await cancelAllEqNotifications();
-    return;
-  }
-
-  const todayKey = getTodayKey();
-  const dayStartIso = getDayStartIso(todayKey);
-  const [sentCategories, sentCount] = await Promise.all([
-    getCategoriesSentToday(dayStartIso),
-    countNotificationsSentToday(dayStartIso),
-  ]);
-
-  const candidates = buildNotificationCandidates(context, settings, new Date().getDate());
-  const selected = selectNotificationsForDay(candidates, sentCategories, sentCount);
-  const scheduleTimes = computeScheduleTimes(
-    settings.preferredHour,
-    settings.preferredMinute,
-    selected.length,
-  );
-
-  await cancelAllEqNotifications();
-
-  for (let index = 0; index < selected.length; index += 1) {
-    const candidate = selected[index];
-    const triggerDate = scheduleTimes[index];
-    const identifier = buildNotificationIdentifier(todayKey, candidate.category);
-
-    if (sentCategories.includes(candidate.category)) continue;
-    if (triggerDate.getTime() <= Date.now()) continue;
-
-    await scheduleLocalNotification({ candidate, identifier, triggerDate });
-    await recordNotificationScheduled({
-      category: candidate.category,
-      title: candidate.title,
-      body: candidate.body,
-      identifier,
-      scheduledFor: triggerDate.toISOString(),
-    });
-  }
-
-  await syncStoreFromDb();
 };
 
 const attachListeners = (): void => {
@@ -139,8 +149,50 @@ const attachListeners = (): void => {
   });
 };
 
-const handleGameEvent = () => {
-  void refreshSchedule();
+const FEATURE_RESCHEDULE_EVENTS = new Set([
+  'ROUTINE_CREATED',
+  'ROUTINE_COMPLETED',
+  'ROUTINE_MISSED',
+  'JOURNAL_ENTRY_CREATED',
+  'JOURNAL_ENTRY_REVIEWED',
+  'FLASH_SESSION_DONE',
+  'PET_EGG_USED',
+  'PET_BRED',
+  'PET_ADVENTURE_STARTED',
+  'PET_ADVENTURE_CLAIMED',
+  'PET_ACADEMY_STARTED',
+  'PET_ACADEMY_CLAIMED',
+  'LOOT_BOX_RECEIVED',
+  'LOOT_BOX_OPENED',
+  'WEEKLY_MISSION_CLAIMED',
+  'CONTRACT_STARTED',
+  'CONTRACT_COMPLETED',
+  'CONTRACT_FAILED',
+  'DUEL_WON',
+  'DUEL_LOST',
+  'LEXICON_BRICK_CRACKED',
+  'LEXICON_BRICK_REPAIRED',
+  'SEASON_TIER_REACHED',
+  'SEASON_REWARD_CLAIMED',
+  'PRESTIGE_AVAILABLE',
+  'PLAYER_LEVEL_UP',
+]);
+
+const STUDY_RESCHEDULE_EVENTS = new Set([
+  'DAILY_MISSION_COMPLETED',
+  'STUDY_DAY_RECORDED',
+  'STREAK_BROKEN',
+]);
+
+const handleGameEvent = (event: GameEvent) => {
+  if (STUDY_RESCHEDULE_EVENTS.has(event.type)) {
+    void refreshSchedule();
+    return;
+  }
+
+  if (FEATURE_RESCHEDULE_EVENTS.has(event.type)) {
+    void FeatureNotificationSyncService.rescheduleAll();
+  }
 };
 
 const recoverStoreAfterInitFailure = async (): Promise<void> => {
@@ -172,16 +224,19 @@ export const NotificationService = {
     try {
       configureNotificationHandler();
       await ensureAndroidChannel();
-      await getOrCreateNotificationSettings();
+      const settings = await getOrCreateNotificationSettings();
+      let permissionStatus = await getPermissionStatus();
+
+      if (
+        settings.enabled &&
+        permissionStatus === NotificationPermissionStatus.UNDETERMINED
+      ) {
+        permissionStatus = await requestNotificationPermissions();
+      }
+
       attachListeners();
       GameEvents.subscribe((event) => {
-        if (
-          event.type === 'DAILY_MISSION_COMPLETED' ||
-          event.type === 'STUDY_DAY_RECORDED' ||
-          event.type === 'STREAK_BROKEN'
-        ) {
-          handleGameEvent();
-        }
+        handleGameEvent(event);
       });
 
       await syncStoreFromDb();
@@ -239,5 +294,120 @@ export const NotificationService = {
 
   async reload(): Promise<void> {
     await syncStoreFromDb();
+  },
+
+  async getDiagnostics(): Promise<string> {
+    if (Platform.OS === 'web') {
+      return 'Notificações indisponíveis na web.';
+    }
+
+    const [settings, permissionStatus, scheduled] = await Promise.all([
+      getNotificationSettings(),
+      getPermissionStatus(),
+      Notifications.getAllScheduledNotificationsAsync(),
+    ]);
+
+    const studyScheduled = scheduled.filter((item) =>
+      /^eq-\d{4}-\d{2}-\d{2}-/.test(item.identifier),
+    );
+    const featureScheduled = scheduled.filter(
+      (item) =>
+        !/^eq-\d{4}-\d{2}-\d{2}-/.test(item.identifier) && item.identifier.startsWith('eq-'),
+    );
+    const context = buildNotificationContext();
+    const lines = [
+      `Permissão: ${permissionStatus}`,
+      `Lembretes ativos: ${settings.enabled ? 'sim' : 'não'}`,
+      `Agendadas (estudo): ${studyScheduled.length}`,
+      `Agendadas (funcionalidades): ${featureScheduled.length}`,
+      `Estudou hoje: ${context.studiedToday ? 'sim (lembretes de estudo pausados)' : 'não'}`,
+      `Horário preferido: ${String(settings.preferredHour).padStart(2, '0')}:${String(settings.preferredMinute).padStart(2, '0')}`,
+    ];
+
+    return lines.join('\n');
+  },
+
+  async sendTestNotification(): Promise<{ ok: boolean; message: string }> {
+    if (Platform.OS === 'web') {
+      return { ok: false, message: 'Notificações indisponíveis na web.' };
+    }
+
+    const permission = await requestNotificationPermissions();
+    useNotificationsStore.setState({ permissionStatus: permission });
+
+    if (permission !== NotificationPermissionStatus.GRANTED) {
+      return {
+        ok: false,
+        message: 'Permissão negada. Ative notificações nas configurações do sistema.',
+      };
+    }
+
+    await ensureAndroidChannel();
+
+    const identifier = `eq-test-${Date.now()}`;
+    await Notifications.scheduleNotificationAsync({
+      identifier,
+      content: {
+        title: 'English Quest — Teste',
+        body: 'Se você está vendo isto, as notificações estão funcionando! 🔔',
+        sound: true,
+        data: { category: 'test', identifier },
+        ...(Platform.OS === 'android' ? { channelId: 'default' } : {}),
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: 3,
+      },
+    });
+
+    const diagnostics = await NotificationService.getDiagnostics();
+
+    return {
+      ok: true,
+      message: `Notificação de teste em ~3 segundos. Minimize o app para ver melhor.\n\n${diagnostics}`,
+    };
+  },
+
+  async sendPetFarmTestNotification(): Promise<{ ok: boolean; message: string }> {
+    if (Platform.OS === 'web') {
+      return { ok: false, message: 'Notificações indisponíveis na web.' };
+    }
+
+    const permission = await requestNotificationPermissions();
+    useNotificationsStore.setState({ permissionStatus: permission });
+
+    if (permission !== NotificationPermissionStatus.GRANTED) {
+      return {
+        ok: false,
+        message: 'Permissão negada. Ative notificações nas configurações do sistema.',
+      };
+    }
+
+    await ensureAndroidChannel();
+
+    const identifier = `eq-test-pet-${Date.now()}`;
+    await Notifications.scheduleNotificationAsync({
+      identifier,
+      content: {
+        title: 'Aventura concluída! (teste)',
+        body: '🐾 Seu pet voltou da expedição. Colete as recompensas na fazenda.',
+        sound: true,
+        data: { category: 'pet_test', identifier },
+        ...(Platform.OS === 'android' ? { channelId: 'default' } : {}),
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: 3,
+      },
+    });
+
+    await FeatureNotificationSyncService.rescheduleAll();
+
+    const diagnostics = await NotificationService.getDiagnostics();
+
+    return {
+      ok: true,
+      message: `Notificação da fazenda em ~3 segundos. Reagendamos aventuras, academia e incubação ativas.\n\n${diagnostics}`,
+    };
   },
 };

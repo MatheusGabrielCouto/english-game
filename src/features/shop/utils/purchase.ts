@@ -6,6 +6,8 @@ export const getDeliveredQuantity = (product: ShopProduct): number => {
       return product.reward.quantity;
     case ShopProductRewardType.LOOT_BOX:
       return product.reward.quantity;
+    case ShopProductRewardType.SPECIAL_ITEM:
+      return product.reward.quantity;
     default:
       return 1;
   }

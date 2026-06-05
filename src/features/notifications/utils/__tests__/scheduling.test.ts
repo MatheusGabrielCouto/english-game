@@ -3,10 +3,11 @@ import { describe, it } from 'node:test';
 
 import { NotificationCategory } from '@/types/notification';
 
+import { isStudyReminderIdentifier } from '../../constants/categories';
 import {
-  buildNotificationCandidates,
-  computeScheduleTimes,
-  selectNotificationsForDay,
+    buildNotificationCandidates,
+    computeScheduleTimes,
+    selectNotificationsForDay,
 } from '../scheduling';
 
 const baseSettings = {
@@ -102,5 +103,15 @@ describe('computeScheduleTimes', () => {
     assert.equal(times[0].getMinutes(), 30);
     assert.equal(times[1].getHours(), 19);
     assert.equal(times[2].getHours(), 21);
+  });
+});
+
+describe('isStudyReminderIdentifier', () => {
+  it('matches only daily study reminders', () => {
+    assert.equal(isStudyReminderIdentifier('eq-2026-06-04-daily_reminder'), true);
+    assert.equal(isStudyReminderIdentifier('eq-pet-adv-12'), false);
+    assert.equal(isStudyReminderIdentifier('eq-pet-incubator-3'), false);
+    assert.equal(isStudyReminderIdentifier('eq-pet-egg-hatch'), false);
+    assert.equal(isStudyReminderIdentifier('eq-flash-due-reminder'), false);
   });
 });

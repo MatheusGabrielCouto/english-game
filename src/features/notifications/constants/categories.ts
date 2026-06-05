@@ -29,6 +29,24 @@ export const CATEGORY_LABELS: Record<string, string> = {
   [NotificationCategory.CONTRACT_REMINDER]: 'Contratos',
   [NotificationCategory.ACHIEVEMENT_PROGRESS]: 'Conquistas',
   [NotificationCategory.CITY_PROGRESS]: 'Cidade',
+  [NotificationCategory.FLASH_DUE]: 'Baralho Vivo',
+  [NotificationCategory.ROUTINE_REMINDER]: 'Rotinas',
+  [NotificationCategory.JOURNAL_REVIEW]: 'Cofre / diário',
+  [NotificationCategory.WEEKLY_MISSION]: 'Missões semanais',
+  [NotificationCategory.LOOT_REMINDER]: 'Caixas surpresa',
+  [NotificationCategory.BREEDING_READY]: 'Cruzamento (fazenda)',
+  [NotificationCategory.DAILY_QUESTS]: 'Missões diárias',
+  [NotificationCategory.DUEL_BOSS]: 'Boss semanal (duelos)',
+  [NotificationCategory.LEXICON_REMINDER]: 'Mural Lexicon',
+  [NotificationCategory.SEASON_REMINDER]: 'Temporada',
+  [NotificationCategory.PRESTIGE_REMINDER]: 'Prestígio',
+  [NotificationCategory.SHOP_OFFER]: 'Ofertas da loja',
 };
 
 export const NOTIFICATION_IDENTIFIER_PREFIX = 'eq';
+
+/** Lembretes de estudo: eq-2026-06-04-daily_reminder (não cancelar notificações de pet/fazenda). */
+export const STUDY_REMINDER_IDENTIFIER_PATTERN = /^eq-\d{4}-\d{2}-\d{2}-/;
+
+export const isStudyReminderIdentifier = (identifier: string): boolean =>
+  STUDY_REMINDER_IDENTIFIER_PATTERN.test(identifier);

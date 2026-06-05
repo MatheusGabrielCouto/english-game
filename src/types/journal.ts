@@ -51,6 +51,7 @@ export type JournalEntryRecord = {
   tags: string[];
   audioUri: string | null;
   audioDurationMs: number | null;
+  images: string[];
   isFavorite: boolean;
   isPinned: boolean;
   isArchived: boolean;

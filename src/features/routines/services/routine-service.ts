@@ -292,6 +292,10 @@ export const RoutineService = {
 
     await RoutineRepository.update(updated);
     await refreshStore();
+    const { FeatureNotificationSyncService } = await import(
+      '@/features/notifications/services/feature-notification-sync-service'
+    );
+    void FeatureNotificationSyncService.rescheduleAll();
     return updated;
   },
 

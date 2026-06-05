@@ -296,6 +296,7 @@ export const PetAdventureService = {
       speciesKey: instance.speciesKey,
     });
 
+    await PetAdventureNotificationService.cancelReturn(adventureId);
     await PetAdventureRepository.remove(adventureId);
     if (adventure.durationKey === '24h') {
       await PetAdventureRepository.log24hClaim(new Date().toISOString());

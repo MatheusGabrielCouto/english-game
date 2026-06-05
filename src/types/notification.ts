@@ -7,6 +7,17 @@ export const NotificationCategory = {
   ACHIEVEMENT_PROGRESS: 'achievement_progress',
   CITY_PROGRESS: 'city_progress',
   FLASH_DUE: 'flash_due',
+  ROUTINE_REMINDER: 'routine_reminder',
+  JOURNAL_REVIEW: 'journal_review',
+  WEEKLY_MISSION: 'weekly_mission',
+  LOOT_REMINDER: 'loot_reminder',
+  BREEDING_READY: 'breeding_ready',
+  DAILY_QUESTS: 'daily_quests',
+  DUEL_BOSS: 'duel_boss',
+  LEXICON_REMINDER: 'lexicon_reminder',
+  SEASON_REMINDER: 'season_reminder',
+  PRESTIGE_REMINDER: 'prestige_reminder',
+  SHOP_OFFER: 'shop_offer',
 } as const;
 
 export type NotificationCategoryValue =
@@ -43,6 +54,16 @@ export type NotificationSettings = {
   contractReminder: boolean;
   achievementProgress: boolean;
   cityProgress: boolean;
+  routineReminder: boolean;
+  journalReview: boolean;
+  flashDue: boolean;
+  weeklyMission: boolean;
+  lootReminder: boolean;
+  duelReminder: boolean;
+  lexiconReminder: boolean;
+  seasonReminder: boolean;
+  prestigeReminder: boolean;
+  shopOfferReminder: boolean;
   updatedAt: string;
 };
 

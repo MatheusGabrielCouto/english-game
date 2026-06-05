@@ -17,7 +17,8 @@
         "backgroundColor": "#06060b"
       },
       "package": "com.englishquest.app",
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "softwareKeyboardLayoutMode": "resize"
     },
     "web": {
       "output": "static",
@@ -77,6 +78,13 @@
         {
           "microphonePermission": "O English Quest precisa do microfone para gravar e transcrever notas de voz.",
           "speechRecognitionPermission": "O English Quest usa reconhecimento de fala para transcrever suas gravações em inglês."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O English Quest precisa acessar suas fotos para anexar imagens às notas do diário.",
+          "cameraPermission": "O English Quest precisa da câmera para tirar fotos nas notas do diário."
         }
       ],
       [

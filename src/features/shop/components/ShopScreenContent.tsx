@@ -1,25 +1,30 @@
 import { useMemo } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
 import { Toast } from '@/components';
 import { theme } from '@/constants';
 import { TutorialGuideCard } from '@/features/tutorial';
 
 import {
-  getAvailableShopProducts,
-  getPurchasableLootBoxCount,
-  getShopCatalogSections,
-  getTotalLootBoxCount,
+    getAvailableShopProducts,
+    getPurchasableLootBoxCount,
+    getShopCatalogSections,
+    getTotalLootBoxCount,
 } from '../constants/shop-products';
+import { SHOP_TEXT } from '../constants/shop-ui';
 import type { UseShopReturn } from '../hooks/use-shop';
 import { ShopBalanceCard } from './ShopBalanceCard';
 import { ShopCategorySection } from './ShopCategorySection';
 import { ShopHistoryList } from './ShopHistoryList';
+import { ShopLivingMarketSection } from './ShopLivingMarketSection';
+import { ShopSectionHeader } from './ShopSectionHeader';
 import { ShopStudyPointsHub } from './ShopStudyPointsHub';
 
 type ShopScreenContentProps = {
   shop: UseShopReturn;
 };
+
+const ShopDivider = () => <View className="h-px bg-border/70" />;
 
 export const ShopScreenContent = ({ shop }: ShopScreenContentProps) => {
   const {
@@ -27,6 +32,9 @@ export const ShopScreenContent = ({ shop }: ShopScreenContentProps) => {
     studyPointsBalance,
     products,
     spProducts,
+    dailyOfferCoins,
+    dailyOfferSp,
+    stock,
     lootBoxCounts,
     history,
     isLoading,
@@ -34,7 +42,11 @@ export const ShopScreenContent = ({ shop }: ShopScreenContentProps) => {
     toastKey,
     toastVariant,
     canAfford,
+    canAffordOffer,
+    canAffordStock,
     handleSelectProduct,
+    handleSelectDailyOffer,
+    handleSelectStockItem,
     handleSelectSpProduct,
     handleUpgradeLootBox,
     isPurchasing,
@@ -70,19 +82,38 @@ export const ShopScreenContent = ({ shop }: ShopScreenContentProps) => {
 
       <TutorialGuideCard />
 
-      <View className="gap-1 px-0.5">
-        <Text className="text-xs font-bold uppercase tracking-widest text-gold">🪙 Loja por moedas</Text>
-        <Text className="text-sm text-foreground-secondary">Escudos e loot boxes compráveis com moedas.</Text>
+      <ShopLivingMarketSection
+        dailyOfferCoins={dailyOfferCoins}
+        dailyOfferSp={dailyOfferSp}
+        stock={stock}
+        canAffordOffer={canAffordOffer}
+        canAffordStock={canAffordStock}
+        isPurchasing={isPurchasing}
+        onPurchaseOffer={handleSelectDailyOffer}
+        onPurchaseStock={handleSelectStockItem}
+      />
+
+      <ShopDivider />
+
+      <View className="gap-4">
+        <ShopSectionHeader
+          kicker="🪙 Catálogo permanente"
+          kickerClassName={SHOP_TEXT.kickerGold}
+          title="Loja de moedas"
+          subtitle="Itens sempre disponíveis — fora do estoque rotativo e das ofertas."
+        />
+
+        {catalogSections.map((section) => (
+          <ShopCategorySection
+            key={section.category}
+            section={section}
+            canAfford={canAfford}
+            onPurchase={handleSelectProduct}
+          />
+        ))}
       </View>
 
-      {catalogSections.map((section) => (
-        <ShopCategorySection
-          key={section.category}
-          section={section}
-          canAfford={canAfford}
-          onPurchase={handleSelectProduct}
-        />
-      ))}
+      <ShopDivider />
 
       <ShopStudyPointsHub
         balance={studyPointsBalance}

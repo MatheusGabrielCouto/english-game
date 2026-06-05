@@ -1,17 +1,20 @@
 import type { ReactNode } from 'react';
 import {
-  Modal as RNModal,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
+    KeyboardAvoidingView,
+    Platform,
+    Modal as RNModal,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    useWindowDimensions,
+    View,
 } from 'react-native';
 
 import { cn } from '@/utils';
 
 import { Button } from './Button';
+import { MODAL_KEYBOARD_BEHAVIOR } from './keyboard-modal';
 
 type AppModalProps = {
   visible: boolean;
@@ -67,6 +70,8 @@ export const Modal = ({
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets
+        keyboardDismissMode="on-drag"
         bounces={false}>
         {children}
       </ScrollView>
@@ -82,19 +87,23 @@ export const Modal = ({
       animationType="fade"
       onRequestClose={handleCancel}
       statusBarTranslucent>
-      <View className="flex-1 items-center justify-center px-6 py-6" accessibilityViewIsModal>
-        <TouchableOpacity
-          className="absolute inset-0 bg-black/70"
-          activeOpacity={1}
-          onPress={handleCancel}
-          accessibilityRole="button"
-          accessibilityLabel="Fechar modal"
-        />
-        <View
-          className={cn(
-            'z-10 w-full max-w-sm self-center rounded-2xl border border-border bg-surface p-6',
-            className,
-          )}>
+      <KeyboardAvoidingView
+        style={styles.avoiding}
+        behavior={MODAL_KEYBOARD_BEHAVIOR}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}>
+        <View className="flex-1 items-center justify-center px-6 py-6" accessibilityViewIsModal>
+          <TouchableOpacity
+            className="absolute inset-0 bg-black/70"
+            activeOpacity={1}
+            onPress={handleCancel}
+            accessibilityRole="button"
+            accessibilityLabel="Fechar modal"
+          />
+          <View
+            className={cn(
+              'z-10 w-full max-w-sm self-center rounded-2xl border border-border bg-surface p-6',
+              className,
+            )}>
             <Text className="text-xl font-bold text-foreground">{title}</Text>
             {description ? (
               <Text className="mt-2 text-base text-foreground-secondary">{description}</Text>
@@ -115,12 +124,16 @@ export const Modal = ({
               </View>
             )}
           </View>
-      </View>
+        </View>
+      </KeyboardAvoidingView>
     </RNModal>
   );
 };
 
 const styles = StyleSheet.create({
+  avoiding: {
+    flex: 1,
+  },
   scrollContent: {
     paddingBottom: 4,
   },

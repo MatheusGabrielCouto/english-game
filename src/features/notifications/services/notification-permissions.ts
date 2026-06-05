@@ -20,9 +20,10 @@ export const ensureAndroidChannel = async (): Promise<void> => {
 
   await Notifications.setNotificationChannelAsync('default', {
     name: 'English Quest',
-    importance: Notifications.AndroidImportance.DEFAULT,
+    importance: Notifications.AndroidImportance.HIGH,
     vibrationPattern: [0, 250, 250, 250],
     lightColor: '#8b5cf6',
+    sound: 'default',
   });
 };
 

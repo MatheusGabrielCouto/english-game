@@ -190,6 +190,9 @@ export const PetService = {
       stage,
     };
 
+    const { PetEggHatchNotificationService } = await import('./pet-egg-hatch-notification-service');
+    await PetEggHatchNotificationService.cancel();
+
     await savePet(updatedPet);
     await PetCollectionService.ensureSpeciesDiscovered(updatedPet.speciesKey);
     cachedPet = updatedPet;

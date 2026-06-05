@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Modal, Pressable, Text, TextInput, View } from 'react-native';
+import { Pressable, Text, TextInput, View } from 'react-native';
 
-import { Button } from '@/components';
+import { Button, FormSheetModal } from '@/components';
 import { useAsyncAction } from '@/hooks';
 import { cn } from '@/utils';
 
@@ -56,71 +56,77 @@ export const FlashDeckFormModal = ({ visible, deck, onClose, onSaved }: FlashDec
   });
 
   return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
-      <Pressable className="flex-1 justify-end bg-black/60" onPress={onClose}>
-        <Pressable className="rounded-t-3xl border border-border bg-background px-4 pb-8 pt-4" onPress={() => {}}>
+    <FormSheetModal
+      visible={visible}
+      onClose={onClose}
+      sheetHeightRatio={0.72}
+      animationType="fade"
+      header={
+        <View className="px-4 pb-2 pt-4">
           <Text className="text-lg font-black text-foreground">
             {isEdit ? FLASH_DECK_UI.editDeck : FLASH_DECK_UI.newDeck}
           </Text>
+        </View>
+      }
+      footer={
+        <View className="gap-2 px-4 pb-8 pt-2">
+          <Button
+            label={FLASH_DECK_UI.saveDeck}
+            onPress={() => void save()}
+            loading={isPending}
+            loadingLabel="Salvando…"
+            disabled={!name.trim()}
+          />
+          <Button label="Cancelar" variant="ghost" onPress={onClose} />
+        </View>
+      }>
+      <View className="gap-4 px-4 pb-4">
+        <View>
+          <Text className="mb-2 text-sm font-semibold text-foreground">{FLASH_DECK_UI.deckNameLabel}</Text>
+          <TextInput
+            value={name}
+            onChangeText={setName}
+            placeholder={FLASH_DECK_UI.deckNamePlaceholder}
+            placeholderTextColor="#71717a"
+            className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          />
+        </View>
 
-          <View className="mt-4 gap-4">
-            <View>
-              <Text className="mb-2 text-sm font-semibold text-foreground">{FLASH_DECK_UI.deckNameLabel}</Text>
-              <TextInput
-                value={name}
-                onChangeText={setName}
-                placeholder={FLASH_DECK_UI.deckNamePlaceholder}
-                placeholderTextColor="#71717a"
-                className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
-              />
-            </View>
-
-            <View>
-              <Text className="mb-2 text-sm font-semibold text-foreground">{FLASH_DECK_UI.deckEmojiLabel}</Text>
-              <View className="flex-row flex-wrap gap-2">
-                {FLASH_DECK_EMOJI_OPTIONS.map((option) => (
-                  <Pressable
-                    key={option}
-                    onPress={() => setEmoji(option)}
-                    accessibilityRole="button"
-                    accessibilityLabel={`Emoji ${option}`}
-                    className={cn(
-                      'rounded-xl border px-3 py-2',
-                      emoji === option ? 'border-primary bg-primary/20' : 'border-border bg-surface',
-                    )}>
-                    <Text className="text-xl">{option}</Text>
-                  </Pressable>
-                ))}
-              </View>
-            </View>
-
-            <View>
-              <Text className="mb-2 text-sm font-semibold text-foreground">
-                {FLASH_DECK_UI.deckDescriptionLabel}
-              </Text>
-              <TextInput
-                value={description}
-                onChangeText={setDescription}
-                placeholder="Ex.: Palavras para entrevistas em inglês"
-                placeholderTextColor="#71717a"
-                multiline
-                className="min-h-[72px] rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
-              />
-            </View>
-
-            {error ? <Text className="text-sm text-danger">{error}</Text> : null}
-
-            <Button
-              label={FLASH_DECK_UI.saveDeck}
-              onPress={() => void save()}
-              loading={isPending}
-              loadingLabel="Salvando…"
-              disabled={!name.trim()}
-            />
-            <Button label="Cancelar" variant="ghost" onPress={onClose} />
+        <View>
+          <Text className="mb-2 text-sm font-semibold text-foreground">{FLASH_DECK_UI.deckEmojiLabel}</Text>
+          <View className="flex-row flex-wrap gap-2">
+            {FLASH_DECK_EMOJI_OPTIONS.map((option) => (
+              <Pressable
+                key={option}
+                onPress={() => setEmoji(option)}
+                accessibilityRole="button"
+                accessibilityLabel={`Emoji ${option}`}
+                className={cn(
+                  'rounded-xl border px-3 py-2',
+                  emoji === option ? 'border-primary bg-primary/20' : 'border-border bg-surface',
+                )}>
+                <Text className="text-xl">{option}</Text>
+              </Pressable>
+            ))}
           </View>
-        </Pressable>
-      </Pressable>
-    </Modal>
+        </View>
+
+        <View>
+          <Text className="mb-2 text-sm font-semibold text-foreground">
+            {FLASH_DECK_UI.deckDescriptionLabel}
+          </Text>
+          <TextInput
+            value={description}
+            onChangeText={setDescription}
+            placeholder="Ex.: Palavras para entrevistas em inglês"
+            placeholderTextColor="#71717a"
+            multiline
+            className="min-h-[72px] rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          />
+        </View>
+
+        {error ? <Text className="text-sm text-danger">{error}</Text> : null}
+      </View>
+    </FormSheetModal>
   );
 };

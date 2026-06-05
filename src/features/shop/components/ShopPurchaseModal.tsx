@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 
 import { Modal } from '@/components';
 
+import { SHOP_TEXT } from '../constants/shop-ui';
 import type { UseShopReturn } from '../hooks/use-shop';
 
 type ShopPurchaseModalProps = {
@@ -35,27 +36,25 @@ export const ShopPurchaseModal = ({ shop }: ShopPurchaseModalProps) => {
       <View className="gap-4 py-2">
         <View className="items-center gap-2">
           <Text className="text-4xl">{selectedProduct.icon}</Text>
-          <Text className="text-lg font-bold text-foreground">{selectedProduct.name}</Text>
-          <Text className="text-center text-sm text-foreground-secondary">
-            {selectedProduct.description}
-          </Text>
+          <Text className={SHOP_TEXT.heading}>{selectedProduct.name}</Text>
+          <Text className={`text-center ${SHOP_TEXT.body}`}>{selectedProduct.description}</Text>
         </View>
 
         <View className="rounded-xl border border-border bg-surface-elevated p-4">
           <View className="flex-row items-center justify-between">
-            <Text className="text-sm text-foreground-secondary">Preço</Text>
-            <Text className="text-base font-bold text-accent">
+            <Text className={SHOP_TEXT.label}>Preço</Text>
+            <Text className="text-base font-bold text-coin">
               {selectedProduct.price.toLocaleString('pt-BR')} 🪙
             </Text>
           </View>
           <View className="mt-2 flex-row items-center justify-between">
-            <Text className="text-sm text-foreground-secondary">Saldo atual</Text>
+            <Text className={SHOP_TEXT.label}>Saldo atual</Text>
             <Text className="text-base font-semibold text-foreground">
               {coins.toLocaleString('pt-BR')} 🪙
             </Text>
           </View>
           <View className="mt-2 flex-row items-center justify-between">
-            <Text className="text-sm text-foreground-secondary">Saldo após compra</Text>
+            <Text className={SHOP_TEXT.label}>Saldo após compra</Text>
             <Text
               className={`text-base font-semibold ${canAfford ? 'text-foreground' : 'text-danger'}`}>
               {canAfford ? remaining.toLocaleString('pt-BR') : '—'} 🪙
@@ -64,7 +63,7 @@ export const ShopPurchaseModal = ({ shop }: ShopPurchaseModalProps) => {
         </View>
 
         {!canAfford ? (
-          <Text className="text-center text-sm text-danger">Moedas insuficientes.</Text>
+          <Text className={`text-center ${SHOP_TEXT.warning}`}>Moedas insuficientes.</Text>
         ) : null}
       </View>
     </Modal>

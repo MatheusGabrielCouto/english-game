@@ -13,6 +13,7 @@ import { BREEDING_COOLDOWN_HOURS, BREEDING_COST_COINS } from '../catalogs/pet-fa
 import { getSpeciesDefinition } from '../catalogs/pet-species-resolver';
 import { parseStatsJson } from '../catalogs/pet-stat-rules';
 import { inheritStatsFromParents } from '../utils/pet-stat-inheritance';
+import { PetIncubatorNotificationService } from './pet-incubator-notification-service';
 import { PetRosterService } from './pet-roster-service';
 import { PetStatsService } from './pet-stats-service';
 
@@ -108,13 +109,19 @@ export const PetBreedingService = {
     const hatchMs = childSpecies.hatchHours * 60 * 60 * 1000;
     const hatchAt = new Date(Date.now() + hatchMs).toISOString();
 
-    await PetFarmRepository.addIncubator({
+    const eggId = await PetFarmRepository.addIncubator({
       speciesKey,
       source: 'breeding',
       hatchAt,
       parentMotherId: mother.id,
       parentFatherId: father.id,
       predictedStats: childStats,
+    });
+
+    await PetIncubatorNotificationService.scheduleHatch({
+      id: eggId,
+      speciesKey,
+      hatchAt,
     });
 
     const cooldownUntil = new Date(
@@ -166,6 +173,7 @@ export const PetBreedingService = {
         parentFatherId: egg.parentFatherId,
       });
       await PetCollectionService.ensureSpeciesDiscovered(egg.speciesKey);
+      await PetIncubatorNotificationService.cancelHatch(egg.id);
       await PetFarmRepository.removeIncubator(egg.id);
       messages.push(`${species.name} nasceu na fazenda!`);
     }

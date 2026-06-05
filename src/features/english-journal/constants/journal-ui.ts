@@ -21,7 +21,7 @@ export const JOURNAL_UI = {
   archive: 'Arquivar',
   delete: 'Excluir',
   deleteNoteTitle: 'Excluir nota',
-  deleteNoteConfirm: 'Esta nota será apagada permanentemente, incluindo o áudio gravado.',
+  deleteNoteConfirm: 'Esta nota será apagada permanentemente, incluindo áudio e imagens anexadas.',
   deleteNoteAction: 'Excluir',
   optionalAudioLabel: 'Áudio opcional',
   optionalAudioHint: 'Grave uma explicação em inglês — útil mesmo em notas de texto',
@@ -104,6 +104,25 @@ export const JOURNAL_UI = {
   reviewBanner: (count: number) =>
     count === 1 ? '1 nota pronta para revisão' : `${count} notas prontas para revisão`,
   micPermissionDenied: 'Permissão de microfone negada. Ative nas configurações do aparelho.',
+  imagesLabel: 'Fotos e imagens',
+  imagesHint: (max: number) =>
+    `Até ${max} por nota — tire fotos ou escolha da galeria. Pode combinar com áudio.`,
+  takePhoto: 'Tirar foto',
+  pickImage: 'Escolher da galeria',
+  removeImage: 'Remover imagem',
+  removeImageShort: 'Remover',
+  imagesValidateHint: 'Confira as miniaturas abaixo — toque para ampliar ou remova se não for a foto certa.',
+  imagesAttachedCount: (count: number, max: number) => `${count} de ${max} anexadas`,
+  imageCardLabel: (n: number) => `Foto ${n}`,
+  imageTapToPreview: 'Toque para ampliar',
+  imagesLimitReached: (max: number) => `Limite de ${max} imagens atingido.`,
+  imagesPermissionDenied:
+    'Permissão de câmera ou galeria negada. Ative nas configurações do aparelho.',
+  imagePreviewLabel: (n: number) => `Imagem ${n}`,
+  imagePreviewTitle: (n: number) => `Foto ${n}`,
+  imagePreviewTitleGeneric: 'Visualização da foto',
+  imagePreviewSubtitle: 'Toque em Fechar ou no × para voltar',
+  closeImagePreview: 'Fechar',
 } as const;
 
 export const JOURNAL_ENTRY_TYPE_LABELS: Record<JournalEntryTypeValue, string> = {

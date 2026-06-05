@@ -204,6 +204,7 @@ export const PetAcademyService = {
       speciesKey: instance.speciesKey,
     });
 
+    await PetAcademyNotificationService.cancelComplete(sessionId);
     await PetAcademyRepository.remove(sessionId);
 
     const statLabel = PET_STAT_LABELS[track.statKey];

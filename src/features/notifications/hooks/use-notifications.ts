@@ -23,6 +23,14 @@ export const useNotifications = () => {
     await NotificationService.updateSettings(partial);
   }, []);
 
+  const sendTestNotification = useCallback(async () => {
+    return NotificationService.sendTestNotification();
+  }, []);
+
+  const sendPetFarmTestNotification = useCallback(async () => {
+    return NotificationService.sendPetFarmTestNotification();
+  }, []);
+
   useEffect(() => {
     if (!settings) {
       void NotificationService.initialize();
@@ -37,5 +45,7 @@ export const useNotifications = () => {
     setEnabled,
     requestPermissions,
     updateSettings,
+    sendTestNotification,
+    sendPetFarmTestNotification,
   };
 };

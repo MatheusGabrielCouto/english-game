@@ -9,7 +9,7 @@ import type {
     JournalStatsRecord,
 } from '@/types/journal';
 
-import { mapJournalRow, serializeTags } from '@/features/english-journal/utils/journal-mappers';
+import { mapJournalRow, serializeImages, serializeTags } from '@/features/english-journal/utils/journal-mappers';
 import { isReviewDue } from '@/features/english-journal/utils/journal-review';
 import { VaultRepository } from '@/storage/repositories/vault-repository';
 import { getDb } from '../database/client';
@@ -69,6 +69,7 @@ export type CreateJournalEntryRow = {
   tags: string[];
   audioUri: string | null;
   audioDurationMs: number | null;
+  images: string[];
   spaceKey: string;
   folderId: string | null;
   nextReviewAt: string | null;
@@ -187,6 +188,7 @@ export const JournalRepository = {
       tagsJson: serializeTags(entry.tags),
       audioUri: entry.audioUri,
       audioDurationMs: entry.audioDurationMs,
+      imagesJson: serializeImages(entry.images),
       isFavorite: false,
       isPinned: false,
       isArchived: false,
@@ -212,6 +214,7 @@ export const JournalRepository = {
       tags: string[];
       audioUri: string | null;
       audioDurationMs: number | null;
+      images: string[];
       isFavorite: boolean;
       isPinned: boolean;
       isArchived: boolean;
@@ -225,12 +228,13 @@ export const JournalRepository = {
     }>,
   ): Promise<void> {
     const db = getDb();
-    const { tags, ...rest } = patch;
+    const { tags, images, ...rest } = patch;
     await db
       .update(journalEntries)
       .set({
         ...rest,
         ...(tags != null ? { tagsJson: serializeTags(tags) } : {}),
+        ...(images != null ? { imagesJson: serializeImages(images) } : {}),
       })
       .where(eq(journalEntries.id, id));
   },

@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import type { ShopProduct } from '@/types/shop';
 
 import type { ShopCatalogSection } from '../constants/shop-products';
+import { SHOP_TEXT } from '../constants/shop-ui';
 import { ShopProductCard } from './ShopProductCard';
 
 type ShopCategorySectionProps = {
@@ -21,12 +22,12 @@ export const ShopCategorySection = ({
       <View className="flex-1">
         <View className="flex-row items-center gap-2">
           <Text className="text-lg">{section.emoji}</Text>
-          <Text className="text-lg font-black text-foreground">{section.title}</Text>
+          <Text className={SHOP_TEXT.heading}>{section.title}</Text>
         </View>
-        <Text className="mt-0.5 text-sm text-foreground-secondary">{section.subtitle}</Text>
+        <Text className={`mt-0.5 ${SHOP_TEXT.body}`}>{section.subtitle}</Text>
       </View>
-      <View className="rounded-full border border-border bg-surface px-3 py-1">
-        <Text className="text-xs font-bold text-muted">{section.products.length} itens</Text>
+      <View className="rounded-full border border-border bg-surface-elevated px-3 py-1">
+        <Text className={SHOP_TEXT.countPill}>{section.products.length} itens</Text>
       </View>
     </View>
 

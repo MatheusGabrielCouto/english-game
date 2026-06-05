@@ -190,7 +190,7 @@ export const VAULT_UI = {
   openNote: 'Abrir nota',
   editNote: 'Editar',
   deleteNote: 'Excluir nota',
-  deleteNoteConfirm: 'Esta nota será apagada permanentemente, incluindo o áudio gravado.',
+  deleteNoteConfirm: 'Esta nota será apagada permanentemente, incluindo áudio e imagens anexadas.',
   deleteNoteAction: 'Excluir',
   listenAgain: 'Ouvir',
   listenStop: 'Parar',

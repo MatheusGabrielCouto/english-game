@@ -55,8 +55,7 @@ export const OnboardingWizardModal = () => {
       confirmLabel="Começar jornada"
       cancelLabel="Usar padrão"
       onConfirm={handleContinue}
-      onCancel={handleContinue}
-      scrollable={false}>
+      onCancel={handleContinue}>
       <View className="gap-5">
         <View>
           <Text className="mb-2 text-sm font-semibold text-foreground">Como você quer ser chamado?</Text>

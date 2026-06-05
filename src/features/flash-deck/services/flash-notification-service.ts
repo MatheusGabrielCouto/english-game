@@ -1,36 +1,39 @@
-import { Platform } from 'react-native';
-
-import { getNotificationSettings } from '@/storage/repositories/notification-settings-repository';
+import { NOTIFICATION_IDENTIFIER_PREFIX } from '@/features/notifications/constants/categories';
+import {
+    cancelNotificationsByPrefix,
+    scheduleLocalNotification,
+} from '@/features/notifications/services/notification-scheduler';
+import { canScheduleFeatureNotifications } from '@/features/notifications/utils/notification-gates';
+import { getTodayKey } from '@/features/quests/utils/date';
 import { FlashDeckRepository } from '@/storage/repositories/flash-deck-repository';
-
-import { scheduleLocalNotification } from '@/features/notifications/services/notification-scheduler';
-import { getPermissionStatus } from '@/features/notifications/services/notification-permissions';
+import { getNotificationSettings } from '@/storage/repositories/notification-settings-repository';
 import { NotificationCategory } from '@/types/notification';
 
-const FLASH_DUE_IDENTIFIER = 'eq-flash-due-reminder';
+const FLASH_PREFIX = `${NOTIFICATION_IDENTIFIER_PREFIX}-flash-`;
+
+const flashDueId = (dateKey: string) => `${FLASH_PREFIX}due-${dateKey}`;
 
 export const FlashNotificationService = {
   async rescheduleDueReminder(): Promise<void> {
-    if (Platform.OS === 'web') return;
+    if (!(await canScheduleFeatureNotifications())) return;
 
-    const [settings, permission, dueCount] = await Promise.all([
-      getNotificationSettings(),
-      getPermissionStatus(),
-      FlashDeckRepository.countDue(),
-    ]);
+    const settings = await getNotificationSettings();
+    if (!settings.flashDue) return;
 
-    if (!settings.enabled || permission !== 'granted' || dueCount === 0) {
-      return;
-    }
+    const todayKey = getTodayKey();
+    await cancelNotificationsByPrefix(FLASH_PREFIX);
+
+    const dueCount = await FlashDeckRepository.countDue();
+    if (dueCount === 0) return;
 
     const trigger = new Date();
-    trigger.setDate(trigger.getDate() + 1);
     trigger.setHours(settings.preferredHour, settings.preferredMinute, 0, 0);
-
-    if (trigger.getTime() <= Date.now()) return;
+    if (trigger.getTime() <= Date.now()) {
+      trigger.setMinutes(trigger.getMinutes() + 2);
+    }
 
     await scheduleLocalNotification({
-      identifier: FLASH_DUE_IDENTIFIER,
+      identifier: flashDueId(todayKey),
       triggerDate: trigger,
       candidate: {
         category: NotificationCategory.FLASH_DUE,

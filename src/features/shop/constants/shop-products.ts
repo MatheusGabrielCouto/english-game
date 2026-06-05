@@ -39,12 +39,18 @@ export const SHOP_CATEGORY_META: Partial<
   [ShopCategory.LOOT_BOXES]: {
     emoji: '📦',
     title: 'Loot Boxes',
-    subtitle: '7 raridades — 3 compráveis com moedas, demais via progressão',
+    subtitle: '4 raridades compráveis com moedas — demais via progressão',
+  },
+  [ShopCategory.SPECIAL]: {
+    emoji: '✨',
+    title: 'Itens Especiais',
+    subtitle: 'Tickets, boosters e consumíveis úteis no dia a dia',
   },
 };
 
 const LOOT_BOX_COIN_PRICES: Partial<Record<LootBoxRarityValue, number>> = {
   [LootBoxRarity.COMMON]: 150,
+  [LootBoxRarity.UNCOMMON]: 280,
   [LootBoxRarity.RARE]: 500,
   [LootBoxRarity.EPIC]: 1500,
 };
@@ -72,6 +78,7 @@ const buildLootBoxProducts = (): ShopProduct[] =>
 export const SHOP_CATEGORY_ORDER: ShopCategoryValue[] = [
   ShopCategory.SHIELDS,
   ShopCategory.LOOT_BOXES,
+  ShopCategory.SPECIAL,
 ];
 
 export const SHOP_PRODUCTS: ShopProduct[] = [
@@ -95,7 +102,87 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
     reward: { type: ShopProductRewardType.SHIELD, quantity: 3 },
     available: true,
   },
+  {
+    key: 'shield_duo',
+    name: 'Duo de Escudos',
+    description: 'Par de escudos com leve desconto em relação ao preço avulso.',
+    category: ShopCategory.SHIELDS,
+    price: 180,
+    icon: '🛡️',
+    reward: { type: ShopProductRewardType.SHIELD, quantity: 2 },
+    available: true,
+  },
+  {
+    key: 'shield_mega_pack',
+    name: 'Mega Pack de Escudos',
+    description: '5 escudos para quem quer segurança de sobra na streak.',
+    category: ShopCategory.SHIELDS,
+    price: 400,
+    icon: '🛡️',
+    reward: { type: ShopProductRewardType.SHIELD, quantity: 5 },
+    available: true,
+  },
   ...buildLootBoxProducts(),
+  {
+    key: 'golden_ticket_coin',
+    name: 'Ticket Dourado',
+    description: 'Abre uma loot box Comum grátis quando quiser.',
+    category: ShopCategory.SPECIAL,
+    price: 420,
+    icon: '🎫',
+    reward: { type: ShopProductRewardType.SPECIAL_ITEM, itemKey: 'golden_ticket', quantity: 1 },
+    available: true,
+  },
+  {
+    key: 'free_loot_ticket_coin',
+    name: 'Ticket de Loot',
+    description: 'Bilhete para abrir uma loot box Comum sem gastar moedas.',
+    category: ShopCategory.SPECIAL,
+    price: 300,
+    icon: '🎁',
+    reward: { type: ShopProductRewardType.SPECIAL_ITEM, itemKey: 'free_loot_ticket', quantity: 1 },
+    available: true,
+  },
+  {
+    key: 'booster_study_coin',
+    name: 'Booster de Estudo',
+    description: '+25% de XP por 30 minutos.',
+    category: ShopCategory.SPECIAL,
+    price: 320,
+    icon: '⚡',
+    reward: { type: ShopProductRewardType.SPECIAL_ITEM, itemKey: 'booster_study', quantity: 1 },
+    available: true,
+  },
+  {
+    key: 'xp_potion_coin',
+    name: 'Soro de XP',
+    description: 'Ganhe +40 XP instantâneo.',
+    category: ShopCategory.SPECIAL,
+    price: 120,
+    icon: '🧪',
+    reward: { type: ShopProductRewardType.SPECIAL_ITEM, itemKey: 'xp_potion_small', quantity: 1 },
+    available: true,
+  },
+  {
+    key: 'cafe_expresso_coin',
+    name: 'Café Expresso',
+    description: 'Um gole e +20 XP na hora.',
+    category: ShopCategory.SPECIAL,
+    price: 80,
+    icon: '☕',
+    reward: { type: ShopProductRewardType.SPECIAL_ITEM, itemKey: 'cafe_expresso', quantity: 1 },
+    available: true,
+  },
+  {
+    key: 'kit_escudo_coin',
+    name: 'Kit de Escudo',
+    description: 'Consumível que restaura 1 escudo de streak.',
+    category: ShopCategory.SPECIAL,
+    price: 110,
+    icon: '🧰',
+    reward: { type: ShopProductRewardType.SPECIAL_ITEM, itemKey: 'kit_escudo', quantity: 1 },
+    available: true,
+  },
 ];
 
 export const SHOP_PRODUCTS_BY_KEY = Object.fromEntries(

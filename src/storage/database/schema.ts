@@ -221,6 +221,7 @@ export const journalEntries = sqliteTable('journal_entries', {
   tagsJson: text('tags_json').notNull().default('[]'),
   audioUri: text('audio_uri'),
   audioDurationMs: integer('audio_duration_ms'),
+  imagesJson: text('images_json').notNull().default('[]'),
   isFavorite: integer('is_favorite', { mode: 'boolean' }).notNull().default(false),
   isPinned: integer('is_pinned', { mode: 'boolean' }).notNull().default(false),
   isArchived: integer('is_archived', { mode: 'boolean' }).notNull().default(false),
@@ -348,6 +349,30 @@ export const shopProductStats = sqliteTable('shop_product_stats', {
   category: text('category').notNull(),
   purchaseCount: integer('purchase_count').notNull().default(0),
   coinsSpent: integer('coins_spent').notNull().default(0),
+});
+
+export const shopDailyOffers = sqliteTable('shop_daily_offers', {
+  dateKey: text('date_key').primaryKey(),
+  hasOffer: integer('has_offer', { mode: 'boolean' }).notNull().default(false),
+  catalogOfferId: text('catalog_offer_id'),
+  productKey: text('product_key'),
+  discountPercent: integer('discount_percent'),
+  offerPrice: integer('offer_price'),
+  originalPrice: integer('original_price'),
+  purchased: integer('purchased', { mode: 'boolean' }).notNull().default(false),
+  createdAt: text('created_at').notNull(),
+});
+
+export const shopStockSlots = sqliteTable('shop_stock_slots', {
+  storageKey: text('storage_key').primaryKey(),
+  periodType: text('period_type').notNull(),
+  periodKey: text('period_key').notNull(),
+  shopKind: text('shop_kind').notNull(),
+  catalogStockId: text('catalog_stock_id').notNull(),
+  productKey: text('product_key').notNull(),
+  maxStock: integer('max_stock').notNull(),
+  stockRemaining: integer('stock_remaining').notNull(),
+  createdAt: text('created_at').notNull(),
 });
 
 export const titleUnlocks = sqliteTable('title_unlocks', {
@@ -606,6 +631,16 @@ export const notificationSettings = sqliteTable('notification_settings', {
   contractReminder: integer('contract_reminder', { mode: 'boolean' }).notNull().default(true),
   achievementProgress: integer('achievement_progress', { mode: 'boolean' }).notNull().default(true),
   cityProgress: integer('city_progress', { mode: 'boolean' }).notNull().default(true),
+  routineReminder: integer('routine_reminder', { mode: 'boolean' }).notNull().default(true),
+  journalReview: integer('journal_review', { mode: 'boolean' }).notNull().default(true),
+  flashDue: integer('flash_due', { mode: 'boolean' }).notNull().default(true),
+  weeklyMission: integer('weekly_mission', { mode: 'boolean' }).notNull().default(true),
+  lootReminder: integer('loot_reminder', { mode: 'boolean' }).notNull().default(true),
+  duelReminder: integer('duel_reminder', { mode: 'boolean' }).notNull().default(true),
+  lexiconReminder: integer('lexicon_reminder', { mode: 'boolean' }).notNull().default(true),
+  seasonReminder: integer('season_reminder', { mode: 'boolean' }).notNull().default(true),
+  prestigeReminder: integer('prestige_reminder', { mode: 'boolean' }).notNull().default(true),
+  shopOfferReminder: integer('shop_offer_reminder', { mode: 'boolean' }).notNull().default(true),
   updatedAt: text('updated_at').notNull(),
 });
 

@@ -1,31 +1,21 @@
 import { useEffect, useMemo, useState } from 'react'
-import {
-  Dimensions,
-  KeyboardAvoidingView,
-  Modal,
-  Platform,
-  Pressable,
-  ScrollView,
-  Text,
-  TextInput,
-  View,
-} from 'react-native'
+import { Pressable, Text, TextInput, View } from 'react-native'
 
-import { Button } from '@/components'
+import { Button, FormSheetModal } from '@/components'
 import { theme } from '@/constants'
 import type { VaultCollectionRecord } from '@/types/knowledge-vault'
 import { cn } from '@/utils'
 
 import {
-  COLLECTION_EMOJI_PRESETS,
-  COLLECTION_FORM_LIMITS,
+    COLLECTION_EMOJI_PRESETS,
+    COLLECTION_FORM_LIMITS,
 } from '../../constants/collection-form-limits'
 import { VAULT_UI } from '../../constants/vault-ui'
 import { KnowledgeVaultService } from '../../services/knowledge-vault-service'
 import {
-  validateCollectionDescription,
-  validateCollectionForm,
-  validateCollectionName,
+    validateCollectionDescription,
+    validateCollectionForm,
+    validateCollectionName,
 } from '../../utils/collection-form-input'
 import { VaultField } from './VaultField'
 
@@ -36,8 +26,6 @@ type VaultCollectionFormModalProps = {
   onClose: () => void
   onSaved: () => void
 }
-
-const SHEET_HEIGHT = Math.round(Dimensions.get('window').height * 0.82)
 
 export const VaultCollectionFormModal = ({
   visible,
@@ -118,22 +106,36 @@ export const VaultCollectionFormModal = ({
   const title = editing ? VAULT_UI.editCollection : VAULT_UI.newCollection
 
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <Pressable className="flex-1 justify-end bg-black/50" onPress={onClose}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          className="w-full"
-        >
-          <Pressable
-            onPress={(e) => e.stopPropagation()}
-            className="rounded-t-3xl border-t border-border bg-background px-4 pb-8 pt-4"
-            style={{ maxHeight: SHEET_HEIGHT }}
-          >
-            <View className="mb-4 h-1 w-10 self-center rounded-full bg-border" />
-            <Text className="text-lg font-black text-foreground">{title}</Text>
-
-            <ScrollView className="mt-4 max-h-[520px]" keyboardShouldPersistTaps="handled">
-              <View className="gap-4">
+    <FormSheetModal
+      visible={visible}
+      onClose={onClose}
+      sheetHeightRatio={0.82}
+      backdropClassName="bg-black/50"
+      header={
+        <View className="px-4 pb-2 pt-4">
+          <View className="mb-4 h-1 w-10 self-center rounded-full bg-border" />
+          <Text className="text-lg font-black text-foreground">{title}</Text>
+        </View>
+      }
+      footer={
+        <View className="flex-row gap-2 px-4 pb-8 pt-2">
+          <Button
+            label={VAULT_UI.cancel}
+            variant="secondary"
+            className="flex-1"
+            onPress={onClose}
+            disabled={saving}
+          />
+          <Button
+            label={VAULT_UI.saveCollection}
+            className="flex-1"
+            onPress={() => void handleSave()}
+            loading={saving}
+            disabled={saving}
+          />
+        </View>
+      }>
+      <View className="gap-4 px-4 pb-4">
                 <VaultField label={VAULT_UI.collectionEmojiLabel}>
                   <View className="flex-row flex-wrap gap-2">
                     {COLLECTION_EMOJI_PRESETS.map((preset) => (
@@ -199,31 +201,8 @@ export const VaultCollectionFormModal = ({
                   ) : null}
                 </VaultField>
 
-                {formError ? (
-                  <Text className="text-sm text-danger">{formError}</Text>
-                ) : null}
-              </View>
-            </ScrollView>
-
-            <View className="mt-4 flex-row gap-2">
-              <Button
-                label={VAULT_UI.cancel}
-                variant="secondary"
-                className="flex-1"
-                onPress={onClose}
-                disabled={saving}
-              />
-              <Button
-                label={VAULT_UI.saveCollection}
-                className="flex-1"
-                onPress={() => void handleSave()}
-                loading={saving}
-                disabled={saving}
-              />
-            </View>
-          </Pressable>
-        </KeyboardAvoidingView>
-      </Pressable>
-    </Modal>
+        {formError ? <Text className="text-sm text-danger">{formError}</Text> : null}
+      </View>
+    </FormSheetModal>
   )
 }

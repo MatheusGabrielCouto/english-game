@@ -7,6 +7,7 @@ import type { LootBoxRarityValue } from '@/types/inventory'
 import { cn } from '@/utils'
 
 import { getRarityAccentBarColor, LOOT_BOX_RARITY_STYLES } from '../constants/loot-box-rarity-styles'
+import { SHOP_TEXT } from '../constants/shop-ui'
 
 export type LootBoxUpgradeStepDisplay = {
   from: LootBoxRarityValue
@@ -49,38 +50,36 @@ export const ShopLootBoxUpgradeCard = ({
           <Text className="text-sm font-black text-foreground">
             {fromConfig.emoji} {fromStyle.label}
           </Text>
-          <Text className="text-sm font-bold text-muted">→</Text>
+          <Text className="text-sm font-bold text-foreground-secondary">→</Text>
           <Text className="text-sm font-black" style={{ color: toStyle.badge.color }}>
             {toConfig.emoji} {toStyle.label}
           </Text>
           <View className="rounded-full border border-border bg-surface px-2.5 py-1">
-            <Text className="text-[10px] font-bold text-foreground-secondary">
+            <Text className={SHOP_TEXT.badge}>
               {hasBox ? `×${step.ownedCount} no inventário` : '×0'}
             </Text>
           </View>
         </View>
 
-        <Text className="text-xs leading-relaxed text-foreground-secondary">
+        <Text className={SHOP_TEXT.bodySmall}>
           Consome 1 caixa {fromStyle.label.toLowerCase()} fechada e adiciona 1 caixa{' '}
           {toStyle.label.toLowerCase()}.
         </Text>
 
         <View className="flex-row items-end justify-between gap-3 border-t border-border/60 pt-3">
           <View className="flex-1">
-            <Text className="text-xs text-foreground-secondary">Custo</Text>
-            <Text className={cn('text-lg font-black', hasSp ? 'text-accent' : 'text-foreground-secondary')}>
+            <Text className={SHOP_TEXT.caption}>Custo</Text>
+            <Text className={cn('text-lg font-black', hasSp ? 'text-accent' : 'text-foreground')}>
               {step.costStudyPoints.toLocaleString('pt-BR')} SP
             </Text>
           </View>
 
           {!hasBox ? (
-            <Text className="max-w-[42%] text-right text-xs font-medium text-foreground-secondary">
+            <Text className={`max-w-[42%] text-right ${SHOP_TEXT.warning}`}>
               Sem caixa fechada dessa raridade
             </Text>
           ) : !hasSp ? (
-            <Text className="max-w-[42%] text-right text-xs font-medium text-foreground-secondary">
-              SP insuficientes
-            </Text>
+            <Text className={`max-w-[42%] text-right ${SHOP_TEXT.warning}`}>SP insuficientes</Text>
           ) : (
             <View className="min-w-[108px]">
               {isBusy ? (

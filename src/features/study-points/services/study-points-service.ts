@@ -1,15 +1,20 @@
 import { LOOT_BOX_UPGRADE_CHAIN, STUDY_POINTS_SHOP } from '@/features/game-design/catalogs/loot-economy';
-import { grantLootBoxReward } from '@/features/loot-boxes/services/loot-box-grant';
 import { InventoryService } from '@/features/inventory/services/inventory-service';
+import { grantLootBoxReward } from '@/features/loot-boxes/services/loot-box-grant';
+import { getTodayOfferStorageKey } from '@/features/shop/utils/shop-offer-keys';
+import { getStockPeriodKey } from '@/features/shop/utils/shop-stock-keys';
 import { GameEvents } from '@/services/game-events';
 import { InventoryLootBoxRepository } from '@/storage/repositories/inventory-loot-box-repository';
+import { ShopOfferRepository } from '@/storage/repositories/shop-offer-repository';
+import { ShopStockRepository } from '@/storage/repositories/shop-stock-repository';
 import {
-  getOrCreateStudyPointsBalance,
-  getRecentStudyPointsHistory,
-  recordStudyPointsTransaction,
-  saveStudyPointsBalance,
+    getOrCreateStudyPointsBalance,
+    getRecentStudyPointsHistory,
+    recordStudyPointsTransaction,
+    saveStudyPointsBalance,
 } from '@/storage/repositories/study-points-repository';
 import type { LootBoxRarityValue } from '@/types/inventory';
+import { ShopOfferKind } from '@/types/shop-offer';
 
 import { useStudyPointsStore } from '../store/study-points-store';
 
@@ -63,11 +68,54 @@ export const StudyPointsService = {
     return true;
   },
 
-  async purchaseShopItem(shopKey: string): Promise<boolean> {
+  async purchaseShopItem(
+    shopKey: string,
+    options?: { priceOverride?: number; offerStorageKey?: string; stockStorageKey?: string },
+  ): Promise<boolean> {
     const product = STUDY_POINTS_SHOP.find((entry) => entry.key === shopKey);
     if (!product) return false;
 
-    const spent = await StudyPointsService.spend(product.cost, product.label, 'shop');
+    let cost: number = product.cost;
+
+    if (options?.stockStorageKey) {
+      const stockRecord = await ShopStockRepository.findByStorageKey(options.stockStorageKey);
+      const currentPeriodKey = stockRecord
+        ? getStockPeriodKey(stockRecord.periodType as import('@/types/shop-stock').ShopStockPeriodValue)
+        : null;
+
+      if (
+        !stockRecord ||
+        stockRecord.productKey !== shopKey ||
+        stockRecord.shopKind !== ShopOfferKind.STUDY_POINTS ||
+        stockRecord.stockRemaining <= 0 ||
+        stockRecord.periodKey !== currentPeriodKey
+      ) {
+        return false;
+      }
+    } else if (options?.priceOverride != null || options?.offerStorageKey != null) {
+      const expectedStorageKey = getTodayOfferStorageKey(ShopOfferKind.STUDY_POINTS);
+      const offerStorageKey = options.offerStorageKey ?? expectedStorageKey;
+
+      if (offerStorageKey !== expectedStorageKey) return false;
+
+      const offerRecord = await ShopOfferRepository.findByDateKey(offerStorageKey);
+      if (
+        !offerRecord?.hasOffer ||
+        offerRecord.purchased ||
+        offerRecord.productKey !== shopKey ||
+        offerRecord.offerPrice == null
+      ) {
+        return false;
+      }
+
+      if (options.priceOverride != null && options.priceOverride !== offerRecord.offerPrice) {
+        return false;
+      }
+
+      cost = offerRecord.offerPrice;
+    }
+
+    const spent = await StudyPointsService.spend(cost, product.label, 'shop');
     if (!spent) return false;
 
     if ('lootRarity' in product && product.lootRarity) {

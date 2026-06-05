@@ -1,55 +1,47 @@
 import { Text, View } from 'react-native';
 
-import { Card, EmptyState } from '@/components';
+import { Card } from '@/components';
 import type { ShopPurchaseHistoryRecord } from '@/types/shop';
+
+import { SHOP_TEXT } from '../constants/shop-ui';
 
 type ShopHistoryListProps = {
   history: ShopPurchaseHistoryRecord[];
 };
 
-const formatDate = (isoDate: string): string =>
-  new Date(isoDate).toLocaleDateString('pt-BR', {
+const formatDate = (iso: string): string => {
+  const date = new Date(iso);
+  return date.toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: 'short',
     hour: '2-digit',
     minute: '2-digit',
   });
-
-export const ShopHistoryList = ({ history }: ShopHistoryListProps) => {
-  if (history.length === 0) {
-    return (
-      <EmptyState
-        icon="cart-outline"
-        title="Nenhuma compra ainda"
-        description="Suas compras na loja aparecerão aqui."
-      />
-    );
-  }
-
-  return (
-    <View className="gap-3">
-      <View className="px-0.5">
-        <Text className="text-lg font-black text-foreground">📜 Histórico</Text>
-        <Text className="mt-0.5 text-sm text-foreground-secondary">Suas últimas compras</Text>
-      </View>
-
-      <View className="gap-2">
-        {history.slice(0, 8).map((entry) => (
-          <Card key={entry.id} elevated className="py-3">
-            <View className="flex-row items-start justify-between gap-3">
-              <View className="flex-1">
-                <Text className="text-sm font-semibold text-foreground">{entry.productName}</Text>
-                <Text className="mt-1 text-xs text-foreground-secondary">
-                  {entry.quantity}x · {formatDate(entry.purchasedAt)}
-                </Text>
-              </View>
-              <Text className="text-sm font-bold text-coin">
-                -{entry.pricePaid.toLocaleString('pt-BR')} 🪙
-              </Text>
-            </View>
-          </Card>
-        ))}
-      </View>
-    </View>
-  );
 };
+
+export const ShopHistoryList = ({ history }: ShopHistoryListProps) => (
+  <View className="gap-3">
+    <View className="px-0.5">
+      <Text className={SHOP_TEXT.heading}>📜 Histórico</Text>
+      <Text className={`mt-0.5 ${SHOP_TEXT.body}`}>Suas últimas compras</Text>
+    </View>
+
+    <Card elevated className="gap-0 p-0">
+      {history.map((entry, index) => (
+        <View
+          key={entry.id}
+          className={`flex-row items-center justify-between px-4 py-3 ${
+            index < history.length - 1 ? 'border-b border-border/60' : ''
+          }`}>
+          <View className="flex-1 pr-3">
+            <Text className="text-sm font-semibold text-foreground">{entry.productName}</Text>
+            <Text className={`mt-1 ${SHOP_TEXT.bodySmall}`}>{formatDate(entry.purchasedAt)}</Text>
+          </View>
+          <Text className="text-sm font-bold text-coin">
+            −{entry.pricePaid.toLocaleString('pt-BR')} 🪙
+          </Text>
+        </View>
+      ))}
+    </Card>
+  </View>
+);

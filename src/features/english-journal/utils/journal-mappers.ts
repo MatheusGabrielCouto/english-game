@@ -14,6 +14,19 @@ export const parseTagsJson = (raw: string): string[] => {
 
 export const serializeTags = (tags: string[]): string => JSON.stringify(tags);
 
+export const parseImagesJson = (raw: string | null | undefined): string[] => {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((uri): uri is string => typeof uri === 'string' && uri.length > 0);
+  } catch {
+    return [];
+  }
+};
+
+export const serializeImages = (images: string[]): string => JSON.stringify(images);
+
 export const normalizeTag = (tag: string): string =>
   tag.trim().toLowerCase().replace(/^#/, '').replace(/\s+/g, '-');
 
@@ -27,6 +40,7 @@ export const mapJournalRow = (row: typeof journalEntries.$inferSelect): JournalE
   tags: parseTagsJson(row.tagsJson),
   audioUri: row.audioUri,
   audioDurationMs: row.audioDurationMs,
+  images: parseImagesJson(row.imagesJson),
   isFavorite: row.isFavorite,
   isPinned: row.isPinned ?? false,
   isArchived: row.isArchived,

@@ -4,7 +4,10 @@ import {
     NOTIFICATION_IDENTIFIER_PREFIX,
     NOTIFICATION_PRIORITY,
 } from '@/features/notifications/constants/categories';
-import { scheduleLocalNotification } from '@/features/notifications/services/notification-scheduler';
+import {
+    cancelScheduledNotification,
+    scheduleLocalNotification,
+} from '@/features/notifications/services/notification-scheduler';
 import { PetInstanceRepository } from '@/storage/repositories/pet-instance-repository';
 import { NotificationCategory } from '@/types/notification';
 import type { PetAcademyEntry } from '@/types/pet-academy';
@@ -17,6 +20,10 @@ const academyNotificationId = (sessionId: number) =>
 
 export const PetAcademyNotificationService = {
   academyNotificationId,
+
+  async cancelComplete(sessionId: number): Promise<void> {
+    await cancelScheduledNotification(academyNotificationId(sessionId));
+  },
 
   async scheduleComplete(session: PetAcademyEntry): Promise<void> {
     if (Platform.OS === 'web') return;

@@ -1,17 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-    Dimensions,
-    KeyboardAvoidingView,
-    Modal,
-    Platform,
-    Pressable,
-    ScrollView,
-    Text,
-    TextInput,
-    View,
-} from 'react-native';
+import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 
-import { Button } from '@/components';
+import { Button, FormSheetModal } from '@/components';
 import {
     JournalCategory,
     JournalEntryType,
@@ -37,6 +27,7 @@ import { KnowledgeVaultService } from '../services/knowledge-vault-service';
 import { useEnglishJournalStore } from '../store/english-journal-store';
 import { entryTypeRequiresAudio, resolveAudioUpdatePayload } from '../utils/journal-form';
 import { resolveVaultOrganizeContext } from '../utils/vault-organize-context';
+import { JournalEntryImageAttachments } from './JournalEntryImageAttachments';
 import { JournalEntryOptionalAudio } from './JournalEntryOptionalAudio';
 import { JournalVoiceRecorder } from './JournalVoiceRecorder';
 import { VaultChoiceChip } from './vault/VaultChoiceChip';
@@ -45,8 +36,6 @@ import { VaultFormSection } from './vault/VaultFormSection';
 import { VaultImportancePicker } from './vault/VaultImportancePicker';
 import { VaultOrganizeContextCard } from './vault/VaultOrganizeContextCard';
 import { VaultRelatedNotesPicker } from './vault/VaultRelatedNotesPicker';
-
-const SHEET_HEIGHT = Math.round(Dimensions.get('window').height * 0.9);
 
 const PRIMARY_ENTRY_TYPES: JournalEntryTypeValue[] = [
   JournalEntryType.TEXT_NOTE,
@@ -105,6 +94,7 @@ export const JournalEntryFormModal = ({
   const [audioUri, setAudioUri] = useState<string | null>(null);
   const [audioDurationMs, setAudioDurationMs] = useState(0);
   const [persistedAudioUri, setPersistedAudioUri] = useState<string | null>(null);
+  const [images, setImages] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const bodyRef = useRef(body);
@@ -138,6 +128,7 @@ export const JournalEntryFormModal = ({
       setAudioUri(editing.audioUri);
       setAudioDurationMs(editing.audioDurationMs ?? 0);
       setPersistedAudioUri(editing.audioUri);
+      setImages(editing.images ?? []);
       setShowMoreTypes(MORE_ENTRY_TYPES.includes(editing.entryType));
       void KnowledgeVaultService.getEntry(editing.id).then((e) => {
         if (e?.collectionIds) setSelectedCollectionIds(e.collectionIds);
@@ -158,6 +149,7 @@ export const JournalEntryFormModal = ({
       setAudioUri(null);
       setAudioDurationMs(0);
       setPersistedAudioUri(null);
+      setImages([]);
       setShowMoreTypes(MORE_ENTRY_TYPES.includes(initialType));
     }
     setError(null);
@@ -193,6 +185,7 @@ export const JournalEntryFormModal = ({
           isPinned,
           collectionIds: selectedCollectionIds,
           relatedEntryIds,
+          imageUris: images,
           ...audioPatch,
         });
       } else {
@@ -210,6 +203,7 @@ export const JournalEntryFormModal = ({
           relatedEntryIds,
           audioTempUri: audioUri,
           audioDurationMs: audioDurationMs || null,
+          imageUris: images,
         });
       }
       onSaved();
@@ -232,26 +226,34 @@ export const JournalEntryFormModal = ({
   );
 
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <KeyboardAvoidingView
-        className="flex-1 justify-end"
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <View className="flex-1 justify-end">
-          <Pressable className="absolute inset-0 bg-black/60" onPress={onClose} accessibilityLabel={JOURNAL_UI.cancel} />
-          <View style={{ height: SHEET_HEIGHT }} className="rounded-t-3xl bg-background">
-            <View className="border-b border-border px-5 py-4">
-              <Text className="text-lg font-black text-foreground">
-                {editing ? VAULT_UI.formTitleEdit : VAULT_UI.formTitleNew}
-              </Text>
-              <Text className="mt-1 text-xs text-foreground-secondary">
-                {VAULT_UI.xpOnSave(xpPreview)}
-              </Text>
-            </View>
-
-            <ScrollView
-              className="flex-1 px-5"
-              keyboardShouldPersistTaps="handled"
-              contentContainerStyle={{ paddingVertical: 16, gap: 16 }}>
+    <FormSheetModal
+      visible={visible}
+      onClose={onClose}
+      sheetHeightRatio={0.9}
+      sheetClassName="border-0"
+      closeAccessibilityLabel={JOURNAL_UI.cancel}
+      header={
+        <View className="border-b border-border px-5 py-4">
+          <Text className="text-lg font-black text-foreground">
+            {editing ? VAULT_UI.formTitleEdit : VAULT_UI.formTitleNew}
+          </Text>
+          <Text className="mt-1 text-xs text-foreground-secondary">
+            {VAULT_UI.xpOnSave(xpPreview)}
+          </Text>
+        </View>
+      }
+      footer={
+        <View className="gap-2 border-t border-border px-5 py-4">
+          <Button
+            label={JOURNAL_UI.save}
+            onPress={() => void handleSave()}
+            loading={saving}
+            disabled={saving || isTranscribing}
+          />
+          <Button label={JOURNAL_UI.cancel} variant="secondary" onPress={onClose} />
+        </View>
+      }>
+      <View className="gap-4 px-5 py-4">
               <VaultFormSection
                 emoji="✍️"
                 title={VAULT_UI.formStepContent}
@@ -344,6 +346,12 @@ export const JournalEntryFormModal = ({
                     <Text className="mt-2 text-xs text-warning">{transcriptionError}</Text>
                   ) : null}
                 </VaultField>
+
+                <JournalEntryImageAttachments
+                  images={images}
+                  onChange={setImages}
+                  disabled={saving || isTranscribing}
+                />
 
                 {!needsVoice ? (
                   <JournalEntryOptionalAudio
@@ -489,21 +497,8 @@ export const JournalEntryFormModal = ({
                 </VaultField>
               </VaultFormSection>
 
-              {error ? <Text className="text-sm text-danger">{error}</Text> : null}
-            </ScrollView>
-
-            <View className="gap-2 border-t border-border px-5 py-4">
-              <Button
-                label={JOURNAL_UI.save}
-                onPress={() => void handleSave()}
-                loading={saving}
-                disabled={saving || isTranscribing}
-              />
-              <Button label={JOURNAL_UI.cancel} variant="secondary" onPress={onClose} />
-            </View>
-          </View>
-        </View>
-      </KeyboardAvoidingView>
-    </Modal>
+        {error ? <Text className="text-sm text-danger">{error}</Text> : null}
+      </View>
+    </FormSheetModal>
   );
 };

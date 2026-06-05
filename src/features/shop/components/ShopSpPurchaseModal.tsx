@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { Modal } from '@/components';
 import { cn } from '@/utils';
 
+import { SHOP_TEXT } from '../constants/shop-ui';
 import type { SpShopProductDisplay } from '../constants/sp-shop-products';
 
 type ShopSpPurchaseModalProps = {
@@ -29,8 +30,8 @@ export const ShopSpPurchaseModal = ({
     <Modal
       visible
       onRequestClose={onCancel}
-      title="Confirmar compra com SP"
-      description="Pagamento exclusivo em Study Points."
+      title="Confirmar compra"
+      description="Pagamento com Study Points."
       confirmLabel={isPurchasing ? 'Processando...' : 'Confirmar'}
       cancelLabel="Cancelar"
       onConfirm={canAfford && !isPurchasing ? onConfirm : undefined}
@@ -38,27 +39,29 @@ export const ShopSpPurchaseModal = ({
       <View className="gap-4 py-2">
         <View className="items-center gap-2">
           <Text className="text-4xl">{product.icon}</Text>
-          <Text className="text-lg font-bold text-foreground">{product.name}</Text>
-          <Text className="text-center text-sm text-foreground-secondary">{product.description}</Text>
+          <Text className={SHOP_TEXT.heading}>{product.name}</Text>
+          <Text className={`text-center ${SHOP_TEXT.body}`}>{product.description}</Text>
         </View>
 
         <View className="rounded-xl border border-border bg-surface-elevated p-4">
           <View className="flex-row items-center justify-between">
-            <Text className="text-sm text-muted">Custo</Text>
-            <Text className="text-base font-bold text-accent">{product.cost.toLocaleString('pt-BR')} SP</Text>
+            <Text className={SHOP_TEXT.label}>Custo</Text>
+            <Text className="text-base font-bold text-accent">
+              {product.cost.toLocaleString('pt-BR')} SP
+            </Text>
           </View>
           <View className="mt-2 flex-row items-center justify-between">
-            <Text className="text-sm text-muted">Seu saldo</Text>
+            <Text className={SHOP_TEXT.label}>Seu saldo</Text>
             <Text className="text-base font-semibold text-foreground">
               {balance.toLocaleString('pt-BR')} SP
             </Text>
           </View>
-          <View className="mt-2 flex-row items-center justify-between border-t border-border/60 pt-2">
-            <Text className="text-sm font-semibold text-foreground">Após compra</Text>
+          <View className="mt-2 flex-row items-center justify-between">
+            <Text className={SHOP_TEXT.label}>Após compra</Text>
             <Text
               className={cn(
-                'text-base font-bold',
-                canAfford ? 'text-success' : 'text-warning',
+                'text-base font-semibold',
+                canAfford ? 'text-foreground' : 'text-warning',
               )}>
               {canAfford ? remaining.toLocaleString('pt-BR') : '—'} SP
             </Text>
@@ -66,7 +69,9 @@ export const ShopSpPurchaseModal = ({
         </View>
 
         {!canAfford ? (
-          <Text className="text-center text-sm text-warning">Study Points insuficientes para esta compra.</Text>
+          <Text className={`text-center ${SHOP_TEXT.warning}`}>
+            Study Points insuficientes para esta compra.
+          </Text>
         ) : null}
       </View>
     </Modal>

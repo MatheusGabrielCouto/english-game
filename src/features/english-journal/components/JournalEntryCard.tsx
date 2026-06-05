@@ -15,6 +15,7 @@ import { isReviewDue } from '../utils/journal-review';
 import { extractEnglishBodyForDisplay } from '../utils/journal-transcription-body';
 import { getSpaceLabel } from '../utils/vault-map-builder';
 import { JournalEntryBodyTranslation } from './JournalEntryBodyTranslation';
+import { JournalEntryImageGallery } from './JournalEntryImageGallery';
 import { JournalVoicePlayer } from './JournalVoicePlayer';
 import { JournalImportanceBadge } from './vault/JournalImportanceBadge';
 
@@ -47,7 +48,15 @@ export const JournalEntryCard = ({
           accessibilityRole={onPress ? 'button' : undefined}
           accessibilityLabel={onPress ? `${entry.title}. ${spaceLabel}` : undefined}>
           <View className="flex-row items-start gap-2">
-            <Text className="text-xl">{entry.audioUri ? '🎙️' : '📝'}</Text>
+            <Text className="text-xl">
+              {entry.audioUri && entry.images.length > 0
+                ? '🎙️📷'
+                : entry.audioUri
+                  ? '🎙️'
+                  : entry.images.length > 0
+                    ? '📷'
+                    : '📝'}
+            </Text>
             <View className="min-w-0 flex-1">
               <View className="flex-row flex-wrap items-center gap-1">
                 {entry.isPinned ? (
@@ -86,6 +95,12 @@ export const JournalEntryCard = ({
       </View>
 
       {entry.body ? <JournalEntryBodyTranslation body={entry.body} compact className="mt-2" /> : null}
+
+      {entry.images.length > 0 ? (
+        <View className="mt-3">
+          <JournalEntryImageGallery images={entry.images} compact={compact} />
+        </View>
+      ) : null}
 
       {entry.audioUri ? (
         <View className="mt-3">
