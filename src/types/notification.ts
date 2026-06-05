@@ -81,11 +81,17 @@ export type NotificationHistoryRecord = {
   createdAt: string;
 };
 
+export type NotificationRichVisual = {
+  heroEmoji: string;
+  accentColor?: string;
+};
+
 export type NotificationCandidate = {
   category: NotificationCategoryValue;
   title: string;
   body: string;
   priority: number;
+  rich?: NotificationRichVisual;
 };
 
 export type NotificationContext = {

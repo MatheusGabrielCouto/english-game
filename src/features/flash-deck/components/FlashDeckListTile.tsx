@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Text, View } from 'react-native';
 
 import { PressableScale } from '@/components/ui/game/PressableScale';
@@ -11,7 +12,7 @@ type FlashDeckListTileProps = {
   onPress: () => void;
 };
 
-export const FlashDeckListTile = ({ deck, onPress }: FlashDeckListTileProps) => (
+const FlashDeckListTileComponent = ({ deck, onPress }: FlashDeckListTileProps) => (
   <PressableScale onPress={onPress} fill>
     <View
       className={cn(
@@ -45,4 +46,15 @@ export const FlashDeckListTile = ({ deck, onPress }: FlashDeckListTileProps) => 
       )}
     </View>
   </PressableScale>
+);
+
+export const FlashDeckListTile = memo(
+  FlashDeckListTileComponent,
+  (prev, next) =>
+    prev.deck.id === next.deck.id &&
+    prev.deck.dueCount === next.deck.dueCount &&
+    prev.deck.totalCards === next.deck.totalCards &&
+    prev.deck.name === next.deck.name &&
+    prev.deck.description === next.deck.description &&
+    prev.deck.coverEmoji === next.deck.coverEmoji,
 );

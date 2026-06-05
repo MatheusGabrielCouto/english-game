@@ -1,6 +1,7 @@
 /**
  * Card utilitário — configurações, formulários e painéis neutros.
  * Gameplay (missões, recompensas, cidade): use `GameCard` + `PressableScale`.
+ * A11y: `text-muted` em `surface` / `surface-elevated` — mín. 12px (`text-xs`).
  * @see docs/DESIGN_SYSTEM.md
  */
 import { View, type ViewProps } from 'react-native';

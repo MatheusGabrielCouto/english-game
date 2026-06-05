@@ -1,22 +1,26 @@
-import { Image } from 'expo-image'
 import { useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import Animated, {
-  Easing,
-  interpolate,
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withRepeat,
-  withSequence,
-  withTiming,
+    Easing,
+    interpolate,
+    runOnJS,
+    useAnimatedStyle,
+    useSharedValue,
+    withDelay,
+    withRepeat,
+    withSequence,
+    withTiming,
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { SPLASH_COLORS, SPLASH_UI } from './constants/splash-ui'
+import { AppImage } from '@/components/ui/AppImage'
+import { theme } from '@/constants'
+import { fontFamilies } from '@/constants/fonts'
+
+import { SPLASH_COLORS, SPLASH_TIMING, SPLASH_TRANSITION, SPLASH_UI } from './constants/splash-ui'
 
 const logoSource = require('../../../assets/splash-icon.png')
+const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 type AnimatedSplashProps = {
   exiting: boolean
@@ -25,17 +29,24 @@ type AnimatedSplashProps = {
 
 export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps) => {
   const insets = useSafeAreaInsets()
-  const rootOpacity = useSharedValue(1)
-  const rootScale = useSharedValue(1)
+  const backdropOpacity = useSharedValue(1)
   const logoScale = useSharedValue(0.82)
   const logoOpacity = useSharedValue(0)
+  const logoTranslateY = useSharedValue(0)
+  const logoTranslateX = useSharedValue(0)
   const glowScale = useSharedValue(0.9)
   const glowOpacity = useSharedValue(0.35)
+  const ringScale = useSharedValue(0.6)
+  const ringOpacity = useSharedValue(0)
   const titleOpacity = useSharedValue(0)
   const titleY = useSharedValue(14)
+  const titleScale = useSharedValue(1)
   const taglineOpacity = useSharedValue(0)
+  const footerOpacity = useSharedValue(1)
   const progress = useSharedValue(0)
   const dotPhase = useSharedValue(0)
+
+  const logoExitY = SCREEN_HEIGHT * SPLASH_TRANSITION.logoExitTranslateYRatio
 
   useEffect(() => {
     logoOpacity.value = withTiming(1, { duration: 480, easing: Easing.out(Easing.cubic) })
@@ -82,21 +93,70 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
 
   useEffect(() => {
     if (!exiting) return
-    rootOpacity.value = withTiming(0, { duration: 520, easing: Easing.in(Easing.cubic) }, (finished) => {
+
+    const exitEasing = Easing.inOut(Easing.cubic)
+    const exitMs = SPLASH_TIMING.exitDurationMs
+
+    glowOpacity.value = withTiming(0, { duration: 220 })
+    footerOpacity.value = withTiming(0, { duration: 240, easing: Easing.in(Easing.quad) })
+    taglineOpacity.value = withTiming(0, { duration: 200 })
+    titleOpacity.value = withTiming(0, { duration: 320 })
+    titleY.value = withTiming(logoExitY * 0.35, { duration: exitMs, easing: exitEasing })
+    titleScale.value = withTiming(0.72, { duration: exitMs, easing: exitEasing })
+
+    ringOpacity.value = withSequence(
+      withTiming(0.55, { duration: 120 }),
+      withTiming(0, { duration: exitMs - 120, easing: Easing.out(Easing.quad) }),
+    )
+    ringScale.value = withTiming(SPLASH_TRANSITION.ringBurstScale, {
+      duration: exitMs,
+      easing: Easing.out(Easing.cubic),
+    })
+
+    logoTranslateY.value = withTiming(logoExitY, { duration: exitMs, easing: exitEasing })
+    logoTranslateX.value = withTiming(SPLASH_TRANSITION.logoExitTranslateX, {
+      duration: exitMs,
+      easing: exitEasing,
+    })
+    logoScale.value = withTiming(SPLASH_TRANSITION.logoExitScale, {
+      duration: exitMs,
+      easing: exitEasing,
+    })
+    logoOpacity.value = withTiming(0, { duration: exitMs - 80, easing: Easing.in(Easing.quad) })
+
+    backdropOpacity.value = withTiming(0, { duration: exitMs, easing: Easing.in(Easing.quad) }, (finished) => {
       if (finished) runOnJS(onExitComplete)()
     })
-    rootScale.value = withTiming(1.04, { duration: 520, easing: Easing.in(Easing.cubic) })
-    logoScale.value = withTiming(1.08, { duration: 520 })
-  }, [exiting, logoScale, onExitComplete, rootOpacity, rootScale])
+  }, [
+    backdropOpacity,
+    exiting,
+    footerOpacity,
+    glowOpacity,
+    logoExitY,
+    logoOpacity,
+    logoScale,
+    logoTranslateX,
+    logoTranslateY,
+    onExitComplete,
+    ringOpacity,
+    ringScale,
+    taglineOpacity,
+    titleOpacity,
+    titleScale,
+    titleY,
+  ])
 
-  const rootStyle = useAnimatedStyle(() => ({
-    opacity: rootOpacity.value,
-    transform: [{ scale: rootScale.value }],
+  const backdropStyle = useAnimatedStyle(() => ({
+    opacity: backdropOpacity.value,
   }))
 
   const logoStyle = useAnimatedStyle(() => ({
     opacity: logoOpacity.value,
-    transform: [{ scale: logoScale.value }],
+    transform: [
+      { translateY: logoTranslateY.value },
+      { translateX: logoTranslateX.value },
+      { scale: logoScale.value },
+    ],
   }))
 
   const glowStyle = useAnimatedStyle(() => ({
@@ -104,13 +164,22 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
     transform: [{ scale: glowScale.value }],
   }))
 
+  const ringStyle = useAnimatedStyle(() => ({
+    opacity: ringOpacity.value,
+    transform: [{ scale: ringScale.value }],
+  }))
+
   const titleStyle = useAnimatedStyle(() => ({
     opacity: titleOpacity.value,
-    transform: [{ translateY: titleY.value }],
+    transform: [{ translateY: titleY.value }, { scale: titleScale.value }],
   }))
 
   const taglineStyle = useAnimatedStyle(() => ({
     opacity: taglineOpacity.value,
+  }))
+
+  const footerStyle = useAnimatedStyle(() => ({
+    opacity: footerOpacity.value,
   }))
 
   const barFillStyle = useAnimatedStyle(() => ({
@@ -142,22 +211,32 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
   })
 
   return (
-    <Animated.View
-      style={[styles.root, rootStyle, { paddingTop: insets.top, paddingBottom: insets.bottom }]}
+    <View
+      style={[styles.root, { paddingTop: insets.top, paddingBottom: insets.bottom }]}
       pointerEvents={exiting ? 'none' : 'auto'}
     >
+      <Animated.View style={[styles.backdrop, backdropStyle]} />
+
       <View style={styles.ambientTop} />
       <View style={styles.ambientBottom} />
 
       <View style={styles.center}>
         <Animated.View style={[styles.glowOuter, glowStyle]} />
         <Animated.View style={[styles.glowInner, glowStyle]} />
+        <Animated.View style={[styles.ring, ringStyle]} />
         <Animated.View style={logoStyle}>
-          <Image source={logoSource} style={styles.logo} contentFit="contain" accessibilityLabel={SPLASH_UI.title} />
+          <AppImage
+            source={logoSource}
+            surface="hero"
+            recyclingKey="splash-logo"
+            style={styles.logo}
+            contentFit="contain"
+            accessibilityLabel={SPLASH_UI.title}
+          />
         </Animated.View>
       </View>
 
-      <View style={styles.footer}>
+      <Animated.View style={[styles.footer, footerStyle]}>
         <Animated.View style={titleStyle}>
           <Text style={styles.title}>{SPLASH_UI.title}</Text>
         </Animated.View>
@@ -177,17 +256,20 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
             <Animated.View style={[styles.dot, dot2Style]} />
           </View>
         </View>
-      </View>
-    </Animated.View>
+      </Animated.View>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   root: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: SPLASH_COLORS.background,
     zIndex: 9999,
     justifyContent: 'space-between',
+  },
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: SPLASH_COLORS.background,
   },
   ambientTop: {
     position: 'absolute',
@@ -230,6 +312,15 @@ const styles = StyleSheet.create({
     backgroundColor: SPLASH_COLORS.glowAccent,
     opacity: 0.15,
   },
+  ring: {
+    position: 'absolute',
+    width: 168,
+    height: 168,
+    borderRadius: 84,
+    borderWidth: 2,
+    borderColor: SPLASH_COLORS.glowPrimary,
+    backgroundColor: 'transparent',
+  },
   logo: {
     width: 168,
     height: 168,
@@ -240,10 +331,11 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   title: {
-    fontSize: 28,
-    fontWeight: '900',
+    fontFamily: fontFamilies.display,
+    fontSize: 18,
+    lineHeight: 26,
     color: '#fafafa',
-    letterSpacing: 0.5,
+    letterSpacing: 0,
     textAlign: 'center',
   },
   tagline: {
@@ -276,7 +368,7 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#71717a',
+    color: theme.colors.muted,
   },
   dots: {
     flexDirection: 'row',

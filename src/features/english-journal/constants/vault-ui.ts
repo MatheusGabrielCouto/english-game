@@ -1,3 +1,5 @@
+import type { HowItWorksScreenKey } from '@/hooks'
+
 export const VAULT_UI = {
   vaultName: 'English Knowledge Vault',
   vaultTagline: 'Seu cérebro de inglês',
@@ -13,7 +15,7 @@ export const VAULT_UI = {
   hubMap: 'Mapa',
   hubMapHint: 'Rede visual do vault',
   hubDashboard: 'Resumo',
-  hubDashboardHint: 'Números e progresso',
+  hubDashboardHint: 'Ritmo e revisões',
 
   howItWorksTitle: 'Como funciona?',
   howItWorksBody:
@@ -33,23 +35,23 @@ export const VAULT_UI = {
   searchHint: 'Título, texto ou tags (#grammar)',
   searchPlaceholder: 'Ex.: past perfect, although, entrevista…',
 
-  globalSearchTitle: 'Busca global',
-  globalSearchSubtitle: 'Todas as notas, áreas e tags do vault',
-  globalSearchTrigger: 'Buscar em todo o vault…',
+  globalSearchTitle: 'Buscar em tudo',
+  globalSearchSubtitle: 'Notas, áreas e tags do seu vault',
+  globalSearchTrigger: 'Buscar notas, áreas e tags…',
   globalSearchTriggerHint: 'Título, corpo, tags e área',
   globalSearchEmptyQuery: 'Digite para buscar em todas as notas do vault.',
   globalSearchNoResults: 'Nenhuma nota encontrada. Tente outra palavra ou área.',
   globalSearchResults: (count: number) =>
     count === 1 ? '1 resultado' : `${count} resultados`,
   globalSearchFilterAll: 'Todas as áreas',
-  globalSearchOpen: 'Abrir busca global do vault',
+  globalSearchOpen: 'Abrir busca em todo o vault',
 
   statsNotes: (n: number) => `${n} notas`,
   statsVoice: (n: number) => `${n} áudios`,
   statsReviewsDue: (n: number) => (n === 1 ? '1 revisão hoje' : `${n} revisões pendentes`),
   knowledgeLevel: (level: number) => `Nível ${level}`,
   knowledgePoints: (kp: number) => `${kp} pontos de conhecimento`,
-  knowledgeMastery: (pct: number) => `${pct}% domínio estimado`,
+  knowledgeMastery: (pct: number) => `${pct}% do inglês que você guardou`,
   libraryTier: (tier: number) => `Biblioteca nível ${tier}`,
   libraryBuilding: 'Centro de Conhecimento na cidade',
 
@@ -114,22 +116,22 @@ export const VAULT_UI = {
   formStepExtras: 'Detalhes',
   formStepExtrasHint: 'Prioridade, tags e fixar',
 
-  dashboardTitle: 'Resumo do conhecimento',
+  dashboardTitle: 'Seu progresso no vault',
   dashboardIntro:
-    'Visão geral do que você já guardou. Use os números para ver ritmo de estudo e o que precisa de revisão.',
+    'O que você já conquistou no inglês — e o que vale uma revisão hoje para não esfriar na memória.',
   mapTitle: 'Mapa de conhecimento',
   mapIntro:
-    'Visualize sua rede de inglês: áreas, pastas, notas e vínculos. Toque nos nós para explorar.',
+    'Sua rede de inglês em um mapa — áreas, pastas e notas ligadas. Toque nos nós para explorar.',
   mapEmpty: 'Ainda não há notas. Crie a primeira na aba Início.',
   mapLegendTap: 'Toque na nota para abrir',
   mapSpaceNotes: (n: number) => (n === 1 ? '1 nota nesta área' : `${n} notas nesta área`),
   mapSpaceEmpty: 'Nenhuma pasta com notas ainda.',
 
   dashboardProgressTitle: 'Seu progresso',
-  dashboardMasteryLabel: 'Domínio do conhecimento',
-  dashboardStatsTitle: 'Números da biblioteca',
+  dashboardMasteryLabel: 'Quanto você já domina',
+  dashboardStatsTitle: 'O que você já guardou',
   dashboardTagsTitle: 'Tags mais usadas',
-  dashboardTagsHint: 'O que você mais registra — útil para ver foco de estudo',
+  dashboardTagsHint: 'Temas que você mais anota — bom sinal do que está estudando',
   dashboardNoTags: 'Use tags nas notas para ver aqui o que você mais estuda.',
   dashboardReviewHint: 'Revisar hoje evita esquecer o que você guardou.',
   dashboardReviewCta: 'Ir revisar no Início',
@@ -181,9 +183,9 @@ export const VAULT_UI = {
     'Anote uma palavra, correção ou áudio de hoje. Cada nota alimenta suas revisões e o mapa de conhecimento.',
   emptyLibraryCta: 'Registrar primeira nota',
 
-  emptyCollectionsTitle: 'Organize notas em listas',
+  emptyCollectionsTitle: 'Monte listas como playlists',
   emptyCollectionsBody:
-    'Junte notas do mesmo objetivo — entrevista, curso ou IELTS. Crie uma lista e associe notas ao salvar.',
+    'Junte notas do mesmo objetivo — entrevista, curso ou IELTS. Crie uma lista e associe ao salvar.',
   emptyCollectionsCta: 'Criar primeira lista',
 
   reviewBanner: (count: number) =>
@@ -208,6 +210,14 @@ export const VAULT_UI = {
   listenStop: 'Parar',
 
   xpOnSave: (xp: number) => `+${xp} XP ao salvar`,
-} as const;
+} as const
 
-export type VaultHubKey = 'library' | 'spaces' | 'collections' | 'map' | 'dashboard';
+export type VaultHubKey = 'library' | 'spaces' | 'collections' | 'map' | 'dashboard'
+
+/** Chave AsyncStorage por aba do vault (P-27). */
+export const VAULT_HUB_HELP_SEEN_KEY: Partial<Record<VaultHubKey, HowItWorksScreenKey>> = {
+  library: 'vault-library',
+  spaces: 'vault-spaces',
+  collections: 'vault-collections',
+  map: 'vault-map',
+}

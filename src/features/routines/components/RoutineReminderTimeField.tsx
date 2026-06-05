@@ -47,14 +47,14 @@ export const RoutineReminderTimeField = ({
   };
 
   const handlePreset = (time: string) => {
-    haptics.light();
+    haptics.press();
     setTouched(true);
     setPickerVisible(false);
     onChange(time);
   };
 
   const openPickerModal = () => {
-    haptics.light();
+    haptics.press();
     setDraftDate(reminderTimeToDate(value));
     setPickerVisible(true);
   };

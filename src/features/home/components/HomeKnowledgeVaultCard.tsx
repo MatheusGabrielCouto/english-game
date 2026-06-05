@@ -3,16 +3,17 @@ import { Text, View } from 'react-native'
 
 import { GameCard, PressableScale } from '@/components/ui/game'
 import { routes } from '@/constants'
-import { useEnglishJournalStore } from '@/features/english-journal/store/english-journal-store'
+import { useVaultEntriesStore } from '@/features/english-journal/store/vault-entries-store'
+import { useVaultMetaStore } from '@/features/english-journal/store/vault-meta-store'
 import { HomeSectionLabel } from '@/features/home/components/shared/HomeSectionLabel'
 import { HomeStatGrid } from '@/features/home/components/shared/HomeStatGrid'
 import { HomeStatPill } from '@/features/home/components/shared/HomeStatPill'
 import { HOME_UI } from '@/features/home/constants/home-ui'
 
 export const HomeKnowledgeVaultCard = () => {
-  const stats = useEnglishJournalStore((s) => s.stats)
-  const dueReviews = useEnglishJournalStore((s) => s.dueReviews.length)
-  const entries = useEnglishJournalStore((s) => s.entries.length)
+  const stats = useVaultMetaStore((s) => s.stats)
+  const dueReviews = useVaultEntriesStore((s) => s.dueReviews.length)
+  const entries = useVaultEntriesStore((s) => s.entries.length)
 
   const hasContent = entries > 0 || (stats?.totalEntries ?? 0) > 0
 

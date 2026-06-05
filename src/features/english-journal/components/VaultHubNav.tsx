@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
-import { routes, vaultSearchHref } from '@/constants';
+import { routes, TOUCH_TARGET_CHIP_CLASS, TOUCH_TARGET_MIN_CLASS, vaultSearchHref } from '@/constants';
 import { cn } from '@/utils';
 
 import { VAULT_UI, type VaultHubKey } from '../constants/vault-ui';
@@ -63,7 +63,8 @@ export const VaultHubNav = ({ active, linkMode = 'tab' }: VaultHubNavProps) => {
                 accessibilityState={{ selected }}
                 accessibilityLabel={item.label}
                 className={cn(
-                  'min-w-[72px] flex-row items-center justify-center gap-1.5 rounded-xl px-3 py-2.5',
+                  'min-w-[72px] flex-row gap-1.5 rounded-xl px-3',
+                  TOUCH_TARGET_CHIP_CLASS,
                   selected ? 'bg-primary' : 'bg-transparent',
                 )}>
                 <Text className="text-sm">{item.emoji}</Text>
@@ -80,7 +81,10 @@ export const VaultHubNav = ({ active, linkMode = 'tab' }: VaultHubNavProps) => {
         onPress={handleOpenSearch}
         accessibilityRole="button"
         accessibilityLabel={VAULT_UI.globalSearchOpen}
-        className="h-11 w-11 items-center justify-center rounded-2xl border border-border bg-surface">
+        className={cn(
+          TOUCH_TARGET_MIN_CLASS,
+          'items-center justify-center rounded-2xl border border-border bg-surface',
+        )}>
         <Text className="text-base">🔍</Text>
       </Pressable>
     </View>

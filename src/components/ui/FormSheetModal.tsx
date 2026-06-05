@@ -1,31 +1,22 @@
-import type { ReactNode } from 'react';
-import {
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    Modal as RNModal,
-    ScrollView,
-    StyleSheet,
-    useWindowDimensions,
-    View,
-} from 'react-native';
+import type { ReactNode } from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
-import { cn } from '@/utils';
+import { cn } from '@/utils'
 
-import { MODAL_KEYBOARD_BEHAVIOR } from './keyboard-modal';
+import { AppModalShell } from './modal/AppModalShell'
 
 type FormSheetModalProps = {
-  visible: boolean;
-  onClose: () => void;
-  header: ReactNode;
-  footer?: ReactNode;
-  children: ReactNode;
-  sheetHeightRatio?: number;
-  sheetClassName?: string;
-  backdropClassName?: string;
-  closeAccessibilityLabel?: string;
-  animationType?: 'slide' | 'fade';
-};
+  visible: boolean
+  onClose: () => void
+  header: ReactNode
+  footer?: ReactNode
+  children: ReactNode
+  sheetHeightRatio?: number
+  sheetClassName?: string
+  closeAccessibilityLabel?: string
+  enableDismissGesture?: boolean
+  showSheetHandle?: boolean
+}
 
 export const FormSheetModal = ({
   visible,
@@ -35,63 +26,41 @@ export const FormSheetModal = ({
   children,
   sheetHeightRatio = 0.88,
   sheetClassName,
-  backdropClassName = 'bg-black/60',
   closeAccessibilityLabel = 'Fechar',
-  animationType = 'slide',
-}: FormSheetModalProps) => {
-  const { height: windowHeight } = useWindowDimensions();
-  const sheetHeight = Math.round(windowHeight * sheetHeightRatio);
-
-  return (
-    <RNModal visible={visible} transparent animationType={animationType} onRequestClose={onClose}>
-      <KeyboardAvoidingView
-        style={styles.avoiding}
-        behavior={MODAL_KEYBOARD_BEHAVIOR}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 6 : 0}>
-        <View style={styles.root}>
-          <Pressable
-            style={StyleSheet.absoluteFill}
-            className={backdropClassName}
-            onPress={onClose}
-            accessibilityRole="button"
-            accessibilityLabel={closeAccessibilityLabel}
-          />
-
-          <View
-            style={{ height: sheetHeight }}
-            className={cn('overflow-hidden rounded-t-3xl border border-border bg-background', sheetClassName)}>
-            {header}
-            <ScrollView
-              style={styles.scroll}
-              contentContainerStyle={styles.scrollContent}
-              keyboardShouldPersistTaps="handled"
-              automaticallyAdjustKeyboardInsets
-              keyboardDismissMode="on-drag"
-              showsVerticalScrollIndicator
-              nestedScrollEnabled
-              bounces>
-              {children}
-            </ScrollView>
-            {footer}
-          </View>
-        </View>
-      </KeyboardAvoidingView>
-    </RNModal>
-  );
-};
+  enableDismissGesture = true,
+  showSheetHandle = true,
+}: FormSheetModalProps) => (
+  <AppModalShell
+    visible={visible}
+    onClose={onClose}
+    presentation="sheet"
+    sheetHeightRatio={sheetHeightRatio}
+    enableDismissGesture={enableDismissGesture}
+    showSheetHandle={showSheetHandle}
+    backdropAccessibilityLabel={closeAccessibilityLabel}>
+    <View className={cn('flex-1', sheetClassName)}>
+      {header}
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets
+        keyboardDismissMode="on-drag"
+        showsVerticalScrollIndicator
+        nestedScrollEnabled
+        bounces>
+        {children}
+      </ScrollView>
+      {footer}
+    </View>
+  </AppModalShell>
+)
 
 const styles = StyleSheet.create({
-  avoiding: {
-    flex: 1,
-  },
-  root: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
   scroll: {
     flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
   },
-});
+})

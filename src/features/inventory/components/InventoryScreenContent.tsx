@@ -15,7 +15,7 @@ export const InventoryScreenContent = () => {
   const { snapshot, history, isLoading } = useInventory()
 
   if (isLoading || !snapshot) {
-    return <ScreenSkeleton variant="hero-list" listCount={4} className="gap-3" />
+    return <ScreenSkeleton variant="inventory" listCount={5} className="gap-3" />
   }
 
   const specialItemsCount = snapshot.specialItems.reduce(

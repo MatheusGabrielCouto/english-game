@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 
 import { Button, FormSheetModal } from '@/components';
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants';
+import { VaultFormTextField } from '@/components/ui/form/VaultFormTextField';
 import {
     JournalCategory,
     JournalEntryType,
@@ -24,8 +26,9 @@ import {
 import { VAULT_UI } from '../constants/vault-ui';
 import { useJournalAudioTranscription } from '../hooks/use-journal-audio-transcription';
 import { KnowledgeVaultService } from '../services/knowledge-vault-service';
-import { useEnglishJournalStore } from '../store/english-journal-store';
+import { useVaultCollectionsStore } from '../store/vault-collections-store';
 import { entryTypeRequiresAudio, resolveAudioUpdatePayload } from '../utils/journal-form';
+import { validateJournalBody, validateJournalTitle } from '../utils/journal-form';
 import { resolveVaultOrganizeContext } from '../utils/vault-organize-context';
 import { JournalEntryImageAttachments } from './JournalEntryImageAttachments';
 import { JournalEntryOptionalAudio } from './JournalEntryOptionalAudio';
@@ -77,8 +80,8 @@ export const JournalEntryFormModal = ({
 }: JournalEntryFormModalProps) => {
   const defaultSpaceKey = defaultSpaceKeyProp ?? VaultSpaceKey.PERSONAL_NOTES;
   const defaultFolderId = defaultFolderIdProp ?? null;
-  const folders = useEnglishJournalStore((s) => s.folders);
-  const collections = useEnglishJournalStore((s) => s.collections);
+  const folders = useVaultCollectionsStore((s) => s.folders);
+  const collections = useVaultCollectionsStore((s) => s.collections);
   const [entryType, setEntryType] = useState<JournalEntryTypeValue>(initialType);
   const [showMoreTypes, setShowMoreTypes] = useState(false);
   const [title, setTitle] = useState('');
@@ -96,6 +99,7 @@ export const JournalEntryFormModal = ({
   const [persistedAudioUri, setPersistedAudioUri] = useState<string | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
+  const [submitAttempted, setSubmitAttempted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const bodyRef = useRef(body);
   bodyRef.current = body;
@@ -153,6 +157,7 @@ export const JournalEntryFormModal = ({
       setShowMoreTypes(MORE_ENTRY_TYPES.includes(initialType));
     }
     setError(null);
+    setSubmitAttempted(false);
     resetTranscriptionState();
   }, [visible, editing, initialType, defaultSpaceKey, defaultFolderId, resetTranscriptionState]);
 
@@ -165,6 +170,14 @@ export const JournalEntryFormModal = ({
   );
 
   const handleSave = async () => {
+    setSubmitAttempted(true);
+    const titleValidation = validateJournalTitle(title);
+    const bodyValidation = validateJournalBody(body, entryType);
+    if (!titleValidation.valid || !bodyValidation.valid) {
+      setError(titleValidation.error ?? bodyValidation.error ?? 'Corrija os campos destacados');
+      return;
+    }
+
     setSaving(true);
     setError(null);
     try {
@@ -302,15 +315,20 @@ export const JournalEntryFormModal = ({
                   </View>
                 </VaultField>
 
-                <VaultField label={JOURNAL_UI.titleLabel} hint={JOURNAL_UI.titleHint}>
-                  <TextInput
-                    className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
-                    value={title}
-                    onChangeText={setTitle}
-                    placeholder={JOURNAL_UI.titlePlaceholder}
-                    placeholderTextColor="#71717a"
-                  />
-                </VaultField>
+                <VaultFormTextField
+                  label={JOURNAL_UI.titleLabel}
+                  hint={JOURNAL_UI.titleHint}
+                  value={title}
+                  onChangeText={setTitle}
+                  validate={(value) => {
+                    const result = validateJournalTitle(value)
+                    return { valid: result.valid, error: result.error ?? null }
+                  }}
+                  forceShowError={submitAttempted}
+                  fieldId="journal-title"
+                  placeholder={JOURNAL_UI.titlePlaceholder}
+                  maxLength={120}
+                />
 
                 {needsVoice ? (
                   <JournalVoiceRecorder
@@ -326,26 +344,27 @@ export const JournalEntryFormModal = ({
                   />
                 ) : null}
 
-                <VaultField
+                <VaultFormTextField
                   label={JOURNAL_UI.bodyLabel}
-                  hint={needsVoice ? JOURNAL_UI.transcriptionHint : JOURNAL_UI.bodyHint}>
-                  <TextInput
-                    className="min-h-[100px] rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
-                    value={body}
-                    onChangeText={setBody}
-                    placeholder={JOURNAL_UI.bodyPlaceholder}
-                    placeholderTextColor="#71717a"
-                    multiline
-                    textAlignVertical="top"
-                    editable={!isTranscribing}
-                  />
-                  {isTranscribing ? (
-                    <Text className="mt-2 text-xs font-semibold text-primary">{processingLabel}</Text>
-                  ) : null}
-                  {transcriptionError ? (
-                    <Text className="mt-2 text-xs text-warning">{transcriptionError}</Text>
-                  ) : null}
-                </VaultField>
+                  hint={needsVoice ? JOURNAL_UI.transcriptionHint : JOURNAL_UI.bodyHint}
+                  value={body}
+                  onChangeText={setBody}
+                  validate={(value) => {
+                    const result = validateJournalBody(value, entryType)
+                    return { valid: result.valid, error: result.error ?? null }
+                  }}
+                  forceShowError={submitAttempted}
+                  fieldId="journal-body"
+                  placeholder={JOURNAL_UI.bodyPlaceholder}
+                  multiline
+                  editable={!isTranscribing}
+                />
+                {isTranscribing ? (
+                  <Text className="text-xs font-semibold text-primary">{processingLabel}</Text>
+                ) : null}
+                {transcriptionError ? (
+                  <Text className="text-xs text-warning">{transcriptionError}</Text>
+                ) : null}
 
                 <JournalEntryImageAttachments
                   images={images}
@@ -491,7 +510,7 @@ export const JournalEntryFormModal = ({
                     value={tagsInput}
                     onChangeText={setTagsInput}
                     placeholder={JOURNAL_UI.tagsPlaceholder}
-                    placeholderTextColor="#71717a"
+                    placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
                     autoCapitalize="none"
                   />
                 </VaultField>

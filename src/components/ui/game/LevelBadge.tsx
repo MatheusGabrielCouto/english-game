@@ -1,6 +1,8 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { cn } from '@/utils';
+
+import { GameDisplayText } from './GameDisplayText';
 
 type LevelBadgeProps = {
   level: number;
@@ -9,9 +11,9 @@ type LevelBadgeProps = {
 };
 
 const sizeStyles = {
-  sm: { container: 'h-8 w-8', text: 'text-xs' },
-  md: { container: 'h-11 w-11', text: 'text-sm' },
-  lg: { container: 'h-14 w-14', text: 'text-lg' },
+  sm: { container: 'h-8 w-8', variant: 'label' as const },
+  md: { container: 'h-11 w-11', variant: 'value' as const },
+  lg: { container: 'h-14 w-14', variant: 'hero' as const },
 };
 
 export const LevelBadge = ({ level, size = 'md', className }: LevelBadgeProps) => {
@@ -25,7 +27,9 @@ export const LevelBadge = ({ level, size = 'md', className }: LevelBadgeProps) =
         className,
       )}
       accessibilityLabel={`Nível ${level}`}>
-      <Text className={cn('font-black text-gold', styles.text)}>{level}</Text>
+      <GameDisplayText variant={styles.variant} className="text-gold">
+        {level}
+      </GameDisplayText>
     </View>
   );
 };

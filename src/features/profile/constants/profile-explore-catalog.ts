@@ -1,7 +1,7 @@
 import type { Href } from 'expo-router';
 import { Platform } from 'react-native';
 
-import { routes } from '@/constants';
+import { DOMAIN_GLOSSARY, routes } from '@/constants';
 
 export type ExploreCategoryId = 'adventure' | 'collection' | 'meta';
 
@@ -53,8 +53,22 @@ export const EXPLORE_CATEGORIES: ExploreCategoryDef[] = [
     emoji: '⚔️',
     subtitle: 'Estudo, mundo e missões ativas',
     items: [
-      { id: 'pet', label: 'Pet', emoji: '🐾', route: routes.pet as Href, tagline: 'Companheiro', featured: true },
-      { id: 'farm', label: 'Farm', emoji: '🌾', route: routes.farm as Href, tagline: 'Study Points', featured: true },
+      {
+        id: 'pet',
+        label: DOMAIN_GLOSSARY.petCompanion.shortLabel,
+        emoji: DOMAIN_GLOSSARY.petCompanion.emoji,
+        route: routes.pet as Href,
+        tagline: 'Pet ativo',
+        featured: true,
+      },
+      {
+        id: 'farm',
+        label: DOMAIN_GLOSSARY.studyFarm.shortLabel,
+        emoji: DOMAIN_GLOSSARY.studyFarm.emoji,
+        route: routes.farm as Href,
+        tagline: 'Pontos de estudo',
+        featured: true,
+      },
       {
         id: 'flash-deck',
         label: 'Baralho',

@@ -1,6 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
+import { buildAppDeepLink } from '@/constants/deep-link-paths';
 import type { FocusSession } from '@/types/focus-mode';
 
 import { FOCUS_MESSAGES, FOCUS_STUDY_TYPE_META } from '../constants/focus-config';
@@ -51,6 +52,7 @@ export const scheduleFocusSessionEndNotification = async (session: FocusSession)
       data: {
         type: 'focus_session_end',
         sessionId: session.id,
+        url: buildAppDeepLink('/focus'),
       },
       sound: true,
       ...(Platform.OS === 'android' ? { channelId: 'focus-session' } : {}),

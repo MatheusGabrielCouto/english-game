@@ -12,6 +12,9 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import { LOOT_BOX_RARITY_CONFIG } from '@/features/inventory/constants'
+import { LootBoxArtwork } from '@/features/loot-boxes/components/LootBoxArtwork'
+import { CelebrationLottie } from '@/features/feedback/components/CelebrationLottie'
+import { getLootCelebrationLottieKind } from '@/features/feedback/constants/celebration-lottie'
 import { LOOT_BOX_MESSAGES } from '@/features/loot-boxes/constants'
 import { AudioDirector } from '@/services/audio'
 import type { LootBoxRarityValue } from '@/types/inventory'
@@ -100,6 +103,7 @@ export const LootBoxOpeningOverlay = ({
 }: LootBoxOpeningOverlayProps) => {
   const config = LOOT_BOX_RARITY_CONFIG[rarity]
   const glowColor = RARITY_GLOW[rarity]
+  const tier2LottieKind = getLootCelebrationLottieKind(rarity)
   const [phase, setPhase] = useState<OpeningPhase>('shake')
 
   const shakeX = useSharedValue(0)
@@ -136,7 +140,7 @@ export const LootBoxOpeningOverlay = ({
     phaseValue.value = 0
     resetMotion(shakeX, boxScale, boxRotate, ringScale, ringOpacity, backdropOpacity, statusOpacity, tapPulse)
 
-    haptics.medium()
+    haptics.confirm()
     void AudioDirector.playSFX('loot_shake', { family: 'loot_shake', priority: 'high' })
     backdropOpacity.value = withTiming(1, { duration: 200 })
     statusOpacity.value = withDelay(100, withTiming(1, { duration: 250 }))
@@ -189,7 +193,7 @@ export const LootBoxOpeningOverlay = ({
 
     tapPulse.value = 1
     void AudioDirector.playSFX('loot_shake', { family: 'loot_shake', priority: 'high' })
-    haptics.heavy()
+    haptics.impact()
 
     boxRotate.value = withSequence(
       withTiming(-6, { duration: 80 }),
@@ -254,6 +258,9 @@ export const LootBoxOpeningOverlay = ({
   const boxContent = (
     <Animated.View style={[styles.boxWrap, boxStyle]}>
       <View style={[styles.boxCard, { borderColor: glowColor }]}>
+        <View style={styles.boxArtwork}>
+          <LootBoxArtwork size={112} variant="watermark" />
+        </View>
         <Text style={styles.boxEmoji}>{config.emoji}</Text>
       </View>
     </Animated.View>
@@ -265,6 +272,12 @@ export const LootBoxOpeningOverlay = ({
         <Animated.View style={[styles.backdrop, backdropStyle]} />
 
         <View style={styles.stage}>
+          {phase === 'crack' && tier2LottieKind ? (
+            <View style={styles.tier2Lottie} pointerEvents="none">
+              <CelebrationLottie kind={tier2LottieKind} active />
+            </View>
+          ) : null}
+
           <Animated.View
             style={[styles.glowRing, ringStyle, { borderColor: glowColor, shadowColor: glowColor }]}
           />
@@ -316,6 +329,13 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 32,
   },
+  tier2Lottie: {
+    position: 'absolute',
+    width: 280,
+    height: 280,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   glowRing: {
     position: 'absolute',
     width: 160,
@@ -357,6 +377,12 @@ const styles = StyleSheet.create({
     borderRadius: 28,
     borderWidth: 2,
     backgroundColor: 'rgba(30, 30, 40, 0.95)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  boxArtwork: {
+    ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     justifyContent: 'center',
   },

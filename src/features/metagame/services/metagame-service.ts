@@ -286,7 +286,7 @@ const handleGameEvent = (event: GameEvent): void => {
       );
     }
 
-    await refreshStore();
+    GameEvents.scheduleCoalescedAfterBatch(refreshStore);
   })();
 };
 

@@ -1,6 +1,8 @@
+import { DOMAIN_GLOSSARY } from '@/constants/domain-glossary'
+
 export const PET_FARM_UI = {
-  title: 'Fazenda de Pets',
-  subtitle: 'Pasto, cruzamento e coleção',
+  title: DOMAIN_GLOSSARY.petFarm.title,
+  subtitle: DOMAIN_GLOSSARY.petFarm.tagline,
   bonuses: 'Bônus ativos',
   pasture: 'Pasto de passivas',
   barn: 'Celeiro',

@@ -1,8 +1,11 @@
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native'
 
+import { NetworkErrorState, VirtualizedList } from '@/components/ui'
+import { VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE } from '@/constants'
 import { ScreenSkeleton } from '@/components/ui/skeleton'
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants'
 import { vaultEntryHref } from '@/constants/routes'
 import type { VaultEntryRecord, VaultSpaceKey } from '@/types/knowledge-vault'
 
@@ -28,10 +31,31 @@ export const VaultGlobalSearchContent = () => {
   const [results, setResults] = useState<VaultEntryRecord[]>([])
   const [isSearching, setIsSearching] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
+  const [searchError, setSearchError] = useState(false)
 
   useEffect(() => {
     setQuery(resolveInitialQuery(q))
   }, [q])
+
+  const runSearch = useCallback(async (trimmed: string) => {
+    setIsSearching(true)
+    setSearchError(false)
+
+    try {
+      const rows = await KnowledgeVaultService.globalSearch({
+        query: trimmed,
+        spaceKey,
+      })
+      setResults(rows)
+      setHasSearched(true)
+    } catch {
+      setResults([])
+      setHasSearched(true)
+      setSearchError(true)
+    } finally {
+      setIsSearching(false)
+    }
+  }, [spaceKey])
 
   useEffect(() => {
     const trimmed = query.trim()
@@ -39,24 +63,23 @@ export const VaultGlobalSearchContent = () => {
       setResults([])
       setHasSearched(false)
       setIsSearching(false)
+      setSearchError(false)
       return
     }
 
     setIsSearching(true)
     const timer = setTimeout(() => {
-      void (async () => {
-        const rows = await KnowledgeVaultService.globalSearch({
-          query: trimmed,
-          spaceKey,
-        })
-        setResults(rows)
-        setHasSearched(true)
-        setIsSearching(false)
-      })()
+      void runSearch(trimmed)
     }, SEARCH_DEBOUNCE_MS)
 
     return () => clearTimeout(timer)
-  }, [query, spaceKey])
+  }, [query, spaceKey, runSearch])
+
+  const handleRetrySearch = useCallback(() => {
+    const trimmed = query.trim()
+    if (!trimmed) return
+    void runSearch(trimmed)
+  }, [query, runSearch])
 
   const handleOpenEntry = useCallback(
     (entry: VaultEntryRecord) => {
@@ -74,94 +97,125 @@ export const VaultGlobalSearchContent = () => {
     )
   }, [])
 
-  return (
-    <View className="gap-4 pb-6">
-      <View>
-        <Text className="text-sm font-semibold text-foreground">{VAULT_UI.searchLabel}</Text>
-        <Text className="text-xs text-foreground-secondary">{VAULT_UI.globalSearchSubtitle}</Text>
-        <TextInput
-          className="mt-2 rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
-          value={query}
-          onChangeText={setQuery}
-          placeholder={VAULT_UI.searchPlaceholder}
-          placeholderTextColor="#71717a"
-          autoFocus
-          returnKeyType="search"
-          accessibilityLabel={VAULT_UI.globalSearchTrigger}
-        />
-      </View>
+  const renderResult = useCallback(
+    (entry: VaultEntryRecord) => (
+      <JournalEntryCard
+        entry={entry}
+        onPress={() => handleOpenEntry(entry)}
+        onToggleFavorite={() => void handleFavorite(entry.id)}
+      />
+    ),
+    [handleFavorite, handleOpenEntry],
+  )
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 8, paddingVertical: 2 }}>
-        <Pressable
-          onPress={() => setSpaceKey('all')}
-          accessibilityRole="button"
-          accessibilityState={{ selected: spaceKey === 'all' }}
-          className={`rounded-full border px-3 py-1.5 ${
-            spaceKey === 'all' ? 'border-primary bg-primary/15' : 'border-border bg-surface'
-          }`}>
-          <Text
-            className={`text-xs font-bold ${
-              spaceKey === 'all' ? 'text-primary' : 'text-foreground-secondary'
+  const listHeader = useMemo(
+    () => (
+      <View className="gap-4 pb-3">
+        <View>
+          <Text className="text-sm font-semibold text-foreground">{VAULT_UI.searchLabel}</Text>
+          <Text className="text-xs text-foreground-secondary">{VAULT_UI.globalSearchSubtitle}</Text>
+          <TextInput
+            className="mt-2 rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+            value={query}
+            onChangeText={setQuery}
+            placeholder={VAULT_UI.searchPlaceholder}
+            placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
+            autoFocus
+            returnKeyType="search"
+            accessibilityLabel={VAULT_UI.globalSearchTrigger}
+          />
+        </View>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 8, paddingVertical: 2 }}>
+          <Pressable
+            onPress={() => setSpaceKey('all')}
+            accessibilityRole="button"
+            accessibilityState={{ selected: spaceKey === 'all' }}
+            className={`rounded-full border px-3 py-1.5 ${
+              spaceKey === 'all' ? 'border-primary bg-primary/15' : 'border-border bg-surface'
             }`}>
-            {VAULT_UI.globalSearchFilterAll}
-          </Text>
-        </Pressable>
-        {VAULT_SPACES.map((space) => {
-          const selected = spaceKey === space.key
-          return (
-            <Pressable
-              key={space.key}
-              onPress={() => setSpaceKey(space.key)}
-              accessibilityRole="button"
-              accessibilityState={{ selected }}
-              className={`rounded-full border px-3 py-1.5 ${
-                selected ? 'border-primary bg-primary/15' : 'border-border bg-surface'
+            <Text
+              className={`text-xs font-bold ${
+                spaceKey === 'all' ? 'text-primary' : 'text-foreground-secondary'
               }`}>
-              <Text
-                className={`text-xs font-bold ${
-                  selected ? 'text-primary' : 'text-foreground-secondary'
+              {VAULT_UI.globalSearchFilterAll}
+            </Text>
+          </Pressable>
+          {VAULT_SPACES.map((space) => {
+            const selected = spaceKey === space.key
+            return (
+              <Pressable
+                key={space.key}
+                onPress={() => setSpaceKey(space.key)}
+                accessibilityRole="button"
+                accessibilityState={{ selected }}
+                className={`rounded-full border px-3 py-1.5 ${
+                  selected ? 'border-primary bg-primary/15' : 'border-border bg-surface'
                 }`}>
-                {space.emoji} {space.label}
-              </Text>
-            </Pressable>
-          )
-        })}
-      </ScrollView>
+                <Text
+                  className={`text-xs font-bold ${
+                    selected ? 'text-primary' : 'text-foreground-secondary'
+                  }`}>
+                  {space.emoji} {space.label}
+                </Text>
+              </Pressable>
+            )
+          })}
+        </ScrollView>
 
-      {isSearching ? <ScreenSkeleton variant="hero-list" listCount={3} className="gap-3" /> : null}
+        {isSearching ? <ScreenSkeleton variant="vault" listCount={4} className="gap-3" /> : null}
 
-      {!isSearching && !query.trim() ? (
-        <Text className="text-sm leading-5 text-foreground-secondary">
-          {VAULT_UI.globalSearchEmptyQuery}
-        </Text>
-      ) : null}
+        {!isSearching && searchError ? (
+          <NetworkErrorState variant="generic" onRetry={handleRetrySearch} isRetrying={isSearching} />
+        ) : null}
 
-      {!isSearching && hasSearched && query.trim() && results.length === 0 ? (
-        <Text className="text-sm leading-5 text-foreground-secondary">
-          {VAULT_UI.globalSearchNoResults}
-        </Text>
-      ) : null}
+        {!isSearching && !searchError && !query.trim() ? (
+          <Text className="text-sm leading-5 text-foreground-secondary">
+            {VAULT_UI.globalSearchEmptyQuery}
+          </Text>
+        ) : null}
 
-      {!isSearching && results.length > 0 ? (
-        <View className="gap-3">
+        {!isSearching && !searchError && hasSearched && query.trim() && results.length === 0 ? (
+          <Text className="text-sm leading-5 text-foreground-secondary">
+            {VAULT_UI.globalSearchNoResults}
+          </Text>
+        ) : null}
+
+        {!isSearching && !searchError && results.length > 0 ? (
           <VaultSectionHeader
             emoji="🔍"
             title={VAULT_UI.globalSearchTitle}
             hint={VAULT_UI.globalSearchResults(results.length)}
           />
-          {results.map((entry) => (
-            <JournalEntryCard
-              key={entry.id}
-              entry={entry}
-              onPress={() => handleOpenEntry(entry)}
-              onToggleFavorite={() => void handleFavorite(entry.id)}
-            />
-          ))}
-        </View>
-      ) : null}
-    </View>
+        ) : null}
+      </View>
+    ),
+    [
+      hasSearched,
+      isSearching,
+      query,
+      results.length,
+      searchError,
+      spaceKey,
+      handleRetrySearch,
+    ],
+  )
+
+  return (
+    <VirtualizedList
+      className="flex-1"
+      forceVirtualized
+      data={results}
+      estimatedItemSize={VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE.journalEntry}
+      keyExtractor={(entry) => entry.id}
+      ListHeaderComponent={listHeader}
+      ListFooterComponent={<View className="h-6" />}
+      ItemSeparatorComponent={() => <View className="h-3" />}
+      renderItem={renderResult}
+      extraData={`${query}:${spaceKey}:${results.length}`}
+    />
   )
 }

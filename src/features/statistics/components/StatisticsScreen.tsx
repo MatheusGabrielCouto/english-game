@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { RefreshControl, View } from 'react-native';
 
 import { ScreenContainer, ScreenHeader } from '@/components/layout';
 
@@ -8,14 +8,19 @@ import { StatisticsScreenContent } from './StatisticsScreenContent';
 
 export const StatisticsScreen = () => {
   const statistics = useStatistics();
+  const { isRefreshing, handleRefresh } = statistics;
 
   return (
-    <ScreenContainer scrollable>
+    <ScreenContainer
+      scrollable
+      scrollViewProps={{
+        refreshControl: <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />,
+      }}>
       <ScreenHeader
         showBack
         title={STATISTICS_UI.screenTitle}
         subtitle={STATISTICS_UI.screenSubtitle}
-        emoji="📊"
+        emoji="💡"
       />
       <View className="gap-4">
         <StatisticsScreenContent statistics={statistics} />

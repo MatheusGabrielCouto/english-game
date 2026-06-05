@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 
 import { ProgressBar } from '@/components';
-import { GameCard, StatPill } from '@/components/ui/game';
+import { GameCard, GameDisplayText, StatPill } from '@/components/ui/game';
 import { getTodayKey } from '@/features/quests/utils/date';
 import type { Mission } from '@/types/mission';
 
@@ -43,12 +43,12 @@ export const QuestsDailySummary = ({ missions }: QuestsDailySummaryProps) => {
     <GameCard variant={allCompleted ? 'reward' : 'quest'} glow className="overflow-hidden">
       <View className="flex-row items-start justify-between gap-3">
         <View className="flex-1">
-          <Text className="text-xs font-bold uppercase tracking-widest text-accent">
+          <GameDisplayText variant="label" className="text-accent">
             {allCompleted ? '🏆 Dia completo' : '⚔️ Missões de hoje'}
-          </Text>
-          <Text className="mt-1 text-3xl font-black text-foreground">
+          </GameDisplayText>
+          <GameDisplayText variant="hero" className="mt-1 text-3xl leading-none">
             {completedCount}/{totalCount}
-          </Text>
+          </GameDisplayText>
           <Text className="mt-0.5 text-xs capitalize text-muted">{formatTodayLabel()}</Text>
         </View>
         <Text className="text-4xl">{allCompleted ? '🎉' : '🎯'}</Text>

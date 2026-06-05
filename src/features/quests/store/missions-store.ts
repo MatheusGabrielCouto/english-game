@@ -6,6 +6,7 @@ import { GameEvents } from '@/services/game-events'
 import { getMissionsByDate, setMissionCompleted } from '@/storage/repositories/missions-repository'
 import type { Mission } from '@/types/mission'
 import { runAfterInteractions, runInBackground } from '@/utils/defer-work'
+import { AndroidWidgetService } from '@/widgets/android/android-widget-service'
 
 import { resetDailyMissionsInDatabase } from '../services/reset-daily-missions'
 import { getTodayKey } from '../utils/date'
@@ -103,6 +104,8 @@ export const useMissionsStore = create<MissionsState>()((set, get) => ({
         xpReward: mission.xpReward,
         coinReward: mission.coinReward,
       })
+
+      void AndroidWidgetService.syncNow()
 
       completingMissionIds.delete(id)
       if (get().completingMissionId === id) {

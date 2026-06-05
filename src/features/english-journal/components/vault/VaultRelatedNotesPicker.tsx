@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { ScrollView, Text, TextInput, View } from 'react-native';
 
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants';
 import { VAULT_UI } from '../../constants/vault-ui';
-import { useEnglishJournalStore } from '../../store/english-journal-store';
+import { useVaultEntriesStore } from '../../store/vault-entries-store';
 import { VaultChoiceChip } from './VaultChoiceChip';
 import { VaultField } from './VaultField';
 
@@ -17,7 +18,7 @@ export const VaultRelatedNotesPicker = ({
   selectedIds,
   onChange,
 }: VaultRelatedNotesPickerProps) => {
-  const entries = useEnglishJournalStore((s) => s.entries);
+  const entries = useVaultEntriesStore((s) => s.entries);
   const [query, setQuery] = useState('');
 
   const selectedEntries = useMemo(
@@ -74,7 +75,7 @@ export const VaultRelatedNotesPicker = ({
         value={query}
         onChangeText={setQuery}
         placeholder={VAULT_UI.relatedFormSearch}
-        placeholderTextColor="#71717a"
+        placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
         autoCapitalize="none"
       />
 

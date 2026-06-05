@@ -1,5 +1,6 @@
-import { Image } from 'expo-image';
 import { Pressable, Text, View } from 'react-native';
+
+import { AppImage } from '@/components/ui/AppImage';
 
 import { JOURNAL_UI } from '../constants/journal-ui';
 
@@ -29,11 +30,12 @@ export const JournalEntryImageThumbCard = ({
       disabled={!onPress}
       accessibilityRole="button"
       accessibilityLabel={`${JOURNAL_UI.imagePreviewLabel(index + 1)}. ${JOURNAL_UI.imageTapToPreview}`}>
-      <Image
+      <AppImage
         source={{ uri }}
+        surface="journal"
+        recyclingKey={uri}
         style={{ width: THUMB_WIDTH, height: THUMB_HEIGHT }}
         contentFit="cover"
-        transition={150}
       />
     </Pressable>
 

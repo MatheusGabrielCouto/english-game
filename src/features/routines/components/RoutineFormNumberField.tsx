@@ -1,32 +1,34 @@
-import { useMemo, useState } from 'react';
-import { Pressable, Text, TextInput, View } from 'react-native';
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Pressable, Text, TextInput, View } from 'react-native'
+import Animated from 'react-native-reanimated'
 
-import { cn } from '@/utils';
+import { formInputBorderClass } from '@/constants/form-validation-ui'
+import { getFormFieldInputA11y, resolveFormFieldErrorId } from '@/components/ui/form/form-field-a11y'
+import { useFormFieldShake } from '@/components/ui/form/useFormFieldShake'
+import { cn } from '@/utils'
 
-import { ROUTINE_FORM_INPUT } from '../constants/routine-form-limits';
-import { ROUTINE_UI } from '../constants/routine-ui';
-import type { FieldValidation } from '../utils/routine-form-input';
-import { maskDigitsInput } from '../utils/routine-form-input';
-import { routineInputBorderClass } from './RoutineFieldShell';
+import { ROUTINE_FORM_INPUT } from '../constants/routine-form-limits'
+import { ROUTINE_UI } from '../constants/routine-ui'
+import type { FieldValidation } from '../utils/routine-form-input'
+import { maskDigitsInput } from '../utils/routine-form-input'
 
-const SUFFIX_SLOT_WIDTH = 40;
-const CLEAR_BUTTON_SIZE = 40;
+const SUFFIX_SLOT_WIDTH = 40
+const CLEAR_BUTTON_SIZE = 40
 
 type RoutineFormNumberFieldProps = {
-  label: string;
-  hint?: string;
-  value: string;
-  onChange: (value: string) => void;
-  validate: (value: string) => FieldValidation;
-  placeholder?: string;
-  maxDigits?: number;
-  suffix?: string;
-  optionalDefaultHint?: string;
-  forceShowError?: boolean;
-  /** Campos lado a lado (XP / moedas / min) — rótulo menor, sem rodapé de sucesso */
-  compact?: boolean;
-  showClear?: boolean;
-};
+  label: string
+  hint?: string
+  value: string
+  onChange: (value: string) => void
+  validate: (value: string) => FieldValidation
+  placeholder?: string
+  maxDigits?: number
+  suffix?: string
+  optionalDefaultHint?: string
+  forceShowError?: boolean
+  compact?: boolean
+  showClear?: boolean
+}
 
 export const RoutineFormNumberField = ({
   label,
@@ -42,27 +44,38 @@ export const RoutineFormNumberField = ({
   compact = false,
   showClear = true,
 }: RoutineFormNumberFieldProps) => {
-  const [touched, setTouched] = useState(false);
+  const [touched, setTouched] = useState(false)
+  const { animatedStyle, triggerShake } = useFormFieldShake()
+  const previousError = useRef<string | null>(null)
 
-  const validation = useMemo(() => validate(value), [validate, value]);
+  const validation = useMemo(() => validate(value), [validate, value])
 
   const showError =
-    (forceShowError || touched) && !validation.valid && validation.error != null;
+    (forceShowError || touched) && !validation.valid && validation.error != null
 
   const showSuccess =
-    !compact && touched && validation.valid && validation.normalized != null;
+    !compact && touched && validation.valid && validation.normalized != null
+
+  useEffect(() => {
+    if (showError && validation.error && validation.error !== previousError.current) {
+      triggerShake()
+    }
+    previousError.current = showError ? validation.error : null
+  }, [showError, triggerShake, validation.error])
 
   const handleChange = (raw: string) => {
-    onChange(maskDigitsInput(raw, maxDigits));
-  };
+    onChange(maskDigitsInput(raw, maxDigits))
+  }
 
   const handleClear = () => {
-    setTouched(false);
-    onChange('');
-  };
+    setTouched(false)
+    onChange('')
+  }
 
-  const resolvedHint = hint ?? (value.length === 0 ? optionalDefaultHint : undefined);
-  const canClear = showClear && value.length > 0;
+  const resolvedHint = hint ?? (value.length === 0 ? optionalDefaultHint : undefined)
+  const canClear = showClear && value.length > 0
+  const fieldId = label.toLowerCase().replace(/\s+/g, '-')
+  const errorId = resolveFormFieldErrorId(fieldId)
 
   return (
     <View className={cn('w-full', compact && 'flex-1')}>
@@ -78,12 +91,12 @@ export const RoutineFormNumberField = ({
         <Text className="mt-1 text-xs leading-4 text-foreground-secondary">{resolvedHint}</Text>
       ) : null}
 
-      <View className={cn('w-full', compact ? 'mt-1.5' : 'mt-2')}>
+      <Animated.View className={cn('w-full', compact ? 'mt-1.5' : 'mt-2')} style={animatedStyle}>
         <View className="flex-row items-center gap-1.5">
           <View
             className={cn(
               'min-h-[48px] flex-1 flex-row items-center overflow-hidden rounded-xl border bg-surface',
-              routineInputBorderClass(showError),
+              formInputBorderClass(showError),
             )}>
             <TextInput
               className={cn(
@@ -99,7 +112,12 @@ export const RoutineFormNumberField = ({
               keyboardType="number-pad"
               inputMode="numeric"
               maxLength={maxDigits}
-              accessibilityLabel={label}
+              {...getFormFieldInputA11y({
+                label,
+                error: showError ? validation.error : null,
+                errorNativeId: errorId,
+                hint: resolvedHint,
+              })}
             />
             {suffix ? (
               <View
@@ -128,11 +146,16 @@ export const RoutineFormNumberField = ({
             </Pressable>
           ) : null}
         </View>
-      </View>
+      </Animated.View>
 
       <View className={cn(compact ? 'mt-1 min-h-[16px]' : 'mt-1.5 min-h-[18px]')}>
         {showError ? (
-          <Text className="text-[10px] leading-3 text-danger" numberOfLines={2}>
+          <Text
+            nativeID={errorId}
+            className="text-[10px] leading-3 text-danger"
+            accessibilityRole="alert"
+            accessibilityLiveRegion="polite"
+            numberOfLines={2}>
             {validation.error}
           </Text>
         ) : showSuccess && validation.normalized ? (
@@ -142,5 +165,5 @@ export const RoutineFormNumberField = ({
         ) : null}
       </View>
     </View>
-  );
-};
+  )
+}

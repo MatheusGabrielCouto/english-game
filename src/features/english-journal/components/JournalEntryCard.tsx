@@ -1,6 +1,8 @@
+import { memo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { GameCard } from '@/components/ui/game';
+import { CARD_METADATA_TEXT_CLASS, CARD_MUTED_CAPTION_CLASS, ICON_TOUCH_HIT_SLOP } from '@/constants';
 import type { JournalEntryRecord } from '@/types/journal';
 import { cn } from '@/utils';
 
@@ -12,6 +14,7 @@ import {
 import { VAULT_UI } from '../constants/vault-ui';
 import { JournalService } from '../services/journal-service';
 import { isReviewDue } from '../utils/journal-review';
+import { hasSameJournalEntryCardSnapshot } from '../utils/journal-entry-card-memo';
 import { extractEnglishBodyForDisplay } from '../utils/journal-transcription-body';
 import { getSpaceLabel } from '../utils/vault-map-builder';
 import { JournalEntryBodyTranslation } from './JournalEntryBodyTranslation';
@@ -27,7 +30,7 @@ type JournalEntryCardProps = {
   compact?: boolean;
 };
 
-export const JournalEntryCard = ({
+const JournalEntryCardComponent = ({
   entry,
   onPress,
   onToggleFavorite,
@@ -60,7 +63,7 @@ export const JournalEntryCard = ({
             <View className="min-w-0 flex-1">
               <View className="flex-row flex-wrap items-center gap-1">
                 {entry.isPinned ? (
-                  <Text className="text-[10px] font-bold text-primary">{VAULT_UI.pinnedKnowledge}</Text>
+                  <Text className={cn(CARD_METADATA_TEXT_CLASS, 'text-primary')}>{VAULT_UI.pinnedKnowledge}</Text>
                 ) : null}
                 <Text className="text-base font-bold text-foreground" numberOfLines={2}>
                   {entry.title}
@@ -78,7 +81,7 @@ export const JournalEntryCard = ({
                 </Text>
               ) : null}
               {entry.tags.length > 0 ? (
-                <Text className="mt-1 text-[10px] text-muted" numberOfLines={1}>
+                <Text className={cn('mt-1', CARD_MUTED_CAPTION_CLASS)} numberOfLines={1}>
                   {entry.tags.map((t) => `#${t}`).join(' ')}
                 </Text>
               ) : null}
@@ -87,7 +90,7 @@ export const JournalEntryCard = ({
         </Pressable>
         <Pressable
           onPress={onToggleFavorite}
-          hitSlop={8}
+          hitSlop={ICON_TOUCH_HIT_SLOP}
           accessibilityRole="button"
           accessibilityLabel={entry.isFavorite ? JOURNAL_UI.unfavorite : JOURNAL_UI.favorite}>
           <Text className="text-lg">{entry.isFavorite ? '⭐' : '☆'}</Text>
@@ -134,3 +137,11 @@ export const JournalEntryCard = ({
     </GameCard>
   );
 };
+
+export const JournalEntryCard = memo(
+  JournalEntryCardComponent,
+  (prev, next) =>
+    prev.compact === next.compact &&
+    Boolean(prev.onReview) === Boolean(next.onReview) &&
+    hasSameJournalEntryCardSnapshot(prev.entry, next.entry),
+);

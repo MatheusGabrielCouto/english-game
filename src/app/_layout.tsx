@@ -1,8 +1,13 @@
+import { Platform } from 'react-native';
 import 'react-native-gesture-handler';
 
-import '@/splash-bootstrap';
+if (Platform.OS === 'android') {
+  require('@/widgets/android/register');
+}
+
 import '@/global.css';
 import '@/nativewind-setup';
+import '@/splash-bootstrap';
 
 import { Stack } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';

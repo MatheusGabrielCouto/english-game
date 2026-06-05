@@ -1,6 +1,7 @@
-import { Image } from 'expo-image';
 import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
+
+import { AppImage } from '@/components/ui/AppImage';
 
 import { JOURNAL_UI } from '../constants/journal-ui';
 import { JournalEntryImagePreviewModal } from './JournalEntryImagePreviewModal';
@@ -28,8 +29,10 @@ export const JournalEntryImageGallery = ({ images, compact = false }: JournalEnt
                 onPress={() => setPreview({ uri, index })}
                 accessibilityRole="button"
                 accessibilityLabel={JOURNAL_UI.imagePreviewLabel(index + 1)}>
-                <Image
+                <AppImage
                   source={{ uri }}
+                  surface="journal"
+                  recyclingKey={uri}
                   style={{ width: thumbSize, height: thumbSize }}
                   className="rounded-xl border border-border bg-surface"
                   contentFit="cover"

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 
 import { useContractsStore } from '@/features/contracts/store/contracts-store'
-import { useEnglishJournalStore } from '@/features/english-journal/store/english-journal-store'
 import { InventoryService } from '@/features/inventory/services/inventory-service'
 import { useFarmStore } from '@/features/farm/store/farm-store'
 import { useMetagameStore } from '@/features/metagame/store/metagame-store'
@@ -29,14 +29,22 @@ export type HomeDashboard = {
 }
 
 export const useHomeDashboard = (): HomeDashboard => {
-  const level = usePlayerStore((s) => s.level)
-  const xp = usePlayerStore((s) => s.xp)
+  const { level, xp } = usePlayerStore(
+    useShallow((s) => ({
+      level: s.level,
+      xp: s.xp,
+    })),
+  )
   const missions = useMissionsStore((s) => s.missions)
   const dueToday = useRoutinesStore((s) => s.dueToday)
   const todayStats = useFarmStore((s) => s.todayStats)
-  const metagameState = useMetagameStore((s) => s.state)
-  const canPrestige = useMetagameStore((s) => s.canPrestige)
-  const claimableSeasonTiers = useMetagameStore((s) => s.claimableSeasonTiers)
+  const { metagameState, canPrestige, claimableSeasonTiers } = useMetagameStore(
+    useShallow((s) => ({
+      metagameState: s.state,
+      canPrestige: s.canPrestige,
+      claimableSeasonTiers: s.claimableSeasonTiers,
+    })),
+  )
   const studyPoints = useStudyPointsStore((s) => s.balance?.balance ?? 0)
   const { current, required } = usePlayerXP()
 

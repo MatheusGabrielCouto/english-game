@@ -1,7 +1,7 @@
 import { type Href, router } from 'expo-router'
 import { Text, View } from 'react-native'
 
-import { GameCard, PressableScale } from '@/components/ui/game'
+import { GameCard, PressableScale, SharedHeroTransition } from '@/components/ui/game'
 import { routes, SHARED_TRANSITION_TAGS } from '@/constants'
 import { useCity } from '@/features/city'
 import { buildCityProgress } from '@/features/city/utils/progress'
@@ -35,9 +35,11 @@ export const HomeCityCard = () => {
         <HomeSectionLabel emoji="🏙️" title={HOME_UI.city.title} tone="gold" />
 
         <HomeCardRow className="mt-3 gap-3">
-          <View className="shrink-0 rounded-2xl border border-gold/30 bg-gold/10 px-3 py-2">
+          <SharedHeroTransition
+            tag={SHARED_TRANSITION_TAGS.cityBuildingHero}
+            className="shrink-0 rounded-2xl border border-gold/30 bg-gold/10 px-3 py-2">
             <Text className="text-4xl">{current.icon}</Text>
-          </View>
+          </SharedHeroTransition>
           <View className={HOME_LAYOUT.growBlock}>
             <Text className="text-lg font-black text-foreground" numberOfLines={2}>
               {current.name}

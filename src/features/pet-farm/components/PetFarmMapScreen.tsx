@@ -9,8 +9,8 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Card } from '@/components';
-import { PressableScale } from '@/components/ui/game';
-import { routes } from '@/constants';
+import { PressableScale, SharedHeroTransition } from '@/components/ui/game';
+import { routes, SHARED_TRANSITION_TAGS } from '@/constants';
 
 import { PET_FARM_MAP_BUILDINGS } from '../catalogs/pet-farm-map-catalog';
 import { PET_FARM_ISLAND_VIEW_H } from '../constants/pet-farm-island-layout';
@@ -139,7 +139,8 @@ export const PetFarmMapScreen = () => {
         </Text>
       </Card>
 
-      <View
+      <SharedHeroTransition
+        tag={SHARED_TRANSITION_TAGS.petFarmHero}
         className="overflow-hidden rounded-3xl border border-sky-700/40"
         style={{
           shadowColor: '#0f4d6b',
@@ -197,7 +198,7 @@ export const PetFarmMapScreen = () => {
             </View>
           </View>
         </Animated.ScrollView>
-      </View>
+      </SharedHeroTransition>
 
       {readyEggs > 0 ? (
         <PressableScale

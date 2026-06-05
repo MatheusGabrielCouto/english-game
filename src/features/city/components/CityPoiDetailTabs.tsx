@@ -1,5 +1,6 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { TOUCH_TARGET_CHIP_CLASS } from '@/constants/touch-target-ui';
 import { cn } from '@/utils';
 
 import { CityPoiProjectService } from '../services/city-poi-project-service';
@@ -78,10 +79,9 @@ export const CityPoiDetailTabs = ({
             accessibilityState={{ selected: isActive }}
             accessibilityLabel={tab.label}
             className={cn(
-              'min-w-[88px] flex-row items-center justify-center gap-1.5 rounded-xl border px-3 py-2.5',
-              isActive
-                ? 'border-primary bg-primary'
-                : 'border-border bg-surface',
+              'min-w-[88px] flex-row gap-1.5 rounded-xl border px-3',
+              TOUCH_TARGET_CHIP_CLASS,
+              isActive ? 'border-primary bg-primary' : 'border-border bg-surface',
             )}>
             <Text className="text-base">{tab.emoji}</Text>
             <Text

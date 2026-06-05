@@ -4,7 +4,7 @@ import { AchievementUnlockModal } from '@/features/achievements/components/Achie
 import { useAchievementsStore } from '@/features/achievements/store/achievements-store';
 import { CityUnlockModal } from '@/features/city/components/CityUnlockModal';
 import { useCityStore } from '@/features/city/store/city-store';
-import { Confetti } from '@/features/feedback/components/Confetti';
+import { CelebrationLottieOverlay } from '@/features/feedback/components/CelebrationLottieOverlay';
 import { LevelUpModal } from '@/features/feedback/components/LevelUpModal';
 import { PetEvolutionModal } from '@/features/feedback/components/PetEvolutionModal';
 import { RewardBurstOverlay } from '@/features/feedback/components/RewardBurstOverlay';
@@ -36,7 +36,7 @@ export const CelebrationsHost = () => {
     <>
       {hasTransientEffects ? (
         <View style={styles.effectsLayer} pointerEvents="none">
-          <Confetti active={showConfetti || hasLegacyCelebration} />
+          <CelebrationLottieOverlay />
           <RewardBurstOverlay />
         </View>
       ) : null}

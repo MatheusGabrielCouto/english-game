@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { useAchievementsStore } from '@/features/achievements/store/achievements-store';
 import { useCityStore } from '@/features/city/store/city-store';
 import { useContractsStore } from '@/features/contracts/store/contracts-store';
-import { useEnglishJournalStore } from '@/features/english-journal/store/english-journal-store';
+import { useVaultEntriesStore } from '@/features/english-journal/store/vault-entries-store';
 import { useFarmStore } from '@/features/farm/store/farm-store';
 import { useFlashDeckStore } from '@/features/flash-deck/store/flash-deck-store';
 import { useFocusModeStore } from '@/features/focus-mode/store/focus-mode-store';
@@ -34,7 +34,7 @@ export const useExploreBadges = (): Record<ExploreItemId, ExploreBadge> => {
   const todayStudyPoints = useFarmStore((s) => s.todayStudyPoints);
   const flashDueCount = useFlashDeckStore((s) => s.totalDueCount);
   const pendingRoutines = useRoutinesStore((s) => s.pendingToday.length);
-  const journalDueReviews = useEnglishJournalStore((s) => s.dueReviews.length);
+  const journalDueReviews = useVaultEntriesStore((s) => s.dueReviews.length);
   const activeFocus = useFocusModeStore((s) => s.activeSession);
   const claimableSeasonTiers = useMetagameStore((s) => s.claimableSeasonTiers);
 

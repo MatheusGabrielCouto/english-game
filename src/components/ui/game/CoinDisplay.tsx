@@ -1,6 +1,7 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { AppIcon } from '@/components/ui/AppIcon';
+import { GameDisplayText } from '@/components/ui/game/GameDisplayText';
 import { theme } from '@/constants';
 import { cn } from '@/utils';
 
@@ -11,9 +12,9 @@ type CoinDisplayProps = {
 };
 
 const sizeStyles = {
-  sm: { icon: 14, text: 'text-sm' },
-  md: { icon: 18, text: 'text-lg' },
-  lg: { icon: 22, text: 'text-2xl' },
+  sm: { icon: 14, variant: 'label' as const },
+  md: { icon: 18, variant: 'value' as const },
+  lg: { icon: 22, variant: 'hero' as const },
 };
 
 export const CoinDisplay = ({ amount, size = 'md', className }: CoinDisplayProps) => {
@@ -22,7 +23,9 @@ export const CoinDisplay = ({ amount, size = 'md', className }: CoinDisplayProps
   return (
     <View className={cn('flex-row items-center gap-1.5', className)}>
       <AppIcon name="logo-bitcoin" size={styles.icon} color={theme.colors.coin} />
-      <Text className={cn('font-black text-coin', styles.text)}>{amount}</Text>
+      <GameDisplayText variant={styles.variant} className="text-coin">
+        {amount}
+      </GameDisplayText>
     </View>
   );
 };

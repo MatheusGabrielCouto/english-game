@@ -1,4 +1,5 @@
 import { router } from 'expo-router'
+import { memo } from 'react'
 import { Alert, Pressable, Text, View } from 'react-native'
 
 import { PressableScale } from '@/components/ui/game'
@@ -45,9 +46,9 @@ const cardBorderByTone = {
   locked: 'border-border',
 } as const
 
-export const MenuHubCard = ({ item, variant = 'grid', showPin = true }: MenuHubCardProps) => {
+const MenuHubCardComponent = ({ item, variant = 'grid', showPin = true }: MenuHubCardProps) => {
   const badge = useMenuHubBadge(item)
-  const isPinned = useMenuHubStore((s) => s.isPinned(item.id))
+  const isPinned = useMenuHubStore((s) => s.pinnedIds.includes(item.id))
   const togglePin = useMenuHubStore((s) => s.togglePin)
   const isLocked = badge.tone === 'locked'
   const showPinControl = showPin && item.pinnable !== false && !isLocked
@@ -141,3 +142,11 @@ export const MenuHubCard = ({ item, variant = 'grid', showPin = true }: MenuHubC
     </PressableScale>
   )
 }
+
+export const MenuHubCard = memo(
+  MenuHubCardComponent,
+  (prev, next) =>
+    prev.item.id === next.item.id &&
+    prev.variant === next.variant &&
+    prev.showPin === next.showPin,
+)

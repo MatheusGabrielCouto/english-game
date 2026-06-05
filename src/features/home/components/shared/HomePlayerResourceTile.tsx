@@ -1,5 +1,6 @@
 import { Text, View } from 'react-native'
 
+import { GameDisplayText } from '@/components/ui/game'
 import { cn } from '@/utils'
 
 type ResourceTone = 'gold' | 'accent' | 'primary'
@@ -58,13 +59,14 @@ export const HomePlayerResourceTile = ({
         </Text>
       </View>
       <View className="mt-1.5 flex-row items-end gap-1">
-        <Text
-          className={cn('shrink text-2xl font-black leading-none', palette.value)}
+        <GameDisplayText
+          variant="hero"
+          className={cn('shrink leading-none', palette.value)}
           numberOfLines={1}
           adjustsFontSizeToFit
           minimumFontScale={0.7}>
           {value}
-        </Text>
+        </GameDisplayText>
         {suffix ? (
           <Text className="pb-0.5 text-xs font-bold uppercase text-foreground-secondary">{suffix}</Text>
         ) : null}

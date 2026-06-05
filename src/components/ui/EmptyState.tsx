@@ -6,19 +6,45 @@ import { cn } from '@/utils'
 import { AppIcon, type AppIconName } from './AppIcon'
 import { Button } from './Button'
 import { GameCard } from './game'
+import { EmptyStateArt } from './empty-state/EmptyStateArt'
 
 export type EmptyStateVariant = 'game' | 'vault' | 'farm'
 
 type EmptyStateProps = {
   variant?: EmptyStateVariant
   icon?: AppIconName
+  /** @deprecated Illustration replaces emoji; kept for accessibility hints. */
   emoji?: string
   title: string
   description?: string
   actionLabel?: string
   onAction?: () => void
   className?: string
+  illustrated?: boolean
 }
+
+const EmptyStateCopy = ({
+  title,
+  description,
+  accessibilityHint,
+}: {
+  title: string
+  description?: string
+  accessibilityHint?: string
+}) => (
+  <>
+    <Text
+      className="text-center text-lg font-semibold text-foreground"
+      accessibilityHint={accessibilityHint}>
+      {title}
+    </Text>
+    {description ? (
+      <Text className="mt-2 text-center text-base leading-6 text-foreground-secondary">
+        {description}
+      </Text>
+    ) : null}
+  </>
+)
 
 const GameEmptyState = ({
   icon = 'file-tray-outline',
@@ -27,79 +53,91 @@ const GameEmptyState = ({
   actionLabel,
   onAction,
   className,
-}: Omit<EmptyStateProps, 'variant' | 'emoji'>) => (
+  illustrated = true,
+  emoji,
+}: Omit<EmptyStateProps, 'variant'>) => (
   <View
     className={cn('items-center justify-center px-6 py-12', className)}
     accessibilityRole="text">
-    <View className="mb-5 rounded-2xl border border-border bg-surface-elevated p-5">
-      <AppIcon name={icon} size={44} color={theme.colors.primary} strokeWidth={1.75} />
-    </View>
-    <Text className="text-center text-lg font-semibold text-foreground">{title}</Text>
-    {description ? (
-      <Text className="mt-2 text-center text-base text-foreground-secondary">{description}</Text>
-    ) : null}
-    {actionLabel && onAction ? (
-      <View className="mt-6 w-full max-w-xs">
-        <Button label={actionLabel} variant="secondary" onPress={onAction} />
+    {illustrated ? (
+      <EmptyStateArt variant="game" />
+    ) : (
+      <View className="mb-5 rounded-2xl border border-border bg-surface-elevated p-5">
+        <AppIcon name={icon} size={44} color={theme.colors.primary} strokeWidth={1.75} />
       </View>
-    ) : null}
+    )}
+    <View className={cn('w-full items-center', illustrated ? 'mt-5' : undefined)}>
+      <EmptyStateCopy title={title} description={description} accessibilityHint={emoji} />
+      {actionLabel && onAction ? (
+        <View className="mt-6 w-full max-w-xs">
+          <Button label={actionLabel} variant="secondary" onPress={onAction} />
+        </View>
+      ) : null}
+    </View>
   </View>
 )
 
 const VaultEmptyStateView = ({
-  emoji = '📓',
   title,
   description,
   actionLabel,
   onAction,
   className,
+  illustrated = true,
+  emoji,
 }: Omit<EmptyStateProps, 'variant' | 'icon'>) => (
   <GameCard
     variant="hero"
     glow
     className={cn('items-center border-dashed border-primary/30 px-6 py-10', className)}
     accessibilityRole="text">
-    <Text className="text-5xl">{emoji}</Text>
-    <Text className="mt-4 text-center text-lg font-bold text-foreground">{title}</Text>
-    {description ? (
-      <Text className="mt-2 max-w-sm text-center text-base leading-6 text-foreground-secondary">
-        {description}
-      </Text>
+    {illustrated ? <EmptyStateArt variant="vault" /> : emoji ? (
+      <Text className="text-5xl">{emoji}</Text>
     ) : null}
-    {actionLabel && onAction ? (
-      <View className="mt-6 w-full">
-        <Button
-          label={actionLabel}
-          size="lg"
-          onPress={onAction}
-          accessibilityLabel={actionLabel}
-        />
-      </View>
-    ) : null}
+    <View className={cn('w-full items-center', illustrated || emoji ? 'mt-4' : undefined)}>
+      <EmptyStateCopy title={title} description={description} accessibilityHint={emoji} />
+      {actionLabel && onAction ? (
+        <View className="mt-6 w-full">
+          <Button
+            label={actionLabel}
+            size="lg"
+            onPress={onAction}
+            accessibilityLabel={actionLabel}
+          />
+        </View>
+      ) : null}
+    </View>
   </GameCard>
 )
 
 const FarmEmptyStateView = ({
-  emoji = '🐾',
   title,
   description,
   actionLabel,
   onAction,
   className,
+  illustrated = true,
+  emoji,
 }: Omit<EmptyStateProps, 'variant' | 'icon'>) => (
   <View className={cn('items-center gap-2 py-6', className)} accessibilityRole="text">
-    <Text className="text-3xl">{emoji}</Text>
-    <Text className="text-center text-sm font-bold text-foreground">{title}</Text>
-    {description ? (
-      <Text className="max-w-[260px] text-center text-xs leading-relaxed text-muted">
-        {description}
-      </Text>
+    {illustrated ? (
+      <EmptyStateArt variant="farm" size={128} />
+    ) : emoji ? (
+      <Text className="text-3xl">{emoji}</Text>
     ) : null}
-    {actionLabel && onAction ? (
-      <View className="mt-3 w-full max-w-xs">
-        <Button label={actionLabel} size="sm" variant="secondary" onPress={onAction} />
-      </View>
-    ) : null}
+    <View className={cn('items-center', illustrated || emoji ? 'mt-2' : undefined)}>
+      <Text className="text-center text-sm font-bold text-foreground">{title}</Text>
+      {description ? (
+        <Text className="max-w-[260px] text-center text-xs leading-relaxed text-muted">
+          {description}
+        </Text>
+      ) : null}
+      {actionLabel && onAction ? (
+        <View className="mt-3 w-full max-w-xs">
+          <Button label={actionLabel} size="sm" variant="secondary" onPress={onAction} />
+        </View>
+      ) : null}
+    </View>
   </View>
 )
 

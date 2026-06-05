@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-import { GameCard } from '@/components/ui/game';
+import { GameCard, GameDisplayText } from '@/components/ui/game';
 import { LOOT_BOX_UPGRADE_CHAIN } from '@/features/game-design/catalogs/loot-economy';
 import type { LootBoxRarityValue } from '@/types/inventory';
 
@@ -54,7 +54,9 @@ export const ShopStudyPointsHub = ({
           </View>
           <View className="items-end">
             <Text className={SHOP_TEXT.caption}>Saldo</Text>
-            <Text className="mt-1 text-3xl font-black text-accent">{balance.toLocaleString('pt-BR')}</Text>
+            <GameDisplayText variant="hero" className="mt-1 text-3xl leading-none text-accent">
+              {balance.toLocaleString('pt-BR')}
+            </GameDisplayText>
             <Text className={SHOP_TEXT.kickerAccent}>Study Points</Text>
           </View>
         </View>

@@ -1,5 +1,11 @@
 import { Stack } from 'expo-router';
 
+import { FeatureErrorBoundary } from '@/components/layout';
+
 export default function EnglishJournalLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <FeatureErrorBoundary feature="english-journal">
+      <Stack screenOptions={{ headerShown: false }} />
+    </FeatureErrorBoundary>
+  );
 }

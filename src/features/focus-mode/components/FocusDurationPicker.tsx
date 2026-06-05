@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants';
 import { cn } from '@/utils';
 
 import {
@@ -115,7 +116,7 @@ export const FocusDurationPicker = ({ valueMinutes, onChangeMinutes }: FocusDura
             keyboardType="number-pad"
             maxLength={3}
             placeholder={FOCUS_MESSAGES.durationCustomPlaceholder}
-            placeholderTextColor="#71717a"
+            placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
             accessibilityLabel={FOCUS_MESSAGES.durationCustomLabel}
           />
           <Text className="text-sm font-semibold text-muted">{FOCUS_MESSAGES.durationCustomSuffix}</Text>

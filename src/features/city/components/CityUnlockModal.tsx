@@ -9,6 +9,7 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import { Modal } from '@/components/ui/Modal'
+import { GameDisplayText } from '@/components/ui/game'
 import { theme } from '@/constants'
 import { CITY_MESSAGES } from '@/features/city/constants/default-buildings'
 import { CityService } from '@/features/city/services/city-service'
@@ -102,9 +103,9 @@ export const CityUnlockModal = () => {
               className="rounded-2xl border-4 border-accent/50 bg-accent/10 px-8 py-5">
               <Text className="text-6xl">{celebration.building.icon}</Text>
             </Animated.View>
-            <Text className="text-center text-2xl font-black text-accent">
+            <GameDisplayText variant="hero" className="text-center text-accent">
               {celebration.building.name}
-            </Text>
+            </GameDisplayText>
             <Text className="text-center text-sm text-foreground-secondary">
               {celebration.building.description}
             </Text>

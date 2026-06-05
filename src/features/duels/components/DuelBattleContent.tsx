@@ -86,9 +86,6 @@ export const DuelBattleContent = () => {
 
       const finished = await DuelService.finishSession(battle.sessionId, status, battle.combat);
       setResult(finished);
-      if (status === 'won') {
-        void AudioDirector.playSFX('mission_complete', { family: 'mission', priority: 'high' });
-      }
     },
     [battle, setResult],
   );
@@ -165,7 +162,7 @@ export const DuelBattleContent = () => {
           void haptics.success();
           void AudioDirector.playSFX('xp_tick', { family: 'xp' });
           if (answer.isCritical) {
-            void haptics.heavy();
+            void haptics.impact();
           }
         } else {
           void haptics.warning();

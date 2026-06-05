@@ -1,6 +1,7 @@
-import { Image } from 'expo-image';
 import { Modal, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { AppImage } from '@/components/ui/AppImage';
 
 import { JOURNAL_UI } from '../constants/journal-ui';
 
@@ -60,8 +61,10 @@ export const JournalEntryImagePreviewModal = ({
         <View style={styles.imageArea}>
           {uri ? (
             <View style={[styles.imageFrame, { maxHeight: imageMaxHeight }]}>
-              <Image
+              <AppImage
                 source={{ uri }}
+                surface="journal"
+                recyclingKey={uri}
                 style={{ width: imageWidth, height: imageMaxHeight }}
                 contentFit="contain"
                 accessibilityLabel={title}

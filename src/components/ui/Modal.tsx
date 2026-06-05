@@ -1,40 +1,33 @@
-import type { ReactNode } from 'react';
-import {
-    KeyboardAvoidingView,
-    Platform,
-    Modal as RNModal,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    useWindowDimensions,
-    View,
-} from 'react-native';
+import type { ReactNode } from 'react'
+import { ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
-import { cn } from '@/utils';
+import { cn } from '@/utils'
 
-import { Button } from './Button';
-import { MODAL_KEYBOARD_BEHAVIOR } from './keyboard-modal';
+import { Button } from './Button'
+import { GameDisplayText } from './game/GameDisplayText'
+import { AppModalShell } from './modal/AppModalShell'
 
 type AppModalProps = {
-  visible: boolean;
-  onRequestClose: () => void;
-  title: string;
-  description?: string;
-  children?: ReactNode;
-  confirmLabel?: string;
-  cancelLabel?: string;
-  onConfirm?: () => void;
-  onCancel?: () => void;
-  className?: string;
-  scrollable?: boolean;
-  footerMode?: 'dual' | 'single' | 'none';
-};
+  visible: boolean
+  onRequestClose: () => void
+  title?: string
+  description?: string
+  children?: ReactNode
+  confirmLabel?: string
+  cancelLabel?: string
+  onConfirm?: () => void
+  onCancel?: () => void
+  className?: string
+  scrollable?: boolean
+  footerMode?: 'dual' | 'single' | 'none'
+  /** When false, renders only the spring panel + children (no title/footer chrome). */
+  chrome?: boolean
+}
 
 export const Modal = ({
   visible,
   onRequestClose,
-  title,
+  title = '',
   description,
   children,
   confirmLabel = 'Confirmar',
@@ -44,24 +37,23 @@ export const Modal = ({
   className,
   scrollable = true,
   footerMode = 'dual',
+  chrome = true,
 }: AppModalProps) => {
-  const { height: windowHeight } = useWindowDimensions();
-  const maxBodyHeight = Math.min(windowHeight * 0.55, 420);
+  const { height: windowHeight } = useWindowDimensions()
+  const maxBodyHeight = Math.min(windowHeight * 0.55, 420)
 
   const handleClose = () => {
-    onRequestClose();
-  };
+    onRequestClose()
+  }
 
   const handleCancel = () => {
-    onCancel?.();
-    handleClose();
-  };
+    onCancel?.()
+    handleClose()
+  }
 
   const handleConfirm = () => {
-    onConfirm?.();
-  };
-
-  if (!visible) return null;
+    onConfirm?.()
+  }
 
   const body = children ? (
     scrollable ? (
@@ -78,63 +70,53 @@ export const Modal = ({
     ) : (
       <View>{children}</View>
     )
-  ) : null;
+  ) : null
+
+  const panel = chrome ? (
+    <View
+      className={cn(
+        'w-full rounded-2xl border border-border bg-surface p-6',
+        className,
+      )}>
+      {title ? (
+        <GameDisplayText variant="hero" accessibilityRole="header" numberOfLines={3}>
+          {title}
+        </GameDisplayText>
+      ) : null}
+      {description ? (
+        <Text className="mt-2 text-base text-foreground-secondary">{description}</Text>
+      ) : null}
+      {body ? <View className="mt-4">{body}</View> : null}
+      {footerMode === 'none' ? null : (
+        <View className="mt-6 flex-row gap-3">
+          {footerMode === 'dual' ? (
+            <View className="flex-1">
+              <Button label={cancelLabel} variant="secondary" onPress={handleCancel} />
+            </View>
+          ) : null}
+          {onConfirm ? (
+            <View className="flex-1">
+              <Button label={confirmLabel} onPress={handleConfirm} />
+            </View>
+          ) : null}
+        </View>
+      )}
+    </View>
+  ) : (
+    <View className={cn('w-full rounded-2xl border border-border bg-surface p-6', className)}>
+      {children}
+    </View>
+  )
 
   return (
-    <RNModal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={handleCancel}
-      statusBarTranslucent>
-      <KeyboardAvoidingView
-        style={styles.avoiding}
-        behavior={MODAL_KEYBOARD_BEHAVIOR}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}>
-        <View className="flex-1 items-center justify-center px-6 py-6" accessibilityViewIsModal>
-          <TouchableOpacity
-            className="absolute inset-0 bg-black/70"
-            activeOpacity={1}
-            onPress={handleCancel}
-            accessibilityRole="button"
-            accessibilityLabel="Fechar modal"
-          />
-          <View
-            className={cn(
-              'z-10 w-full max-w-sm self-center rounded-2xl border border-border bg-surface p-6',
-              className,
-            )}>
-            <Text className="text-xl font-bold text-foreground">{title}</Text>
-            {description ? (
-              <Text className="mt-2 text-base text-foreground-secondary">{description}</Text>
-            ) : null}
-            {body ? <View className="mt-4">{body}</View> : null}
-            {footerMode === 'none' ? null : (
-              <View className="mt-6 flex-row gap-3">
-                {footerMode === 'dual' ? (
-                  <View className="flex-1">
-                    <Button label={cancelLabel} variant="secondary" onPress={handleCancel} />
-                  </View>
-                ) : null}
-                {onConfirm ? (
-                  <View className="flex-1">
-                    <Button label={confirmLabel} onPress={handleConfirm} />
-                  </View>
-                ) : null}
-              </View>
-            )}
-          </View>
-        </View>
-      </KeyboardAvoidingView>
-    </RNModal>
-  );
-};
+    <AppModalShell visible={visible} onClose={handleCancel} presentation="center">
+      {panel}
+    </AppModalShell>
+  )
+}
 
 const styles = StyleSheet.create({
-  avoiding: {
-    flex: 1,
-  },
   scrollContent: {
     paddingBottom: 4,
   },
-});
+})

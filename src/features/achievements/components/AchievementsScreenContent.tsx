@@ -21,7 +21,7 @@ export const AchievementsScreenContent = () => {
   const { achievements, summary, isLoading } = useAchievements();
 
   if (isLoading) {
-    return <ScreenSkeleton variant="hero-list" listCount={4} />;
+    return <ScreenSkeleton variant="achievements" listCount={5} />;
   }
 
   return (

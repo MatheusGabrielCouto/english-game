@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { Card } from '@/components';
+import { TOUCH_TARGET_CHIP_CLASS } from '@/constants/touch-target-ui';
+import { cn } from '@/utils';
 import { PressableScale } from '@/components/ui/game';
 import type { PetInstance } from '@/types/pet-instance';
 
@@ -95,9 +97,11 @@ const ScrollTabs = ({
       <PressableScale
         key={item.key}
         onPress={() => onChange(item.key)}
-        className={`rounded-full border px-3 py-1.5 ${
-          active === item.key ? 'border-primary bg-primary/15' : 'border-border bg-surface'
-        }`}
+        className={cn(
+          'rounded-full border px-3',
+          TOUCH_TARGET_CHIP_CLASS,
+          active === item.key ? 'border-primary bg-primary/15' : 'border-border bg-surface',
+        )}
         accessibilityRole="tab"
         accessibilityState={{ selected: active === item.key }}>
         <Text

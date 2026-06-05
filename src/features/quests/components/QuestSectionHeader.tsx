@@ -1,14 +1,15 @@
-import { Text, View } from 'react-native';
+import { Text, View } from 'react-native'
 
-import { cn } from '@/utils';
+import { GameDisplayText } from '@/components/ui/game'
+import { cn } from '@/utils'
 
 type QuestSectionHeaderProps = {
-  emoji: string;
-  title: string;
-  subtitle: string;
-  badge?: string;
-  className?: string;
-};
+  emoji: string
+  title: string
+  subtitle: string
+  badge?: string
+  className?: string
+}
 
 export const QuestSectionHeader = ({
   emoji,
@@ -21,7 +22,7 @@ export const QuestSectionHeader = ({
     <View className="flex-1">
       <View className="flex-row items-center gap-2">
         <Text className="text-lg">{emoji}</Text>
-        <Text className="text-lg font-black text-foreground">{title}</Text>
+        <GameDisplayText variant="section">{title}</GameDisplayText>
       </View>
       <Text className="mt-0.5 text-sm text-foreground-secondary">{subtitle}</Text>
     </View>
@@ -31,4 +32,4 @@ export const QuestSectionHeader = ({
       </View>
     ) : null}
   </View>
-);
+)

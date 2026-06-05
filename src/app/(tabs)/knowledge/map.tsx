@@ -13,7 +13,8 @@ import { VaultEmptyState } from '@/features/english-journal/components/vault/Vau
 import { VaultScreenBody } from '@/features/english-journal/components/vault/VaultScreenBody'
 import { GRAPH_UI } from '@/features/english-journal/constants/vault-graph-ui'
 import { KnowledgeVaultService } from '@/features/english-journal/services/knowledge-vault-service'
-import { useEnglishJournalStore } from '@/features/english-journal/store/english-journal-store'
+import { useVaultEntriesStore } from '@/features/english-journal/store/vault-entries-store'
+import { useVaultMetaStore } from '@/features/english-journal/store/vault-meta-store'
 import {
     getDefaultExpandedSpaceIds,
     type MindMapSnapshot,
@@ -29,8 +30,8 @@ const DEFAULT_FILTER: KnowledgeGraphFilter = {
 
 export default function KnowledgeMapRoute() {
   const router = useRouter()
-  const refreshVault = useEnglishJournalStore((s) => s.refresh)
-  const entries = useEnglishJournalStore((s) => s.entries)
+  const refreshVault = useVaultMetaStore((s) => s.refresh)
+  const entries = useVaultEntriesStore((s) => s.entries)
 
   const [snapshot, setSnapshot] = useState<MindMapSnapshot | null>(null)
   const [filter, setFilter] = useState<KnowledgeGraphFilter>(DEFAULT_FILTER)

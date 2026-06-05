@@ -3,7 +3,8 @@ import { Text, View } from 'react-native'
 
 import { XPBar } from '@/components'
 import { Avatar } from '@/components/ui/Avatar'
-import { GameCard, LevelBadge, PressableScale } from '@/components/ui/game'
+import { HeroBrandMark } from '@/components/ui/HeroBrandMark'
+import { GameCard, LevelBadge, PressableScale, SharedHeroTransition } from '@/components/ui/game'
 import { routes, SHARED_TRANSITION_TAGS } from '@/constants'
 import { useAchievementsStore } from '@/features/achievements/store/achievements-store'
 import { useAppStore } from '@/features/app/store/app-store'
@@ -46,9 +47,12 @@ export const ProfileIdentityHero = ({ onEditName }: ProfileIdentityHeroProps) =>
       variant="hero"
       glow
       sharedTransitionTag={SHARED_TRANSITION_TAGS.playerHero}
-      className="items-center gap-4 py-6">
+      className="items-center gap-4 overflow-hidden py-6">
+      <HeroBrandMark size={88} className="absolute -right-3 top-2" />
       <PressableScale onPress={onEditName} accessibilityRole="button" accessibilityLabel={PROFILE_UI.playerEditLabel}>
-        <Avatar name={name} size="xl" frameKey={avatarFrame} badgeKey={avatarBadge} ring />
+        <SharedHeroTransition tag={SHARED_TRANSITION_TAGS.profileAvatarHero}>
+          <Avatar name={name} size="xl" frameKey={avatarFrame} badgeKey={avatarBadge} ring />
+        </SharedHeroTransition>
       </PressableScale>
 
       <View className="items-center gap-1 px-4">

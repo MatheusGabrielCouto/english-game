@@ -4,7 +4,7 @@ import { formatJournalPlaybackRate } from './journal-playback';
 
 export const JOURNAL_UI = {
   screenTitle: 'English Knowledge Vault',
-  screenSubtitle: 'My English Brain — seu second brain de inglês',
+  screenSubtitle: 'My English Brain — seu caderno de inglês no jogo',
   emptyLibrary: 'Nenhuma nota ainda. Registre sua primeira descoberta.',
   addEntry: 'Nova nota',
   editEntry: 'Editar nota',

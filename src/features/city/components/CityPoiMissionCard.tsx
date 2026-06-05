@@ -1,4 +1,3 @@
-import * as Haptics from 'expo-haptics';
 import { Text, View } from 'react-native';
 
 import { Button, Card, ProgressBar } from '@/components';
@@ -36,7 +35,6 @@ export const CityPoiMissionCard = ({
 
   const handleClaim = () => {
     if (!canClaim || isClaiming || claimDisabled) return;
-    void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     void onClaim(mission.id);
   };
 

@@ -7,15 +7,13 @@ export const ToastHost = () => {
   const toast = useFeedbackStore((state) => state.activeToast)
   const dismissToast = useFeedbackStore((state) => state.dismissToast)
 
-  if (!toast) return null
-
   return (
     <View style={styles.host} pointerEvents="box-none">
       <Toast
-        message={toast.message}
-        variant={toast.variant}
-        durationMs={toast.durationMs}
-        toastKey={toast.id}
+        message={toast?.message ?? null}
+        variant={toast?.variant ?? 'success'}
+        durationMs={toast?.durationMs ?? 2800}
+        toastKey={toast?.id}
         onDismiss={dismissToast}
       />
     </View>

@@ -13,7 +13,7 @@ import { PetSection } from './PetSection'
 import { QuestsSection } from './QuestsSection'
 import { StatisticsCollapsibleSection } from './StatisticsCollapsibleSection'
 import { StatisticsHeroCard } from './StatisticsHeroCard'
-import { StatisticsInsightsCard } from './StatisticsInsightsCard'
+import { StatisticsInsightsFeed } from './StatisticsInsightsFeed'
 import { StatisticsMilestoneList } from './StatisticsMilestoneList'
 
 type StatisticsScreenContentProps = {
@@ -21,7 +21,7 @@ type StatisticsScreenContentProps = {
 }
 
 export const StatisticsScreenContent = ({ statistics }: StatisticsScreenContentProps) => {
-  const { dashboard, isLoading } = statistics
+  const { dashboard, isLoading, handleDetailsExpand } = statistics
 
   if (isLoading || !dashboard) {
     return <ScreenSkeleton variant="hero-list" listCount={3} className="gap-3" />
@@ -29,36 +29,41 @@ export const StatisticsScreenContent = ({ statistics }: StatisticsScreenContentP
 
   return (
     <View className="gap-3 pb-4">
-      <StatisticsHeroCard dashboard={dashboard} />
-      <StatisticsInsightsCard insights={dashboard.insights} />
+      <StatisticsInsightsFeed insights={dashboard.insights} />
 
       <StatisticsCollapsibleSection
-        title={STATISTICS_UI.sections.progress.title}
-        emoji={STATISTICS_UI.sections.progress.emoji}
-        subtitle={STATISTICS_UI.sections.progress.subtitle}
-        defaultOpen>
-        <ConsistencySection consistency={dashboard.consistency} />
-        <OverviewSection overview={dashboard.overview} />
-      </StatisticsCollapsibleSection>
+        title={STATISTICS_UI.sections.details.title}
+        emoji={STATISTICS_UI.sections.details.emoji}
+        subtitle={STATISTICS_UI.sections.details.subtitle}
+        onExpand={handleDetailsExpand}>
+        <StatisticsHeroCard dashboard={dashboard} />
 
-      <StatisticsCollapsibleSection
-        title={STATISTICS_UI.sections.activity.title}
-        emoji={STATISTICS_UI.sections.activity.emoji}
-        subtitle={STATISTICS_UI.sections.activity.subtitle}
-        defaultOpen>
-        <QuestsSection quests={dashboard.quests} />
-        <ContractsSection contracts={dashboard.contracts} />
-        <CitySection city={dashboard.city} />
-      </StatisticsCollapsibleSection>
+        <StatisticsCollapsibleSection
+          title={STATISTICS_UI.sections.progress.title}
+          emoji={STATISTICS_UI.sections.progress.emoji}
+          subtitle={STATISTICS_UI.sections.progress.subtitle}>
+          <ConsistencySection consistency={dashboard.consistency} />
+          <OverviewSection overview={dashboard.overview} />
+        </StatisticsCollapsibleSection>
 
-      <StatisticsCollapsibleSection
-        title={STATISTICS_UI.sections.collection.title}
-        emoji={STATISTICS_UI.sections.collection.emoji}
-        subtitle={STATISTICS_UI.sections.collection.subtitle}>
-        <PetSection pet={dashboard.pet} />
-        <LootBoxesSection lootBoxes={dashboard.lootBoxes} />
-        <AchievementsSection achievements={dashboard.achievements} />
-        <StatisticsMilestoneList milestones={dashboard.milestones} />
+        <StatisticsCollapsibleSection
+          title={STATISTICS_UI.sections.activity.title}
+          emoji={STATISTICS_UI.sections.activity.emoji}
+          subtitle={STATISTICS_UI.sections.activity.subtitle}>
+          <QuestsSection quests={dashboard.quests} />
+          <ContractsSection contracts={dashboard.contracts} />
+          <CitySection city={dashboard.city} />
+        </StatisticsCollapsibleSection>
+
+        <StatisticsCollapsibleSection
+          title={STATISTICS_UI.sections.collection.title}
+          emoji={STATISTICS_UI.sections.collection.emoji}
+          subtitle={STATISTICS_UI.sections.collection.subtitle}>
+          <PetSection pet={dashboard.pet} />
+          <LootBoxesSection lootBoxes={dashboard.lootBoxes} />
+          <AchievementsSection achievements={dashboard.achievements} />
+          <StatisticsMilestoneList milestones={dashboard.milestones} />
+        </StatisticsCollapsibleSection>
       </StatisticsCollapsibleSection>
     </View>
   )

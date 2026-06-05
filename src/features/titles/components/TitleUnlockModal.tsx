@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 
 import { Modal } from '@/components/ui/Modal';
+import { GameDisplayText } from '@/components/ui/game';
 import { useFeedbackStore } from '@/features/feedback/store/feedback-store';
 import { TITLE_MESSAGES } from '@/features/titles/constants/default-titles';
 import { TitleService } from '@/features/titles/services/title-service';
@@ -31,9 +32,9 @@ export const TitleUnlockModal = () => {
           <View className="rounded-full border-4 border-primary/50 bg-primary/10 p-5">
             <Text className="text-6xl">{celebration.title.icon}</Text>
           </View>
-          <Text className="px-2 text-center text-xl font-black text-primary" numberOfLines={2}>
+          <GameDisplayText variant="hero" className="px-2 text-center text-primary" numberOfLines={2}>
             {celebration.title.name}
-          </Text>
+          </GameDisplayText>
           <Text className="px-2 text-center text-sm leading-5 text-foreground-secondary">
             {celebration.title.description}
           </Text>

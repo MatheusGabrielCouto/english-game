@@ -1,6 +1,8 @@
 import { Text, View } from 'react-native';
 
 import { GameCard } from '@/components/ui/game';
+import { CARD_METADATA_TEXT_CLASS, CARD_MUTED_CAPTION_CLASS } from '@/constants';
+import { cn } from '@/utils';
 
 import { FLASH_DECK_UI } from '../constants/flash-deck-ui';
 import type { FlashDeckStats } from '../services/flash-deck-service';
@@ -17,7 +19,7 @@ const StatCell = ({ label, value, highlight }: { label: string; value: number; h
     <Text className={`text-lg font-black ${highlight ? 'text-accent' : 'text-foreground'}`}>
       {value}
     </Text>
-    <Text className="mt-0.5 text-[10px] font-bold uppercase text-muted">{label}</Text>
+    <Text className={cn('mt-0.5', CARD_METADATA_TEXT_CLASS, 'text-muted')}>{label}</Text>
   </View>
 );
 
@@ -43,7 +45,7 @@ export const FlashDeckStatsCard = ({ stats }: FlashDeckStatsCardProps) => (
     <Text className="text-center text-xs text-foreground-secondary">
       {FLASH_DECK_UI.statsReviewsToday(stats.reviewsToday, stats.reviewsToday + stats.reviewsRemainingToday)}
     </Text>
-    <Text className="text-center text-[10px] text-muted">
+    <Text className={cn('text-center', CARD_MUTED_CAPTION_CLASS)}>
       {FLASH_DECK_UI.statsNewToday(
         stats.newCardsCreatedToday,
         stats.newCardsCreatedToday + stats.newCardsRemainingToday,

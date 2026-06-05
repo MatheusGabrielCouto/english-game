@@ -1,5 +1,9 @@
+import { useEffect } from 'react'
 import { View } from 'react-native'
 
+import { StartupPerfService } from '@/services/startup-perf-service'
+
+import { HomeChangelogCard } from '@/features/changelog/components/HomeChangelogCard'
 import { HomeActiveObjectivesCard } from '@/features/home/components/HomeActiveObjectivesCard'
 import { HomeCityCard } from '@/features/home/components/HomeCityCard'
 import { HomeDailyProgressCard } from '@/features/home/components/HomeDailyProgressCard'
@@ -22,6 +26,11 @@ export const HomeScreenContent = () => {
   const isReady = useHomeScreenReady()
   useHomeFocusRefresh()
 
+  useEffect(() => {
+    if (!isReady) return
+    StartupPerfService.mark('home_interactive')
+  }, [isReady])
+
   if (!isReady) {
     return <HomeScreenSkeleton />
   }
@@ -33,6 +42,7 @@ export const HomeScreenContent = () => {
         title={HOME_UI.zones.now.title}
         subtitle={HOME_UI.zones.now.subtitle}>
         <HomePlayerHeader />
+        <HomeChangelogCard />
         <CoachMarkTarget coachKey="home-do-now">
           <HomeDoNowCard />
         </CoachMarkTarget>

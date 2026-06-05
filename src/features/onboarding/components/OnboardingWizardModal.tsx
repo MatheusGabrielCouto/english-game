@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Pressable, Text, TextInput, View } from 'react-native'
 
 import { Modal } from '@/components'
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants'
 import { useAppStore } from '@/features/app/store/app-store'
 import {
     DIFFICULTY_CONFIG,
@@ -62,7 +63,7 @@ export const OnboardingWizardModal = () => {
           <TextInput
             className="rounded-xl border border-border bg-surface-elevated px-4 py-3 text-foreground"
             placeholder="Seu nome de herói"
-            placeholderTextColor="#71717a"
+            placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
             value={name}
             onChangeText={(value) => {
               setNameInput(value)
@@ -87,7 +88,7 @@ export const OnboardingWizardModal = () => {
                   accessibilityRole="button"
                   accessibilityState={{ selected: isActive }}
                   onPress={() => {
-                    haptics.selection()
+                    haptics.tap()
                     setSelectedDifficulty(option)
                   }}
                   className={cn(

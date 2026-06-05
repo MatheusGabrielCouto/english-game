@@ -1,6 +1,8 @@
 import { useCallback, useEffect } from 'react';
 import { View } from 'react-native';
 
+import { DomainGlossaryBanner } from '@/components/ui';
+
 import { PetFarmService } from '../services/pet-farm-service';
 import { PetRosterService } from '../services/pet-roster-service';
 import { usePetFarmStore } from '../store/pet-farm-store';
@@ -24,6 +26,7 @@ export const PetFarmScreenContent = () => {
 
   return (
     <View className="gap-4">
+      <DomainGlossaryBanner variant="petFarm" />
       <PetFarmMapScreen />
     </View>
   );

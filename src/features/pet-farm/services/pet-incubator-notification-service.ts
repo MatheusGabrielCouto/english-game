@@ -27,6 +27,7 @@ export const PetIncubatorNotificationService = {
     await scheduleLocalNotification({
       identifier: incubatorNotificationId(egg.id),
       triggerDate: new Date(egg.hatchAt),
+      deepLinkPath: '/pet-farm/incubator',
       candidate: {
         category: NotificationCategory.PET_REMINDER,
         title: 'Ovo pronto para eclodir!',

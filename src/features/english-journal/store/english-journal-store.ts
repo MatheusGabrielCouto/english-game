@@ -1,43 +1,17 @@
-import { create } from 'zustand';
+/**
+ * Barrel do vault — preferir slices granulares (P-45):
+ * - useVaultEntriesStore
+ * - useVaultMetaStore
+ * - useVaultCollectionsStore
+ */
+export { useVaultEntriesStore, type VaultEntriesState } from './vault-entries-store'
+export { useVaultMetaStore, type VaultMetaState } from './vault-meta-store'
+export { useVaultCollectionsStore, type VaultCollectionsState } from './vault-collections-store'
 
-import type { JournalEntryRecord, JournalListFilter, JournalStatsRecord } from '@/types/journal';
-import type { VaultCollectionRecord, VaultFolderRecord, VaultMapNode } from '@/types/knowledge-vault';
+import { useVaultMetaStore } from './vault-meta-store'
 
-type EnglishJournalState = {
-  entries: JournalEntryRecord[];
-  dueReviews: JournalEntryRecord[];
-  favorites: JournalEntryRecord[];
-  pinned: JournalEntryRecord[];
-  recent: JournalEntryRecord[];
-  stats: JournalStatsRecord | null;
-  folders: VaultFolderRecord[];
-  collections: VaultCollectionRecord[];
-  mapTree: VaultMapNode[];
-  filter: JournalListFilter;
-  isLoading: boolean;
-  setFilter: (filter: JournalListFilter) => void;
-  refresh: (filter?: JournalListFilter) => Promise<void>;
-};
+/** @deprecated Use useVaultMetaStore, useVaultEntriesStore ou useVaultCollectionsStore */
+export const useEnglishJournalStore = useVaultMetaStore
 
-export const useEnglishJournalStore = create<EnglishJournalState>((set, get) => ({
-  entries: [],
-  dueReviews: [],
-  favorites: [],
-  pinned: [],
-  recent: [],
-  stats: null,
-  folders: [],
-  collections: [],
-  mapTree: [],
-  filter: {},
-  isLoading: true,
-
-  setFilter: (filter) => set({ filter }),
-
-  refresh: async (filter) => {
-    const { KnowledgeVaultService } = await import('../services/knowledge-vault-service');
-    await KnowledgeVaultService.refresh(filter ?? get().filter);
-  },
-}));
-
-export const useKnowledgeVaultStore = useEnglishJournalStore;
+/** @deprecated Use useVaultMetaStore */
+export const useKnowledgeVaultStore = useVaultMetaStore

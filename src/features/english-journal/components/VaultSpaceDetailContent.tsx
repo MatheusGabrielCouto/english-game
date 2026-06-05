@@ -10,7 +10,9 @@ import type { VaultSpaceKey } from '@/types/knowledge-vault';
 
 import { VAULT_SPACE_BY_KEY } from '../catalogs/vault-spaces-catalog';
 import { VAULT_UI } from '../constants/vault-ui';
-import { useEnglishJournalStore } from '../store/english-journal-store';
+import { useVaultCollectionsStore } from '../store/vault-collections-store';
+import { useVaultEntriesStore } from '../store/vault-entries-store';
+import { useVaultMetaStore } from '../store/vault-meta-store';
 import { JournalEntryFormModal } from './JournalEntryFormModal';
 import { VaultEmptyState } from './vault/VaultEmptyState';
 import { VaultGlobalSearchTrigger } from './vault/VaultGlobalSearchTrigger';
@@ -24,10 +26,10 @@ type VaultSpaceDetailContentProps = {
 export const VaultSpaceDetailContent = ({ spaceKey }: VaultSpaceDetailContentProps) => {
   const router = useRouter();
   const space = VAULT_SPACE_BY_KEY[spaceKey];
-  const entries = useEnglishJournalStore((s) => s.entries);
-  const folders = useEnglishJournalStore((s) => s.folders);
-  const isLoading = useEnglishJournalStore((s) => s.isLoading);
-  const refresh = useEnglishJournalStore((s) => s.refresh);
+  const entries = useVaultEntriesStore((s) => s.entries);
+  const folders = useVaultCollectionsStore((s) => s.folders);
+  const isLoading = useVaultMetaStore((s) => s.isLoading);
+  const refresh = useVaultMetaStore((s) => s.refresh);
   const [formVisible, setFormVisible] = useState(false);
   const [initialFolderId, setInitialFolderId] = useState<string | null>(null);
 

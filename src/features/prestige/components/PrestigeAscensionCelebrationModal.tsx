@@ -9,7 +9,9 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Modal } from '@/components';
+import { GameDisplayText } from '@/components/ui/game';
 import { theme } from '@/constants';
+import { CelebrationLottie } from '@/features/feedback/components/CelebrationLottie';
 import { useFeedbackStore } from '@/features/feedback/store/feedback-store';
 import { PrestigeSacrificeType } from '@/types/prestige';
 
@@ -59,6 +61,9 @@ export const PrestigeAscensionCelebrationModal = () => {
       onConfirm={handleClose}
       className="border-gold/40">
       <View className="items-center gap-4 py-2">
+        <View className="absolute h-56 w-56 items-center justify-center">
+          <CelebrationLottie kind="prestige" active />
+        </View>
         <Animated.View
           style={[
             badgeStyle,
@@ -72,7 +77,9 @@ export const PrestigeAscensionCelebrationModal = () => {
           <Text className="text-4xl font-black text-gold">{celebration.tierRoman}</Text>
         </Animated.View>
 
-        <Text className="text-center text-2xl font-black text-foreground">{celebration.tierName}</Text>
+        <GameDisplayText variant="hero" className="text-center">
+          {celebration.tierName}
+        </GameDisplayText>
         <Text className="text-center text-sm text-muted">Sacrifício: {sacrificeLabel}</Text>
 
         <View className="w-full gap-1 rounded-xl border border-primary/25 bg-primary/10 px-4 py-3">

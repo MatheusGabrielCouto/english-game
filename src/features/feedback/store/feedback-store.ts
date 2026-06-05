@@ -6,11 +6,15 @@ export type LevelUpCelebration = {
   levelsGained: number;
 };
 
+import type { RewardBurstSource } from '../constants/reward-burst-ui';
+
 export type MissionRewardBurst = {
   id: string;
   title: string;
   xp: number;
   coins: number;
+  studyPoints?: number;
+  source?: RewardBurstSource;
 };
 
 export type PetEvolutionCelebration = {

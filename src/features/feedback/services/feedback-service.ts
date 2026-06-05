@@ -4,9 +4,15 @@ import { GameEvents } from '@/services/game-events'
 import type { PetStageValue } from '@/types/pet'
 import { haptics } from '@/utils/haptics'
 
+import { REWARD_BURST_COPY } from '../constants/reward-burst-ui'
 import { useFeedbackStore } from '../store/feedback-store'
+import type { MissionRewardBurst } from '../store/feedback-store'
 
 let initialized = false
+
+const pushRewardBurst = (burst: Omit<MissionRewardBurst, 'id'>) => {
+  useFeedbackStore.getState().addRewardBurst(burst)
+}
 
 const handleGameEvent = (event: GameEvent) => {
   const store = useFeedbackStore.getState()
@@ -22,10 +28,11 @@ const handleGameEvent = (event: GameEvent) => {
       break
 
     case 'DAILY_MISSION_COMPLETED':
-      haptics.medium()
+      haptics.press()
       if (event.xpReward !== undefined && event.coinReward !== undefined) {
-        store.addRewardBurst({
-          title: event.missionTitle ?? 'Missão concluída!',
+        pushRewardBurst({
+          source: 'mission',
+          title: event.missionTitle ?? REWARD_BURST_COPY.missionFallback,
           xp: event.xpReward,
           coins: event.coinReward,
         })
@@ -34,7 +41,7 @@ const handleGameEvent = (event: GameEvent) => {
 
     case 'XP_GAINED':
       if (event.amount >= 15) {
-        haptics.light()
+        haptics.press()
       }
       break
 
@@ -69,20 +76,32 @@ const handleGameEvent = (event: GameEvent) => {
       break
 
     case 'SHOP_PURCHASE_COMPLETED':
-      haptics.medium()
+      haptics.confirm()
       store.showToast(`${event.productName} adicionado!`, 'success')
       break
 
     case 'FOCUS_SESSION_COMPLETED':
       haptics.success()
-      store.addRewardBurst({
-        title: 'Sessão de foco concluída!',
+      pushRewardBurst({
+        source: 'focus',
+        title: REWARD_BURST_COPY.focus,
         xp: event.rewards.xp,
         coins: event.rewards.coins,
       })
       if (event.rewards.lootBoxRarity) {
         store.triggerConfetti()
       }
+      break
+
+    case 'ROUTINE_COMPLETED':
+      haptics.success()
+      pushRewardBurst({
+        source: 'routine',
+        title: event.routineName,
+        xp: event.xp,
+        coins: event.coins,
+        studyPoints: event.studyPoints > 0 ? event.studyPoints : undefined,
+      })
       break
 
     case 'CONTRACT_FAILED':
@@ -96,11 +115,11 @@ const handleGameEvent = (event: GameEvent) => {
       break
 
     case 'PRESTIGE_ASCENDED':
-      haptics.heavy()
+      haptics.impact()
       break
 
     case 'SHIELD_EARNED':
-      haptics.light()
+      haptics.press()
       store.showToast(
         event.amount === 1 ? 'Escudo conquistado!' : `${event.amount} escudos conquistados!`,
         'info',
@@ -109,8 +128,9 @@ const handleGameEvent = (event: GameEvent) => {
 
     case 'JOURNAL_ENTRY_REVIEWED':
       haptics.success()
-      store.addRewardBurst({
-        title: 'Revisão concluída!',
+      pushRewardBurst({
+        source: 'vault',
+        title: REWARD_BURST_COPY.vault,
         xp: event.xp,
         coins: 0,
       })
@@ -142,4 +162,8 @@ export const showGameToast = (
   variant: 'success' | 'info' | 'warning' | 'error' = 'info',
 ) => {
   useFeedbackStore.getState().showToast(message, variant)
+}
+
+export const showRewardBurst = (burst: Omit<MissionRewardBurst, 'id'>) => {
+  pushRewardBurst(burst)
 }

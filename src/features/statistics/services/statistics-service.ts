@@ -20,57 +20,70 @@ import { buildStatisticsDashboard } from '../utils/metrics';
 import { backfillStatisticsMilestones, recordStatisticsMilestone } from '../utils/milestones';
 
 let listenersInitialized = false;
+let refreshInFlight: Promise<void> | null = null;
 
 const refreshStore = async (): Promise<void> => {
-  const [
-    player,
-    playerStatistics,
-    shieldStats,
-    missionStats,
-    petAnalytics,
-    pet,
-    lootBoxAnalytics,
-    achievementUnlocks,
-    contractAnalytics,
-    cityAnalytics,
-    achievementAnalytics,
-    milestones,
-  ] = await Promise.all([
-    getOrCreatePlayer(),
-    PlayerStatisticsRepository.getOrCreate(),
-    ShieldStatsRepository.getOrCreate(),
-    MissionStatsRepository.getSnapshot(),
-    PetAnalyticsRepository.getOrCreate(),
-    getCurrentPet(),
-    LootBoxAnalyticsRepository.getOrCreate(),
-    AchievementUnlockRepository.findAll(),
-    ContractAnalyticsRepository.getOrCreate(),
-    CityAnalyticsRepository.getOrCreate(),
-    AchievementAnalyticsRepository.getOrCreate(),
-    StatisticsMilestoneRepository.findRecent(30),
-  ]);
+  if (refreshInFlight) {
+    return refreshInFlight;
+  }
 
-  const petMoodLabel = pet ? MOOD_CONFIG[pet.mood].label : '—';
+  refreshInFlight = (async () => {
+    const [
+      player,
+      playerStatistics,
+      shieldStats,
+      missionStats,
+      petAnalytics,
+      pet,
+      lootBoxAnalytics,
+      achievementUnlocks,
+      contractAnalytics,
+      cityAnalytics,
+      achievementAnalytics,
+      milestones,
+    ] = await Promise.all([
+      getOrCreatePlayer(),
+      PlayerStatisticsRepository.getOrCreate(),
+      ShieldStatsRepository.getOrCreate(),
+      MissionStatsRepository.getSnapshot(),
+      PetAnalyticsRepository.getOrCreate(),
+      getCurrentPet(),
+      LootBoxAnalyticsRepository.getOrCreate(),
+      AchievementUnlockRepository.findAll(),
+      ContractAnalyticsRepository.getOrCreate(),
+      CityAnalyticsRepository.getOrCreate(),
+      AchievementAnalyticsRepository.getOrCreate(),
+      StatisticsMilestoneRepository.findRecent(30),
+    ]);
 
-  const dashboard = buildStatisticsDashboard({
-    player,
-    playerStudyMinutes: playerStatistics.totalStudyMinutes,
-    shieldStats,
-    missionStats,
-    petAnalytics,
-    petMoodLabel,
-    lootBoxAnalytics,
-    achievementUnlocks,
-    contractAnalytics,
-    cityAnalytics,
-    achievementAnalyticsCoins: achievementAnalytics.totalCoinsGranted,
-    milestones,
-  });
+    const petMoodLabel = pet ? MOOD_CONFIG[pet.mood].label : '—';
 
-  useStatisticsStore.setState({
-    dashboard,
-    isLoading: false,
-  });
+    const dashboard = buildStatisticsDashboard({
+      player,
+      playerStudyMinutes: playerStatistics.totalStudyMinutes,
+      shieldStats,
+      missionStats,
+      petAnalytics,
+      petMoodLabel,
+      lootBoxAnalytics,
+      achievementUnlocks,
+      contractAnalytics,
+      cityAnalytics,
+      achievementAnalyticsCoins: achievementAnalytics.totalCoinsGranted,
+      milestones,
+    });
+
+    useStatisticsStore.setState({
+      dashboard,
+      isLoading: false,
+    });
+  })();
+
+  try {
+    await refreshInFlight;
+  } finally {
+    refreshInFlight = null;
+  }
 };
 
 const reconcileStudyMinutes = async (totalStudyDays: number): Promise<void> => {
@@ -96,7 +109,7 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
         });
       }
 
-      await refreshStore();
+      GameEvents.scheduleCoalescedAfterBatch(refreshStore);
       break;
     }
     case 'ACHIEVEMENT_UNLOCKED':
@@ -105,7 +118,7 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
         milestoneKey: event.achievementKey,
         label: `Conquista: ${event.name}`,
       });
-      await refreshStore();
+      GameEvents.scheduleCoalescedAfterBatch(refreshStore);
       break;
     case 'TITLE_UNLOCKED':
       await recordStatisticsMilestone({
@@ -113,7 +126,7 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
         milestoneKey: event.titleKey,
         label: `Título: ${event.titleName}`,
       });
-      await refreshStore();
+      GameEvents.scheduleCoalescedAfterBatch(refreshStore);
       break;
     case 'CITY_BUILDING_UNLOCKED':
       await recordStatisticsMilestone({
@@ -121,7 +134,7 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
         milestoneKey: event.buildingKey,
         label: `Construção: ${event.buildingName}`,
       });
-      await refreshStore();
+      GameEvents.scheduleCoalescedAfterBatch(refreshStore);
       break;
     case 'CONTRACT_COMPLETED':
       await recordStatisticsMilestone({
@@ -130,7 +143,7 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
         label: `Contrato: ${event.contractName}`,
         value: event.targetDays,
       });
-      await refreshStore();
+      GameEvents.scheduleCoalescedAfterBatch(refreshStore);
       break;
     case 'LOOT_BOX_OPENED':
       await recordStatisticsMilestone({
@@ -147,7 +160,7 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
         milestoneKey: event.stage,
         label: stageConfig ? `Pet evoluiu para ${stageConfig.label}` : `Pet evoluiu`,
       });
-      await refreshStore();
+      GameEvents.scheduleCoalescedAfterBatch(refreshStore);
       break;
     }
     case 'FOCUS_SESSION_COMPLETED': {
@@ -159,7 +172,7 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
         label: `Focus Mode · +${event.rewards.xp} XP`,
         value: focusMinutes,
       });
-      await refreshStore();
+      GameEvents.scheduleCoalescedAfterBatch(refreshStore);
       break;
     }
     case 'PLAYER_LEVEL_UP':
@@ -169,7 +182,7 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
         label: `Alcançou o nível ${event.level}`,
         value: event.level,
       });
-      await refreshStore();
+      GameEvents.scheduleCoalescedAfterBatch(refreshStore);
       break;
     default:
       break;

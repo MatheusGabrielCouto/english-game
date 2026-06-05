@@ -1,4 +1,4 @@
-import * as Haptics from 'expo-haptics';
+import { haptics } from '@/utils/haptics';
 
 import { grantLootBoxReward } from '@/features/loot-boxes/services/loot-box-grant';
 import { PlayerService } from '@/features/player/services/player-service';
@@ -185,7 +185,7 @@ export const PunishmentService = {
     const analytics = await getOrCreatePunishmentAnalytics();
     syncStore(state, analytics, 'warning');
 
-    await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    haptics.warning();
 
     GameEvents.emit({
       type: 'PUNISHMENT_WARNING',

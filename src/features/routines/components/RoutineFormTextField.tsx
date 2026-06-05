@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react';
 import { TextInput, type TextInputProps } from 'react-native';
 
+import { formInputBorderClass } from '@/constants/form-validation-ui';
+import { getFormFieldInputA11y, resolveFormFieldErrorId } from '@/components/ui/form/form-field-a11y';
 import { cn } from '@/utils';
 
 import { ROUTINE_FORM_INPUT } from '../constants/routine-form-limits';
 import type { FieldValidation } from '../utils/routine-form-input';
-import { RoutineFieldShell, routineInputBorderClass } from './RoutineFieldShell';
+import { RoutineFieldShell } from './RoutineFieldShell';
 
 const INPUT_BASE =
   'w-full rounded-xl border bg-surface px-4 py-3 text-base text-foreground';
@@ -48,6 +50,8 @@ export const RoutineFormTextField = ({
 
   const charCount =
     showCharCount && maxLength != null ? `${value.length}/${maxLength}` : null;
+  const fieldId = label.toLowerCase().replace(/\s+/g, '-');
+  const errorId = resolveFormFieldErrorId(fieldId);
 
   const handleChange = (raw: string) => {
     const next = maxLength != null && raw.length > maxLength ? raw.slice(0, maxLength) : raw;
@@ -58,11 +62,12 @@ export const RoutineFormTextField = ({
     <RoutineFieldShell
       label={label}
       hint={hint}
+      fieldId={fieldId}
       error={showError ? validation.error : null}
       footer={!showError ? charCount : null}
       footerTone="muted">
       <TextInput
-        className={cn(INPUT_BASE, routineInputBorderClass(showError))}
+        className={cn(INPUT_BASE, formInputBorderClass(showError))}
         style={multiline ? { minHeight: 96, textAlignVertical: 'top' } : { minHeight: 48 }}
         value={value}
         onChangeText={handleChange}
@@ -73,7 +78,12 @@ export const RoutineFormTextField = ({
         multiline={multiline}
         autoCapitalize={autoCapitalize}
         autoCorrect={multiline}
-        accessibilityLabel={accessibilityLabel ?? label}
+        {...getFormFieldInputA11y({
+          label: accessibilityLabel ?? label,
+          error: showError ? validation.error : null,
+          errorNativeId: errorId,
+          hint,
+        })}
       />
     </RoutineFieldShell>
   );

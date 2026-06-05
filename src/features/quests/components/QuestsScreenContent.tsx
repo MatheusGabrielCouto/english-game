@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { Text, View } from 'react-native'
 
 import { EmptyState } from '@/components'
@@ -25,11 +26,23 @@ type QuestsScreenContentProps = {
 export const QuestsScreenContent = ({ embedded = false }: QuestsScreenContentProps) => {
   const [activeTab, setActiveTab] = useState<QuestsTab>('today')
 
-  const missions = useMissionsStore((s) => s.missions)
-  const isSyncing = useMissionsStore((s) => s.isSyncing)
-  const hasHydrated = useMissionsStore((s) => s._hasHydrated)
-  const ensureDailyMissions = useMissionsStore((s) => s.ensureDailyMissions)
-  const completeMission = useMissionsStore((s) => s.completeMission)
+  const {
+    missions,
+    isSyncing,
+    hasHydrated,
+    ensureDailyMissions,
+    completeMission,
+    completingMissionId,
+  } = useMissionsStore(
+    useShallow((s) => ({
+      missions: s.missions,
+      isSyncing: s.isSyncing,
+      hasHydrated: s._hasHydrated,
+      ensureDailyMissions: s.ensureDailyMissions,
+      completeMission: s.completeMission,
+      completingMissionId: s.completingMissionId,
+    })),
+  )
   const currentStreak = usePlayerStore((s) => s.currentStreak)
 
   const epicMissions = useEpicQuestsStore((state) => state.missions)
@@ -111,7 +124,12 @@ export const QuestsScreenContent = ({ embedded = false }: QuestsScreenContentPro
 
                 <View className="gap-3">
                   {sortedMissions.map((mission) => (
-                    <MissionCard key={mission.id} mission={mission} onComplete={completeMission} />
+                    <MissionCard
+                      key={mission.id}
+                      mission={mission}
+                      onComplete={completeMission}
+                      isCompleting={completingMissionId === mission.id}
+                    />
                   ))}
                 </View>
               </View>

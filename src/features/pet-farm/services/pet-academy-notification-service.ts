@@ -37,6 +37,7 @@ export const PetAcademyNotificationService = {
     await scheduleLocalNotification({
       identifier: academyNotificationId(session.id),
       triggerDate: new Date(session.endsAt),
+      deepLinkPath: '/pet-farm/academy',
       candidate: {
         category: NotificationCategory.PET_REMINDER,
         title: 'Aula concluída!',

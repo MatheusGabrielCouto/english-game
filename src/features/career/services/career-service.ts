@@ -208,7 +208,7 @@ const syncCareerFromPlayer = async (): Promise<void> => {
   }
 
   await saveCareerProgress(progress);
-  await refreshStore();
+  GameEvents.scheduleCoalescedAfterBatch(refreshStore);
 };
 
 const handleGameEvent = (event: GameEvent): void => {

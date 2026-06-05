@@ -1,25 +1,33 @@
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router';
-import { useCallback, useState } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ScrollView, View } from 'react-native';
+import { useShallow } from 'zustand/react/shallow';
 
+import { VirtualizedList } from '@/components/ui';
 import { ScreenSkeleton } from '@/components/ui/skeleton';
+import { VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE, VIRTUALIZED_LIST_THRESHOLD } from '@/constants';
 import { routes, vaultEntryHref } from '@/constants';
 import { JournalEntryType, type JournalEntryRecord, type JournalEntryTypeValue } from '@/types/journal';
 import type { VaultSpaceKey } from '@/types/knowledge-vault';
 
+import {
+  buildVaultLibraryFilter,
+  VAULT_LIBRARY_SEARCH_DEBOUNCE_MS,
+} from '../constants/vault-library-filter-ui';
 import { VAULT_UI } from '../constants/vault-ui';
 import { KnowledgeVaultService } from '../services/knowledge-vault-service';
-import { useEnglishJournalStore } from '../store/english-journal-store';
+import { useVaultEntriesStore } from '../store/vault-entries-store';
+import { useVaultMetaStore } from '../store/vault-meta-store';
+import {
+  buildVaultLibraryListRows,
+  countVaultLibraryEntryRows,
+  type VaultLibraryListRow,
+} from '../utils/vault-library-list-rows';
 import { getSpaceLabel } from '../utils/vault-map-builder';
 import { JournalEntryCard } from './JournalEntryCard';
 import { JournalEntryFormModal } from './JournalEntryFormModal';
-import { VaultEmptyState } from './vault/VaultEmptyState';
-import { VaultGlobalSearchTrigger } from './vault/VaultGlobalSearchTrigger';
-import { VaultHelpCard } from './vault/VaultHelpCard';
-import { VaultHeroCard } from './vault/VaultHeroCard';
-import { VaultQuickAction } from './vault/VaultQuickAction';
+import { VaultLibraryListHeader } from './vault/VaultLibraryListHeader';
 import { VaultSectionHeader } from './vault/VaultSectionHeader';
-import { VaultHubNav } from './VaultHubNav';
 
 type EnglishJournalScreenContentProps = {
   hubLinkMode?: 'tab' | 'stack';
@@ -28,14 +36,18 @@ type EnglishJournalScreenContentProps = {
 export const EnglishJournalScreenContent = ({ hubLinkMode = 'stack' }: EnglishJournalScreenContentProps) => {
   const router = useRouter();
   const params = useLocalSearchParams<{ space?: string }>();
-  const entries = useEnglishJournalStore((s) => s.entries);
-  const dueReviews = useEnglishJournalStore((s) => s.dueReviews);
-  const favorites = useEnglishJournalStore((s) => s.favorites);
-  const pinned = useEnglishJournalStore((s) => s.pinned);
-  const recent = useEnglishJournalStore((s) => s.recent);
-  const stats = useEnglishJournalStore((s) => s.stats);
-  const isLoading = useEnglishJournalStore((s) => s.isLoading);
-  const refresh = useEnglishJournalStore((s) => s.refresh);
+  const { entries, dueReviews, favorites, pinned, recent } = useVaultEntriesStore(
+    useShallow((s) => ({
+      entries: s.entries,
+      dueReviews: s.dueReviews,
+      favorites: s.favorites,
+      pinned: s.pinned,
+      recent: s.recent,
+    })),
+  );
+  const stats = useVaultMetaStore((s) => s.stats);
+  const isLoading = useVaultMetaStore((s) => s.isLoading);
+  const refresh = useVaultMetaStore((s) => s.refresh);
 
   const [search, setSearch] = useState('');
   const [formVisible, setFormVisible] = useState(false);
@@ -44,34 +56,70 @@ export const EnglishJournalScreenContent = ({ hubLinkMode = 'stack' }: EnglishJo
 
   const spaceFilter = params.space as VaultSpaceKey | undefined;
   const isEmpty = !isLoading && entries.length === 0 && recent.length === 0 && !search.trim();
+  const mainEntries = search.trim() ? entries : recent;
+
+  const listRows = useMemo(
+    () =>
+      buildVaultLibraryListRows({
+        dueReviews,
+        pinned,
+        mainEntries,
+        favorites,
+        includeFavorites: !isEmpty,
+      }),
+    [dueReviews, pinned, mainEntries, favorites, isEmpty],
+  );
+
+  const entryCount = countVaultLibraryEntryRows(listRows);
+  const shouldVirtualize = entryCount > VIRTUALIZED_LIST_THRESHOLD;
+
+  const searchRef = useRef(search);
+  searchRef.current = search;
+
+  const refreshLibrary = useCallback(
+    (searchText?: string) => {
+      void refresh(buildVaultLibraryFilter(spaceFilter, searchText ?? searchRef.current));
+    },
+    [refresh, spaceFilter],
+  );
 
   useFocusEffect(
     useCallback(() => {
-      void refresh({
-        search: search.trim() || undefined,
-        spaceKey: spaceFilter ?? 'all',
-      });
-    }, [refresh, search, spaceFilter]),
+      refreshLibrary(searchRef.current);
+    }, [refreshLibrary]),
   );
 
-  const openCreate = (type: JournalEntryTypeValue = JournalEntryType.TEXT_NOTE) => {
+  const skipSearchDebounceRef = useRef(true);
+  useEffect(() => {
+    if (skipSearchDebounceRef.current) {
+      skipSearchDebounceRef.current = false;
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      refreshLibrary(search);
+    }, VAULT_LIBRARY_SEARCH_DEBOUNCE_MS);
+
+    return () => clearTimeout(timer);
+  }, [search, refreshLibrary]);
+
+  const openCreate = useCallback((type: JournalEntryTypeValue = JournalEntryType.TEXT_NOTE) => {
     setEditing(null);
     setInitialType(type);
     setFormVisible(true);
-  };
+  }, []);
 
-  const openEntry = (entry: JournalEntryRecord) => {
-    router.push(vaultEntryHref(entry.id));
-  };
+  const openEntry = useCallback(
+    (entry: JournalEntryRecord) => {
+      router.push(vaultEntryHref(entry.id));
+    },
+    [router],
+  );
 
   const handleReview = useCallback(
     async (id: string) => {
       await KnowledgeVaultService.completeReview(id);
-      await refresh(
-        spaceFilter || search.trim()
-          ? { search: search.trim() || undefined, spaceKey: spaceFilter ?? 'all' }
-          : undefined,
-      );
+      await refresh(buildVaultLibraryFilter(spaceFilter, search));
     },
     [refresh, search, spaceFilter],
   );
@@ -79,180 +127,120 @@ export const EnglishJournalScreenContent = ({ hubLinkMode = 'stack' }: EnglishJo
   const handleFavorite = useCallback(
     async (id: string) => {
       await KnowledgeVaultService.toggleFavorite(id);
-      await refresh({
-        search: search.trim() || undefined,
-        spaceKey: spaceFilter ?? 'all',
-      });
+      await refresh(buildVaultLibraryFilter(spaceFilter, search));
     },
     [refresh, search, spaceFilter],
   );
 
-  const clearSpaceFilter = () => {
+  const clearSpaceFilter = useCallback(() => {
     router.replace(routes.vault.library);
-  };
+  }, [router]);
 
-  if (isLoading) {
-    return <ScreenSkeleton variant="vault" className="gap-5 pb-6" />;
-  }
-
-  return (
-    <View className="gap-5 pb-6">
-      <VaultHubNav active="library" linkMode={hubLinkMode} />
-      <VaultGlobalSearchTrigger query={search} />
-
-      <VaultHeroCard
+  const listHeader = useMemo(
+    () => (
+      <VaultLibraryListHeader
+        hubLinkMode={hubLinkMode}
+        search={search}
+        onSearchChange={setSearch}
         stats={stats}
         dueReviewCount={dueReviews.length}
         spaceFilterLabel={spaceFilter ? getSpaceLabel(spaceFilter) : undefined}
         onClearSpaceFilter={spaceFilter ? clearSpaceFilter : undefined}
+        isEmpty={isEmpty}
+        onOpenCreate={openCreate}
       />
+    ),
+    [
+      hubLinkMode,
+      search,
+      stats,
+      dueReviews.length,
+      spaceFilter,
+      clearSpaceFilter,
+      isEmpty,
+      openCreate,
+    ],
+  );
 
-      {isEmpty ? (
-        <VaultEmptyState
-          emoji="📓"
-          title={VAULT_UI.emptyLibraryTitle}
-          body={VAULT_UI.emptyLibraryBody}
-          ctaLabel={VAULT_UI.emptyLibraryCta}
-          onCta={() => openCreate()}
+  const renderListRow = useCallback(
+    (row: VaultLibraryListRow) => {
+      if (row.kind === 'section') {
+        return (
+          <VaultSectionHeader
+            emoji={row.emoji}
+            title={row.title}
+            hint={row.hint}
+            trailing={row.trailing}
+          />
+        );
+      }
+
+      return (
+        <JournalEntryCard
+          entry={row.entry}
+          compact={row.compact}
+          onPress={() => openEntry(row.entry)}
+          onReview={row.showReview ? () => void handleReview(row.entry.id) : undefined}
+          onToggleFavorite={() => void handleFavorite(row.entry.id)}
         />
-      ) : null}
+      );
+    },
+    [handleFavorite, handleReview, openEntry],
+  );
 
-      <VaultHelpCard body={VAULT_UI.howItWorksBody} />
+  const handleSaved = useCallback(() => {
+    void refresh(buildVaultLibraryFilter(spaceFilter, search));
+  }, [refresh, search, spaceFilter]);
 
-      {!isEmpty ? (
-        <>
-          <View>
-            <VaultSectionHeader
-              emoji="✨"
-              title={VAULT_UI.quickActionsTitle}
-              hint="Escolha o formato — você organiza a área depois"
-            />
-            <View className="mt-3 flex-row flex-wrap gap-2">
-              <VaultQuickAction
-                emoji="📝"
-                label={VAULT_UI.actionTextNote}
-                hint={VAULT_UI.actionTextNoteHint}
-                accent
-                onPress={() => openCreate(JournalEntryType.TEXT_NOTE)}
-              />
-              <VaultQuickAction
-                emoji="🎙️"
-                label={VAULT_UI.actionVoiceNote}
-                hint={VAULT_UI.actionVoiceNoteHint}
-                onPress={() => openCreate(JournalEntryType.VOICE_NOTE)}
-              />
-              <VaultQuickAction
-                emoji="⚡"
-                label={VAULT_UI.actionQuickNote}
-                hint={VAULT_UI.actionQuickNoteHint}
-                onPress={() => openCreate(JournalEntryType.QUICK_NOTE)}
-              />
-              <VaultQuickAction
-                emoji="📐"
-                label={VAULT_UI.actionGrammar}
-                hint={VAULT_UI.actionGrammarHint}
-                onPress={() => openCreate(JournalEntryType.GRAMMAR_ENTRY)}
-              />
-            </View>
-          </View>
+  if (isLoading) {
+    return <ScreenSkeleton variant="vault" listCount={6} className="gap-5 pb-6" />;
+  }
 
-          <View>
-            <Text className="text-sm font-semibold text-foreground">{VAULT_UI.searchLabel}</Text>
-            <Text className="text-xs text-foreground-secondary">{VAULT_UI.searchHint}</Text>
-            <TextInput
-              className="mt-2 rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
-              value={search}
-              onChangeText={setSearch}
-              placeholder={VAULT_UI.searchPlaceholder}
-              placeholderTextColor="#71717a"
-              accessibilityLabel={VAULT_UI.searchPlaceholder}
-            />
-          </View>
-        </>
-      ) : null}
+  if (shouldVirtualize) {
+    return (
+      <>
+        <VirtualizedList
+          className="flex-1"
+          data={listRows}
+          estimatedItemSize={VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE.journalEntry}
+          keyExtractor={(row) => row.key}
+          ListHeaderComponent={listHeader}
+          ListFooterComponent={<View className="h-6" />}
+          ItemSeparatorComponent={() => <View className="h-3" />}
+          renderItem={(row) => renderListRow(row)}
+          extraData={`${search}:${spaceFilter ?? 'all'}:${entryCount}`}
+        />
+        <JournalEntryFormModal
+          visible={formVisible}
+          editing={editing}
+          initialType={initialType}
+          defaultSpaceKey={spaceFilter}
+          onClose={() => setFormVisible(false)}
+          onSaved={handleSaved}
+        />
+      </>
+    );
+  }
 
-      {dueReviews.length > 0 ? (
-        <View className="gap-3">
-          <VaultSectionHeader
-            emoji="🔔"
-            title={VAULT_UI.sectionReviews}
-            hint={VAULT_UI.sectionReviewsHint}
-            trailing={String(dueReviews.length)}
-          />
-          {dueReviews.slice(0, 5).map((entry) => (
-            <JournalEntryCard
-              key={entry.id}
-              entry={entry}
-              onPress={() => openEntry(entry)}
-              onReview={() => void handleReview(entry.id)}
-              onToggleFavorite={() => void handleFavorite(entry.id)}
-            />
-          ))}
-        </View>
-      ) : null}
-
-      {pinned.length > 0 ? (
-        <View className="gap-3">
-          <VaultSectionHeader
-            emoji="📌"
-            title={VAULT_UI.sectionPinned}
-            hint={VAULT_UI.sectionPinnedHint}
-          />
-          {pinned.map((entry) => (
-            <JournalEntryCard
-              key={entry.id}
-              entry={entry}
-              onPress={() => openEntry(entry)}
-              onReview={() => void handleReview(entry.id)}
-              onToggleFavorite={() => void handleFavorite(entry.id)}
-            />
-          ))}
-        </View>
-      ) : null}
-
-      {!isEmpty ? (
-        <View className="gap-3">
-          <VaultSectionHeader emoji="🕐" title={VAULT_UI.sectionRecent} />
-          {(search.trim() ? entries : recent).map((entry) => (
-            <JournalEntryCard
-              key={entry.id}
-              entry={entry}
-              onPress={() => openEntry(entry)}
-              onToggleFavorite={() => void handleFavorite(entry.id)}
-              onReview={() => void handleReview(entry.id)}
-            />
-          ))}
-        </View>
-      ) : null}
-
-      {favorites.length > 0 && !isEmpty ? (
-        <View className="gap-3">
-          <VaultSectionHeader emoji="⭐" title={VAULT_UI.sectionFavorites} />
-          {favorites.slice(0, 4).map((entry) => (
-            <JournalEntryCard
-              key={entry.id}
-              entry={entry}
-              compact
-              onPress={() => openEntry(entry)}
-              onToggleFavorite={() => void handleFavorite(entry.id)}
-            />
-          ))}
-        </View>
-      ) : null}
-
+  return (
+    <>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        contentContainerClassName="gap-5 pb-6">
+        {listHeader}
+        {listRows.map((row) => (
+          <View key={row.key}>{renderListRow(row)}</View>
+        ))}
+      </ScrollView>
       <JournalEntryFormModal
         visible={formVisible}
         editing={editing}
         initialType={initialType}
         defaultSpaceKey={spaceFilter}
         onClose={() => setFormVisible(false)}
-        onSaved={() =>
-          void refresh({
-            search: search.trim() || undefined,
-            spaceKey: spaceFilter ?? 'all',
-          })
-        }
+        onSaved={handleSaved}
       />
-    </View>
+    </>
   );
 };

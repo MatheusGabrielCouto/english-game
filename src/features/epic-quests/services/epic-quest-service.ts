@@ -67,7 +67,7 @@ const completeMission = async (mission: EpicMissionProgress): Promise<void> => {
   await EpicMissionRepository.complete(mission.id, completedAt);
   PlayerService.addXP(mission.xpReward);
   PlayerService.addCoins(mission.coinReward);
-  await refreshStore();
+  GameEvents.scheduleCoalescedAfterBatch(refreshStore);
 };
 
 const updateProgressByType = async (missionType: string, delta: number): Promise<void> => {
@@ -84,7 +84,7 @@ const updateProgressByType = async (missionType: string, delta: number): Promise
     }
   }
 
-  await refreshStore();
+  GameEvents.scheduleCoalescedAfterBatch(refreshStore);
 };
 
 const handleGameEvent = async (event: GameEvent): Promise<void> => {

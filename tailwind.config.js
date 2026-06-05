@@ -15,7 +15,7 @@ module.exports = {
         success: "#22c55e",
         warning: "#f59e0b",
         danger: "#ef4444",
-        muted: "#71717a",
+        muted: "#8a8a94",
         foreground: "#fafafa",
         "foreground-secondary": "#a1a1aa",
         glow: "#a78bfa",
@@ -28,6 +28,9 @@ module.exports = {
         xp: "#a78bfa",
         coin: "#38bdf8",
       },
+      fontFamily: {
+        display: ["PressStart2P_400Regular"],
+      },
       fontSize: {
         "game-label": ["12px", { lineHeight: "16px", fontWeight: "700", letterSpacing: "0.08em" }],
         "game-body": ["14px", { lineHeight: "20px", fontWeight: "400" }],
@@ -35,6 +38,11 @@ module.exports = {
         "game-hero": ["24px", { lineHeight: "30px", fontWeight: "900" }],
         "game-caption": ["10px", { lineHeight: "14px", fontWeight: "600" }],
         "game-subtitle": ["12px", { lineHeight: "18px", fontWeight: "500" }],
+        "game-display": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+        "game-display-section": ["18px", { lineHeight: "26px", fontWeight: "400" }],
+        "game-display-hero": ["20px", { lineHeight: "28px", fontWeight: "400" }],
+        "game-display-label": ["11px", { lineHeight: "16px", fontWeight: "400", letterSpacing: "0.06em" }],
+        "game-display-value": ["14px", { lineHeight: "20px", fontWeight: "400" }],
       },
       borderRadius: {
         game: "20px",

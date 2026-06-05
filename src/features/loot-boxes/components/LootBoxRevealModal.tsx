@@ -1,16 +1,20 @@
 import { useEffect } from 'react'
-import { Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import Animated, {
-    Easing,
-    useAnimatedStyle,
-    useSharedValue,
-    withDelay,
-    withSequence,
-    withSpring,
-    withTiming,
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withSequence,
+  withSpring,
+  withTiming,
 } from 'react-native-reanimated'
 
 import { Modal } from '@/components'
+import { GameDisplayText } from '@/components/ui/game'
+import { LootBoxArtwork } from '@/features/loot-boxes/components/LootBoxArtwork'
+import { CelebrationLottie } from '@/features/feedback/components/CelebrationLottie'
+import { resolveLootRevealLottieKind } from '@/features/feedback/constants/celebration-lottie'
 import { LootBoxRewardType, type LootBoxOpenResult } from '@/types/loot-box'
 
 const getRewardEmoji = (result: LootBoxOpenResult): string => {
@@ -38,6 +42,7 @@ const AnimatedReward = ({ result }: { result: LootBoxOpenResult }) => {
   const emojiOpacity = useSharedValue(0)
   const labelOpacity = useSharedValue(0)
   const labelTranslateY = useSharedValue(12)
+  const lottieKind = resolveLootRevealLottieKind(result.boxRarity, result.reward.rarity)
 
   useEffect(() => {
     emojiScale.value = withSequence(
@@ -64,11 +69,19 @@ const AnimatedReward = ({ result }: { result: LootBoxOpenResult }) => {
 
   return (
     <View className="items-center gap-3 py-4">
+      <LootBoxArtwork size={120} variant="watermark" className="absolute opacity-80" />
+      {lottieKind ? (
+        <View style={styles.lottieFrame} pointerEvents="none">
+          <CelebrationLottie kind={lottieKind} active />
+        </View>
+      ) : null}
       <Animated.View style={emojiStyle}>
         <Text className="text-5xl">{getRewardEmoji(result)}</Text>
       </Animated.View>
       <Animated.View style={labelStyle}>
-        <Text className="text-center text-xl font-bold text-foreground">{result.reward.label}</Text>
+        <GameDisplayText variant="hero" className="text-center">
+          {result.reward.label}
+        </GameDisplayText>
         {result.reward.amount > 1 ? (
           <Text className="mt-1 text-center text-sm text-foreground-secondary">
             Quantidade: {result.reward.amount}
@@ -92,3 +105,14 @@ export const LootBoxRevealModal = ({ result, onClose }: LootBoxRevealModalProps)
     {result ? <AnimatedReward result={result} /> : null}
   </Modal>
 )
+
+const styles = StyleSheet.create({
+  lottieFrame: {
+    position: 'absolute',
+    top: -24,
+    width: 220,
+    height: 220,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})

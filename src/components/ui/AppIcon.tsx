@@ -22,6 +22,8 @@ import {
     ShoppingCart,
     Star,
     User,
+    Wifi,
+    WifiOff,
     Zap,
     type LucideIcon,
 } from 'lucide-react-native';
@@ -58,6 +60,8 @@ export const APP_ICONS = {
   'shield-outline': Shield,
   'star-outline': Star,
   'time-outline': Clock,
+  'wifi': Wifi,
+  'wifi-off': WifiOff,
 } as const satisfies Record<string, LucideIcon>;
 
 export type AppIconName = keyof typeof APP_ICONS;

@@ -51,13 +51,13 @@ export const RoutineRewardsFields = ({
   const hasCustom = customXp.trim().length > 0 || customCoins.trim().length > 0;
 
   const handleUseDefaults = () => {
-    haptics.light();
+    haptics.press();
     onChangeXp('');
     onChangeCoins('');
   };
 
   const handleFillDefaults = () => {
-    haptics.light();
+    haptics.press();
     onChangeXp(String(defaultRewards.xp));
     onChangeCoins(String(defaultRewards.coins));
   };

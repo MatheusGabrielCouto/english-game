@@ -1,24 +1,30 @@
-import { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { useState } from 'react'
+import { Pressable, Text, View } from 'react-native'
 
-import { cn } from '@/utils';
+import { useHowItWorksSeen, type HowItWorksScreenKey } from '@/hooks'
+import { cn } from '@/utils'
 
-import { VAULT_UI } from '../../constants/vault-ui';
+import { VAULT_UI } from '../../constants/vault-ui'
 
 type VaultHelpCardProps = {
-  title?: string;
-  body: string;
-  defaultOpen?: boolean;
-  className?: string;
-};
+  seenKey: HowItWorksScreenKey
+  title?: string
+  body: string
+  defaultOpen?: boolean
+  className?: string
+}
 
 export const VaultHelpCard = ({
+  seenKey,
   title = VAULT_UI.howItWorksTitle,
   body,
   defaultOpen = false,
   className,
 }: VaultHelpCardProps) => {
-  const [open, setOpen] = useState(defaultOpen);
+  const { shouldShow } = useHowItWorksSeen(seenKey)
+  const [open, setOpen] = useState(defaultOpen)
+
+  if (!shouldShow) return null
 
   return (
     <View className={cn('rounded-2xl border border-border/80 bg-surface/80', className)}>
@@ -40,5 +46,5 @@ export const VaultHelpCard = ({
         </Text>
       ) : null}
     </View>
-  );
-};
+  )
+}

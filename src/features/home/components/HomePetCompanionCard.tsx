@@ -2,6 +2,7 @@ import { type Href, router } from 'expo-router'
 import { useEffect } from 'react'
 import { Text, View } from 'react-native'
 import Animated, {
+  cancelAnimation,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
@@ -16,6 +17,7 @@ import { HomeStatPill } from '@/features/home/components/shared/HomeStatPill'
 import { HOME_LAYOUT } from '@/features/home/constants/home-layout'
 import { routes, SHARED_TRANSITION_TAGS } from '@/constants'
 import { HOME_UI } from '@/features/home/constants/home-ui'
+import { useHomeInfiniteAnimationsActive } from '@/features/home/hooks/use-home-infinite-animations-active'
 import { HomeCardSkeleton } from '@/features/home/components/HomeCardSkeleton'
 import { HomeSectionLabel } from '@/features/home/components/shared/HomeSectionLabel'
 import { RpgProgressBar } from '@/features/home/components/shared/RpgProgressBar'
@@ -38,10 +40,16 @@ const MOOD_BOUNCE: Record<string, number> = {
 
 export const HomePetCompanionCard = () => {
   const { pet, isLoading } = usePet()
+  const animationsActive = useHomeInfiniteAnimationsActive()
   const bounce = useSharedValue(0)
 
   useEffect(() => {
-    if (!pet) return
+    if (!animationsActive || !pet) {
+      cancelAnimation(bounce)
+      bounce.value = 0
+      return
+    }
+
     const offset = MOOD_BOUNCE[pet.mood] ?? -4
     if (pet.routinePhase === 'sleeping' || offset === 0) {
       bounce.value = withRepeat(
@@ -56,7 +64,7 @@ export const HomePetCompanionCard = () => {
       -1,
       true,
     )
-  }, [bounce, pet])
+  }, [animationsActive, bounce, pet])
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: bounce.value }],
@@ -127,7 +135,7 @@ export const HomePetCompanionCard = () => {
 
         {recommendedAction ? (
           <View className="mt-4">
-            <PetBestActionHighlight action={recommendedAction} compact />
+            <PetBestActionHighlight action={recommendedAction} compact animate={animationsActive} />
           </View>
         ) : null}
 

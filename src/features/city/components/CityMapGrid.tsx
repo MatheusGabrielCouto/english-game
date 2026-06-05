@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import type { CityDistrictViewModel, CityPoiViewModel } from '@/types/city-map';
 
+import type { CityMapScrollViewport } from '../constants/city-map-viewport-ui';
 import {
     computeDistrictZones,
     computeMapGridLayout,
@@ -11,6 +12,10 @@ import {
     type DistrictZoneBounds,
     type MapGridLayout,
 } from '../constants/city-map-grid';
+import {
+    filterPoiPlacementsInViewport,
+    filterRectsInViewport,
+} from '../utils/city-map-viewport-culling';
 import {
     CITY_MAP_GMAPS,
     CITY_MAP_THEME_LAND,
@@ -23,6 +28,7 @@ import { CityPoiPin } from './CityPoiPin';
 type CityMapGridProps = {
   mapWidth: number;
   mapHeight: number;
+  viewportBounds?: CityMapScrollViewport | null;
   districts: CityDistrictViewModel[];
   pois: CityPoiViewModel[];
   claimablePoiKeys: string[];
@@ -180,6 +186,7 @@ const StreetMarkings = ({ layout }: { layout: MapGridLayout }) => (
 export const CityMapGrid = ({
   mapWidth,
   mapHeight,
+  viewportBounds = null,
   districts,
   pois,
   claimablePoiKeys,
@@ -213,12 +220,51 @@ export const CityMapGrid = ({
   const districtUnlocked = (districtKey: string) =>
     districts.find((d) => d.districtKey === districtKey)?.isUnlocked ?? false;
 
+  const visibleBlocks = useMemo(() => {
+    if (!viewportBounds) return layout.blocks;
+    return filterRectsInViewport(layout.blocks, viewportBounds, mapWidth, mapHeight);
+  }, [layout.blocks, mapHeight, mapWidth, viewportBounds]);
+
+  const visibleHorizontalStreets = useMemo(() => {
+    if (!viewportBounds) return layout.horizontalStreets;
+    return filterRectsInViewport(layout.horizontalStreets, viewportBounds, mapWidth, mapHeight);
+  }, [layout.horizontalStreets, mapHeight, mapWidth, viewportBounds]);
+
+  const visibleVerticalStreets = useMemo(() => {
+    if (!viewportBounds) return layout.verticalStreets;
+    return filterRectsInViewport(layout.verticalStreets, viewportBounds, mapWidth, mapHeight);
+  }, [layout.verticalStreets, mapHeight, mapWidth, viewportBounds]);
+
+  const visibleDistrictZones = useMemo(() => {
+    if (!viewportBounds) return districtZones;
+    return filterRectsInViewport(districtZones, viewportBounds, mapWidth, mapHeight);
+  }, [districtZones, mapHeight, mapWidth, viewportBounds]);
+
+  const visiblePoiPlacements = useMemo(() => {
+    const placements = pois.map((poi) => {
+      const position = getPoiPinPosition(poi.poiKey, layout, poi.positionX, poi.positionY);
+      return { poi, ...position };
+    });
+
+    if (!viewportBounds) return placements;
+    return filterPoiPlacementsInViewport(placements, viewportBounds, mapWidth, mapHeight);
+  }, [layout, mapHeight, mapWidth, pois, viewportBounds]);
+
+  const visibleStreetLayout = useMemo(
+    () => ({
+      ...layout,
+      horizontalStreets: visibleHorizontalStreets,
+      verticalStreets: visibleVerticalStreets,
+    }),
+    [layout, visibleHorizontalStreets, visibleVerticalStreets],
+  );
+
   const landColor =
     (mapThemeKey && CITY_MAP_THEME_LAND[mapThemeKey]) ?? CITY_MAP_GMAPS.land;
 
   return (
     <View style={[styles.canvas, { width: mapWidth, height: mapHeight, backgroundColor: landColor }]}>
-      {districtZones.map((zone) => {
+      {visibleDistrictZones.map((zone) => {
         const district = districts.find((d) => d.districtKey === zone.districtKey);
         return (
           <DistrictZoneFill
@@ -229,7 +275,7 @@ export const CityMapGrid = ({
         );
       })}
 
-      {layout.blocks.map((block) => (
+      {visibleBlocks.map((block) => (
         <CityMapBlock
           key={`${block.row}-${block.col}`}
           block={block}
@@ -237,9 +283,9 @@ export const CityMapGrid = ({
         />
       ))}
 
-      <StreetMarkings layout={layout} />
+      <StreetMarkings layout={visibleStreetLayout} />
 
-      {districtZones.map((zone) => {
+      {visibleDistrictZones.map((zone) => {
         const district = districts.find((d) => d.districtKey === zone.districtKey);
         return (
           <DistrictZoneLabel
@@ -251,29 +297,20 @@ export const CityMapGrid = ({
         );
       })}
 
-      {pois.map((poi) => {
-        const { left, top } = getPoiPinPosition(
-          poi.poiKey,
-          layout,
-          poi.positionX,
-          poi.positionY,
-        );
-
-        return (
-          <CityPoiPin
-            key={poi.poiKey}
-            poi={poi}
-            left={left}
-            top={top}
-            hasClaimableMission={claimableSet.has(poi.poiKey)}
-            isActiveContractIssuer={activeContractIssuerPoiKey === poi.poiKey}
-            petAtParkToday={poi.poiKey === 'city_park' && petVisitedParkToday}
-            isEventPoi={eventPoiSet.has(poi.poiKey)}
-            eventEmoji={eventPoiSet.has(poi.poiKey) ? eventEmoji : null}
-            onPress={() => onPoiPress(poi.poiKey)}
-          />
-        );
-      })}
+      {visiblePoiPlacements.map(({ poi, left, top }) => (
+        <CityPoiPin
+          key={poi.poiKey}
+          poi={poi}
+          left={left}
+          top={top}
+          hasClaimableMission={claimableSet.has(poi.poiKey)}
+          isActiveContractIssuer={activeContractIssuerPoiKey === poi.poiKey}
+          petAtParkToday={poi.poiKey === 'city_park' && petVisitedParkToday}
+          isEventPoi={eventPoiSet.has(poi.poiKey)}
+          eventEmoji={eventPoiSet.has(poi.poiKey) ? eventEmoji : null}
+          onPress={() => onPoiPress(poi.poiKey)}
+        />
+      ))}
     </View>
   );
 };

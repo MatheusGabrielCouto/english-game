@@ -1,3 +1,5 @@
+import { fontFamilies } from './fonts'
+
 /**
  * Escala tipográfica do English Quest.
  * Classes NativeWind em `classes`; valores numéricos para StyleSheet em `native`.
@@ -25,6 +27,18 @@ export const typography = {
     lineHeight: 30,
     fontWeight: '900' as const,
   },
+  display: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: '400' as const,
+    fontFamily: fontFamilies.display,
+  },
+  displayHero: {
+    fontSize: 20,
+    lineHeight: 28,
+    fontWeight: '400' as const,
+    fontFamily: fontFamilies.display,
+  },
   caption: {
     fontSize: 10,
     lineHeight: 14,
@@ -47,6 +61,16 @@ export const typographyClasses = {
   hero: 'text-2xl font-black text-foreground',
   caption: 'text-[10px] font-semibold text-foreground-secondary',
   subtitle: 'text-xs leading-relaxed text-foreground-secondary',
-} as const satisfies Record<TypographyVariant, string>
+  display: 'font-display text-game-display text-foreground',
+  displayHero: 'font-display text-game-display-hero text-foreground',
+} as const
+
+export const gameDisplayClasses = {
+  hero: typographyClasses.displayHero,
+  section: 'font-display text-game-display-section text-foreground',
+  title: typographyClasses.display,
+  label: 'font-display text-game-display-label uppercase text-primary',
+  value: 'font-display text-game-display-value text-gold',
+} as const
 
 export const getTypographyStyle = (variant: TypographyVariant) => typography[variant]

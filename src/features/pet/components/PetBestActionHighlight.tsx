@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Text, View } from 'react-native'
 import Animated, {
+  cancelAnimation,
   Easing,
   useAnimatedStyle,
   useSharedValue,
@@ -15,12 +16,23 @@ import type { PetRecommendedAction } from '../utils/get-pet-recommended-action'
 type PetBestActionHighlightProps = {
   action: PetRecommendedAction
   compact?: boolean
+  animate?: boolean
 }
 
-export const PetBestActionHighlight = ({ action, compact = false }: PetBestActionHighlightProps) => {
+export const PetBestActionHighlight = ({
+  action,
+  compact = false,
+  animate = true,
+}: PetBestActionHighlightProps) => {
   const glow = useSharedValue(0.55)
 
   useEffect(() => {
+    if (!animate) {
+      cancelAnimation(glow)
+      glow.value = 0.55
+      return
+    }
+
     glow.value = withRepeat(
       withSequence(
         withTiming(1, { duration: 700, easing: Easing.inOut(Easing.ease) }),
@@ -29,7 +41,7 @@ export const PetBestActionHighlight = ({ action, compact = false }: PetBestActio
       -1,
       false,
     )
-  }, [glow])
+  }, [animate, glow])
 
   const glowStyle = useAnimatedStyle(() => ({
     opacity: glow.value,

@@ -4,7 +4,7 @@ import { KNOWLEDGE_HUB_UI } from '@/features/knowledge-hub/constants/knowledge-h
 
 export default function KnowledgeTabScreen() {
   return (
-    <ScreenContainer scrollable>
+    <ScreenContainer scrollable={false} contentClassName="flex-1">
       <ScreenHeader
         title={KNOWLEDGE_HUB_UI.screenTitle}
         subtitle={KNOWLEDGE_HUB_UI.screenSubtitle}

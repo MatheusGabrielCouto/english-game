@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { Text, View } from 'react-native';
 
 import { Card, ProgressBar } from '@/components';
+import { DomainGlossaryBanner } from '@/components/ui';
 import { GameCard, PressableScale, StatPill } from '@/components/ui/game';
 import { CITY_UI } from '@/features/city/constants/city-ui';
 import { useCityMapStore } from '@/features/city/store/city-map-store';
@@ -86,6 +87,8 @@ export const FarmScreenContent = () => {
 
   return (
     <View className="gap-5">
+      <DomainGlossaryBanner variant="studyFarm" />
+
       {activeCityEvent ? (
         <View className="rounded-2xl border border-primary/30 bg-primary/10 px-4 py-3">
           <Text className="text-xs font-bold text-primary">
@@ -103,11 +106,8 @@ export const FarmScreenContent = () => {
       ) : null}
 
       <GameCard variant="hero" glow>
-        <Text className="text-xs font-bold uppercase tracking-widest text-primary">🌾 Farm Infinito</Text>
-        <Text className="mt-1 text-sm text-foreground-secondary">
-          Continue estudando após as missões e ganhe Study Points + moedas. Com as dailies
-          completas, você ganha +35% no farm. Vocabulário e speaking também alimentam a cidade.
-        </Text>
+        <Text className="text-xs font-bold uppercase tracking-widest text-primary">{FARM_UI.heroLabel}</Text>
+        <Text className="mt-1 text-sm text-foreground-secondary">{FARM_UI.heroDescription}</Text>
         <View className="mt-4 flex-row gap-2">
           <StatPill label="Study Points" value={balance?.balance ?? 0} emoji="⚡" tone="accent" />
           <StatPill label="Farm hoje" value={`${todayStudyPoints}/${DAILY_FARM_SOFT_CAP}`} emoji="📈" tone="gold" />

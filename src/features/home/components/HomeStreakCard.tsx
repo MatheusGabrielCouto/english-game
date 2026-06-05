@@ -1,6 +1,13 @@
 import { type Href, router } from 'expo-router'
 import { Text, View } from 'react-native'
-import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withSequence, withTiming } from 'react-native-reanimated'
+import Animated, {
+  cancelAnimation,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withSequence,
+  withTiming,
+} from 'react-native-reanimated'
 import { useEffect } from 'react'
 
 import { GameCard, PressableScale, StreakFlame } from '@/components/ui/game'
@@ -9,6 +16,7 @@ import { HomeStatGrid } from '@/features/home/components/shared/HomeStatGrid'
 import { HomeStatPill } from '@/features/home/components/shared/HomeStatPill'
 import { HOME_LAYOUT } from '@/features/home/constants/home-layout'
 import { HOME_UI } from '@/features/home/constants/home-ui'
+import { useHomeInfiniteAnimationsActive } from '@/features/home/hooks/use-home-infinite-animations-active'
 import { getStreakGlowIntensity } from '@/features/home/utils/home-dashboard'
 import { usePlayerStore } from '@/features/player'
 import { cn } from '@/utils'
@@ -17,21 +25,24 @@ export const HomeStreakCard = () => {
   const currentStreak = usePlayerStore((s) => s.currentStreak)
   const bestStreak = usePlayerStore((s) => s.bestStreak)
   const shields = usePlayerStore((s) => s.shields)
+  const animationsActive = useHomeInfiniteAnimationsActive()
   const glow = getStreakGlowIntensity(currentStreak)
   const pulse = useSharedValue(1)
 
   useEffect(() => {
-    if (currentStreak <= 0) {
+    if (!animationsActive || currentStreak <= 0) {
+      cancelAnimation(pulse)
       pulse.value = 1
       return
     }
+
     const scale = glow === 'high' ? 1.08 : glow === 'mid' ? 1.05 : 1.03
     pulse.value = withRepeat(
       withSequence(withTiming(scale, { duration: 700 }), withTiming(1, { duration: 700 })),
       -1,
       false,
     )
-  }, [currentStreak, glow, pulse])
+  }, [animationsActive, currentStreak, glow, pulse])
 
   const glowStyle = useAnimatedStyle(() => ({
     opacity: glow === 'off' ? 0.35 : glow === 'low' ? 0.55 : glow === 'mid' ? 0.75 : 1,
@@ -62,7 +73,7 @@ export const HomeStreakCard = () => {
             </Text>
             <View className="mt-2 flex-row flex-wrap items-center gap-2">
               <Animated.View style={glowStyle}>
-                <StreakFlame streak={currentStreak} size={32} showLabel />
+                <StreakFlame streak={currentStreak} size={32} showLabel animate={animationsActive} />
               </Animated.View>
             </View>
             <Text className="mt-2 text-sm leading-5 text-foreground-secondary">{hint}</Text>

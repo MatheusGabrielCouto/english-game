@@ -22,7 +22,7 @@ import {
 } from '@/features/english-journal/constants/journal-ui';
 import { VAULT_UI } from '@/features/english-journal/constants/vault-ui';
 import { KnowledgeVaultService } from '@/features/english-journal/services/knowledge-vault-service';
-import { useEnglishJournalStore } from '@/features/english-journal/store/english-journal-store';
+import { useVaultMetaStore } from '@/features/english-journal/store/vault-meta-store';
 import {
     formatNextReviewLabel,
     isReviewDue,
@@ -33,7 +33,7 @@ import { getSpaceLabel } from '@/features/english-journal/utils/vault-map-builde
 export default function VaultEntryDetailRoute() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const refresh = useEnglishJournalStore((s) => s.refresh);
+  const refresh = useVaultMetaStore((s) => s.refresh);
   const [entry, setEntry] = useState<VaultEntryRecord | null>(null);
   const [reviewBundle, setReviewBundle] = useState<VaultReviewBundle | null>(null);
   const [loading, setLoading] = useState(true);

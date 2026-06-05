@@ -11,6 +11,7 @@ type StatisticsCollapsibleSectionProps = {
   emoji: string;
   subtitle?: string;
   defaultOpen?: boolean;
+  onExpand?: () => void;
   children: ReactNode;
 };
 
@@ -19,14 +20,25 @@ export const StatisticsCollapsibleSection = ({
   emoji,
   subtitle,
   defaultOpen = false,
+  onExpand,
   children,
 }: StatisticsCollapsibleSectionProps) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
+  const handleToggle = () => {
+    setIsOpen((current) => {
+      const next = !current;
+      if (next) {
+        onExpand?.();
+      }
+      return next;
+    });
+  };
+
   return (
     <GameCard variant="default" className="overflow-hidden p-0">
       <Pressable
-        onPress={() => setIsOpen((current) => !current)}
+        onPress={handleToggle}
         accessibilityRole="button"
         accessibilityState={{ expanded: isOpen }}
         accessibilityLabel={`${title}, ${isOpen ? 'recolher' : 'expandir'}`}

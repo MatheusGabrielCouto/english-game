@@ -8,7 +8,11 @@
     "userInterfaceStyle": "dark",
     "icon": "./assets/icon.png",
     "ios": {
-      "bundleIdentifier": "com.englishquest.app"
+      "bundleIdentifier": "com.englishquest.app",
+      "associatedDomains": [
+        "applinks:englishquest.app",
+        "applinks:www.englishquest.app"
+      ]
     },
     "android": {
       "icon": "./assets/icon.png",
@@ -18,7 +22,35 @@
       },
       "package": "com.englishquest.app",
       "predictiveBackGestureEnabled": false,
-      "softwareKeyboardLayoutMode": "resize"
+      "softwareKeyboardLayoutMode": "resize",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "englishquest.app",
+              "pathPrefix": "/"
+            },
+            {
+              "scheme": "https",
+              "host": "www.englishquest.app",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        },
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "englishquest"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "output": "static",
@@ -85,6 +117,25 @@
         {
           "photosPermission": "O English Quest precisa acessar suas fotos para anexar imagens às notas do diário.",
           "cameraPermission": "O English Quest precisa da câmera para tirar fotos nas notas do diário."
+        }
+      ],
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "name": "QuestProgressWidget",
+              "label": "English Quest",
+              "description": "Streak e próxima missão do dia",
+              "minWidth": "250dp",
+              "minHeight": "110dp",
+              "targetCellWidth": 4,
+              "targetCellHeight": 2,
+              "resizeMode": "horizontal|vertical",
+              "previewImage": "./assets/splash-icon.png",
+              "updatePeriodMillis": 1800000
+            }
+          ]
         }
       ],
       [

@@ -1,6 +1,12 @@
 import type { WeeklyMissionType } from '@/types/weekly-mission-type';
 
 import { AppLogService } from './app-log-service';
+import {
+  appendGameEventToBatch,
+  drainGameEventBatch,
+  registerCoalescedTask,
+  shouldScheduleGameEventFlush,
+} from './game-events-batch-policy';
 
 export type GameEvent =
   | {
@@ -431,8 +437,13 @@ export type GameEvent =
   | { type: 'JOURNAL_LIBRARY_TIER_UP'; tier: number; knowledgePoints: number };
 
 type GameEventListener = (event: GameEvent) => void | Promise<void>;
+type CoalescedAfterBatchTask = () => void | Promise<void>;
 
 const listeners = new Set<GameEventListener>();
+
+let pendingEvents: GameEvent[] = [];
+let flushScheduled = false;
+let coalescedAfterBatch = new Set<CoalescedAfterBatchTask>();
 
 const dispatchToListeners = (event: GameEvent): void => {
   listeners.forEach((listener) => {
@@ -455,15 +466,69 @@ const dispatchToListeners = (event: GameEvent): void => {
   });
 };
 
+const runCoalescedAfterBatchTasks = (): void => {
+  if (coalescedAfterBatch.size === 0) return;
+
+  const tasks = [...coalescedAfterBatch];
+  coalescedAfterBatch = new Set();
+
+  for (const task of tasks) {
+    try {
+      const result = task();
+      if (result && typeof (result as Promise<void>).then === 'function') {
+        void (result as Promise<void>).catch((error) => {
+          AppLogService.warn('game_events.coalesced_task_failed', 'Coalesced task rejected', {
+            message: error instanceof Error ? error.message : String(error),
+          });
+        });
+      }
+    } catch (error) {
+      AppLogService.warn('game_events.coalesced_task_failed', 'Coalesced task threw', {
+        message: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+};
+
+const flushPendingEvents = (): void => {
+  flushScheduled = false;
+
+  const { events } = drainGameEventBatch(pendingEvents);
+  pendingEvents = [];
+
+  for (const event of events) {
+    dispatchToListeners(event);
+  }
+
+  runCoalescedAfterBatchTasks();
+
+  if (pendingEvents.length > 0) {
+    flushScheduled = true;
+    queueMicrotask(flushPendingEvents);
+  }
+};
+
 export const GameEvents = {
   subscribe(listener: GameEventListener): () => void {
     listeners.add(listener);
     return () => listeners.delete(listener);
   },
 
-  /** Defers fan-out so UI state updates paint first. */
+  /**
+   * Agrupa emits síncronos no mesmo microtask e deduplica tarefas pesadas
+   * agendadas via scheduleCoalescedAfterBatch (P-43).
+   */
   emit(event: GameEvent): void {
-    queueMicrotask(() => dispatchToListeners(event));
+    pendingEvents = appendGameEventToBatch(pendingEvents, event);
+
+    if (!shouldScheduleGameEventFlush(flushScheduled)) return;
+
+    flushScheduled = true;
+    queueMicrotask(flushPendingEvents);
+  },
+
+  scheduleCoalescedAfterBatch(task: CoalescedAfterBatchTask): void {
+    coalescedAfterBatch = registerCoalescedTask(coalescedAfterBatch, task);
   },
 };
 

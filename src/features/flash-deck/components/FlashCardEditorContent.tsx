@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 
 import { Button } from '@/components';
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants';
 import { useAsyncAction } from '@/hooks';
 import { DEFAULT_FLASH_DECK_ID } from '@/types/flash-card';
 
@@ -54,7 +55,7 @@ export const FlashCardEditorContent = () => {
           value={front}
           onChangeText={setFront}
           placeholder={FLASH_DECK_UI.frontPlaceholder}
-          placeholderTextColor="#71717a"
+          placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           autoCapitalize="none"
           autoCorrect={false}
           className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
@@ -68,7 +69,7 @@ export const FlashCardEditorContent = () => {
           value={back}
           onChangeText={setBack}
           placeholder={FLASH_DECK_UI.backPlaceholder}
-          placeholderTextColor="#71717a"
+          placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
           accessibilityLabel={FLASH_DECK_UI.backLabel}
         />
@@ -80,7 +81,7 @@ export const FlashCardEditorContent = () => {
           value={example}
           onChangeText={setExample}
           placeholder={FLASH_DECK_UI.examplePlaceholder}
-          placeholderTextColor="#71717a"
+          placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           autoCapitalize="none"
           multiline
           className="min-h-[88px] rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
@@ -94,7 +95,7 @@ export const FlashCardEditorContent = () => {
           value={tagsInput}
           onChangeText={setTagsInput}
           placeholder={FLASH_DECK_UI.tagsPlaceholder}
-          placeholderTextColor="#71717a"
+          placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           autoCapitalize="none"
           autoCorrect={false}
           className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"

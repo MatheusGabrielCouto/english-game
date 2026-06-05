@@ -29,6 +29,7 @@ import { LemmaCompetenceService } from '@/features/learning/services/lemma-compe
 import { useMenuHubStore } from '@/features/menu-hub/store/menu-hub-store';
 import { MetagameService } from '@/features/metagame/services/metagame-service';
 import { NotificationService } from '@/features/notifications/services/notification-service';
+import { ReviewPromptService } from '@/features/review-prompt/services/review-prompt-service';
 import { PetMemoryService } from '@/features/pet/services/pet-memory-service';
 import { PetService } from '@/features/pet/services/pet-service';
 import { LevelMilestoneService } from '@/features/player/services/level-milestone-service';
@@ -48,8 +49,10 @@ import { StudyService } from '@/features/weekly-quests/services/study-service';
 import { WeeklyMissionService } from '@/features/weekly-quests/services/weekly-mission-service';
 import { useWeeklyMissionsStore } from '@/features/weekly-quests/store/weekly-missions-store';
 import { WishlistService } from '@/features/wishlist/services/wishlist-service';
+import { AndroidWidgetService } from '@/widgets/android/android-widget-service';
 
 import { AudioDirector } from '@/services/audio';
+import { StartupPerfService } from '@/services/startup-perf-service';
 
 import { initDatabase } from './database/client';
 import { migrateFromAsyncStorageIfNeeded } from './migrate-from-async-storage';
@@ -130,6 +133,8 @@ const initGameEventListeners = (): void => {
 
 /** Fast path: enough state to render tabs and complete daily missions. */
 export const hydrateCriticalStores = async (): Promise<void> => {
+  const startedAt = Date.now();
+
   await initDatabase();
   await migrateFromAsyncStorageIfNeeded();
   initGameEventListeners();
@@ -167,6 +172,12 @@ export const hydrateCriticalStores = async (): Promise<void> => {
     weekStartDate: WeeklyMissionService.getCachedWeekStart(),
     isLoading: false,
   });
+
+  AndroidWidgetService.init();
+  await AndroidWidgetService.ensureSnapshot();
+  void AndroidWidgetService.syncNow();
+
+  StartupPerfService.recordCriticalHydrationMs(Date.now() - startedAt);
 };
 
 /** Heavy SQLite + service caches — runs after first paint. */
@@ -230,6 +241,12 @@ export const hydrateBackgroundServices = async (): Promise<void> => {
     await NotificationService.initialize();
   } catch (error) {
     console.warn('[notifications] initialize skipped:', error);
+  }
+
+  try {
+    ReviewPromptService.initialize();
+  } catch (error) {
+    console.warn('[review-prompt] initialize skipped:', error);
   }
 };
 

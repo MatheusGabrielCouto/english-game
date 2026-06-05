@@ -7,6 +7,8 @@ import { canScheduleFeatureNotifications } from '@/features/notifications/utils/
 import { getTodayKey } from '@/features/quests/utils/date';
 import { InventoryLootBoxRepository } from '@/storage/repositories/inventory-loot-box-repository';
 import { getNotificationSettings } from '@/storage/repositories/notification-settings-repository';
+import { RICH_NOTIFICATION_DEFAULTS } from '@/features/notifications/constants/rich-notification-ui';
+import { buildLootReminderRichVisual } from '@/features/notifications/utils/loot-rich-notification';
 import { NotificationCategory } from '@/types/notification';
 
 const LOOT_PREFIX = `${NOTIFICATION_IDENTIFIER_PREFIX}-loot-`;
@@ -32,17 +34,20 @@ export const LootNotificationService = {
       trigger.setMinutes(trigger.getMinutes() + 2);
     }
 
+    const rich = buildLootReminderRichVisual(unopened.map((box) => box.rarity));
+
     await scheduleLocalNotification({
       identifier: lootNotificationId(todayKey),
       triggerDate: trigger,
       candidate: {
         category: NotificationCategory.LOOT_REMINDER,
-        title: 'Caixas no inventário',
+        title: RICH_NOTIFICATION_DEFAULTS.lootProgressTitle,
         body:
           unopened.length === 1
             ? 'Você tem 1 caixa surpresa para abrir!'
             : `Você tem ${unopened.length} caixas surpresa para abrir!`,
         priority: 5,
+        rich,
       },
     });
   },

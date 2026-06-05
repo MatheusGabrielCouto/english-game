@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
 
 import { AppIcon, type AppIconName } from '@/components/ui/AppIcon';
+import { GameDisplayText } from '@/components/ui/game/GameDisplayText';
 import { theme } from '@/constants';
 import { cn } from '@/utils';
 
@@ -66,8 +67,11 @@ export const StatPill = ({
         {label}
       </Text>
     </View>
-    <Text className={cn('mt-1 text-lg font-black', toneTextStyles[tone])} numberOfLines={1}>
+    <GameDisplayText
+      variant="value"
+      className={cn('mt-1', toneTextStyles[tone])}
+      numberOfLines={1}>
       {value}
-    </Text>
+    </GameDisplayText>
   </View>
 );

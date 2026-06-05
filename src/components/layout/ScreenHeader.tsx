@@ -2,6 +2,7 @@ import { router, type Href } from 'expo-router';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import { AppIcon } from '@/components/ui/AppIcon';
+import { GameDisplayText } from '@/components/ui/game';
 import { theme } from '@/constants';
 import { cn } from '@/utils';
 
@@ -36,11 +37,9 @@ export const ScreenHeader = ({ title, subtitle, className, showBack, emoji }: Sc
             <AppIcon name="arrow-back" size={22} color={theme.colors.foreground} />
           </TouchableOpacity>
           <View className="flex-1">
-            <Text
-              className="text-2xl font-black tracking-tight text-foreground"
-              accessibilityRole="header">
+            <GameDisplayText variant="hero" accessibilityRole="header" numberOfLines={2}>
               {emoji ? `${emoji} ` : ''}{title}
-            </Text>
+            </GameDisplayText>
             {subtitle ? (
               <Text className="mt-1 text-sm leading-relaxed text-foreground-secondary">
                 {subtitle}
@@ -58,9 +57,9 @@ export const ScreenHeader = ({ title, subtitle, className, showBack, emoji }: Sc
         <View className="h-1.5 w-12 rounded-full bg-primary" />
         <View className="h-1 w-6 rounded-full bg-gold/70" />
       </View>
-      <Text className="text-3xl font-black tracking-tight text-foreground" accessibilityRole="header">
+      <GameDisplayText variant="hero" accessibilityRole="header" numberOfLines={2}>
         {emoji ? `${emoji} ` : ''}{title}
-      </Text>
+      </GameDisplayText>
       {subtitle ? (
         <Text className="mt-2 text-base leading-relaxed text-foreground-secondary">
           {subtitle}

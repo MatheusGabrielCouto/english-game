@@ -2,6 +2,7 @@ import {
   NotificationCategory,
   type NotificationCandidate,
   type NotificationContext,
+  type NotificationRichVisual,
   type NotificationSettings,
 } from '@/types/notification';
 import { PetMood } from '@/types/pet';
@@ -13,6 +14,10 @@ import {
   STREAK_RISK_HOURS,
 } from '../constants/categories';
 import { buildStreakRiskBody, pickNotificationMessage } from '../constants/messages';
+import {
+  RICH_ACHIEVEMENT_ANDROID_COLOR,
+  RICH_NOTIFICATION_DEFAULTS,
+} from '../constants/rich-notification-ui';
 
 const STREAK_RISK_MS = STREAK_RISK_HOURS * 60 * 60 * 1000;
 
@@ -140,14 +145,19 @@ export const buildNotificationCandidates = (
 
   const candidates: NotificationCandidate[] = [];
 
-  const pushCandidate = (category: string, body?: string) => {
+  const pushCandidate = (
+    category: string,
+    body?: string,
+    options?: { title?: string; rich?: NotificationRichVisual },
+  ) => {
     if (!isCategoryEnabled(settings, category)) return;
 
     candidates.push({
       category: category as NotificationCandidate['category'],
-      title: NOTIFICATION_TITLE,
+      title: options?.title ?? NOTIFICATION_TITLE,
       body: body ?? pickNotificationMessage(category, seed),
       priority: NOTIFICATION_PRIORITY[category] ?? 99,
+      rich: options?.rich,
     });
   };
 
@@ -187,8 +197,15 @@ export const buildNotificationCandidates = (
     pushCandidate(
       NotificationCategory.ACHIEVEMENT_PROGRESS,
       context.nearAchievementName
-        ? `You're close to ${context.nearAchievementName}.`
+        ? `Falta pouco para "${context.nearAchievementName}".`
         : undefined,
+      {
+        title: RICH_NOTIFICATION_DEFAULTS.achievementProgressTitle,
+        rich: {
+          heroEmoji: RICH_NOTIFICATION_DEFAULTS.achievementProgressHero,
+          accentColor: RICH_ACHIEVEMENT_ANDROID_COLOR,
+        },
+      },
     );
   }
 

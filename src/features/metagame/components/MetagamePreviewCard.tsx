@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { Card, ProgressBar } from '@/components';
 import { PressableScale } from '@/components/ui/game';
-import { routes } from '@/constants';
+import { CARD_MUTED_CAPTION_CLASS, routes } from '@/constants';
 import { useMetagameStore } from '@/features/metagame/store/metagame-store';
 
 export const MetagamePreviewCard = () => {
@@ -39,12 +39,12 @@ export const MetagamePreviewCard = () => {
         <Text className="text-xs font-bold uppercase tracking-widest text-gold">🏛️ Metagame</Text>
         <View className="mt-2 flex-row gap-3">
           <View className="flex-1 rounded-xl bg-surface px-3 py-2">
-            <Text className="text-[10px] uppercase text-muted">Temporada</Text>
+            <Text className={CARD_MUTED_CAPTION_CLASS}>Temporada</Text>
             <Text className="font-black text-foreground">Tier {currentSeasonTier}</Text>
             <Text className="text-xs text-muted">{state.seasonPoints} pts</Text>
           </View>
           <View className="flex-1 rounded-xl bg-surface px-3 py-2">
-            <Text className="text-[10px] uppercase text-muted">Coleções</Text>
+            <Text className={CARD_MUTED_CAPTION_CLASS}>Coleções</Text>
             <Text className="font-black text-foreground">{collections?.overallPercentage ?? 0}%</Text>
             <Text className="text-xs text-muted">{legacyCount} marcos</Text>
           </View>

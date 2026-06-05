@@ -9,14 +9,15 @@ import type { VaultCollectionRecord } from '@/types/knowledge-vault'
 import { COLLECTION_TEMPLATES } from '../../catalogs/collection-templates-catalog'
 import { VAULT_UI } from '../../constants/vault-ui'
 import { KnowledgeVaultService } from '../../services/knowledge-vault-service'
-import { useEnglishJournalStore } from '../../store/english-journal-store'
+import { useVaultCollectionsStore } from '../../store/vault-collections-store'
+import { useVaultMetaStore } from '../../store/vault-meta-store'
 import { VaultCollectionFormModal } from './VaultCollectionFormModal'
 import { VaultCollectionListItem } from './VaultCollectionListItem'
 import { VaultEmptyState } from './VaultEmptyState'
 
 export const VaultCollectionsScreenContent = () => {
-  const collections = useEnglishJournalStore((s) => s.collections)
-  const refresh = useEnglishJournalStore((s) => s.refresh)
+  const collections = useVaultCollectionsStore((s) => s.collections)
+  const refresh = useVaultMetaStore((s) => s.refresh)
 
   const [formVisible, setFormVisible] = useState(false)
   const [editing, setEditing] = useState<VaultCollectionRecord | null>(null)

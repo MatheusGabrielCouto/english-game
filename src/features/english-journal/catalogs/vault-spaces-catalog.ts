@@ -272,4 +272,4 @@ export const VAULT_SPACE_BY_KEY = Object.fromEntries(
 ) as Record<VaultSpaceKey, VaultSpaceDef>;
 
 export const VAULT_NAME = 'English Knowledge Vault';
-export const VAULT_SUBTITLE = 'My English Brain — seu second brain de inglês';
+export const VAULT_SUBTITLE = 'My English Brain — seu caderno de inglês no jogo';

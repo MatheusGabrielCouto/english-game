@@ -28,8 +28,12 @@ import type {
 } from '@/types/knowledge-vault';
 
 import { VAULT_SPACE_BY_KEY } from '../catalogs/vault-spaces-catalog';
+import { isVaultUnfilteredListFilter } from '../constants/vault-library-filter-ui';
 import { JOURNAL_XP, resolveCreateXp } from '../constants/journal-rewards';
-import { useEnglishJournalStore } from '../store/english-journal-store';
+import { useVaultCollectionsStore } from '../store/vault-collections-store';
+import { useVaultEntriesStore } from '../store/vault-entries-store';
+import { useVaultMetaStore } from '../store/vault-meta-store';
+import { filterDueReviewEntries } from '../utils/vault-due-reviews';
 import { entryTypeRequiresAudio, validateJournalBody, validateJournalTitle } from '../utils/journal-form';
 import {
     getReviewMessageForStage,
@@ -163,58 +167,59 @@ const bumpStatsOnReview = async (): Promise<JournalStatsRecord> => {
 };
 
 const refreshStore = async (filter?: JournalListFilter): Promise<void> => {
-  const activeFilter = filter ?? useEnglishJournalStore.getState().filter;
-  const [
-    entries,
-    dueReviews,
-    favorites,
-    pinned,
-    recent,
-    stats,
-    folders,
-    collections,
-    mapTree,
-  ] = await Promise.all([
-    JournalRepository.listActive(activeFilter),
-    JournalRepository.listDueReviews(),
+  const activeFilter = filter ?? useVaultMetaStore.getState().filter;
+  const unfiltered = isVaultUnfilteredListFilter(activeFilter);
+
+  const [folders, collections, stats, favorites, pinned, recent] = await Promise.all([
+    VaultRepository.listFolders(),
+    VaultRepository.listCollections(),
+    JournalRepository.getStats().then(syncStatsAggregates),
     JournalRepository.listFavorites(),
     JournalRepository.listPinned(),
     JournalRepository.listRecent(12),
-    JournalRepository.getStats().then(syncStatsAggregates),
-    VaultRepository.listFolders(),
-    VaultRepository.listCollections(),
-    JournalRepository.listActive().then(async (all) => {
-      const folderList = await VaultRepository.listFolders();
-      return buildVaultMapTree(all, folderList);
-    }),
   ]);
 
-  useEnglishJournalStore.setState({
+  const allEntries = unfiltered
+    ? await JournalRepository.listActive(activeFilter)
+    : await JournalRepository.listActive({});
+
+  const entries = unfiltered
+    ? allEntries
+    : await JournalRepository.listActive(activeFilter);
+
+  const dueReviews = filterDueReviewEntries(allEntries);
+  const mapTree = buildVaultMapTree(allEntries, folders);
+
+  useVaultEntriesStore.setState({
     entries,
     dueReviews,
     favorites,
     pinned,
     recent,
-    stats,
+  });
+  useVaultCollectionsStore.setState({
     folders,
     collections,
     mapTree,
+  });
+  useVaultMetaStore.setState({
+    stats,
     isLoading: false,
   });
 };
 
 export const KnowledgeVaultService = {
   async initialize(): Promise<void> {
-    useEnglishJournalStore.setState({ isLoading: true });
+    useVaultMetaStore.setState({ isLoading: true });
     await VaultRepository.seedDefaultFolders();
     await refreshStore();
   },
 
   async refresh(filter?: JournalListFilter): Promise<void> {
     if (filter) {
-      useEnglishJournalStore.setState({ filter, isLoading: true });
+      useVaultMetaStore.setState({ filter, isLoading: true });
     }
-    await refreshStore(filter ?? useEnglishJournalStore.getState().filter);
+    await refreshStore(filter ?? useVaultMetaStore.getState().filter);
   },
 
   async globalSearch(filter: VaultGlobalSearchFilter): Promise<VaultEntryRecord[]> {

@@ -20,6 +20,7 @@ import {
     type NotificationSettings,
 } from '@/types/notification';
 
+import { buildAppDeepLink } from '@/constants/deep-link-paths';
 import { getTodayKey } from '@/features/quests/utils/date';
 
 import { AppLogService } from '@/services/app-log-service';
@@ -46,6 +47,7 @@ import {
 } from './notification-permissions';
 
 import { cancelAllEqNotifications, scheduleLocalNotification } from './notification-scheduler';
+import { tryPresentDelightFromGameEvent } from './rich-notification-service';
 
 let initialized = false;
 let listenersAttached = false;
@@ -219,6 +221,10 @@ const STUDY_RESCHEDULE_EVENTS = new Set([
 ]);
 
 const handleGameEvent = (event: GameEvent) => {
+  if (event.type === 'ACHIEVEMENT_UNLOCKED' || event.type === 'LOOT_BOX_RECEIVED') {
+    void tryPresentDelightFromGameEvent(event);
+  }
+
   if (STUDY_RESCHEDULE_EVENTS.has(event.type)) {
     void refreshSchedule();
     return;
@@ -385,7 +391,7 @@ export const NotificationService = {
         title: 'English Quest — Teste',
         body: 'Se você está vendo isto, as notificações estão funcionando! 🔔',
         sound: true,
-        data: { category: 'test', identifier },
+        data: { category: 'test', identifier, url: buildAppDeepLink('/play') },
         ...(Platform.OS === 'android' ? { channelId: 'default' } : {}),
       },
       trigger: {
@@ -426,7 +432,11 @@ export const NotificationService = {
         title: 'Aventura concluída! (teste)',
         body: '🐾 Seu pet voltou da expedição. Colete as recompensas na fazenda.',
         sound: true,
-        data: { category: 'pet_test', identifier },
+        data: {
+          category: 'pet_test',
+          identifier,
+          url: buildAppDeepLink('/pet-farm/adventures'),
+        },
         ...(Platform.OS === 'android' ? { channelId: 'default' } : {}),
       },
       trigger: {

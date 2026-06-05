@@ -19,7 +19,7 @@ export const VaultImportancePicker = ({ value, onChange }: VaultImportancePicker
 
   const handleSelect = (level: JournalImportanceValue) => {
     if (level === value) return;
-    haptics.light();
+    haptics.tap();
     onChange(level);
   };
 

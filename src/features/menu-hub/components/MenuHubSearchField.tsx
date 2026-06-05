@@ -1,5 +1,6 @@
 import { Platform, Pressable, Text, TextInput, View } from 'react-native'
 
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants'
 import { MENU_HUB_UI } from '@/features/menu-hub/constants/menu-hub-ui'
 
 type MenuHubSearchFieldProps = {
@@ -31,7 +32,7 @@ export const MenuHubSearchField = ({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor="#71717a"
+        placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
         autoCapitalize="none"
         autoCorrect={false}
         accessibilityLabel={placeholder}

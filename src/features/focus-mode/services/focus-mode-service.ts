@@ -1,5 +1,6 @@
-import * as Haptics from 'expo-haptics';
 import { AppState, type AppStateStatus } from 'react-native';
+
+import { haptics } from '@/utils/haptics';
 
 import {
     getWallElapsedSec,
@@ -548,7 +549,7 @@ export const FocusModeService = {
       startTickLoop(session);
       attachSessionListeners(session, settings.monitoringEnabled);
       await scheduleFocusSessionEndNotification(session);
-      void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      haptics.success();
 
       const currentAnalytics = await getOrCreateFocusAnalytics();
       const analytics = await recordFocusAnalytics({

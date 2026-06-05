@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View, type NativeScrollEvent, type NativeSyntheticEvent } from 'react-native';
 
 import type { CityDistrictViewModel, CityPoiViewModel } from '@/types/city-map';
 
+import type { CityMapScrollViewport } from '../constants/city-map-viewport-ui';
 import { CITY_UI } from '../constants/city-ui';
 import { CITY_MAP_CANVAS_SCALE } from '../constants/map-layout';
+import { shouldCullCityMapViewport } from '../utils/city-map-viewport-culling';
 import { CityMapGrid } from './CityMapGrid';
 
 type CityMapViewportProps = {
@@ -39,10 +41,13 @@ export const CityMapViewport = ({
   const hScrollRef = useRef<ScrollView>(null);
   const vScrollRef = useRef<ScrollView>(null);
   const [zoomIndex, setZoomIndex] = useState(0);
+  const [scrollX, setScrollX] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
   const zoom = ZOOM_LEVELS[zoomIndex];
 
   const canvasWidth = Math.round(mapWidth * CITY_MAP_CANVAS_SCALE * zoom);
   const canvasHeight = Math.round(mapHeight * CITY_MAP_CANVAS_SCALE * zoom);
+  const cullViewport = shouldCullCityMapViewport(canvasWidth, canvasHeight, mapWidth, mapHeight);
 
   const scrollOffset = useMemo(
     () => ({
@@ -52,12 +57,35 @@ export const CityMapViewport = ({
     [canvasWidth, canvasHeight, mapWidth, mapHeight],
   );
 
+  const viewportBounds = useMemo<CityMapScrollViewport | null>(() => {
+    if (!cullViewport) return null;
+
+    return {
+      x: scrollX,
+      y: scrollY,
+      width: mapWidth,
+      height: mapHeight,
+    };
+  }, [cullViewport, mapHeight, mapWidth, scrollX, scrollY]);
+
   useEffect(() => {
+    setScrollX(scrollOffset.x);
+    setScrollY(scrollOffset.y);
     hScrollRef.current?.scrollTo({ x: scrollOffset.x, animated: true });
     vScrollRef.current?.scrollTo({ y: scrollOffset.y, animated: true });
   }, [scrollOffset.x, scrollOffset.y]);
 
+  const handleHorizontalScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    setScrollX(event.nativeEvent.contentOffset.x);
+  }, []);
+
+  const handleVerticalScroll = useCallback((event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    setScrollY(event.nativeEvent.contentOffset.y);
+  }, []);
+
   const handleRecenter = useCallback(() => {
+    setScrollX(scrollOffset.x);
+    setScrollY(scrollOffset.y);
     hScrollRef.current?.scrollTo({ x: scrollOffset.x, animated: true });
     vScrollRef.current?.scrollTo({ y: scrollOffset.y, animated: true });
   }, [scrollOffset]);
@@ -70,6 +98,8 @@ export const CityMapViewport = ({
         nestedScrollEnabled
         showsHorizontalScrollIndicator={false}
         bounces
+        scrollEventThrottle={16}
+        onScroll={handleHorizontalScroll}
         style={styles.scrollOuter}
         contentContainerStyle={{ width: canvasWidth, height: mapHeight }}
         accessibilityLabel={CITY_UI.mapCanvasLabel}>
@@ -78,11 +108,14 @@ export const CityMapViewport = ({
           nestedScrollEnabled
           showsVerticalScrollIndicator={false}
           bounces
+          scrollEventThrottle={16}
+          onScroll={handleVerticalScroll}
           style={{ width: canvasWidth, height: mapHeight }}
           contentContainerStyle={{ width: canvasWidth, height: canvasHeight }}>
           <CityMapGrid
             mapWidth={canvasWidth}
             mapHeight={canvasHeight}
+            viewportBounds={viewportBounds}
             districts={districts}
             pois={pois}
             claimablePoiKeys={claimablePoiKeys}

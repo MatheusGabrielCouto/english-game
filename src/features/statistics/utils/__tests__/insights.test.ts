@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 
-import { buildStatisticsInsights, getPrimaryStatisticsInsight } from '../insights'
+import {
+  buildInsightCandidates,
+  buildStatisticsInsights,
+  getPrimaryStatisticsInsight,
+  selectDailyStatisticsInsight,
+} from '../insights'
+import { hashDateKey } from '../daily-insight'
 
 const baseDashboard = {
   overview: {
@@ -64,29 +70,59 @@ const baseDashboard = {
   milestones: [],
 }
 
-describe('actionable statistics insights', () => {
+describe('actionable statistics insights (P-24)', () => {
+  it('returns exactly one daily insight', () => {
+    const insights = buildStatisticsInsights(baseDashboard, '2026-06-05')
+    assert.equal(insights.length, 1)
+    assert.equal(insights[0]?.id, 'daily-quests-pending')
+  })
+
   it('prioritizes daily quests with CTA', () => {
     const primary = getPrimaryStatisticsInsight(buildStatisticsInsights(baseDashboard))
-
-    assert.equal(primary?.id, 'daily-quests-pending')
-    assert.equal(primary?.ctaLabel, 'Ver missões')
+    assert.equal(primary?.ctaLabel, 'Ir para missões')
     assert.equal(primary?.route, '/(tabs)/play')
   })
 
   it('surfaces loot when daily quests are done', () => {
-    const insights = buildStatisticsInsights({
+    const insights = buildStatisticsInsights(
+      {
+        ...baseDashboard,
+        quests: {
+          dailyCompleted: 3,
+          dailyTotal: 3,
+          dailyCompletionRate: 100,
+          weeklyCompleted: 3,
+          weeklyTotal: 5,
+          weeklyCompletionRate: 60,
+        },
+      },
+      '2026-06-05',
+    )
+
+    assert.equal(insights[0]?.id, 'loot-unopened')
+    assert.equal(insights[0]?.route, '/loot-boxes')
+  })
+
+  it('keeps same insight stable for a given date', () => {
+    const candidates = buildInsightCandidates({
       ...baseDashboard,
       quests: {
         dailyCompleted: 3,
         dailyTotal: 3,
         dailyCompletionRate: 100,
-        weeklyCompleted: 3,
+        weeklyCompleted: 2,
         weeklyTotal: 5,
-        weeklyCompletionRate: 60,
+        weeklyCompletionRate: 40,
       },
     })
 
-    assert.equal(insights[0]?.id, 'loot-unopened')
-    assert.equal(insights[0]?.route, '/loot-boxes')
+    const first = selectDailyStatisticsInsight(candidates, '2026-06-05')
+    const second = selectDailyStatisticsInsight(candidates, '2026-06-05')
+    assert.deepEqual(first, second)
+  })
+
+  it('hashDateKey is deterministic', () => {
+    assert.equal(hashDateKey('2026-06-05'), hashDateKey('2026-06-05'))
+    assert.notEqual(hashDateKey('2026-06-05'), hashDateKey('2026-06-06'))
   })
 })

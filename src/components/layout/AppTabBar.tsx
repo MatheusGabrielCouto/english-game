@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppIcon, type AppIconName } from '@/components/ui/AppIcon';
-import { theme } from '@/constants';
+import { MIN_TOUCH_TARGET_PT, theme } from '@/constants';
 import { CoachMarkTarget } from '@/features/tutorial';
 import { AudioDirector } from '@/services/audio';
 import { haptics } from '@/utils/haptics';
@@ -72,7 +72,7 @@ export const AppTabBar = ({ state, navigation }: AppTabBarProps) => {
 
           const handlePress = () => {
             if (isFocused) return;
-            haptics.selection();
+            haptics.tab();
             AudioDirector.playUI('ui_tab_switch');
             navigation.navigate(route.name as TabRouteName);
           };
@@ -131,21 +131,27 @@ const styles = StyleSheet.create({
     columnGap: 2,
   },
   tab: {
-    minWidth: 56,
+    minWidth: MIN_TOUCH_TARGET_PT,
+    minHeight: MIN_TOUCH_TARGET_PT,
     flex: 1,
     maxWidth: 72,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   tabPressable: {
     width: '100%',
+    minHeight: MIN_TOUCH_TARGET_PT,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   tabInner: {
     width: '100%',
+    minHeight: MIN_TOUCH_TARGET_PT,
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 16,
     paddingHorizontal: 4,
-    paddingVertical: 8,
+    paddingVertical: 6,
   },
   tabInnerFocused: {
     backgroundColor: 'rgba(139, 92, 246, 0.25)',

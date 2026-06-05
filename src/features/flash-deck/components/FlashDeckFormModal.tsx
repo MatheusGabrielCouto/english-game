@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
 import { Button, FormSheetModal } from '@/components';
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants';
 import { useAsyncAction } from '@/hooks';
 import { cn } from '@/utils';
 
@@ -60,7 +61,6 @@ export const FlashDeckFormModal = ({ visible, deck, onClose, onSaved }: FlashDec
       visible={visible}
       onClose={onClose}
       sheetHeightRatio={0.72}
-      animationType="fade"
       header={
         <View className="px-4 pb-2 pt-4">
           <Text className="text-lg font-black text-foreground">
@@ -87,7 +87,7 @@ export const FlashDeckFormModal = ({ visible, deck, onClose, onSaved }: FlashDec
             value={name}
             onChangeText={setName}
             placeholder={FLASH_DECK_UI.deckNamePlaceholder}
-            placeholderTextColor="#71717a"
+            placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
             className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
           />
         </View>
@@ -119,7 +119,7 @@ export const FlashDeckFormModal = ({ visible, deck, onClose, onSaved }: FlashDec
             value={description}
             onChangeText={setDescription}
             placeholder="Ex.: Palavras para entrevistas em inglês"
-            placeholderTextColor="#71717a"
+            placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
             multiline
             className="min-h-[72px] rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
           />

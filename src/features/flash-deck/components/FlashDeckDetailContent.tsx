@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 
 import { Button } from '@/components';
+import { VirtualizedList } from '@/components/ui';
+import { INPUT_PLACEHOLDER_COLOR, VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE } from '@/constants';
 import { ScreenSkeleton } from '@/components/ui/skeleton';
 import { LearningHeroPanel } from '@/features/learning/components/ui';
 import type { FlashCardRecord, FlashDeckRecord } from '@/types/flash-card';
@@ -20,7 +22,7 @@ import { FLASH_DECK_UI } from '../constants/flash-deck-ui';
 import { FlashDeckService } from '../services/flash-deck-service';
 import { useFlashDeckStore } from '../store/flash-deck-store';
 import { flashDeckRoutes } from '../utils/flash-deck-routes';
-import { FlashCardStateBadge } from './FlashCardStateBadge';
+import { FlashDeckCardRow } from './FlashDeckCardRow';
 import { FlashDeckFormModal } from './FlashDeckFormModal';
 import { FlashDeckStatsCard } from './FlashDeckStatsCard';
 import { FlashLeechHelper } from './FlashLeechHelper';
@@ -125,8 +127,8 @@ export const FlashDeckDetailContent = () => {
     );
   }
 
-  return (
-    <View className="gap-4">
+  const deckHeader = (
+    <>
       <LearningHeroPanel
         variant="deck"
         eyebrow="Caderno em jogo"
@@ -174,7 +176,7 @@ export const FlashDeckDetailContent = () => {
         value={search}
         onChangeText={setSearch}
         placeholder={FLASH_DECK_UI.searchPlaceholder}
-        placeholderTextColor="#71717a"
+        placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
         autoCapitalize="none"
         autoCorrect={false}
         className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
@@ -208,7 +210,11 @@ export const FlashDeckDetailContent = () => {
           ))}
         </ScrollView>
       ) : null}
+    </>
+  )
 
+  const deckFooter = (
+    <>
       {cards.length === 0 ? (
         <View className="rounded-2xl border border-dashed border-border px-4 py-8">
           <Text className="text-center text-base font-bold text-foreground">{FLASH_DECK_UI.deckEmptyTitle}</Text>
@@ -216,34 +222,7 @@ export const FlashDeckDetailContent = () => {
             {FLASH_DECK_UI.deckEmptyBody}
           </Text>
         </View>
-      ) : (
-        <View className="gap-2">
-          {cards.map((card) => (
-            <Pressable
-              key={card.id}
-              onPress={() => router.push(flashDeckRoutes.card(card.id))}
-              accessibilityRole="button"
-              className="rounded-2xl border border-border bg-surface px-4 py-3 active:opacity-80">
-              <View className="flex-row items-start justify-between gap-2">
-                <View className="min-w-0 flex-1">
-                  <Text className="text-base font-bold text-foreground" numberOfLines={1}>
-                    {card.front}
-                  </Text>
-                  <Text className="mt-0.5 text-sm text-foreground-secondary" numberOfLines={1}>
-                    {card.back}
-                  </Text>
-                  {card.tags.length > 0 ? (
-                    <Text className="mt-1 text-[10px] text-muted" numberOfLines={1}>
-                      {card.tags.map((t) => `#${t}`).join(' ')}
-                    </Text>
-                  ) : null}
-                </View>
-                <FlashCardStateBadge card={card} />
-              </View>
-            </Pressable>
-          ))}
-        </View>
-      )}
+      ) : null}
 
       {deckId !== DEFAULT_FLASH_DECK_ID ? (
         <Button label={FLASH_DECK_UI.archiveDeck} variant="danger" onPress={handleArchive} />
@@ -258,6 +237,36 @@ export const FlashDeckDetailContent = () => {
           void refreshHub();
         }}
       />
-    </View>
+    </>
+  )
+
+  if (cards.length > 20) {
+    return (
+      <VirtualizedList
+        data={cards}
+        className="flex-1"
+        estimatedItemSize={VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE.flashCard}
+        keyExtractor={(card) => card.id}
+        ListHeaderComponent={<View className="gap-4">{deckHeader}</View>}
+        ListFooterComponent={<View className="gap-4 pb-4">{deckFooter}</View>}
+        ItemSeparatorComponent={() => <View className="h-2" />}
+        renderItem={(card) => <FlashDeckCardRow card={card} />}
+        extraData={`${search}-${selectedTag ?? ''}`}
+      />
+    )
+  }
+
+  return (
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="gap-4 pb-4">
+      {deckHeader}
+      {cards.length > 0 ? (
+        <View className="gap-2">
+          {cards.map((card) => (
+            <FlashDeckCardRow key={card.id} card={card} />
+          ))}
+        </View>
+      ) : null}
+      {deckFooter}
+    </ScrollView>
   );
 };

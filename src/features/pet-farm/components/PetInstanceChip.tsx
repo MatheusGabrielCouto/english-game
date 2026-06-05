@@ -2,6 +2,7 @@ import { Pressable, Text, View, type ViewStyle } from 'react-native';
 
 import { PET_FAVORITE_TAG_ICONS } from '@/types/pet-instance';
 import type { PetInstance } from '@/types/pet-instance';
+import { TOUCH_TARGET_MIN_CLASS } from '@/constants/touch-target-ui';
 import { cn } from '@/utils';
 
 import { PetStatsService } from '../services/pet-stats-service';
@@ -74,6 +75,7 @@ export const PetInstanceChip = ({
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={instance.nickname}
+      className={TOUCH_TARGET_MIN_CLASS}
       style={({ pressed }) => ({ opacity: pressed ? 0.88 : 1, transform: [{ scale: pressed ? 0.97 : 1 }] })}>
       {content}
     </Pressable>

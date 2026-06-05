@@ -1,7 +1,7 @@
 import type { Href } from 'expo-router'
 import { Platform } from 'react-native'
 
-import { routes } from '@/constants'
+import { DOMAIN_GLOSSARY, routes } from '@/constants'
 import { isDuelsEnabled, isFlashDeckEnabled } from '@/constants/feature-flags'
 import type { ExploreItemId } from '@/features/profile/constants/profile-explore-catalog'
 
@@ -47,8 +47,8 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
   },
   {
     id: 'pet',
-    label: 'Pet',
-    emoji: '🐾',
+    label: DOMAIN_GLOSSARY.petCompanion.shortLabel,
+    emoji: DOMAIN_GLOSSARY.petCompanion.emoji,
     route: routes.pet as Href,
     hint: 'Cuide do seu companheiro',
     category: 'progression',
@@ -58,8 +58,8 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
   },
   {
     id: 'pet-farm',
-    label: 'Fazenda de Pets',
-    emoji: '🌾',
+    label: DOMAIN_GLOSSARY.petFarm.shortLabel,
+    emoji: DOMAIN_GLOSSARY.petFarm.emoji,
     route: routes.petFarm as Href,
     hint: 'Pasto, cruzamento e coleção',
     category: 'progression',
@@ -202,7 +202,7 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
   },
   {
     id: 'statistics',
-    label: 'Estatísticas',
+    label: 'Insights',
     emoji: '📊',
     route: routes.statistics as Href,
     hint: 'Veja seu progresso geral',
@@ -213,10 +213,10 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
   },
   {
     id: 'farm',
-    label: 'Pontos de estudo',
-    emoji: '🌾',
+    label: DOMAIN_GLOSSARY.studyFarm.shortLabel,
+    emoji: DOMAIN_GLOSSARY.studyFarm.emoji,
     route: routes.farm as Href,
-    hint: 'Colete e use seus SP',
+    hint: DOMAIN_GLOSSARY.studyFarm.tagline,
     category: 'productivity',
     searchKeywords: ['farm', 'study points', 'sp'],
     exploreId: 'farm',

@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import { Card, ProgressBar } from '@/components';
 import { PressableScale } from '@/components/ui/game';
 import { DAILY_FARM_SOFT_CAP } from '@/features/game-design/catalogs/farm-catalog';
+import { FARM_UI } from '@/features/farm/constants/farm-ui';
 import { useFarmStore } from '@/features/farm/store/farm-store';
 import { useStudyPointsStore } from '@/features/study-points/store/study-points-store';
 import { routes } from '@/constants';
@@ -17,9 +18,9 @@ export const FarmPreviewCard = () => {
     <PressableScale
       onPress={() => router.push(routes.farm as Href)}
       accessibilityRole="button"
-      accessibilityLabel="Abrir farm infinito">
+      accessibilityLabel={FARM_UI.previewAccessibilityLabel}>
       <Card elevated className="border-success/30">
-        <Text className="text-xs font-bold uppercase tracking-widest text-success">🌾 Farm Infinito</Text>
+        <Text className="text-xs font-bold uppercase tracking-widest text-success">{FARM_UI.heroLabel}</Text>
         <Text className="mt-1 text-sm text-foreground-secondary">
           Estude além das missões e ganhe Study Points
         </Text>

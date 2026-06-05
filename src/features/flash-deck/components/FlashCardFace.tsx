@@ -59,7 +59,7 @@ export const FlashCardFace = ({
     const next = isFlipped.value === 0 ? 1 : 0;
     isFlipped.value = next;
     rotationY.value = withTiming(next * 180, { duration: FLIP_DURATION_MS });
-    haptics.light();
+    haptics.tap();
   };
 
   const tap = Gesture.Tap().maxDuration(280).onEnd(() => {

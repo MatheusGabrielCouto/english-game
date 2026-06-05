@@ -1,7 +1,9 @@
 import { Text, View } from 'react-native';
 
 import { Modal } from '@/components/ui/Modal';
+import { GameDisplayText } from '@/components/ui/game';
 import { AchievementService } from '@/features/achievements/services/achievement-service';
+import { CelebrationLottie } from '@/features/feedback/components/CelebrationLottie';
 import { useAchievementsStore } from '@/features/achievements/store/achievements-store';
 import { useFeedbackStore } from '@/features/feedback/store/feedback-store';
 
@@ -27,12 +29,15 @@ export const AchievementUnlockModal = () => {
       className="border-gold/40">
       {celebration ? (
         <View className="items-center gap-4 py-4">
+          <View className="absolute top-6 h-40 w-40">
+            <CelebrationLottie kind="achievement" active />
+          </View>
           <View className="rounded-full border-4 border-gold/50 bg-gold/10 p-5">
             <Text className="text-6xl">{celebration.achievement.icon}</Text>
           </View>
-          <Text className="px-2 text-center text-xl font-black text-gold" numberOfLines={2}>
+          <GameDisplayText variant="hero" className="px-2 text-center text-gold" numberOfLines={2}>
             {celebration.achievement.name}
-          </Text>
+          </GameDisplayText>
           <Text className="px-2 text-center text-sm leading-5 text-foreground-secondary">
             {celebration.achievement.description}
           </Text>

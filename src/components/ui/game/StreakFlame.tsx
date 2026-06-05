@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import Animated, {
+  cancelAnimation,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
@@ -17,13 +18,21 @@ type StreakFlameProps = {
   size?: number;
   showLabel?: boolean;
   className?: string;
+  animate?: boolean;
 };
 
-export const StreakFlame = ({ streak, size = 24, showLabel = false, className }: StreakFlameProps) => {
+export const StreakFlame = ({
+  streak,
+  size = 24,
+  showLabel = false,
+  className,
+  animate = true,
+}: StreakFlameProps) => {
   const pulse = useSharedValue(1);
 
   useEffect(() => {
-    if (streak <= 0) {
+    if (!animate || streak <= 0) {
+      cancelAnimation(pulse);
       pulse.value = 1;
       return;
     }
@@ -33,7 +42,7 @@ export const StreakFlame = ({ streak, size = 24, showLabel = false, className }:
       -1,
       false,
     );
-  }, [pulse, streak]);
+  }, [animate, pulse, streak]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: pulse.value }],

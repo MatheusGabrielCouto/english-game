@@ -34,6 +34,7 @@ export const BreedingCooldownNotificationService = {
         await scheduleLocalNotification({
           identifier: breedingNotificationId(instance.id),
           triggerDate: new Date(instance.breedingCooldownUntil),
+          deepLinkPath: '/pet-farm/breeding',
           candidate: {
             category: NotificationCategory.BREEDING_READY,
             title: 'Cruzamento disponível',

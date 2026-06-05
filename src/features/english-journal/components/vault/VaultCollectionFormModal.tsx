@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Pressable, Text, TextInput, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 
 import { Button, FormSheetModal } from '@/components'
-import { theme } from '@/constants'
+import { VaultFormTextField } from '@/components/ui/form/VaultFormTextField'
 import type { VaultCollectionRecord } from '@/types/knowledge-vault'
 import { cn } from '@/utils'
 
@@ -67,9 +67,6 @@ export const VaultCollectionFormModal = ({
     [name, description],
   )
 
-  const nameValidation = useMemo(() => validateCollectionName(name), [name])
-  const descriptionValidation = useMemo(() => validateCollectionDescription(description), [description])
-
   const handleSave = async () => {
     setSubmitAttempted(true)
     if (!formValidation.valid) {
@@ -110,7 +107,6 @@ export const VaultCollectionFormModal = ({
       visible={visible}
       onClose={onClose}
       sheetHeightRatio={0.82}
-      backdropClassName="bg-black/50"
       header={
         <View className="px-4 pb-2 pt-4">
           <View className="mb-4 h-1 w-10 self-center rounded-full bg-border" />
@@ -157,51 +153,35 @@ export const VaultCollectionFormModal = ({
                   </View>
                 </VaultField>
 
-                <VaultField label={VAULT_UI.collectionNameLabel}>
-                  <TextInput
-                    className={cn(
-                      'rounded-xl border bg-surface px-4 py-3 text-base text-foreground',
-                      submitAttempted && !nameValidation.valid
-                        ? 'border-danger'
-                        : 'border-border',
-                    )}
-                    value={name}
-                    onChangeText={setName}
-                    placeholder={VAULT_UI.collectionNamePlaceholder}
-                    placeholderTextColor={theme.colors.muted}
-                    maxLength={COLLECTION_FORM_LIMITS.nameMax}
-                    accessibilityLabel={VAULT_UI.collectionNameLabel}
-                  />
-                  {submitAttempted && nameValidation.error ? (
-                    <Text className="mt-1 text-xs text-danger">{nameValidation.error}</Text>
-                  ) : null}
-                </VaultField>
+                <VaultFormTextField
+                  label={VAULT_UI.collectionNameLabel}
+                  value={name}
+                  onChangeText={setName}
+                  validate={validateCollectionName}
+                  forceShowError={submitAttempted}
+                  fieldId="collection-name"
+                  placeholder={VAULT_UI.collectionNamePlaceholder}
+                  maxLength={COLLECTION_FORM_LIMITS.nameMax}
+                />
 
-                <VaultField
+                <VaultFormTextField
                   label={VAULT_UI.collectionDescriptionLabel}
                   hint={VAULT_UI.collectionDescriptionPlaceholder}
-                >
-                  <TextInput
-                    className={cn(
-                      'min-h-[88px] rounded-xl border bg-surface px-4 py-3 text-base text-foreground',
-                      submitAttempted && !descriptionValidation.valid
-                        ? 'border-danger'
-                        : 'border-border',
-                    )}
-                    style={{ textAlignVertical: 'top' }}
-                    value={description}
-                    onChangeText={setDescription}
-                    placeholder={VAULT_UI.collectionDescriptionPlaceholder}
-                    placeholderTextColor={theme.colors.muted}
-                    multiline
-                    maxLength={COLLECTION_FORM_LIMITS.descriptionMax}
-                  />
-                  {submitAttempted && descriptionValidation.error ? (
-                    <Text className="mt-1 text-xs text-danger">{descriptionValidation.error}</Text>
-                  ) : null}
-                </VaultField>
+                  value={description}
+                  onChangeText={setDescription}
+                  validate={validateCollectionDescription}
+                  forceShowError={submitAttempted}
+                  fieldId="collection-description"
+                  placeholder={VAULT_UI.collectionDescriptionPlaceholder}
+                  maxLength={COLLECTION_FORM_LIMITS.descriptionMax}
+                  multiline
+                />
 
-        {formError ? <Text className="text-sm text-danger">{formError}</Text> : null}
+        {formError ? (
+          <Text className="text-sm text-danger" accessibilityRole="alert" accessibilityLiveRegion="polite">
+            {formError}
+          </Text>
+        ) : null}
       </View>
     </FormSheetModal>
   )

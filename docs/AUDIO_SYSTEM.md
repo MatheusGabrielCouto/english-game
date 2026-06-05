@@ -514,6 +514,7 @@ Integrações UI: `PressableScale`, `AppTabBar`, `LootBoxOpeningOverlay` (`loot_
 | Fase       | Entrega                                                   | Impacto estimado                     |
 | ---------- | --------------------------------------------------------- | ------------------------------------ |
 | **MVP** ✅ | UI micro + XP/coin/missão/streak + loot reveal + level up | ~70% do game feel — **implementado** |
+| **Sound pass** ✅ | 47 `GameEvents` por domínio via `audio-event-map.ts` + `audio-sound-vocabulary.ts` | Cobertura uniforme missão/loot/cidade/pet/foco |
 | **V1**     | Pet emocional + ambient cidade (vitality) + shop          | Vínculo + mundo                      |
 | **V2**     | Music states (hub/city/focus) + anti-ennui pools          | Imersão contínua                     |
 | **V3**     | Battle dinâmico + eventos sazonais + care debt mix        | Profundidade                         |

@@ -2,7 +2,7 @@ import { type Href, router } from 'expo-router'
 import { Text, View } from 'react-native'
 
 import { Avatar } from '@/components/ui/Avatar'
-import { GameCard, LevelBadge, PressableScale } from '@/components/ui/game'
+import { GameCard, GameDisplayText, LevelBadge, PressableScale, SharedHeroTransition } from '@/components/ui/game'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { profileHref, SHARED_TRANSITION_TAGS } from '@/constants'
 import { useAppStore } from '@/features/app/store/app-store'
@@ -43,16 +43,18 @@ export const HomePlayerHeader = () => {
       glow
       sharedTransitionTag={SHARED_TRANSITION_TAGS.playerHero}
       className="overflow-hidden">
-      <Text className="text-[10px] font-black uppercase tracking-[0.22em] text-primary">
+      <GameDisplayText variant="label" className="tracking-[0.22em]">
         {HOME_UI.playerHeader.brand}
-      </Text>
+      </GameDisplayText>
 
       <HomeCardRow className="mt-4 gap-3">
         <PressableScale
           onPress={handleEditAvatar}
           accessibilityRole="button"
           accessibilityLabel={HOME_UI.playerHeader.editAvatar}>
-          <Avatar name={name} size="xl" frameKey={avatarFrame} badgeKey={avatarBadge} ring />
+          <SharedHeroTransition tag={SHARED_TRANSITION_TAGS.profileAvatarHero}>
+            <Avatar name={name} size="xl" frameKey={avatarFrame} badgeKey={avatarBadge} ring />
+          </SharedHeroTransition>
         </PressableScale>
 
         <PressableScale
@@ -61,9 +63,9 @@ export const HomePlayerHeader = () => {
           accessibilityRole="button"
           accessibilityLabel={HOME_UI.playerHeader.openProfile}
           className={HOME_LAYOUT.growBlock}>
-          <Text className="text-2xl font-black text-foreground" numberOfLines={1}>
+          <GameDisplayText variant="hero" numberOfLines={1}>
             {name}
-          </Text>
+          </GameDisplayText>
           <View className="mt-2 flex-row flex-wrap items-center gap-2">
             <View className="rounded-lg border border-gold/30 bg-gold/15 px-2.5 py-1">
               <Text className="text-xs font-bold text-gold" numberOfLines={1}>

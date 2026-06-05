@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View, type TouchableOpacityProps } from 'react-native';
 
-import { theme } from '@/constants';
+import { BUTTON_HAPTIC_BY_VARIANT, TOUCH_TARGET_MIN_CLASS, theme } from '@/constants';
 
 import { cn, guardPress } from '@/utils';
-import { haptics } from '@/utils/haptics';
+import { playHaptic } from '@/utils/haptics';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -74,11 +74,12 @@ export const Button = ({
     activeOpacity={0.8}
     onPress={guardedOnPress}
     onPressIn={(event) => {
-      if (!isDisabled) haptics.light();
+      if (!isDisabled) playHaptic(BUTTON_HAPTIC_BY_VARIANT[variant]);
       onPressIn?.(event);
     }}
     className={cn(
       'rounded-xl items-center justify-center',
+      TOUCH_TARGET_MIN_CLASS,
       variantStyles[variant],
       sizeStyles[size],
       isDisabled && 'opacity-50',

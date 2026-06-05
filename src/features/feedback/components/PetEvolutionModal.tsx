@@ -16,6 +16,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { Card } from '@/components';
+import { GameDisplayText } from '@/components/ui/game';
 import { theme } from '@/constants';
 import { EvolutionBurstParticles } from '@/features/pet-farm/components/EvolutionBurstParticles';
 import { PetSpeciesIcon } from '@/features/pet-farm/components/PetSpeciesIcon';
@@ -28,6 +29,7 @@ import { AudioDirector } from '@/services/audio/audio-director';
 import { haptics } from '@/utils/haptics';
 
 import { useFeedbackStore } from '../store/feedback-store';
+import { CelebrationLottie } from './CelebrationLottie';
 import { Confetti } from './Confetti';
 
 const GLOW_SURFACE: ViewStyle = {
@@ -83,7 +85,7 @@ export const PetEvolutionModal = () => {
     rewardOpacity.value = 0;
 
     overlayOpacity.value = withTiming(0.88, { duration: 450 });
-    haptics.heavy();
+    haptics.impact();
 
     const skipTimer = setTimeout(() => setCanSkip(true), PET_EVOLUTION_SKIP_AFTER_MS);
     const burstTimer = setTimeout(() => {
@@ -92,7 +94,7 @@ export const PetEvolutionModal = () => {
         withSpring(1.22, { damping: 8, stiffness: 160 }),
         withSpring(1, { damping: 10, stiffness: 140 }),
       );
-      haptics.light();
+      haptics.tap();
     }, 380);
 
     const flashTimer = setTimeout(() => {
@@ -172,6 +174,7 @@ export const PetEvolutionModal = () => {
 
         <View style={styles.center} pointerEvents="box-none">
           <View style={styles.burstWrap}>
+            <CelebrationLottie kind="petEvolution" active={burstActive} style={styles.evolutionLottie} />
             <EvolutionBurstParticles active={burstActive} />
           </View>
 
@@ -187,12 +190,12 @@ export const PetEvolutionModal = () => {
 
           {celebration ? (
             <View className="mt-6 items-center gap-2 px-6">
-              <Text className="text-center text-xs font-bold uppercase tracking-widest text-amber-300">
+              <GameDisplayText variant="label" className="text-center text-amber-300">
                 {PET_EVOLUTION_UI.title}
-              </Text>
-              <Text className="text-center text-3xl font-black text-legendary">
+              </GameDisplayText>
+              <GameDisplayText variant="hero" className="text-center text-3xl text-legendary">
                 {celebration.label}
-              </Text>
+              </GameDisplayText>
               {celebration.nickname ? (
                 <Text className="text-center text-sm font-bold text-foreground">
                   {celebration.nickname}
@@ -210,9 +213,9 @@ export const PetEvolutionModal = () => {
                 <Text className="text-center text-[10px] font-bold uppercase text-muted">
                   {PET_EVOLUTION_UI.rewardTitle}
                 </Text>
-                <Text className="text-center text-lg font-black text-gold">
+                <GameDisplayText variant="value" className="text-center text-lg">
                   {PET_EVOLUTION_UI.rewardCoins(celebration.coinsReward)}
-                </Text>
+                </GameDisplayText>
               </Card>
             </Animated.View>
           ) : null}
@@ -253,8 +256,14 @@ const styles = StyleSheet.create({
   burstWrap: {
     position: 'absolute',
     top: '34%',
+    width: 280,
+    height: 280,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  evolutionLottie: {
+    width: 280,
+    height: 280,
   },
   petWrap: {
     alignItems: 'center',

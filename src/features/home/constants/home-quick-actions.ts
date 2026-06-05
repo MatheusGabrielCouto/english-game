@@ -1,7 +1,7 @@
 import type { Href } from 'expo-router'
 import { Platform } from 'react-native'
 
-import { routes } from '@/constants'
+import { DOMAIN_GLOSSARY, routes } from '@/constants'
 import { isDuelsEnabled, isFlashDeckEnabled } from '@/constants/feature-flags'
 import type { ExploreItemId } from '@/features/profile/constants/profile-explore-catalog'
 
@@ -74,8 +74,8 @@ export const HOME_QUICK_ACTIONS: HomeQuickActionDef[] = [
   },
   {
     id: 'farm',
-    label: 'Farm',
-    emoji: '🌾',
+    label: DOMAIN_GLOSSARY.studyFarm.shortLabel,
+    emoji: DOMAIN_GLOSSARY.studyFarm.emoji,
     route: routes.farm as Href,
     tagline: 'Pontos de estudo',
     exploreId: 'farm',
@@ -99,10 +99,10 @@ export const HOME_QUICK_ACTIONS: HomeQuickActionDef[] = [
   },
   {
     id: 'pet',
-    label: 'Pet',
-    emoji: '🐾',
+    label: DOMAIN_GLOSSARY.petCompanion.shortLabel,
+    emoji: DOMAIN_GLOSSARY.petCompanion.emoji,
     route: routes.pet as Href,
-    tagline: 'Companheiro',
+    tagline: 'Pet ativo',
     exploreId: 'pet',
   },
   {

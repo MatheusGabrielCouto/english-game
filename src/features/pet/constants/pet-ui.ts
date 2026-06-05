@@ -1,5 +1,7 @@
+import { DOMAIN_GLOSSARY } from '@/constants/domain-glossary'
+
 export const PET_UI = {
-  screenTitle: 'Meu Companheiro',
+  screenTitle: DOMAIN_GLOSSARY.petCompanion.title,
   screenSubtitle: 'Cuide, evolua e colecione memórias',
   labTitle: 'Laboratório de Incubação',
   labSubtitle: 'Ambiente controlado até a eclosão',
@@ -20,7 +22,7 @@ export const PET_UI = {
   labHatchSoon: 'Eclosão em breve…',
   labDialogue:
     'Estou confortável aqui. Quando o timer zerar, finalmente poderei sair desta cápsula!',
-  farmCta: 'Fazenda de Pets',
+  farmCta: DOMAIN_GLOSSARY.petFarm.shortLabel,
   farmCtaHint: 'Pasto, cruzamento e glossário',
   bestActionTitle: 'Melhor ação agora',
   bestActionBadge: 'Agora',

@@ -35,6 +35,7 @@ export const PetAdventureNotificationService = {
     await scheduleLocalNotification({
       identifier: adventureNotificationId(adventure.id),
       triggerDate: new Date(adventure.endsAt),
+      deepLinkPath: '/pet-farm/adventures',
       candidate: {
         category: NotificationCategory.PET_REMINDER,
         title: 'Aventura concluída!',

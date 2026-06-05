@@ -8,14 +8,16 @@ import { vaultSpaceHref } from '@/constants'
 import { VAULT_SPACES } from '@/features/english-journal/catalogs/vault-spaces-catalog'
 import { VaultScreenBody } from '@/features/english-journal/components/vault/VaultScreenBody'
 import { VAULT_UI } from '@/features/english-journal/constants/vault-ui'
-import { useEnglishJournalStore } from '@/features/english-journal/store/english-journal-store'
+import { useVaultCollectionsStore } from '@/features/english-journal/store/vault-collections-store'
+import { useVaultEntriesStore } from '@/features/english-journal/store/vault-entries-store'
+import { useVaultMetaStore } from '@/features/english-journal/store/vault-meta-store'
 import type { VaultSpaceKey } from '@/types/knowledge-vault'
 
 export default function VaultSpacesRoute() {
   const router = useRouter()
-  const folders = useEnglishJournalStore((s) => s.folders)
-  const entries = useEnglishJournalStore((s) => s.entries)
-  const refresh = useEnglishJournalStore((s) => s.refresh)
+  const folders = useVaultCollectionsStore((s) => s.folders)
+  const entries = useVaultEntriesStore((s) => s.entries)
+  const refresh = useVaultMetaStore((s) => s.refresh)
 
   useFocusEffect(
     useCallback(() => {

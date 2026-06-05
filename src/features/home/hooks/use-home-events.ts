@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 
 import { useCityMapStore } from '@/features/city/store/city-map-store'
 import { getDaysLeftInSeason } from '@/features/metagame/constants/metagame-catalog'
@@ -32,11 +33,21 @@ export type HomeEventsSnapshot = {
 
 export const useHomeEvents = (): HomeEventsSnapshot => {
   const cityEvent = useCityMapStore((s) => s.activeCityEvent)
-  const metagameState = useMetagameStore((s) => s.state)
-  const isMetagameLoading = useMetagameStore((s) => s.isLoading)
-  const currentSeasonTier = useMetagameStore((s) => s.currentSeasonTier)
-  const claimableSeasonTiers = useMetagameStore((s) => s.claimableSeasonTiers)
-  const nextSeasonTier = useMetagameStore((s) => s.nextSeasonTier)
+  const {
+    metagameState,
+    isMetagameLoading,
+    currentSeasonTier,
+    claimableSeasonTiers,
+    nextSeasonTier,
+  } = useMetagameStore(
+    useShallow((s) => ({
+      metagameState: s.state,
+      isMetagameLoading: s.isLoading,
+      currentSeasonTier: s.currentSeasonTier,
+      claimableSeasonTiers: s.claimableSeasonTiers,
+      nextSeasonTier: s.nextSeasonTier,
+    })),
+  )
 
   const daysLeft = getDaysLeftInSeason()
 

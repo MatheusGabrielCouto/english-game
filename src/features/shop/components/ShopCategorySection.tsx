@@ -1,5 +1,6 @@
 import { Text, View } from 'react-native';
 
+import { GameDisplayText } from '@/components/ui/game';
 import type { ShopProduct } from '@/types/shop';
 
 import type { ShopCatalogSection } from '../constants/shop-products';
@@ -22,7 +23,7 @@ export const ShopCategorySection = ({
       <View className="flex-1">
         <View className="flex-row items-center gap-2">
           <Text className="text-lg">{section.emoji}</Text>
-          <Text className={SHOP_TEXT.heading}>{section.title}</Text>
+          <GameDisplayText variant="section">{section.title}</GameDisplayText>
         </View>
         <Text className={`mt-0.5 ${SHOP_TEXT.body}`}>{section.subtitle}</Text>
       </View>

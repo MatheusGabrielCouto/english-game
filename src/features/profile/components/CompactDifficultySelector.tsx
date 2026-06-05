@@ -5,6 +5,7 @@ import {
   DIFFICULTY_ORDER,
   type LearningDifficultyValue,
 } from '@/features/game-design/constants/difficulty';
+import { TOUCH_TARGET_CHIP_CLASS } from '@/constants/touch-target-ui';
 import { cn } from '@/utils';
 
 type CompactDifficultySelectorProps = {
@@ -30,7 +31,8 @@ export const CompactDifficultySelector = ({ value, onChange }: CompactDifficulty
             accessibilityState={{ selected: isActive }}
             onPress={() => onChange(difficulty)}
             className={cn(
-              'rounded-xl border px-3 py-2',
+              'rounded-xl border px-3',
+              TOUCH_TARGET_CHIP_CLASS,
               isActive ? 'border-primary bg-primary/15' : 'border-border bg-surface',
             )}>
             <Text className={cn('text-sm font-bold', isActive ? 'text-primary' : 'text-foreground')}>

@@ -4,7 +4,7 @@ import { VAULT_UI } from '../constants/vault-ui';
 import { EnglishJournalScreenContent } from './EnglishJournalScreenContent';
 
 export const EnglishJournalScreen = () => (
-  <ScreenContainer scrollable>
+  <ScreenContainer scrollable={false} contentClassName="flex-1">
     <ScreenHeader
       showBack
       title={VAULT_UI.vaultName}

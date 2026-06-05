@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 
 import { ProgressBar } from '@/components';
-import { GameCard, LevelBadge } from '@/components/ui/game';
+import { GameCard, GameDisplayText, LevelBadge, SharedHeroTransition } from '@/components/ui/game';
 import { SHARED_TRANSITION_TAGS } from '@/constants';
 
 import { usePunishmentStore } from '@/features/punishments/store/punishment-store';
@@ -23,9 +23,9 @@ export const CityHeroCard = ({ level, summary, progress }: CityHeroCardProps) =>
 
   return (
     <GameCard variant="hero" glow sharedTransitionTag={SHARED_TRANSITION_TAGS.cityHero}>
-      <Text className="text-xs font-bold uppercase tracking-widest text-primary">
+      <GameDisplayText variant="label">
         🏙️ {CITY_UI.heroTitle}
-      </Text>
+      </GameDisplayText>
       <Text className="mt-1 text-sm leading-5 text-foreground-secondary">{CITY_UI.heroSubtitle}</Text>
 
       {cityVibrancy < 100 ? (
@@ -37,12 +37,14 @@ export const CityHeroCard = ({ level, summary, progress }: CityHeroCardProps) =>
       <View className="mt-4 flex-row items-center gap-4">
         <LevelBadge level={level} size="lg" />
         <View className="flex-1">
-          <Text className="text-lg font-black text-foreground">{progress.currentBuilding.name}</Text>
+          <GameDisplayText variant="section">{progress.currentBuilding.name}</GameDisplayText>
           <Text className="mt-0.5 text-xs text-foreground-secondary">
             Marco atual · Nv. {progress.currentBuilding.requiredLevel}
           </Text>
         </View>
-        <Text className="text-4xl">{progress.currentBuilding.icon}</Text>
+        <SharedHeroTransition tag={SHARED_TRANSITION_TAGS.cityBuildingHero}>
+          <Text className="text-4xl">{progress.currentBuilding.icon}</Text>
+        </SharedHeroTransition>
       </View>
 
       <CityHeroStats

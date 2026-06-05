@@ -1,13 +1,23 @@
 export { APP_ICONS, AppIcon, type AppIconName } from './AppIcon';
+export { AppImage, type AppImageProps } from './AppImage';
+export { HeroBrandMark } from './HeroBrandMark';
 export { Avatar } from './Avatar';
 export { Button } from './Button';
 export { Card } from './Card';
+export { ChoiceChip } from './ChoiceChip';
+export { DomainGlossaryBanner } from './DomainGlossaryBanner';
+export { ScreenTabBar, type ScreenTabBarItem } from './ScreenTabBar';
 export { EmptyState, type EmptyStateVariant } from './EmptyState';
+export { FormFieldShell } from './form/FormFieldShell';
+export { VaultFormTextField } from './form/VaultFormTextField';
 export { FormSheetModal } from './FormSheetModal';
+export { AppModalShell } from './modal/AppModalShell';
 export * from './game';
 export { Modal } from './Modal';
+export { NetworkErrorState } from './NetworkErrorState';
 export { ProgressBar } from './ProgressBar';
 export * from './skeleton';
 export { Toast } from './Toast';
+export { VirtualizedList } from './VirtualizedList';
 export { XPBar } from './XPBar';
 

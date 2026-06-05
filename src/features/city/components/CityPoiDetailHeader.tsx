@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 
 import { ProgressBar } from '@/components';
-import { GameCard } from '@/components/ui/game';
+import { GameCard, GameDisplayText } from '@/components/ui/game';
 import type { CityPoiViewModel, CityRumorViewModel, CityVitalityBand } from '@/types/city-map';
 
 import { CITY_UI } from '../constants/city-ui';
@@ -33,9 +33,9 @@ export const CityPoiDetailHeader = ({
             <Text className="text-4xl">{poi.icon}</Text>
           </View>
           <View className="min-w-0 flex-1">
-            <Text className="text-xl font-black text-foreground" accessibilityRole="header">
+            <GameDisplayText variant="hero" accessibilityRole="header" numberOfLines={2}>
               {poi.name}
-            </Text>
+            </GameDisplayText>
             <Text className="mt-1 text-sm leading-5 text-foreground-secondary" numberOfLines={3}>
               {poi.description}
             </Text>

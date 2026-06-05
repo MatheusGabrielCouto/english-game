@@ -7,7 +7,7 @@ import { FarmActivityType, type FarmActivityDefinition, type FarmActivityTypeVal
 export const FARM_ACTIVITIES: FarmActivityDefinition[] = [
   {
     key: FarmActivityType.VOCABULARY,
-    name: 'Vocabulary Farm',
+    name: 'Vocabulário',
     emoji: '📝',
     description: 'Aprenda palavras novas e ganhe Study Points.',
     unitLabel: 'palavras',
@@ -16,7 +16,7 @@ export const FARM_ACTIVITIES: FarmActivityDefinition[] = [
   },
   {
     key: FarmActivityType.READING,
-    name: 'Reading Farm',
+    name: 'Leitura',
     emoji: '📖',
     description: 'Leia artigos e textos em inglês.',
     unitLabel: 'minutos',
@@ -25,7 +25,7 @@ export const FARM_ACTIVITIES: FarmActivityDefinition[] = [
   },
   {
     key: FarmActivityType.LISTENING,
-    name: 'Listening Farm',
+    name: 'Escuta',
     emoji: '🎧',
     description: 'Ouça podcasts, aulas e conteúdo em inglês.',
     unitLabel: 'minutos',
@@ -34,7 +34,7 @@ export const FARM_ACTIVITIES: FarmActivityDefinition[] = [
   },
   {
     key: FarmActivityType.SPEAKING,
-    name: 'Speaking Farm',
+    name: 'Conversação',
     emoji: '🗣️',
     description: 'Pratique pronúncia e conversação.',
     unitLabel: 'minutos',
@@ -43,7 +43,7 @@ export const FARM_ACTIVITIES: FarmActivityDefinition[] = [
   },
   {
     key: FarmActivityType.PROGRAMMING,
-    name: 'Programming English Farm',
+    name: 'Programação técnica',
     emoji: '💻',
     description: 'Leia documentação técnica em inglês.',
     unitLabel: 'minutos',
@@ -52,7 +52,7 @@ export const FARM_ACTIVITIES: FarmActivityDefinition[] = [
   },
   {
     key: FarmActivityType.EXERCISE,
-    name: 'Exercise Farm',
+    name: 'Exercícios',
     emoji: '✅',
     description: 'Complete exercícios corretamente.',
     unitLabel: 'exercícios',
@@ -61,7 +61,7 @@ export const FARM_ACTIVITIES: FarmActivityDefinition[] = [
   },
   {
     key: FarmActivityType.REVIEW,
-    name: 'Review Farm',
+    name: 'Revisão',
     emoji: '🔄',
     description: 'Revise conteúdo já aprendido.',
     unitLabel: 'revisões',

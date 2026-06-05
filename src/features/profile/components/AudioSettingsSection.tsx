@@ -28,7 +28,7 @@ export const AudioSettingsSection = () => {
       <View>
         <Text className="text-xs font-bold uppercase tracking-widest text-accent">🔊 Áudio do jogo</Text>
         <Text className="mt-1 text-sm text-foreground-secondary">
-          Sons de feedback, missões e recompensas (MVP)
+          Missões, loot, cidade, pet, foco e marcos — respeita mute e modo silencioso
         </Text>
       </View>
 

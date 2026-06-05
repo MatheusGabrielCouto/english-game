@@ -3,6 +3,8 @@ import { Platform } from 'react-native';
 
 import { NotificationPermissionStatus, type NotificationPermissionStatusValue } from '@/types/notification';
 
+import { ANDROID_DELIGHT_CHANNEL_ID } from '../constants/rich-notification-ui';
+
 export const configureNotificationHandler = (): void => {
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -15,7 +17,7 @@ export const configureNotificationHandler = (): void => {
   });
 };
 
-export const ensureAndroidChannel = async (): Promise<void> => {
+export const ensureAndroidChannels = async (): Promise<void> => {
   if (Platform.OS !== 'android') return;
 
   await Notifications.setNotificationChannelAsync('default', {
@@ -25,7 +27,18 @@ export const ensureAndroidChannel = async (): Promise<void> => {
     lightColor: '#8b5cf6',
     sound: 'default',
   });
+
+  await Notifications.setNotificationChannelAsync(ANDROID_DELIGHT_CHANNEL_ID, {
+    name: 'Conquistas e loot',
+    importance: Notifications.AndroidImportance.HIGH,
+    vibrationPattern: [0, 120, 80, 200],
+    lightColor: '#fbbf24',
+    sound: 'default',
+  });
 };
+
+/** @deprecated Use `ensureAndroidChannels`. */
+export const ensureAndroidChannel = ensureAndroidChannels;
 
 export const getPermissionStatus = async (): Promise<NotificationPermissionStatusValue> => {
   if (Platform.OS === 'web') {

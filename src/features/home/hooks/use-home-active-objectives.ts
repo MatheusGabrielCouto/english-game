@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 
 import { useContractsStore } from '@/features/contracts/store/contracts-store'
 import { useEpicQuestsStore } from '@/features/epic-quests/store/epic-quests-store'
@@ -22,13 +23,25 @@ export type UseHomeActiveObjectivesResult = {
 }
 
 export const useHomeActiveObjectives = (): UseHomeActiveObjectivesResult => {
-  const missions = useMissionsStore((s) => s.missions)
-  const missionsHydrated = useMissionsStore((s) => s._hasHydrated)
-  const missionsSyncing = useMissionsStore((s) => s.isSyncing)
-  const dueToday = useRoutinesStore((s) => s.dueToday)
-  const routinesLoading = useRoutinesStore((s) => s.isLoading)
-  const weeklyMissions = useWeeklyMissionsStore((s) => s.missions)
-  const weeklyLoading = useWeeklyMissionsStore((s) => s.isLoading)
+  const { missions, missionsHydrated, missionsSyncing } = useMissionsStore(
+    useShallow((s) => ({
+      missions: s.missions,
+      missionsHydrated: s._hasHydrated,
+      missionsSyncing: s.isSyncing,
+    })),
+  )
+  const { dueToday, routinesLoading } = useRoutinesStore(
+    useShallow((s) => ({
+      dueToday: s.dueToday,
+      routinesLoading: s.isLoading,
+    })),
+  )
+  const { weeklyMissions, weeklyLoading } = useWeeklyMissionsStore(
+    useShallow((s) => ({
+      weeklyMissions: s.missions,
+      weeklyLoading: s.isLoading,
+    })),
+  )
   const activeContract = useContractsStore((s) => s.activeContract)
   const epicMissions = useEpicQuestsStore((s) => s.missions)
   const claimableSeasonTiers = useMetagameStore((s) => s.claimableSeasonTiers)

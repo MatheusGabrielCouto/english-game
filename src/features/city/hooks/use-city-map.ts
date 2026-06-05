@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 import { usePlayerStore } from '@/features/player';
 
@@ -7,21 +8,41 @@ import { useCityMapStore } from '../store/city-map-store';
 
 export const useCityMap = () => {
   const level = usePlayerStore((state) => state.level);
-  const districts = useCityMapStore((state) => state.districts);
-  const pois = useCityMapStore((state) => state.pois);
-  const summary = useCityMapStore((state) => state.summary);
-  const claimablePoiKeys = useCityMapStore((state) => state.claimablePoiKeys);
-  const activeContractIssuerPoiKey = useCityMapStore((state) => state.activeContractIssuerPoiKey);
-  const resourceBalances = useCityMapStore((state) => state.resourceBalances);
-  const activeRumor = useCityMapStore((state) => state.activeRumor);
-  const vitalityBand = useCityMapStore((state) => state.vitalityBand);
-  const petVisitedParkToday = useCityMapStore((state) => state.petVisitedParkToday);
-  const activeCityEvent = useCityMapStore((state) => state.activeCityEvent);
-  const selectedPoiKey = useCityMapStore((state) => state.selectedPoiKey);
-  const activeTab = useCityMapStore((state) => state.activeTab);
-  const isLoading = useCityMapStore((state) => state.isLoading);
-  const setSelectedPoiKey = useCityMapStore((state) => state.setSelectedPoiKey);
-  const setActiveTab = useCityMapStore((state) => state.setActiveTab);
+  const {
+    districts,
+    pois,
+    summary,
+    claimablePoiKeys,
+    activeContractIssuerPoiKey,
+    resourceBalances,
+    activeRumor,
+    vitalityBand,
+    petVisitedParkToday,
+    activeCityEvent,
+    selectedPoiKey,
+    activeTab,
+    isLoading,
+    setSelectedPoiKey,
+    setActiveTab,
+  } = useCityMapStore(
+    useShallow((state) => ({
+      districts: state.districts,
+      pois: state.pois,
+      summary: state.summary,
+      claimablePoiKeys: state.claimablePoiKeys,
+      activeContractIssuerPoiKey: state.activeContractIssuerPoiKey,
+      resourceBalances: state.resourceBalances,
+      activeRumor: state.activeRumor,
+      vitalityBand: state.vitalityBand,
+      petVisitedParkToday: state.petVisitedParkToday,
+      activeCityEvent: state.activeCityEvent,
+      selectedPoiKey: state.selectedPoiKey,
+      activeTab: state.activeTab,
+      isLoading: state.isLoading,
+      setSelectedPoiKey: state.setSelectedPoiKey,
+      setActiveTab: state.setActiveTab,
+    })),
+  );
   const previousLevel = useRef(level);
 
   useEffect(() => {

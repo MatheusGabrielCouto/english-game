@@ -2,7 +2,7 @@ import { router, type Href } from 'expo-router'
 import { Text, View } from 'react-native'
 
 import { GameCard, PressableScale } from '@/components/ui/game'
-import { routes } from '@/constants'
+import { routes, TOUCH_TARGET_MIN_CLASS } from '@/constants'
 import {
     getHomeQuickActionsForDisplay,
     type HomeQuickActionDef,
@@ -38,7 +38,7 @@ const QuickActionTile = ({ action, badge }: QuickActionTileProps) => (
     onPress={() => router.push(action.route)}
     accessibilityRole="button"
     accessibilityLabel={`${action.label}. ${action.tagline}`}
-    className="min-h-11 min-w-11 w-[31%] min-w-[100px] grow">
+    className={cn(TOUCH_TARGET_MIN_CLASS, 'w-[31%] min-w-[100px] grow')}>
     <View className="relative min-h-[92px] rounded-2xl border border-border bg-surface px-2.5 py-3">
       {badge.label ? (
         <View
@@ -69,7 +69,7 @@ const MoreQuickActionTile = () => (
     onPress={() => router.push(routes.tabs.menu as Href)}
     accessibilityRole="button"
     accessibilityLabel={`${HOME_UI.quickActions.moreLabel}. ${HOME_UI.quickActions.moreTagline}`}
-    className="min-h-11 min-w-11 w-[31%] min-w-[100px] grow">
+    className={cn(TOUCH_TARGET_MIN_CLASS, 'w-[31%] min-w-[100px] grow')}>
     <View className="min-h-[92px] rounded-2xl border border-primary/35 bg-primary/8 px-2.5 py-3">
       <Text className="text-2xl">{HOME_UI.quickActions.moreEmoji}</Text>
       <Text className="mt-2 text-xs font-bold text-primary" numberOfLines={1}>

@@ -12,7 +12,7 @@ export const theme = {
     success: '#22c55e',
     warning: '#f59e0b',
     danger: '#ef4444',
-    muted: '#71717a',
+    muted: '#8a8a94',
     foreground: '#fafafa',
     foregroundSecondary: '#a1a1aa',
     glow: '#a78bfa',
