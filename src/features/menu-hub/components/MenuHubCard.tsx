@@ -70,7 +70,6 @@ const MenuHubCardComponent = ({ item, variant = 'grid', showPin = true }: MenuHu
 
   return (
     <PressableScale
-      fill={!isFeatured}
       onPress={handleOpen}
       disabled={isLocked}
       accessibilityRole="button"

@@ -11,10 +11,9 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated'
 
-import { LOOT_BOX_RARITY_CONFIG } from '@/features/inventory/constants'
-import { LootBoxArtwork } from '@/features/loot-boxes/components/LootBoxArtwork'
 import { CelebrationLottie } from '@/features/feedback/components/CelebrationLottie'
 import { getLootCelebrationLottieKind } from '@/features/feedback/constants/celebration-lottie'
+import { LOOT_BOX_RARITY_CONFIG } from '@/features/inventory/constants'
 import { LOOT_BOX_MESSAGES } from '@/features/loot-boxes/constants'
 import { AudioDirector } from '@/services/audio'
 import type { LootBoxRarityValue } from '@/types/inventory'
@@ -258,9 +257,6 @@ export const LootBoxOpeningOverlay = ({
   const boxContent = (
     <Animated.View style={[styles.boxWrap, boxStyle]}>
       <View style={[styles.boxCard, { borderColor: glowColor }]}>
-        <View style={styles.boxArtwork}>
-          <LootBoxArtwork size={112} variant="watermark" />
-        </View>
         <Text style={styles.boxEmoji}>{config.emoji}</Text>
       </View>
     </Animated.View>
@@ -380,11 +376,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
-  },
-  boxArtwork: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   boxEmoji: {
     fontSize: 72,

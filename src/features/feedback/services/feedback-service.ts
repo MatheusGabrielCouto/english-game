@@ -5,8 +5,8 @@ import type { PetStageValue } from '@/types/pet'
 import { haptics } from '@/utils/haptics'
 
 import { REWARD_BURST_COPY } from '../constants/reward-burst-ui'
-import { useFeedbackStore } from '../store/feedback-store'
 import type { MissionRewardBurst } from '../store/feedback-store'
+import { useFeedbackStore } from '../store/feedback-store'
 
 let initialized = false
 
@@ -70,9 +70,12 @@ const handleGameEvent = (event: GameEvent) => {
     case 'TITLE_UNLOCKED':
     case 'CITY_BUILDING_UNLOCKED':
     case 'CONTRACT_COMPLETED':
-    case 'LOOT_BOX_OPENED':
       haptics.success()
       store.triggerConfetti()
+      break
+
+    case 'LOOT_BOX_OPENED':
+      haptics.success()
       break
 
     case 'SHOP_PURCHASE_COMPLETED':

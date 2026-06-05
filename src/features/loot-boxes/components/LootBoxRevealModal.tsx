@@ -1,20 +1,20 @@
 import { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withSequence,
-  withSpring,
-  withTiming,
+    Easing,
+    useAnimatedStyle,
+    useSharedValue,
+    withDelay,
+    withSequence,
+    withSpring,
+    withTiming,
 } from 'react-native-reanimated'
 
 import { Modal } from '@/components'
 import { GameDisplayText } from '@/components/ui/game'
-import { LootBoxArtwork } from '@/features/loot-boxes/components/LootBoxArtwork'
 import { CelebrationLottie } from '@/features/feedback/components/CelebrationLottie'
 import { resolveLootRevealLottieKind } from '@/features/feedback/constants/celebration-lottie'
+import { useFeedbackStore } from '@/features/feedback/store/feedback-store'
 import { LootBoxRewardType, type LootBoxOpenResult } from '@/types/loot-box'
 
 const getRewardEmoji = (result: LootBoxOpenResult): string => {
@@ -69,7 +69,6 @@ const AnimatedReward = ({ result }: { result: LootBoxOpenResult }) => {
 
   return (
     <View className="items-center gap-3 py-4">
-      <LootBoxArtwork size={120} variant="watermark" className="absolute opacity-80" />
       {lottieKind ? (
         <View style={styles.lottieFrame} pointerEvents="none">
           <CelebrationLottie kind={lottieKind} active />
@@ -92,19 +91,28 @@ const AnimatedReward = ({ result }: { result: LootBoxOpenResult }) => {
   )
 }
 
-export const LootBoxRevealModal = ({ result, onClose }: LootBoxRevealModalProps) => (
-  <Modal
-    visible={result !== null}
-    onRequestClose={onClose}
-    title="Recompensa revelada!"
-    description="Parabéns! Você descobriu um prêmio surpresa."
-    confirmLabel="Continuar"
-    cancelLabel="Fechar"
-    onConfirm={onClose}
-    onCancel={onClose}>
-    {result ? <AnimatedReward result={result} /> : null}
-  </Modal>
-)
+export const LootBoxRevealModal = ({ result, onClose }: LootBoxRevealModalProps) => {
+  const clearConfetti = useFeedbackStore((state) => state.clearConfetti)
+
+  const handleClose = () => {
+    clearConfetti()
+    onClose()
+  }
+
+  return (
+    <Modal
+      visible={result !== null}
+      onRequestClose={handleClose}
+      title="Recompensa revelada!"
+      description="Parabéns! Você descobriu um prêmio surpresa."
+      confirmLabel="Continuar"
+      cancelLabel="Fechar"
+      onConfirm={handleClose}
+      onCancel={handleClose}>
+      {result ? <AnimatedReward result={result} /> : null}
+    </Modal>
+  )
+}
 
 const styles = StyleSheet.create({
   lottieFrame: {

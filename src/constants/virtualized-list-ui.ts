@@ -3,7 +3,7 @@ export const VIRTUALIZED_LIST_THRESHOLD = 20
 
 export const VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE = {
   journalEntry: 132,
-  menuHubRow: 80,
+  menuHubRow: 126,
   flashCard: 92,
   inventoryHistory: 76,
   inventorySpecialItem: 100,

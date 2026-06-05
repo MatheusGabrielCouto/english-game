@@ -3,8 +3,8 @@ import { type ComponentType, type ReactElement, type ReactNode } from 'react'
 import { View, type StyleProp, type ViewStyle } from 'react-native'
 
 import {
-  VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE,
-  VIRTUALIZED_LIST_THRESHOLD,
+    VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE,
+    VIRTUALIZED_LIST_THRESHOLD,
 } from '@/constants/virtualized-list-ui'
 import { cn } from '@/utils'
 
@@ -79,6 +79,7 @@ export const VirtualizedList = <T,>({
   return (
     <View className={cn(nestedInScrollView ? undefined : 'flex-1', className)} style={style}>
       <FlashList
+        style={{ flex: 1 }}
         data={data as T[]}
         renderItem={flashRenderItem}
         keyExtractor={keyExtractor}

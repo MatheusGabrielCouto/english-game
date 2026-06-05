@@ -26,7 +26,7 @@ export type CelebrationLottieKind = keyof typeof CELEBRATION_LOTTIE_SOURCES
 export type CelebrationLottieTier = 1 | 2
 
 export const CELEBRATION_LOTTIE_TIMING = {
-  confetti: { loop: true, speed: 1.1, durationMs: 2400, tier: 1 },
+  confetti: { loop: false, speed: 1.1, durationMs: 2400, tier: 1 },
   sparkle: { loop: false, speed: 1.25, durationMs: 1500, tier: 1 },
   success: { loop: false, speed: 1.35, durationMs: 1200, tier: 1 },
   achievement: { loop: false, speed: 1.15, durationMs: 1600, tier: 1 },
