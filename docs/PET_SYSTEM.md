@@ -10,21 +10,21 @@ O pet é o **companheiro emocional** da jornada de aprendizado. Ele evolui com o
 
 ### Implementado nesta fase
 
-| Módulo | Status |
-|--------|--------|
-| 104 animações (idle/happy/sad/excited) | ✅ Catálogo |
-| Tela dedicada do pet | ✅ `/pet` |
-| Nome customizável | ✅ |
-| 8 interações | ✅ |
-| Afinidade 0→1000 + tiers | ✅ |
-| 50 alimentos | ✅ Catálogo |
-| 12 brinquedos | ✅ Catálogo |
-| 40 cosméticos | ✅ Catálogo |
-| Diálogos offline contextuais | ✅ |
-| Rotina (manhã/tarde/noite/dormindo) | ✅ |
-| Álbum de memórias | ✅ |
-| Petédex (29 espécies) | ✅ |
-| Avaliação IA | 📋 Roadmap (abaixo) |
+| Módulo                                 | Status              |
+| -------------------------------------- | ------------------- |
+| 104 animações (idle/happy/sad/excited) | ✅ Catálogo         |
+| Tela dedicada do pet                   | ✅ `/pet`           |
+| Nome customizável                      | ✅                  |
+| 8 interações                           | ✅                  |
+| Afinidade 0→1000 + tiers               | ✅                  |
+| 50 alimentos                           | ✅ Catálogo         |
+| 12 brinquedos                          | ✅ Catálogo         |
+| 40 cosméticos                          | ✅ Catálogo         |
+| Diálogos offline contextuais           | ✅                  |
+| Rotina (manhã/tarde/noite/dormindo)    | ✅                  |
+| Álbum de memórias                      | ✅                  |
+| Petédex (29 espécies)                  | ✅                  |
+| Avaliação IA                           | 📋 Roadmap (abaixo) |
 
 ---
 
@@ -75,26 +75,26 @@ src/features/pet/
 
 ### 4. Como integrar o pet ao aprendizado de inglês?
 
-| Mecanismo | Implementação |
-|-----------|---------------|
-| Diálogos em inglês | Frases offline em `pet-dialogues-catalog` |
-| Treinar | Interação dá +5 pet XP + diálogo de missão |
-| Conversar | Contexto `english_practice` com frases para repetir |
+| Mecanismo             | Implementação                                             |
+| --------------------- | --------------------------------------------------------- |
+| Diálogos em inglês    | Frases offline em `pet-dialogues-catalog`                 |
+| Treinar               | Interação dá +5 pet XP + diálogo de missão                |
+| Conversar             | Contexto `english_practice` com frases para repetir       |
 | Recompensa por estudo | Pet XP via dailies, weeklies, contratos, 15% do player XP |
-| Passivos por espécie | Code Owl +5% XP, Debug Duck +5% coins, etc. |
-| Futuro | Quest “Fale 3 frases com seu pet”; correção via IA |
+| Passivos por espécie  | Code Owl +5% XP, Debug Duck +5% coins, etc.               |
+| Futuro                | Quest “Fale 3 frases com seu pet”; correção via IA        |
 
 ### 5. Vale a pena adicionar IA?
 
 **Sim, em fase 2** — não no MVP emocional.
 
-| Critério | Offline (atual) | IA (LLM) |
-|----------|-----------------|----------|
-| Custo | Zero | ~$0.001–0.01/interação |
-| Latência | Instantâneo | 1–3s |
-| Personalização | Limitada | Alta |
-| Speaking practice | Frases fixas | Conversa + correção |
-| Offline-first | ✅ | Requer API |
+| Critério          | Offline (atual) | IA (LLM)               |
+| ----------------- | --------------- | ---------------------- |
+| Custo             | Zero            | ~$0.001–0.01/interação |
+| Latência          | Instantâneo     | 1–3s                   |
+| Personalização    | Limitada        | Alta                   |
+| Speaking practice | Frases fixas    | Conversa + correção    |
+| Offline-first     | ✅              | Requer API             |
 
 **Benefícios IA:** conversa natural, correção gramatical, role-play de entrevista, motivação contextual.
 
@@ -105,11 +105,13 @@ src/features/pet/
 **Fase 2 — após validação emocional (8–12 semanas pós-launch):**
 
 Pré-requisitos:
+
 1. Retenção D7/D30 com pet offline comprovada
 2. ≥30% dos usuários interagem 3+ vezes/semana
 3. Infra de API keys + rate limit + cache de respostas comuns
 
 Arquitetura ideal:
+
 ```
 App → Edge Function (rate limit, prompt template)
     → OpenAI / Anthropic (gpt-4o-mini ou claude-haiku)
@@ -122,15 +124,16 @@ Fallback: diálogos offline se API falhar.
 
 ### 7. Conforme o pet evolui, o que acontece?
 
-| Estágio | Nível | Mudanças |
-|---------|-------|----------|
-| Egg 🥚 | 1 | Incubação visual; poucas interações |
-| Baby 🐣 | 5 | Desbloqueia animações happy; memória “Primeira Evolução”; +100 coins |
-| Teen 🐥 | 10 | Cosméticos baby+; diálogos de missão; +250 coins |
-| Adult 🐦 | 20 | Cosméticos teen+; passivo da espécie mais perceptível; +500 coins |
-| Legendary 🦅 | 50 | Animações exclusivas (minAffinity 200+); memória lendária; +1000 coins; visual premium |
+| Estágio      | Nível | Mudanças                                                                               |
+| ------------ | ----- | -------------------------------------------------------------------------------------- |
+| Egg 🥚       | 1     | Incubação visual; poucas interações                                                    |
+| Baby 🐣      | 5     | Desbloqueia animações happy; memória “Primeira Evolução”; +100 coins                   |
+| Teen 🐥      | 10    | Cosméticos baby+; diálogos de missão; +250 coins                                       |
+| Adult 🐦     | 20    | Cosméticos teen+; passivo da espécie mais perceptível; +500 coins                      |
+| Legendary 🦅 | 50    | Animações exclusivas (minAffinity 200+); memória lendária; +1000 coins; visual premium |
 
 **Gameplay adicional por evolução:**
+
 - Cap de vitals sobe implicitamente (decay mais lento em estágios altos — futuro)
 - Novas linhas de diálogo (`evolution`, `affinity`)
 - Entrada na Petédex com linha evolutiva completa
@@ -150,13 +153,13 @@ Fallback: diálogos offline se API falhar.
 
 ## Afinidade
 
-| Tier | Min | Bônus |
-|------|-----|-------|
-| Conhecido | 0 | Diálogos básicos |
-| Amigo | 100 | +2% XP do pet |
-| Melhor Amigo | 300 | Animações especiais |
-| Parceiro | 600 | +5% moedas em dailies |
-| Alma Gêmea | 850 | Evolução especial (narrativa) |
+| Tier         | Min | Bônus                         |
+| ------------ | --- | ----------------------------- |
+| Conhecido    | 0   | Diálogos básicos              |
+| Amigo        | 100 | +2% XP do pet                 |
+| Melhor Amigo | 300 | Animações especiais           |
+| Parceiro     | 600 | +5% moedas em dailies         |
+| Alma Gêmea   | 850 | Evolução especial (narrativa) |
 
 Ganho por interação: 4–15 pontos (+ bônus de comida/brinquedo).
 
@@ -175,4 +178,5 @@ Ganho por interação: 4–15 pontos (+ bônus de comida/brinquedo).
 3. Cooldown visual por interação (evitar spam)
 4. Tab dedicada “Pet” na bottom bar
 5. IA conversacional (Fase 2)
-6. Multi-pet / troca de espécie ativa
+6. **Fazenda de Pets, gênero e cruzamento** — ver [PET_FARM_UPDATE.md](./PET_FARM_UPDATE.md)
+7. **Endgame 2.0** (linhagem, traits, aventuras, liga) — ver [PET_ENDGAME_2.0.md](./PET_ENDGAME_2.0.md)

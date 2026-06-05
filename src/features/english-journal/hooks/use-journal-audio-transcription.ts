@@ -2,14 +2,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import {
-  DEFAULT_JOURNAL_TRANSCRIPTION_MODE,
-  JOURNAL_TRANSCRIPTION_MODE_STORAGE_KEY,
-  type JournalTranscriptionMode,
+    DEFAULT_JOURNAL_TRANSCRIPTION_MODE,
+    isPortugueseSpeechMode,
+    JOURNAL_TRANSCRIPTION_MODE_STORAGE_KEY,
+    type JournalTranscriptionMode,
 } from '../constants/journal-transcription-mode'
 import { JOURNAL_UI } from '../constants/journal-ui'
 import {
-  processJournalAudioRecording,
-  type JournalAudioPipelinePhase,
+    processJournalAudioRecording,
+    type JournalAudioPipelinePhase,
 } from '../services/journal-audio-transcription-pipeline'
 import { mergeTranscriptionIntoBody } from '../utils/journal-transcription-body'
 
@@ -20,7 +21,7 @@ type UseJournalAudioTranscriptionOptions = {
 
 const phaseLabel = (phase: JournalAudioPipelinePhase | null, mode: JournalTranscriptionMode): string => {
   if (phase === 'translating') return JOURNAL_UI.translatingToEnglish
-  if (phase === 'transcribing' && mode === 'portuguese_to_english') {
+  if (phase === 'transcribing' && isPortugueseSpeechMode(mode)) {
     return JOURNAL_UI.transcribingPortuguese
   }
   return JOURNAL_UI.transcribing
@@ -39,7 +40,7 @@ export const useJournalAudioTranscription = ({
 
   useEffect(() => {
     void AsyncStorage.getItem(JOURNAL_TRANSCRIPTION_MODE_STORAGE_KEY).then((raw) => {
-      if (raw === 'english' || raw === 'portuguese_to_english') {
+      if (raw === 'english' || raw === 'portuguese' || raw === 'portuguese_to_english') {
         setTranscriptionMode(raw)
       }
     })

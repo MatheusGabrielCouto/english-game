@@ -10,6 +10,7 @@ export type MenuHubCategoryId = 'progression' | 'knowledge' | 'productivity' | '
 export type MenuHubItemId =
   | ExploreItemId
   | 'shop'
+  | 'pet-farm'
   | 'knowledge-map'
   | 'knowledge-collections'
 
@@ -50,6 +51,16 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     category: 'progression',
     searchKeywords: ['pet', 'companheiro', 'mascote'],
     exploreId: 'pet',
+    pinnable: true,
+  },
+  {
+    id: 'pet-farm',
+    label: 'Fazenda de Pets',
+    emoji: '🌾',
+    route: routes.petFarm as Href,
+    hint: 'Pasto, cruzamento e coleção',
+    category: 'progression',
+    searchKeywords: ['fazenda', 'pet', 'breeding', 'cruzar', 'pasto'],
     pinnable: true,
   },
   {

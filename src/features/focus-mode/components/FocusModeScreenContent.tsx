@@ -8,6 +8,7 @@ import { routes, theme } from '@/constants';
 import type { FocusStudyTypeValue } from '@/types/focus-mode';
 
 import { useFocusMode } from '../hooks/use-focus-mode';
+import { FocusModeService } from '../services/focus-mode-service';
 import { FocusSetupPanel } from './FocusSetupPanel';
 
 export const FocusModeScreenContent = () => {
@@ -20,6 +21,7 @@ export const FocusModeScreenContent = () => {
   const handleStart = async (studyType: FocusStudyTypeValue, durationMinutes: number) => {
     const session = await startSession(studyType, durationMinutes);
     if (!session) return;
+    await FocusModeService.ensureLiveSession();
     router.push(routes.focusModeSession as Href);
   };
 

@@ -97,6 +97,199 @@ export const reconcileGameDesignSchema = (sqlite: SQLiteDatabase): void => {
     addColumnIfMissing(sqlite, 'pets', 'last_interaction_at', 'text');
     addColumnIfMissing(sqlite, 'pets', 'routine_phase', "text DEFAULT 'morning'");
     addColumnIfMissing(sqlite, 'pets', 'current_animation_key', "text DEFAULT 'idle_respirando_v1'");
+    addColumnIfMissing(sqlite, 'pets', 'instance_id', 'integer');
+  }
+
+  if (!tableExists(sqlite, 'pet_instances')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_instances (
+        id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+        species_key text NOT NULL,
+        gender text NOT NULL,
+        nickname text NOT NULL,
+        stage text NOT NULL,
+        level integer DEFAULT 1 NOT NULL,
+        experience integer DEFAULT 0 NOT NULL,
+        stats_json text DEFAULT '{}' NOT NULL,
+        effective_passive_value real DEFAULT 0 NOT NULL,
+        passive_field_slot integer,
+        breeding_pen_slot integer,
+        is_active integer DEFAULT 0 NOT NULL,
+        parent_mother_id integer,
+        parent_father_id integer,
+        generation integer DEFAULT 1 NOT NULL,
+        trait_keys_json text DEFAULT '[]' NOT NULL,
+        personality_key text DEFAULT 'friendly' NOT NULL,
+        breeding_cooldown_until text,
+        created_at text NOT NULL,
+        updated_at text NOT NULL
+      )
+    `);
+  }
+
+  if (tableExists(sqlite, 'pet_instances')) {
+    addColumnIfMissing(sqlite, 'pet_instances', 'generation', 'integer DEFAULT 1 NOT NULL');
+    addColumnIfMissing(sqlite, 'pet_instances', 'trait_keys_json', "text DEFAULT '[]' NOT NULL");
+    addColumnIfMissing(sqlite, 'pet_instances', 'personality_key', "text DEFAULT 'friendly' NOT NULL");
+    addColumnIfMissing(sqlite, 'pet_instances', 'favorite_tag', "text DEFAULT 'none' NOT NULL");
+    addColumnIfMissing(sqlite, 'pet_instances', 'hall_of_fame_slot', 'integer');
+    addColumnIfMissing(sqlite, 'pet_instances', 'total_adventures', 'integer DEFAULT 0 NOT NULL');
+    addColumnIfMissing(
+      sqlite,
+      'pet_instances',
+      'equipped_cosmetics_json',
+      "text DEFAULT '{}' NOT NULL",
+    );
+  }
+
+  if (!tableExists(sqlite, 'pet_farm_fields')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_farm_fields (
+        field_key text PRIMARY KEY NOT NULL,
+        level integer DEFAULT 1 NOT NULL
+      )
+    `);
+    sqlite.execSync(`
+      INSERT OR IGNORE INTO pet_farm_fields (field_key, level) VALUES
+        ('passive_pasture', 1),
+        ('breeding_pen', 1),
+        ('incubator_room', 2),
+        ('barn_storage', 12)
+    `);
+  }
+
+  if (!tableExists(sqlite, 'pet_farm_meta')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_farm_meta (
+        id integer PRIMARY KEY NOT NULL,
+        farm_xp integer DEFAULT 0 NOT NULL
+      )
+    `);
+    sqlite.execSync(`INSERT OR IGNORE INTO pet_farm_meta (id, farm_xp) VALUES (1, 0)`);
+  }
+
+  if (!tableExists(sqlite, 'pet_incubators')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_incubators (
+        id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+        species_key text NOT NULL,
+        source text NOT NULL,
+        hatch_at text NOT NULL,
+        parent_mother_id integer,
+        parent_father_id integer,
+        predicted_stats_json text,
+        created_at text NOT NULL
+      )
+    `);
+  }
+
+  if (!tableExists(sqlite, 'pet_instance_memories')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_instance_memories (
+        instance_id integer NOT NULL,
+        memory_key text NOT NULL,
+        title text NOT NULL,
+        description text NOT NULL,
+        icon text NOT NULL,
+        unlocked_at text NOT NULL,
+        PRIMARY KEY (instance_id, memory_key)
+      )
+    `);
+  }
+
+  if (!tableExists(sqlite, 'pet_breeding_log')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_breeding_log (
+        id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+        mother_instance_id integer NOT NULL,
+        father_instance_id integer NOT NULL,
+        outcome_species_key text NOT NULL,
+        rolled_stats_json text NOT NULL,
+        parent_stats_snapshot_json text NOT NULL,
+        outcome_weights_snapshot_json text NOT NULL,
+        rolled_at text NOT NULL
+      )
+    `);
+  }
+
+  if (!tableExists(sqlite, 'pet_adventures')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_adventures (
+        id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+        instance_id integer NOT NULL,
+        biome_key text NOT NULL,
+        duration_key text NOT NULL,
+        started_at text NOT NULL,
+        ends_at text NOT NULL,
+        created_at text NOT NULL
+      )
+    `);
+  }
+
+  if (!tableExists(sqlite, 'pet_adventure_24h_log')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_adventure_24h_log (
+        id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+        claimed_at text NOT NULL
+      )
+    `);
+  }
+
+  if (!tableExists(sqlite, 'pet_academy_sessions')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_academy_sessions (
+        id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+        instance_id integer NOT NULL,
+        track_key text NOT NULL,
+        started_at text NOT NULL,
+        ends_at text NOT NULL,
+        created_at text NOT NULL
+      )
+    `);
+  }
+
+  if (!tableExists(sqlite, 'pet_league_meta')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_league_meta (
+        id integer PRIMARY KEY NOT NULL,
+        season_key text NOT NULL,
+        season_start_iso text NOT NULL,
+        claimed_reward_tiers_json text DEFAULT '[]' NOT NULL,
+        updated_at text NOT NULL
+      )
+    `);
+  }
+
+  if (!tableExists(sqlite, 'pet_league_entries')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_league_entries (
+        id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+        instance_id integer NOT NULL,
+        season_key text NOT NULL,
+        division text NOT NULL,
+        wins integer DEFAULT 0 NOT NULL,
+        losses integer DEFAULT 0 NOT NULL,
+        win_streak integer DEFAULT 0 NOT NULL,
+        peak_rating integer DEFAULT 0 NOT NULL,
+        battles_today integer DEFAULT 0 NOT NULL,
+        battles_day_iso text,
+        last_battle_at text,
+        created_at text NOT NULL,
+        updated_at text NOT NULL
+      )
+    `);
+  }
+
+  if (!tableExists(sqlite, 'pet_cosmetic_inventory')) {
+    sqlite.execSync(`
+      CREATE TABLE IF NOT EXISTS pet_cosmetic_inventory (
+        instance_id integer NOT NULL,
+        cosmetic_key text NOT NULL,
+        acquired_at text NOT NULL,
+        source text NOT NULL,
+        PRIMARY KEY (instance_id, cosmetic_key)
+      )
+    `);
   }
 
   if (!tableExists(sqlite, 'player_rpg')) {

@@ -45,11 +45,16 @@ const handleGameEvent = (event: GameEvent) => {
 
     case 'PET_STAGE_EVOLVED': {
       const stageConfig = STAGE_CONFIG[event.stage as PetStageValue]
-      haptics.heavy()
+      const previousConfig = STAGE_CONFIG[event.previousStage as PetStageValue]
       store.setPetEvolution({
         stage: event.stage,
+        previousStage: event.previousStage,
         emoji: stageConfig?.emoji ?? '✨',
         label: stageConfig?.label ?? event.stage,
+        previousLabel: previousConfig?.label ?? event.previousStage,
+        nickname: event.nickname,
+        speciesKey: event.speciesKey,
+        coinsReward: event.coinsReward ?? 0,
       })
       break
     }

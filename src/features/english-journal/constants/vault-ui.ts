@@ -65,6 +65,17 @@ export const VAULT_UI = {
   folderLabel: 'Pasta',
   folderHint: 'Subpasta dentro da área — ex.: Verb Tenses',
   folderNone: 'Sem pasta',
+  organizeSpaceContextLabel: 'Área selecionada',
+  organizeFolderContextLabel: 'Pasta selecionada',
+  organizeFolderNoneLabel: 'Sem pasta',
+  organizeNoFolderDescription: (spaceLabel: string) =>
+    `A nota fica direto em ${spaceLabel}, sem subpasta. Use quando o tema ainda não tem um lugar fixo ou é pontual.`,
+  organizeCustomFolderDescription: (folderName: string, spaceLabel: string) =>
+    `Notas sobre "${folderName}" dentro de ${spaceLabel}. Você criou esta pasta — use para o que fizer sentido no seu estudo.`,
+  organizeContextA11y: (spaceLabel: string, folderName: string | null) =>
+    folderName
+      ? `Área ${spaceLabel}, pasta ${folderName}`
+      : `Área ${spaceLabel}, sem pasta`,
   collectionLabel: 'Listas (opcional)',
   collectionHint: 'Como playlists: IELTS, Entrevista, Curso…',
   pinLabel: 'Fixar no topo',

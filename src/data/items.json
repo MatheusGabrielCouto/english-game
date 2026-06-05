@@ -302,13 +302,13 @@
     {
       "key": "ovo_pet",
       "name": "Ovo de Pet",
-      "description": "Um companheiro aguarda — troque na loja de pets quando disponível.",
-      "category": "relic",
+      "description": "Incuba uma nova espécie de pet. O tempo de eclosão depende da raridade da espécie sorteada.",
+      "category": "consumable",
       "icon": "🥚",
       "rarity": "legendary",
-      "effectType": "passive_xp",
+      "effectType": "hatch_pet",
       "effectValue": 0,
-      "usable": false
+      "usable": true
     },
     {
       "key": "dicionario_antigo",
@@ -394,13 +394,13 @@
     {
       "key": "pet_egg",
       "name": "Ovo de Pet",
-      "description": "Um companheiro aguarda — troque na loja de pets quando disponível.",
-      "category": "relic",
+      "description": "Incuba uma nova espécie de pet. O tempo de eclosão depende da raridade da espécie sorteada.",
+      "category": "consumable",
       "icon": "🥚",
       "rarity": "legendary",
-      "effectType": "passive_xp",
+      "effectType": "hatch_pet",
       "effectValue": 0,
-      "usable": false
+      "usable": true
     },
     {
       "key": "xp_potion_small",
@@ -437,6 +437,28 @@
       "durationMinutes": 60,
       "shopPrice": 150,
       "usable": true
+    },
+    {
+      "key": "trait_reroll_single",
+      "name": "Trait Reroll (1 slot)",
+      "description": "Rerrola um trait do pet na tela de detalhes da fazenda.",
+      "category": "special",
+      "icon": "🧬",
+      "rarity": "rare",
+      "effectType": "pet_trait_reroll",
+      "effectValue": 1,
+      "usable": false
+    },
+    {
+      "key": "trait_reroll_all",
+      "name": "Trait Reroll (completo)",
+      "description": "Rerrola todos os traits de um pet (use na fazenda).",
+      "category": "special",
+      "icon": "🧬",
+      "rarity": "legendary",
+      "effectType": "pet_trait_reroll_all",
+      "effectValue": 4,
+      "usable": false
     }
   ],
   "legacyAliases": {

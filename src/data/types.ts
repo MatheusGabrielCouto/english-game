@@ -24,7 +24,8 @@ export type ItemEffectType =
   | 'unlock_loot'
   | 'passive_xp'
   | 'passive_coins'
-  | 'flavor_bundle';
+  | 'flavor_bundle'
+  | 'hatch_pet';
 
 export type GameItemDefinition = {
   key: string;

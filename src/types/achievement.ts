@@ -47,6 +47,7 @@ export type AchievementMetricType =
   | 'total_xp_earned'
   | 'player_level'
   | 'pet_stage'
+  | 'pet_max_generation'
   | 'total_loot_boxes_opened'
   | 'total_duel_wins'
   | 'total_flash_reviews'

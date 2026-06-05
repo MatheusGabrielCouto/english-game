@@ -1,17 +1,17 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { PetStage } from '@/types/pet';
-import { AchievementCategory } from '@/types/achievement';
 import type { AchievementDefinition } from '@/types/achievement';
+import { AchievementCategory } from '@/types/achievement';
+import { PetStage } from '@/types/pet';
 
 import {
-  buildAchievementProgress,
-  computeLifetimeXp,
-  getMetricValue,
-  isAchievementMet,
-  resolveTargetValue,
-  type AchievementMetricsSnapshot,
+    buildAchievementProgress,
+    computeLifetimeXp,
+    getMetricValue,
+    isAchievementMet,
+    resolveTargetValue,
+    type AchievementMetricsSnapshot,
 } from '../progress';
 
 const baseSnapshot = (): AchievementMetricsSnapshot => ({
@@ -19,10 +19,18 @@ const baseSnapshot = (): AchievementMetricsSnapshot => ({
   bestStreak: 0,
   playerLevel: 1,
   petStage: PetStage.EGG,
+  petMaxGeneration: 0,
   stats: {
     totalMissionsCompleted: 0,
     totalXpEarned: 0,
     totalLootBoxesOpened: 0,
+    totalDuelWins: 0,
+    totalFlashReviews: 0,
+    totalRoutinesCompleted: 0,
+    totalJournalEntries: 0,
+    totalJournalVoiceNotes: 0,
+    totalJournalReviews: 0,
+    totalJournalConnections: 0,
   },
 });
 

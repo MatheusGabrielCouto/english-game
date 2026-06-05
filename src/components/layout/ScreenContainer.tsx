@@ -9,6 +9,7 @@ type ScreenContainerProps = {
   scrollable?: boolean;
   className?: string;
   contentClassName?: string;
+  backgroundColor?: string;
   edges?: ('top' | 'right' | 'bottom' | 'left')[];
   scrollViewProps?: Omit<ScrollViewProps, 'children' | 'className'>;
 };
@@ -18,6 +19,7 @@ export const ScreenContainer = ({
   scrollable = false,
   className,
   contentClassName,
+  backgroundColor,
   edges = ['top', 'left', 'right'],
   scrollViewProps,
 }: ScreenContainerProps) => {
@@ -26,11 +28,15 @@ export const ScreenContainer = ({
   );
 
   return (
-    <SafeAreaView edges={edges} className={cn('flex-1 bg-background', className)}>
+    <SafeAreaView
+      edges={edges}
+      className={cn('flex-1 bg-background', className)}
+      style={backgroundColor ? { backgroundColor } : undefined}>
       {scrollable ? (
         <ScrollView
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
+          style={backgroundColor ? { backgroundColor } : undefined}
           contentContainerStyle={{ paddingBottom: 8 }}
           {...scrollViewProps}>
           {content}

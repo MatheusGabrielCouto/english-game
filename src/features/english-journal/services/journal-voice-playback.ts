@@ -1,7 +1,13 @@
 import type { AudioPlayer } from 'expo-audio';
+import { Platform } from 'react-native';
 import { create } from 'zustand';
 
 import { configureAudioMode, ensureAudioNative } from '@/services/audio/audio-playback';
+import {
+    JOURNAL_PLAYBACK_RATES,
+    nextJournalPlaybackRate,
+    type JournalPlaybackRate,
+} from '../constants/journal-playback';
 
 type JournalVoicePlaybackState = {
   entryId: string | null;
@@ -10,12 +16,32 @@ type JournalVoicePlaybackState = {
   duration: number;
   isPlaying: boolean;
   isLoaded: boolean;
+  playbackRate: JournalPlaybackRate;
   play: (entryId: string, uri: string, fallbackDurationMs?: number) => Promise<void>;
   toggle: (entryId: string, uri: string, fallbackDurationMs?: number) => Promise<void>;
   pause: () => void;
   resume: () => void;
   seekToRatio: (ratio: number) => Promise<void>;
+  cyclePlaybackRate: () => void;
   stop: () => void;
+};
+
+const applyPlaybackRate = (target: AudioPlayer, rate: JournalPlaybackRate) => {
+  try {
+    if (Platform.OS === 'android') {
+      target.shouldCorrectPitch = true;
+      if (typeof target.setPlaybackRate === 'function') {
+        target.setPlaybackRate(rate);
+        return;
+      }
+    } else if (typeof target.setPlaybackRate === 'function') {
+      target.setPlaybackRate(rate, 'high');
+      return;
+    }
+  } catch {
+    // fall through to property assignment
+  }
+  target.playbackRate = rate;
 };
 
 let player: AudioPlayer | null = null;
@@ -52,6 +78,7 @@ const attachPlayer = (
   entryId: string,
   uri: string,
   estimatedDurationMs: number | undefined,
+  playbackRate: JournalPlaybackRate,
   set: (partial: Partial<JournalVoicePlaybackState>) => void,
 ) => {
   releasePlayer();
@@ -96,6 +123,9 @@ const attachPlayer = (
       isLoaded: false,
     });
     syncFromPlayer(set);
+    if (player) {
+      applyPlaybackRate(player, playbackRate);
+    }
   } catch {
     releasePlayer();
     set({ entryId: null, uri: null, isPlaying: false, isLoaded: false });
@@ -109,6 +139,7 @@ export const useJournalVoicePlayback = create<JournalVoicePlaybackState>((set, g
   duration: 0,
   isPlaying: false,
   isLoaded: false,
+  playbackRate: JOURNAL_PLAYBACK_RATES[0],
 
   play: async (entryId, uri, fallbackDurationMs) => {
     if (!(await ensureAudioNative())) return;
@@ -116,13 +147,14 @@ export const useJournalVoicePlayback = create<JournalVoicePlaybackState>((set, g
 
     const state = get();
     if (state.entryId === entryId && player) {
+      applyPlaybackRate(player, state.playbackRate);
       player.play();
       syncFromPlayer(set);
       set({ isPlaying: true });
       return;
     }
 
-    attachPlayer(entryId, uri, fallbackDurationMs, set);
+    attachPlayer(entryId, uri, fallbackDurationMs, state.playbackRate, set);
     player?.play();
     syncFromPlayer(set);
     set({ isPlaying: true });
@@ -138,6 +170,7 @@ export const useJournalVoicePlayback = create<JournalVoicePlaybackState>((set, g
         player.pause();
         set({ isPlaying: false });
       } else {
+        applyPlaybackRate(player, state.playbackRate);
         if (state.currentTime >= state.duration - 0.05 && state.duration > 0) {
           await player.seekTo(0);
         }
@@ -147,7 +180,7 @@ export const useJournalVoicePlayback = create<JournalVoicePlaybackState>((set, g
       return;
     }
 
-    attachPlayer(entryId, uri, fallbackDurationMs, set);
+    attachPlayer(entryId, uri, fallbackDurationMs, state.playbackRate, set);
     player?.play();
     syncFromPlayer(set);
     set({ isPlaying: true });
@@ -174,6 +207,14 @@ export const useJournalVoicePlayback = create<JournalVoicePlaybackState>((set, g
     const seconds = clamped * duration;
     await player.seekTo(seconds);
     set({ currentTime: seconds });
+  },
+
+  cyclePlaybackRate: () => {
+    const nextRate = nextJournalPlaybackRate(get().playbackRate);
+    set({ playbackRate: nextRate });
+    if (player) {
+      applyPlaybackRate(player, nextRate);
+    }
   },
 
   stop: () => {

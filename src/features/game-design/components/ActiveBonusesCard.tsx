@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import { PressableScale, StatPill } from '@/components/ui/game';
 import { ActiveBonusesDetailModal } from '@/features/game-design/components/ActiveBonusesDetailModal';
 import { RewardModifierService } from '@/features/game-design/services/reward-modifier-service';
+import { formatBonusPercent } from '@/features/game-design/utils/bonus-percent-format';
 
 export const ActiveBonusesCard = () => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
@@ -39,7 +40,7 @@ export const ActiveBonusesCard = () => {
                 layout="tile"
                 className="w-[48%] min-w-[140px]"
                 label="XP"
-                value={`+${modifiers.xpPercent}%`}
+                value={formatBonusPercent(modifiers.xpPercent)}
                 emoji="⚡"
                 tone="primary"
               />
@@ -49,7 +50,7 @@ export const ActiveBonusesCard = () => {
                 layout="tile"
                 className="w-[48%] min-w-[140px]"
                 label="Moedas"
-                value={`+${modifiers.coinPercent}%`}
+                value={formatBonusPercent(modifiers.coinPercent)}
                 emoji="🪙"
                 tone="gold"
               />
@@ -59,7 +60,7 @@ export const ActiveBonusesCard = () => {
                 layout="tile"
                 className="w-[48%] min-w-[140px]"
                 label="Loot"
-                value={`+${modifiers.lootLuckPercent}%`}
+                value={formatBonusPercent(modifiers.lootLuckPercent)}
                 emoji="🎁"
                 tone="accent"
               />

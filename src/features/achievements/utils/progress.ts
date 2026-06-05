@@ -16,6 +16,7 @@ export type AchievementMetricsSnapshot = {
   bestStreak: number;
   playerLevel: number;
   petStage: PetStageValue;
+  petMaxGeneration: number;
   stats: AchievementStatsRecord;
 };
 
@@ -51,6 +52,8 @@ export const getMetricValue = (
       return snapshot.playerLevel;
     case 'pet_stage':
       return getStageIndex(snapshot.petStage);
+    case 'pet_max_generation':
+      return snapshot.petMaxGeneration;
     case 'total_loot_boxes_opened':
       return snapshot.stats.totalLootBoxesOpened;
     case 'total_duel_wins':
@@ -90,6 +93,9 @@ const buildProgressLabel = (
     case AchievementCategory.LEVEL:
       return `Nível ${formatNumber(current)} / ${formatNumber(target)}`;
     case AchievementCategory.PET: {
+      if (definition.metric === 'pet_max_generation') {
+        return `GEN ${formatNumber(current)} / ${formatNumber(target)}`;
+      }
       const currentStage = STAGE_ORDER[Math.max(current, 0)] ?? STAGE_ORDER[0];
       const targetStage =
         typeof definition.target === 'string' ? definition.target : STAGE_ORDER[target] ?? STAGE_ORDER[0];

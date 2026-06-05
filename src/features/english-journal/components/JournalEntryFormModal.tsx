@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
     Dimensions,
     KeyboardAvoidingView,
@@ -25,6 +25,7 @@ import { VaultSpaceKey, type VaultSpaceKey as VaultSpaceKeyType } from '@/types/
 
 import { VAULT_SPACES } from '../catalogs/vault-spaces-catalog';
 import { resolveCreateXp } from '../constants/journal-rewards';
+import { transcriptionModeHint } from '../constants/journal-transcription-mode';
 import {
     JOURNAL_CATEGORY_LABELS,
     JOURNAL_ENTRY_TYPE_LABELS,
@@ -35,12 +36,14 @@ import { useJournalAudioTranscription } from '../hooks/use-journal-audio-transcr
 import { KnowledgeVaultService } from '../services/knowledge-vault-service';
 import { useEnglishJournalStore } from '../store/english-journal-store';
 import { entryTypeRequiresAudio, resolveAudioUpdatePayload } from '../utils/journal-form';
+import { resolveVaultOrganizeContext } from '../utils/vault-organize-context';
 import { JournalEntryOptionalAudio } from './JournalEntryOptionalAudio';
 import { JournalVoiceRecorder } from './JournalVoiceRecorder';
 import { VaultChoiceChip } from './vault/VaultChoiceChip';
 import { VaultField } from './vault/VaultField';
 import { VaultFormSection } from './vault/VaultFormSection';
 import { VaultImportancePicker } from './vault/VaultImportancePicker';
+import { VaultOrganizeContextCard } from './vault/VaultOrganizeContextCard';
 import { VaultRelatedNotesPicker } from './vault/VaultRelatedNotesPicker';
 
 const SHEET_HEIGHT = Math.round(Dimensions.get('window').height * 0.9);
@@ -78,11 +81,13 @@ export const JournalEntryFormModal = ({
   visible,
   editing,
   initialType = JournalEntryType.TEXT_NOTE,
-  defaultSpaceKey = VaultSpaceKey.PERSONAL_NOTES,
-  defaultFolderId = null,
+  defaultSpaceKey: defaultSpaceKeyProp = VaultSpaceKey.PERSONAL_NOTES,
+  defaultFolderId: defaultFolderIdProp = null,
   onClose,
   onSaved,
 }: JournalEntryFormModalProps) => {
+  const defaultSpaceKey = defaultSpaceKeyProp ?? VaultSpaceKey.PERSONAL_NOTES;
+  const defaultFolderId = defaultFolderIdProp ?? null;
   const folders = useEnglishJournalStore((s) => s.folders);
   const collections = useEnglishJournalStore((s) => s.collections);
   const [entryType, setEntryType] = useState<JournalEntryTypeValue>(initialType);
@@ -162,6 +167,10 @@ export const JournalEntryFormModal = ({
   const xpPreview = resolveCreateXp(entryType);
   const needsVoice = entryTypeRequiresAudio(entryType);
   const spaceFolders = folders.filter((f) => f.spaceKey === spaceKey);
+  const organizeContext = useMemo(
+    () => resolveVaultOrganizeContext(spaceKey, folderId, folders),
+    [spaceKey, folderId, folders],
+  );
 
   const handleSave = async () => {
     setSaving(true);
@@ -271,16 +280,17 @@ export const JournalEntryFormModal = ({
 
                 <VaultField
                   label={JOURNAL_UI.transcriptionModeLabel}
-                  hint={
-                    transcriptionMode === 'portuguese_to_english'
-                      ? JOURNAL_UI.transcriptionModePortugueseHint
-                      : JOURNAL_UI.transcriptionModeEnglishHint
-                  }>
+                  hint={transcriptionModeHint(transcriptionMode)}>
                   <View className="flex-row flex-wrap gap-2">
                     <VaultChoiceChip
                       label={JOURNAL_UI.transcriptionModePortuguese}
                       selected={transcriptionMode === 'portuguese_to_english'}
                       onPress={() => setTranscriptionMode('portuguese_to_english')}
+                    />
+                    <VaultChoiceChip
+                      label={JOURNAL_UI.transcriptionModePortugueseOnly}
+                      selected={transcriptionMode === 'portuguese'}
+                      onPress={() => setTranscriptionMode('portuguese')}
                     />
                     <VaultChoiceChip
                       label={JOURNAL_UI.transcriptionModeEnglish}
@@ -316,13 +326,7 @@ export const JournalEntryFormModal = ({
 
                 <VaultField
                   label={JOURNAL_UI.bodyLabel}
-                  hint={
-                    transcriptionMode === 'portuguese_to_english'
-                      ? JOURNAL_UI.transcriptionModePortugueseHint
-                      : needsVoice
-                        ? JOURNAL_UI.transcriptionHint
-                        : JOURNAL_UI.bodyHint
-                  }>
+                  hint={needsVoice ? JOURNAL_UI.transcriptionHint : JOURNAL_UI.bodyHint}>
                   <TextInput
                     className="min-h-[100px] rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
                     value={body}
@@ -371,7 +375,8 @@ export const JournalEntryFormModal = ({
                       {VAULT_SPACES.map((space) => (
                         <VaultChoiceChip
                           key={space.key}
-                          label={`${space.emoji} ${space.label}`}
+                          emoji={space.emoji}
+                          label={space.label}
                           selected={spaceKey === space.key}
                           onPress={() => {
                             setSpaceKey(space.key);
@@ -403,6 +408,8 @@ export const JournalEntryFormModal = ({
                   </View>
                 </VaultField>
 
+                <VaultOrganizeContextCard context={organizeContext} />
+
                 {collections.length > 0 ? (
                   <VaultField label={VAULT_UI.collectionLabel} hint={VAULT_UI.collectionHint}>
                     <View className="flex-row flex-wrap gap-2">
@@ -411,7 +418,8 @@ export const JournalEntryFormModal = ({
                         return (
                           <VaultChoiceChip
                             key={col.id}
-                            label={`${col.emoji} ${col.name}`}
+                            emoji={col.emoji}
+                            label={col.name}
                             selected={selected}
                             compact
                             onPress={() =>

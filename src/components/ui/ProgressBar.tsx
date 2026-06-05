@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { Text, View } from 'react-native'
 import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
+    useAnimatedStyle,
+    useSharedValue,
+    withTiming,
 } from 'react-native-reanimated'
 
 import { theme } from '@/constants'
@@ -15,6 +15,7 @@ type ProgressBarProps = {
   label?: string
   showLabel?: boolean
   className?: string
+  trackClassName?: string
   accessibilityLabel?: string
   variant?: 'default' | 'xp' | 'streak' | 'gold'
   height?: 'sm' | 'md' | 'lg'
@@ -46,6 +47,7 @@ export const ProgressBar = ({
   label,
   showLabel = false,
   className,
+  trackClassName,
   accessibilityLabel,
   variant = 'default',
   height = 'md',
@@ -76,7 +78,11 @@ export const ProgressBar = ({
         </View>
       )}
       <View
-        className={cn('w-full overflow-hidden rounded-full bg-background/80', heightStyles[height])}
+        className={cn(
+          'w-full overflow-hidden rounded-full bg-background/80',
+          heightStyles[height],
+          trackClassName,
+        )}
         accessibilityLabel={accessibilityLabel ?? label ?? `Progresso ${Math.round(percentage)}%`}
         accessibilityValue={{ min: 0, max, now: clamped }}>
         <Animated.View

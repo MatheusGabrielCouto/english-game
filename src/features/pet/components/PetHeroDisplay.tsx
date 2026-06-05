@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withSequence,
-  withTiming,
+    useAnimatedStyle,
+    useSharedValue,
+    withRepeat,
+    withSequence,
+    withTiming,
 } from 'react-native-reanimated';
 
+import { PetSpeciesIcon } from '@/features/pet-farm/components/PetSpeciesIcon';
 import type { Pet } from '@/types/pet';
 
 import { PET_ANIMATIONS_BY_KEY } from '../catalogs/pet-animations-catalog';
 import { PET_COSMETICS_BY_KEY } from '../catalogs/pet-cosmetics-catalog';
 import { PetInteractionService } from '../services/pet-interaction-service';
-import { ROUTINE_LABELS } from '../utils/routine';
 import { getPetDisplayInfo } from '../utils/display';
+import { ROUTINE_LABELS } from '../utils/routine';
 
 type PetHeroDisplayProps = {
   pet: Pet;
@@ -45,7 +46,6 @@ export const PetHeroDisplay = ({ pet }: PetHeroDisplayProps) => {
     transform: [{ translateY: bounce.value }],
   }));
 
-  const displayEmoji = display.displayEmoji;
   const actionEmoji = animation?.emoji;
   const cosmeticIcons = Object.values(cosmetics)
     .map((key) => PET_COSMETICS_BY_KEY[key]?.icon)
@@ -64,9 +64,13 @@ export const PetHeroDisplay = ({ pet }: PetHeroDisplayProps) => {
         ) : null}
       </View>
 
-      <Animated.View style={animatedStyle} className="relative items-center">
-        <Text className="text-[96px] leading-none">{displayEmoji}</Text>
-        {actionEmoji ? <Text className="absolute right-0 top-0 text-3xl">{actionEmoji}</Text> : null}
+      <Animated.View style={animatedStyle} className="relative items-center justify-center py-4">
+        <PetSpeciesIcon speciesKey={pet.speciesKey} size={88} color="#fbbf24" />
+        {actionEmoji ? (
+          <Text className="absolute -right-1 top-0 text-2xl" accessibilityLabel={animation?.label}>
+            {actionEmoji}
+          </Text>
+        ) : null}
       </Animated.View>
 
       {cosmeticIcons.length > 0 ? (

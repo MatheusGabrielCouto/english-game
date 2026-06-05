@@ -43,6 +43,7 @@ export const shieldMilestonesClaimed = sqliteTable('shield_milestones_claimed', 
 
 export const pets = sqliteTable('pets', {
   id: integer('id').primaryKey({ autoIncrement: true }),
+  instanceId: integer('instance_id'),
   stage: text('stage').notNull(),
   mood: text('mood').notNull(),
   experience: integer('experience').notNull().default(0),
@@ -693,6 +694,142 @@ export const petCollection = sqliteTable('pet_collection', {
   timesOwned: integer('times_owned').notNull().default(1),
 });
 
+export const petInstances = sqliteTable('pet_instances', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  speciesKey: text('species_key').notNull(),
+  gender: text('gender').notNull(),
+  nickname: text('nickname').notNull(),
+  stage: text('stage').notNull(),
+  level: integer('level').notNull().default(1),
+  experience: integer('experience').notNull().default(0),
+  statsJson: text('stats_json').notNull().default('{}'),
+  effectivePassiveValue: real('effective_passive_value').notNull().default(0),
+  passiveFieldSlot: integer('passive_field_slot'),
+  breedingPenSlot: integer('breeding_pen_slot'),
+  isActive: integer('is_active', { mode: 'boolean' }).notNull().default(false),
+  parentMotherId: integer('parent_mother_id'),
+  parentFatherId: integer('parent_father_id'),
+  generation: integer('generation').notNull().default(1),
+  traitKeysJson: text('trait_keys_json').notNull().default('[]'),
+  personalityKey: text('personality_key').notNull().default('friendly'),
+  breedingCooldownUntil: text('breeding_cooldown_until'),
+  favoriteTag: text('favorite_tag').notNull().default('none'),
+  hallOfFameSlot: integer('hall_of_fame_slot'),
+  totalAdventures: integer('total_adventures').notNull().default(0),
+  equippedCosmeticsJson: text('equipped_cosmetics_json').notNull().default('{}'),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const petFarmFields = sqliteTable('pet_farm_fields', {
+  fieldKey: text('field_key').primaryKey(),
+  level: integer('level').notNull().default(1),
+});
+
+export const petFarmMeta = sqliteTable('pet_farm_meta', {
+  id: integer('id').primaryKey(),
+  farmXp: integer('farm_xp').notNull().default(0),
+});
+
+export const petIncubators = sqliteTable('pet_incubators', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  speciesKey: text('species_key').notNull(),
+  source: text('source').notNull(),
+  hatchAt: text('hatch_at').notNull(),
+  parentMotherId: integer('parent_mother_id'),
+  parentFatherId: integer('parent_father_id'),
+  predictedStatsJson: text('predicted_stats_json'),
+  createdAt: text('created_at').notNull(),
+});
+
+export const petInstanceMemories = sqliteTable(
+  'pet_instance_memories',
+  {
+    instanceId: integer('instance_id').notNull(),
+    memoryKey: text('memory_key').notNull(),
+    title: text('title').notNull(),
+    description: text('description').notNull(),
+    icon: text('icon').notNull(),
+    unlockedAt: text('unlocked_at').notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.instanceId, table.memoryKey] }),
+  }),
+);
+
+export const petBreedingLog = sqliteTable('pet_breeding_log', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  motherInstanceId: integer('mother_instance_id').notNull(),
+  fatherInstanceId: integer('father_instance_id').notNull(),
+  outcomeSpeciesKey: text('outcome_species_key').notNull(),
+  rolledStatsJson: text('rolled_stats_json').notNull(),
+  parentStatsSnapshotJson: text('parent_stats_snapshot_json').notNull(),
+  outcomeWeightsSnapshotJson: text('outcome_weights_snapshot_json').notNull(),
+  rolledAt: text('rolled_at').notNull(),
+});
+
+export const petAdventures = sqliteTable('pet_adventures', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  instanceId: integer('instance_id').notNull(),
+  biomeKey: text('biome_key').notNull(),
+  durationKey: text('duration_key').notNull(),
+  startedAt: text('started_at').notNull(),
+  endsAt: text('ends_at').notNull(),
+  createdAt: text('created_at').notNull(),
+});
+
+/** Contagem semanal de aventuras 24h concluídas (teto 3/semana). */
+export const petAdventure24hLog = sqliteTable('pet_adventure_24h_log', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  claimedAt: text('claimed_at').notNull(),
+});
+
+export const petAcademySessions = sqliteTable('pet_academy_sessions', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  instanceId: integer('instance_id').notNull(),
+  trackKey: text('track_key').notNull(),
+  startedAt: text('started_at').notNull(),
+  endsAt: text('ends_at').notNull(),
+  createdAt: text('created_at').notNull(),
+});
+
+export const petLeagueMeta = sqliteTable('pet_league_meta', {
+  id: integer('id').primaryKey(),
+  seasonKey: text('season_key').notNull(),
+  seasonStartIso: text('season_start_iso').notNull(),
+  claimedRewardTiersJson: text('claimed_reward_tiers_json').notNull().default('[]'),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const petLeagueEntries = sqliteTable('pet_league_entries', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  instanceId: integer('instance_id').notNull(),
+  seasonKey: text('season_key').notNull(),
+  division: text('division').notNull(),
+  wins: integer('wins').notNull().default(0),
+  losses: integer('losses').notNull().default(0),
+  winStreak: integer('win_streak').notNull().default(0),
+  peakRating: integer('peak_rating').notNull().default(0),
+  battlesToday: integer('battles_today').notNull().default(0),
+  battlesDayIso: text('battles_day_iso'),
+  lastBattleAt: text('last_battle_at'),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const petCosmeticInventory = sqliteTable(
+  'pet_cosmetic_inventory',
+  {
+    instanceId: integer('instance_id').notNull(),
+    cosmeticKey: text('cosmetic_key').notNull(),
+    acquiredAt: text('acquired_at').notNull(),
+    source: text('source').notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.instanceId, table.cosmeticKey] }),
+  }),
+);
+
 export const activeBoosters = sqliteTable('active_boosters', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   boosterKey: text('booster_key').notNull(),
@@ -1066,6 +1203,12 @@ export const schema = {
   playerRpg,
   epicMissionProgress,
   petCollection,
+  petInstances,
+  petFarmFields,
+  petFarmMeta,
+  petIncubators,
+  petBreedingLog,
+  petInstanceMemories,
   petMemories,
   activeBoosters,
   studyPoints,

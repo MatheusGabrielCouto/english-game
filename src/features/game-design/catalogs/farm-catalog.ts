@@ -1,7 +1,7 @@
 import { FarmActivityType, type FarmActivityDefinition, type FarmActivityTypeValue } from '@/types/farm';
 
 /**
- * Farm SP/coins — calibrado para ~2–4 toques rápidos (+10) ≈ 1 loot box comum (80 SP).
+ * Farm SP/coins — calibrado para ~3–5 toques rápidos (+10) ≈ 1 loot box comum (120 SP).
  * Speaking e vocabulário pagam mais (esforço / impacto na cidade).
  */
 export const FARM_ACTIVITIES: FarmActivityDefinition[] = [

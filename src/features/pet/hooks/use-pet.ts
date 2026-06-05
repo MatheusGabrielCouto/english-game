@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { usePlayerStore } from '@/features/player';
+import { GameEvents } from '@/services/game-events';
 import type { Pet } from '@/types/pet';
 
 import { PetService } from '../services/pet-service';
@@ -41,6 +42,15 @@ export const usePet = () => {
   useEffect(() => {
     void PetService.updateMood(currentStreak);
   }, [currentStreak]);
+
+  useEffect(() => {
+    const unsubscribe = GameEvents.subscribe((event) => {
+      if (event.type === 'PET_ACTIVE_CHANGED') {
+        void refresh();
+      }
+    });
+    return unsubscribe;
+  }, [refresh]);
 
   const addExperience = useCallback(async (amount: number) => {
     const updated = await PetService.addExperience(amount);

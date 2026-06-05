@@ -1,0 +1,27 @@
+export const PET_PASTURE_UI = {
+  subtitle: 'Pets no pasto somam bônus globais (XP, moedas, loot, escudos).',
+  bonusTitle: 'Bônus do pasto',
+  slotsTitle: 'Slots de passivas',
+  slotsUsed: (used: number, total: number) => `${used}/${total} slots em uso`,
+  efficiency: (pct: number) => `Eficiência do pasto: ${pct}%`,
+  emptySlot: 'Slot vazio — toque para atribuir',
+  lockedSlot: 'Melhore o pasto para desbloquear',
+  pickMode: (n: number) => `Escolha um pet para o slot ${n + 1}`,
+  pickCancel: 'Cancelar',
+  removeFromPasture: 'Remover do pasto',
+  assignHint: 'Toque um pet disponível abaixo',
+  barnTitle: 'Celeiro',
+  barnAvailable: 'Disponíveis para o pasto',
+  incubatorTitle: 'Incubadora',
+  incubatorEmpty: 'Nenhum ovo incubando.',
+  eggReady: 'Pronto para eclosão!',
+  eggHatchAt: (date: string) => `Eclosão ${date}`,
+  goUpgrades: 'Melhorar pasto e fazenda',
+  goBarn: 'Abrir celeiro',
+  goIncubator: 'Abrir incubadora',
+  inPasture: 'No pasto',
+  cannotAssignEgg: 'Ovos não podem ir ao pasto',
+  pickGoBarn: 'Escolha o pet no celeiro',
+} as const;
+
+export const PET_PASTURE_MAX_SLOTS = 8;

@@ -1,16 +1,14 @@
+import { useState } from 'react';
 import { Platform, Text, View } from 'react-native';
-import { router, type Href } from 'expo-router';
 
 import { Button, Card } from '@/components';
 import { GameCard } from '@/components/ui/game';
-import { routes } from '@/constants';
 import { FocusStudyType, type FocusStudyTypeValue } from '@/types/focus-mode';
 
-import {
-  FOCUS_DURATION_OPTIONS,
-  FOCUS_STUDY_TYPE_META,
-} from '../constants/focus-config';
+import { FOCUS_STUDY_TYPE_META } from '../constants/focus-config';
 import { FocusMonitorBridge } from '../services/focus-monitor-bridge';
+import { clampFocusDurationMinutes } from '../utils/focus-duration-input';
+import { FocusDurationPicker } from './FocusDurationPicker';
 
 type FocusSetupPanelProps = {
   defaultDuration: number;
@@ -19,6 +17,9 @@ type FocusSetupPanelProps = {
 
 export const FocusSetupPanel = ({ defaultDuration, onStart }: FocusSetupPanelProps) => {
   const studyTypes = Object.values(FocusStudyType);
+  const [durationMinutes, setDurationMinutes] = useState(() =>
+    clampFocusDurationMinutes(defaultDuration),
+  );
 
   if (!FocusMonitorBridge.isSupported()) {
     return (
@@ -31,6 +32,10 @@ export const FocusSetupPanel = ({ defaultDuration, onStart }: FocusSetupPanelPro
     );
   }
 
+  const handleStart = (studyType: FocusStudyTypeValue) => {
+    onStart(studyType, clampFocusDurationMinutes(durationMinutes));
+  };
+
   return (
     <View className="gap-4">
       <GameCard variant="quest" glow>
@@ -41,7 +46,14 @@ export const FocusSetupPanel = ({ defaultDuration, onStart }: FocusSetupPanelPro
       </GameCard>
 
       <Card elevated>
-        <Text className="mb-3 text-sm font-semibold text-foreground">Tipo de estudo</Text>
+        <FocusDurationPicker valueMinutes={durationMinutes} onChangeMinutes={setDurationMinutes} />
+      </Card>
+
+      <Card elevated>
+        <Text className="mb-1 text-sm font-semibold text-foreground">Tipo de estudo</Text>
+        <Text className="mb-3 text-xs text-muted">
+          Timer de {clampFocusDurationMinutes(durationMinutes)} min — escolha o que vai praticar
+        </Text>
         <View className="gap-2">
           {studyTypes.map((type) => {
             const meta = FOCUS_STUDY_TYPE_META[type];
@@ -50,29 +62,10 @@ export const FocusSetupPanel = ({ defaultDuration, onStart }: FocusSetupPanelPro
                 key={type}
                 label={`${meta.emoji} ${meta.label}`}
                 variant="secondary"
-                onPress={() => onStart(type, defaultDuration)}
+                onPress={() => handleStart(type)}
               />
             );
           })}
-        </View>
-      </Card>
-
-      <Card elevated>
-        <Text className="mb-3 text-sm font-semibold text-foreground">Duração rápida</Text>
-        <View className="flex-row flex-wrap gap-2">
-          {FOCUS_DURATION_OPTIONS.map((minutes) => (
-            <Button
-              key={minutes}
-              label={`${minutes} min${minutes === defaultDuration ? ' ★' : ''}`}
-              variant={minutes === defaultDuration ? 'primary' : 'secondary'}
-              onPress={() =>
-                router.push({
-                  pathname: routes.focusModeSession,
-                  params: { duration: String(minutes), studyType: FocusStudyType.VOCABULARY },
-                } as Href)
-              }
-            />
-          ))}
         </View>
         {Platform.OS === 'android' ? (
           <Text className="mt-3 text-xs text-muted">

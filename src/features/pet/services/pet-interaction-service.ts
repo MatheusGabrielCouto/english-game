@@ -9,10 +9,11 @@ import { GameEvents } from '@/services/game-events';
 import { getOrCreatePet, savePet } from '@/storage/repositories/pet-repository';
 import type { Pet } from '@/types/pet';
 
+import { PetPersonalityCache } from '@/features/pet-farm/services/pet-personality-cache';
+import { PetPersonalityService } from '@/features/pet-farm/services/pet-personality-service';
 import {
   DEFAULT_PET_ANIMATION_KEY,
   PET_ANIMATIONS_BY_KEY,
-  pickRandomAnimation,
 } from '../catalogs/pet-animations-catalog';
 import { DEFAULT_FOOD_KEY, PET_FOODS_BY_KEY } from '../catalogs/pet-foods-catalog';
 import { pickDialogue } from '../catalogs/pet-dialogues-catalog';
@@ -133,11 +134,21 @@ export const PetInteractionService = {
 
     const basePet = PetService.getCachedPet() ?? pet;
 
+    const personalityKey = PetPersonalityCache.getSync();
+
     const animation =
       type === PetInteractionType.PLAY && options?.toyKey && PET_TOYS_BY_KEY[options.toyKey]
         ? PET_ANIMATIONS_BY_KEY[PET_TOYS_BY_KEY[options.toyKey].animationKey] ??
-          pickRandomAnimation(animationCategory, pet.affinity)
-        : pickRandomAnimation(animationCategory, pet.affinity + affinityGain);
+          PetPersonalityService.pickAnimation(
+            animationCategory,
+            pet.affinity,
+            personalityKey,
+          )
+        : PetPersonalityService.pickAnimation(
+            animationCategory,
+            pet.affinity + affinityGain,
+            personalityKey,
+          );
 
     const dialogueContext =
       type === PetInteractionType.TALK
@@ -146,7 +157,7 @@ export const PetInteractionService = {
           ? 'mission'
           : 'greeting';
 
-    const dialogue = pickDialogue(dialogueContext, pet.affinity + affinityGain);
+    const dialogue = pickDialogue(dialogueContext, pet.affinity + affinityGain, personalityKey);
     const now = new Date().toISOString();
 
     const updated: Pet = {

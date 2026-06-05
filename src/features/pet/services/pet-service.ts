@@ -3,13 +3,16 @@ import { getTodayKey } from '@/features/quests/utils/date';
 import { GameEvents, type GameEvent } from '@/services/game-events';
 import { PetAnalyticsRepository } from '@/storage/repositories/pet-analytics-repository';
 import { getOrCreatePet, savePet } from '@/storage/repositories/pet-repository';
-import { PetStageRewardsRepository } from '@/storage/repositories/pet-stage-rewards-repository';
 import { PetMood, PetStage, type Pet, type PetStageValue } from '@/types/pet';
 import { PetAnimationCategory } from '@/types/pet-expansion';
 
+import { PetBreedingService } from '@/features/pet-farm/services/pet-breeding-service';
+import { PetFarmBonusCache } from '@/features/pet-farm/services/pet-farm-bonus-cache';
+import { PetPersonalityCache } from '@/features/pet-farm/services/pet-personality-cache';
+import { PetPersonalityService } from '@/features/pet-farm/services/pet-personality-service';
+import { PetRosterService } from '@/features/pet-farm/services/pet-roster-service';
 import { PunishmentModifierService } from '@/features/punishments/services/punishment-modifier-service';
-import { pickRandomAnimation } from '../catalogs/pet-animations-catalog';
-import { PET_XP_REWARDS, STAGE_EVOLUTION_REWARDS } from '../constants';
+import { PET_XP_REWARDS } from '../constants';
 import { PET_VITAL_STUDY_BONUS } from '../constants/vitals';
 import { usePetScreenStore } from '../store/pet-screen-store';
 import { clampVital } from '../utils/affinity';
@@ -20,6 +23,7 @@ import {
     moodToAnimationCategory,
 } from '../utils/routine';
 import { applyPetExperience, normalizePetExperience, resolveStageFromLevel } from '../utils/xp';
+
 import { PetCollectionService } from './pet-collection-service';
 import { PetRuntimeCache } from './pet-runtime-cache';
 import { PetVitalsService } from './pet-vitals-service';
@@ -136,7 +140,11 @@ export const PetService = {
       routinePhase === 'sleeping'
         ? PetAnimationCategory.IDLE
         : moodToAnimationCategory(pet.mood);
-    const animation = pickRandomAnimation(animationCategory, pet.affinity);
+    const animation = PetPersonalityService.pickAnimation(
+      animationCategory,
+      pet.affinity,
+      PetPersonalityCache.getSync(),
+    );
 
     const updated: Pet = {
       ...pet,
@@ -154,8 +162,45 @@ export const PetService = {
     return updated;
   },
 
+  async reconcileHatch(pet: Pet): Promise<Pet> {
+    if (!pet.hatchAt || !pet.isIncubating) {
+      return pet;
+    }
+
+    if (new Date(pet.hatchAt).getTime() > Date.now()) {
+      return pet;
+    }
+
+    const hatched: Pet = {
+      ...pet,
+      isIncubating: false,
+      hatchAt: null,
+      level: Math.max(pet.level, 5),
+      stage: PetStage.BABY,
+      updatedAt: new Date().toISOString(),
+    };
+
+    const normalized = normalizePetExperience(hatched.level, hatched.experience);
+    const stage = await PetService.updateStage(normalized.level, hatched.stage);
+
+    const updatedPet: Pet = {
+      ...hatched,
+      level: normalized.level,
+      experience: normalized.experience,
+      stage,
+    };
+
+    await savePet(updatedPet);
+    await PetCollectionService.ensureSpeciesDiscovered(updatedPet.speciesKey);
+    cachedPet = updatedPet;
+    notifyListeners();
+    return updatedPet;
+  },
+
   async initialize(): Promise<Pet> {
+    await PetRosterService.ensureInitialized();
     cachedPet = await getOrCreatePet();
+    cachedPet = await PetService.reconcileHatch(cachedPet);
     cachedPet = await PetService.reconcileProgress(cachedPet);
     await PetCollectionService.reconcilePrematureDiscovery(cachedPet);
     cachedPet = await PetService.syncRoutineAndVitals(cachedPet);
@@ -166,9 +211,18 @@ export const PetService = {
   },
 
   async refresh(): Promise<Pet> {
+    await PetRosterService.ensureInitialized();
+    await PetBreedingService.processReadyIncubators();
     cachedPet = await getOrCreatePet();
+    cachedPet = await PetService.reconcileHatch(cachedPet);
     cachedPet = await PetService.reconcileProgress(cachedPet);
     cachedPet = await PetService.syncRoutineAndVitals(cachedPet);
+    await PetRosterService.syncActiveInstanceFromPet(cachedPet);
+    await PetFarmBonusCache.refresh();
+    const { PetTraitBonusCache } = await import('@/features/pet-farm/services/pet-trait-bonus-cache');
+    const { PetPersonalityCache } = await import('@/features/pet-farm/services/pet-personality-cache');
+    await PetTraitBonusCache.refresh();
+    await PetPersonalityCache.refresh();
     notifyListeners();
     return cachedPet;
   },
@@ -194,7 +248,11 @@ export const PetService = {
 
   async triggerExcitedAnimation(): Promise<void> {
     const pet = cachedPet ?? (await getOrCreatePet());
-    const animation = pickRandomAnimation(PetAnimationCategory.EXCITED, pet.affinity);
+    const animation = PetPersonalityService.pickAnimation(
+      PetAnimationCategory.EXCITED,
+      pet.affinity,
+      PetPersonalityCache.getSync(),
+    );
     const updated = { ...pet, currentAnimationKey: animation.key };
     await savePet(updated);
     cachedPet = updated;
@@ -234,7 +292,11 @@ export const PetService = {
       return pet;
     }
 
-    const animation = pickRandomAnimation(moodToAnimationCategory(mood), pet.affinity);
+    const animation = PetPersonalityService.pickAnimation(
+      moodToAnimationCategory(mood),
+      pet.affinity,
+      PetPersonalityCache.getSync(),
+    );
     const updatedPet: Pet = {
       ...pet,
       mood,
@@ -274,24 +336,6 @@ export const PetService = {
       await PetCollectionService.ensureSpeciesDiscovered(pet.speciesKey);
     }
 
-    const reward = STAGE_EVOLUTION_REWARDS[nextStage as Exclude<PetStageValue, typeof PetStage.EGG>];
-    if (reward) {
-      const claimed = await PetStageRewardsRepository.isClaimed(nextStage);
-      if (!claimed) {
-        await PetStageRewardsRepository.markClaimed(nextStage);
-        usePlayerStore.getState().addCoins(reward.coins);
-      }
-    }
-
-    const analytics = await PetAnalyticsRepository.getOrCreate();
-    await PetAnalyticsRepository.save({
-      ...analytics,
-      totalEvolutions: analytics.totalEvolutions + 1,
-      currentLevel: level,
-      currentStage: nextStage,
-    });
-
-    GameEvents.emit({ type: 'PET_STAGE_EVOLVED', stage: nextStage });
     return nextStage;
   },
 
@@ -321,6 +365,8 @@ export const PetService = {
 
     await savePet(updatedPet);
     cachedPet = updatedPet;
+
+    await PetRosterService.syncActiveInstanceFromPet(updatedPet);
 
     const analytics = await PetAnalyticsRepository.getOrCreate();
     await PetAnalyticsRepository.save({

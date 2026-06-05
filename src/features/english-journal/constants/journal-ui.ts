@@ -1,5 +1,7 @@
 import type { JournalCategoryValue, JournalEntryTypeValue, JournalImportanceValue } from '@/types/journal';
 
+import { formatJournalPlaybackRate } from './journal-playback';
+
 export const JOURNAL_UI = {
   screenTitle: 'English Knowledge Vault',
   screenSubtitle: 'My English Brain — seu second brain de inglês',
@@ -31,6 +33,8 @@ export const JOURNAL_UI = {
   playPlayback: 'Reproduzir áudio',
   pausePlayback: 'Pausar áudio',
   seekPlayback: 'Posição do áudio — toque para avançar ou voltar',
+  playbackSpeedA11y: (rate: number) =>
+    `Velocidade ${formatJournalPlaybackRate(rate)}. Toque para alterar.`,
   voiceNoteLabel: 'Gravação de voz',
   voiceStatusPlaying: 'Reproduzindo',
   voiceStatusPaused: 'Pausado',
@@ -49,22 +53,29 @@ export const JOURNAL_UI = {
   transcriptionModeLabel: 'Idioma da gravação',
   transcriptionModeEnglish: 'Inglês direto',
   transcriptionModePortuguese: 'Português → inglês',
+  transcriptionModePortugueseOnly: 'Só português',
   transcriptionModeEnglishHint: 'Fale em inglês; o texto vai para o conteúdo como você disse.',
   transcriptionModePortugueseHint:
     'Fale em português; transcrevemos e traduzimos para inglês no conteúdo da nota.',
+  transcriptionModePortugueseOnlyHint:
+    'Fale em português; o texto fica no conteúdo em português, sem tradução.',
   transcribing: 'Transcrevendo áudio…',
   transcribingPortuguese: 'Transcrevendo em português…',
   translatingToEnglish: 'Traduzindo para inglês…',
   originalPortugueseLabel: 'Original (PT)',
+  portugueseOnlyLabel: 'Nota em português',
   translationUnavailable:
     'Tradução offline indisponível. Recompile o app com fast-mlkit-translate-text (pnpm android / pnpm ios).',
   translationFailed: 'Não foi possível traduzir para inglês. O texto em português não foi salvo.',
   translationToPortugueseFailed: 'Não foi possível traduzir para português.',
   translationEmpty: 'Nada para traduzir após a transcrição.',
   viewInPortuguese: 'Ver em português',
+  viewInEnglish: 'Ver em inglês',
+  hideTranslation: 'Ocultar tradução',
   hidePortugueseTranslation: 'Ocultar tradução',
   translatingToPortuguese: 'Traduzindo para português…',
   portugueseTranslationLabel: 'Tradução (PT-BR)',
+  englishTranslationLabel: 'Tradução (EN)',
   transcriptionUnavailable:
     'Transcrição indisponível. Recompile o app com expo-speech-recognition (pnpm android / pnpm ios).',
   transcriptionPermissionDenied:

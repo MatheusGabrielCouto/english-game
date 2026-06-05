@@ -7,13 +7,19 @@ import { getDifficultyConfig } from '@/features/game-design/constants/difficulty
 import { RPG_PERKS } from '@/features/game-design/constants/rpg';
 import { BoosterModifierCache } from '@/features/game-design/services/booster-modifier-cache';
 import {
-  RewardModifierService,
-  type RewardModifiers,
+    RewardModifierService,
+    type RewardModifiers,
 } from '@/features/game-design/services/reward-modifier-service';
+import { formatBonusPercent } from '@/features/game-design/utils/bonus-percent-format';
 import { sumRelicBonusesFromKeys } from '@/features/game-design/utils/relic-bonus';
-import { getAccumulatedPrestigeBonuses } from '@/features/prestige/constants/prestige-catalog';
+
+export { formatBonusPercent, roundBonusPercent } from '@/features/game-design/utils/bonus-percent-format';
 import { useMetagameStore } from '@/features/metagame/store/metagame-store';
+import { PET_TRAIT_UI } from '@/features/pet-farm/constants/pet-trait-ui';
+import { PetFarmBonusCache } from '@/features/pet-farm/services/pet-farm-bonus-cache';
+import { PetTraitBonusCache } from '@/features/pet-farm/services/pet-trait-bonus-cache';
 import { PetRuntimeCache } from '@/features/pet/services/pet-runtime-cache';
+import { getAccumulatedPrestigeBonuses } from '@/features/prestige/constants/prestige-catalog';
 import { useRpgStore } from '@/features/rpg/store/rpg-store';
 
 export type BonusContribution = {
@@ -128,21 +134,67 @@ export const buildActiveBonusBreakdown = (): ActiveBonusBreakdown => {
     }
   }
 
-  const pet = PetRuntimeCache.get();
-  if (pet?.speciesKey) {
-    const species = PET_SPECIES_BY_KEY[pet.speciesKey];
-    if (species) {
-      const { passive } = species;
-      contributions.push({
-        id: `pet-${pet.speciesKey}`,
-        emoji: species.emoji,
-        label: `Pet · ${species.name}`,
-        detail: passive.label,
-        xp: passive.type === 'xp_boost' ? passive.value : undefined,
-        coins: passive.type === 'coin_boost' ? passive.value : undefined,
-        loot: passive.type === 'loot_luck' ? passive.value : undefined,
-      });
+  const farmCache = PetFarmBonusCache.getSync();
+  if (farmCache.companionLabel && (farmCache.companionXp || farmCache.companionCoins || farmCache.companionLoot)) {
+    contributions.push({
+      id: 'pet-companion',
+      emoji: '🐾',
+      label: farmCache.companionLabel,
+      detail: 'Companheiro ativo (passivo com stats da instância).',
+      xp: farmCache.companionXp || undefined,
+      coins: farmCache.companionCoins || undefined,
+      loot: farmCache.companionLoot || undefined,
+    });
+  } else {
+    const pet = PetRuntimeCache.get();
+    if (pet?.speciesKey) {
+      const species = PET_SPECIES_BY_KEY[pet.speciesKey];
+      if (species) {
+        const { passive } = species;
+        contributions.push({
+          id: `pet-${pet.speciesKey}`,
+          emoji: species.emoji,
+          label: `Pet · ${species.name}`,
+          detail: passive.label,
+          xp: passive.type === 'xp_boost' ? passive.value : undefined,
+          coins: passive.type === 'coin_boost' ? passive.value : undefined,
+          loot: passive.type === 'loot_luck' ? passive.value : undefined,
+        });
+      }
     }
+  }
+
+  const pasture = farmCache.pasture;
+  if (pasture.xp_boost > 0 || pasture.coin_boost > 0 || pasture.loot_luck > 0) {
+    contributions.push({
+      id: 'pet-farm-pasture',
+      emoji: '🌾',
+      label: 'Fazenda · Pasto',
+      detail: 'Bônus dos pets colocados no pasto de passivas.',
+      xp: pasture.xp_boost || undefined,
+      coins: pasture.coin_boost || undefined,
+      loot: pasture.loot_luck || undefined,
+    });
+  }
+
+  const traitBonuses = PetTraitBonusCache.getSync();
+  if (
+    traitBonuses.xp_percent !== 0 ||
+    traitBonuses.coin_percent !== 0 ||
+    traitBonuses.loot_percent !== 0
+  ) {
+    contributions.push({
+      id: 'pet-traits',
+      emoji: '🧬',
+      label: PET_TRAIT_UI.globalBonus,
+      detail:
+        traitBonuses.labels.length > 0
+          ? traitBonuses.labels.join(', ')
+          : 'Traits do companheiro ativo',
+      xp: traitBonuses.xp_percent || undefined,
+      coins: traitBonuses.coin_percent || undefined,
+      loot: traitBonuses.loot_percent || undefined,
+    });
   }
 
   const boosters = BoosterModifierCache.getSync();
@@ -194,17 +246,29 @@ export const buildActiveBonusBreakdown = (): ActiveBonusBreakdown => {
     }
   }
 
-  let petXp = 0;
-  let petCoins = 0;
-  let petLoot = 0;
-  if (pet?.speciesKey) {
-    const species = PET_SPECIES_BY_KEY[pet.speciesKey];
-    if (species) {
-      if (species.passive.type === 'xp_boost') petXp += species.passive.value;
-      if (species.passive.type === 'coin_boost') petCoins += species.passive.value;
-      if (species.passive.type === 'loot_luck') petLoot += species.passive.value;
+  let petXp = farmCache.companionXp;
+  let petCoins = farmCache.companionCoins;
+  let petLoot = farmCache.companionLoot;
+
+  if (petXp === 0 && petCoins === 0 && petLoot === 0) {
+    const pet = PetRuntimeCache.get();
+    if (pet?.speciesKey) {
+      const species = PET_SPECIES_BY_KEY[pet.speciesKey];
+      if (species) {
+        if (species.passive.type === 'xp_boost') petXp += species.passive.value;
+        if (species.passive.type === 'coin_boost') petCoins += species.passive.value;
+        if (species.passive.type === 'loot_luck') petLoot += species.passive.value;
+      }
     }
   }
+
+  petXp += pasture.xp_boost;
+  petCoins += pasture.coin_boost;
+  petLoot += pasture.loot_luck;
+
+  petXp += traitBonuses.xp_percent;
+  petCoins += traitBonuses.coin_percent;
+  petLoot += traitBonuses.loot_percent;
 
   const allRelic = relics.allRewardsPercent;
   const rawXp = prestige.xp + relics.xpPercent + allRelic + xpFromRpg + petXp + boosters.xpPercent;
@@ -225,8 +289,6 @@ export const buildActiveBonusBreakdown = (): ActiveBonusBreakdown => {
     },
   };
 };
-
-export const formatBonusPercent = (value: number): string => `+${value}%`;
 
 export const formatLootBoxChance = (chance: number): string => `${Math.round(chance * 100)}%`;
 

@@ -5,12 +5,19 @@ import { MENU_HUB_UI } from '@/features/menu-hub/constants/menu-hub-ui'
 type MenuHubSearchFieldProps = {
   value: string
   onChangeText: (text: string) => void
+  placeholder?: string
+  label?: string
 }
 
-export const MenuHubSearchField = ({ value, onChangeText }: MenuHubSearchFieldProps) => (
+export const MenuHubSearchField = ({
+  value,
+  onChangeText,
+  placeholder = MENU_HUB_UI.searchPlaceholder,
+  label = MENU_HUB_UI.searchLabel,
+}: MenuHubSearchFieldProps) => (
   <View>
     <Text className="text-[10px] font-black uppercase tracking-[0.18em] text-foreground-secondary">
-      {MENU_HUB_UI.searchLabel}
+      {label}
     </Text>
     <View className="mt-2 flex-row items-center gap-2 rounded-2xl border border-border bg-surface-elevated px-3">
       <Text className="text-lg">🔍</Text>
@@ -23,11 +30,11 @@ export const MenuHubSearchField = ({ value, onChangeText }: MenuHubSearchFieldPr
         }}
         value={value}
         onChangeText={onChangeText}
-        placeholder={MENU_HUB_UI.searchPlaceholder}
+        placeholder={placeholder}
         placeholderTextColor="#71717a"
         autoCapitalize="none"
         autoCorrect={false}
-        accessibilityLabel={MENU_HUB_UI.searchPlaceholder}
+        accessibilityLabel={placeholder}
       />
       {value.length > 0 ? (
         <Pressable

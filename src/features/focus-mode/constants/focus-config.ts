@@ -4,6 +4,9 @@ export const FOCUS_DURATION_OPTIONS = [15, 30, 60, 90] as const;
 
 export type FocusDurationMinutes = (typeof FOCUS_DURATION_OPTIONS)[number];
 
+export const FOCUS_DURATION_MIN_MINUTES = 5;
+export const FOCUS_DURATION_MAX_MINUTES = 180;
+
 export const FOCUS_STUDY_TYPE_META: Record<
   FocusStudyTypeValue,
   { label: string; emoji: string; spPerMinute: number }
@@ -50,7 +53,18 @@ export const FOCUS_MESSAGES = {
     'O Focus Mode usa um Accessibility Service local para bloquear apps distrativos — ao abrir Instagram, TikTok ou similares, você é levado de volta ao English Quest. Nenhum dado sai do dispositivo.',
   blockingActive:
     'Apps distrativos serão fechados automaticamente. Permaneça no English Quest ou na tela inicial.',
+  durationLabel: 'Duração do foco',
+  durationHint: (min: number, max: number) =>
+    `Escolha um atalho ou digite de ${min} a ${max} minutos.`,
+  durationCustomLabel: 'Minutos personalizados',
+  durationCustomPlaceholder: 'Ex.: 45',
+  durationCustomSuffix: 'min',
+  durationInvalid: (min: number, max: number) => `Informe entre ${min} e ${max} minutos.`,
+  durationQuickLabel: 'Atalhos',
   sessionStarted: 'Modo foco ativado. Boa sessão!',
+  sessionEndNotificationTitle: 'Modo foco concluído',
+  sessionEndNotificationBody: (studyLabel: string) =>
+    `Seu timer de ${studyLabel} terminou. Abra o app para ver suas recompensas.`,
   sessionCompleted: 'Sessão concluída! Recompensas aplicadas.',
   sessionAbandoned: 'Sessão encerrada antes do tempo.',
   distracted: 'Você se distraiu por {minutes} min. Tente manter o foco!',

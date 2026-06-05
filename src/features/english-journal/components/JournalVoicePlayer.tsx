@@ -10,6 +10,7 @@ import {
 
 import { cn } from '@/utils';
 
+import { formatJournalPlaybackRate } from '../constants/journal-playback';
 import { JOURNAL_UI } from '../constants/journal-ui';
 import { JournalService } from '../services/journal-service';
 import { useJournalVoicePlayback } from '../services/journal-voice-playback';
@@ -45,6 +46,8 @@ export const JournalVoicePlayer = ({
   const toggle = useJournalVoicePlayback((s) => s.toggle);
   const play = useJournalVoicePlayback((s) => s.play);
   const seekToRatio = useJournalVoicePlayback((s) => s.seekToRatio);
+  const playbackRate = useJournalVoicePlayback((s) => s.playbackRate);
+  const cyclePlaybackRate = useJournalVoicePlayback((s) => s.cyclePlaybackRate);
 
   const isActive = activeEntryId === entryId;
   const playing = isActive && isPlaying;
@@ -59,6 +62,7 @@ export const JournalVoicePlayer = ({
   const [trackWidth, setTrackWidth] = useState(0);
   const playSize = compact ? 28 : 32;
   const iconSize = compact ? 14 : 16;
+  const speedLabel = formatJournalPlaybackRate(playbackRate);
 
   const handleToggle = useCallback(async () => {
     if (!playing && awardReplayXp) {
@@ -94,6 +98,21 @@ export const JournalVoicePlayer = ({
         compact && 'py-1',
         className,
       )}>
+      <Pressable
+        onPress={cyclePlaybackRate}
+        accessibilityRole="button"
+        accessibilityLabel={JOURNAL_UI.playbackSpeedA11y(playbackRate)}
+        className="shrink-0 items-center justify-center rounded-lg border border-border bg-surface-elevated px-2"
+        style={{ minWidth: compact ? 36 : 40, height: playSize }}>
+        <Text
+          className={cn(
+            'font-bold text-foreground',
+            compact ? 'text-[10px]' : 'text-[11px]',
+          )}>
+          {speedLabel}
+        </Text>
+      </Pressable>
+
       <Pressable
         onPress={() => void handleToggle()}
         accessibilityRole="button"

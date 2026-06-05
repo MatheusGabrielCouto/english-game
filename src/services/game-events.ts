@@ -64,10 +64,75 @@ export type GameEvent =
   | { type: 'WEEKLY_MISSION_CLAIMED' }
   | { type: 'PET_XP_GAINED'; amount: number }
   | { type: 'PET_EXPERIENCE_GRANT'; amount: number }
-  | { type: 'PET_STAGE_EVOLVED'; stage: string }
+  | {
+      type: 'PET_STAGE_EVOLVED';
+      stage: string;
+      previousStage: string;
+      instanceId?: number;
+      nickname?: string;
+      speciesKey?: string;
+      coinsReward?: number;
+    }
   | { type: 'PET_INTERACTION'; interactionType: string; affinityGain: number }
   | { type: 'PET_NAMED'; name: string }
   | { type: 'PET_MEMORY_CREATED'; memoryKey: string; title: string }
+  | { type: 'PET_EGG_USED'; speciesKey: string; hatchAt: string }
+  | { type: 'PET_FARM_SLOT_CHANGED'; instanceId: number; slotIndex: number }
+  | { type: 'PET_ACTIVE_CHANGED'; instanceId: number }
+  | { type: 'PET_BRED'; motherInstanceId: number; fatherInstanceId: number; speciesKey: string }
+  | {
+      type: 'PET_ADVENTURE_STARTED';
+      adventureId: number;
+      instanceId: number;
+      biomeKey: string;
+      durationKey: string;
+    }
+  | {
+      type: 'PET_ADVENTURE_CLAIMED';
+      adventureId: number;
+      instanceId: number;
+      success: boolean;
+      durationKey: string;
+    }
+  | {
+      type: 'PET_ACADEMY_STARTED';
+      sessionId: number;
+      instanceId: number;
+      trackKey: string;
+    }
+  | {
+      type: 'PET_ACADEMY_CLAIMED';
+      sessionId: number;
+      instanceId: number;
+      trackKey: string;
+    }
+  | {
+      type: 'PET_LEAGUE_BATTLE';
+      instanceId: number;
+      ghostId: string;
+      won: boolean;
+      division: string;
+    }
+  | {
+      type: 'PET_LEAGUE_REWARD_CLAIMED';
+      tier: string;
+      coins: number;
+      studyPoints: number;
+    }
+  | { type: 'PET_HALL_INDUCTED'; instanceId: number; slot: number }
+  | { type: 'PET_FAVORITE_CHANGED'; instanceId: number; tag: string }
+  | {
+      type: 'PET_COSMETIC_GRANTED';
+      instanceId: number;
+      cosmeticKey: string;
+      source: string;
+    }
+  | {
+      type: 'PET_COSMETIC_EQUIPPED';
+      instanceId: number;
+      cosmeticKey: string;
+      slot: string;
+    }
   | { type: 'LOOT_BOX_RECEIVED'; rarity: string; source: string }
   | { type: 'LOOT_BOX_OPENED'; result: { boxId: number; boxRarity: string; reward: { type: string; amount: number; label: string } } }
   | {

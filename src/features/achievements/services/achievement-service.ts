@@ -72,12 +72,17 @@ const buildMetricsSnapshot = async (): Promise<AchievementMetricsSnapshot> => {
   const player = await getOrCreatePlayer();
   const pet = await getCurrentPet();
   const stats = cachedStats ?? (await AchievementStatsRepository.getOrCreate());
+  const { PetGenerationService } = await import(
+    '@/features/pet-farm/services/pet-generation-service'
+  );
+  const petMaxGeneration = await PetGenerationService.getMaxGenerationInCollection();
 
   return {
     totalStudyDays: player.totalStudyDays,
     bestStreak: player.bestStreak,
     playerLevel: player.level,
     petStage: pet?.stage ?? PetStage.EGG,
+    petMaxGeneration,
     stats,
   };
 };

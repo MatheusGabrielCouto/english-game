@@ -1,22 +1,42 @@
-import { ActivityIndicator, RefreshControl, View } from 'react-native';
+import { useRouter, type Href } from 'expo-router';
+import { ActivityIndicator, RefreshControl, Text, View } from 'react-native';
 
 import { ScreenContainer, ScreenHeader } from '@/components/layout';
-import { theme } from '@/constants';
+import { PressableScale } from '@/components/ui/game';
+import { routes, theme } from '@/constants';
 
+import { PET_UI } from '../constants/pet-ui';
+import { usePet } from '../hooks/use-pet';
+import { usePetScreenStore } from '../store/pet-screen-store';
+import { isPetIncubating } from '../utils/display';
 import { PetCollectionSection } from './PetCollectionSection';
 import { PetDialogueBubble } from './PetDialogueBubble';
 import { PetHeroDisplay } from './PetHeroDisplay';
+import { PetIncubationLab } from './PetIncubationLab';
 import { PetInteractionGrid } from './PetInteractionGrid';
 import { PetMemoriesSection } from './PetMemoriesSection';
 import { PetNameEditor } from './PetNameEditor';
 import { PetVitalsPanel } from './PetVitalsPanel';
 import { PetXPBar } from './PetXPBar';
-import { usePet } from '../hooks/use-pet';
-import { usePetScreenStore } from '../store/pet-screen-store';
+
+const PetFarmLink = () => {
+  const router = useRouter();
+  return (
+    <PressableScale
+      onPress={() => router.push(routes.petFarm as Href)}
+      accessibilityRole="button"
+      accessibilityLabel={PET_UI.farmCta}
+      className="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 px-4 py-3">
+      <Text className="font-bold text-foreground">{PET_UI.farmCta}</Text>
+      <Text className="mt-0.5 text-xs text-muted">{PET_UI.farmCtaHint}</Text>
+    </PressableScale>
+  );
+};
 
 export const PetScreenContent = () => {
   const { pet, isLoading, isRefreshing, refresh } = usePet();
   const dialogueMessage = usePetScreenStore((s) => s.dialogueMessage);
+  const incubating = pet ? isPetIncubating(pet) : false;
 
   if (isLoading || !pet) {
     return (
@@ -26,8 +46,20 @@ export const PetScreenContent = () => {
     );
   }
 
+  if (incubating) {
+    return (
+      <View className="gap-4 pb-8">
+        <PetIncubationLab pet={pet} />
+        <PetFarmLink />
+        <PetMemoriesSection />
+        <PetCollectionSection />
+      </View>
+    );
+  }
+
   return (
     <View className="gap-4 pb-8">
+      <PetFarmLink />
       <PetHeroDisplay pet={pet} />
       <PetDialogueBubble message={dialogueMessage} petName={pet.name} />
       <PetVitalsPanel pet={pet} />
@@ -43,7 +75,8 @@ export const PetScreenContent = () => {
 };
 
 export const PetScreen = () => {
-  const { isRefreshing, refresh } = usePet();
+  const { pet, isRefreshing, refresh } = usePet();
+  const incubating = pet ? isPetIncubating(pet) : false;
 
   return (
     <ScreenContainer
@@ -53,9 +86,9 @@ export const PetScreen = () => {
       }}>
       <ScreenHeader
         showBack
-        title="Meu Companheiro"
-        subtitle="Cuide, evolua e colecione memórias"
-        emoji="🐾"
+        title={incubating ? PET_UI.labTitle : PET_UI.screenTitle}
+        subtitle={incubating ? PET_UI.labSubtitle : PET_UI.screenSubtitle}
+        emoji={incubating ? '🧪' : '🐾'}
       />
       <View className="pt-2">
         <PetScreenContent />

@@ -1,11 +1,12 @@
 import { showGameToast } from '@/features/feedback/services/feedback-service';
-import { BoosterModifierCache } from '@/features/game-design/services/booster-modifier-cache';
 import {
-  isItemUsable,
-  resolveGameItem,
-  type GameItemDefinition,
+    isItemUsable,
+    resolveGameItem,
+    type GameItemDefinition,
 } from '@/features/game-design/catalogs/item-catalog';
+import { BoosterModifierCache } from '@/features/game-design/services/booster-modifier-cache';
 import { InventoryService } from '@/features/inventory/services/inventory-service';
+import { PetEggService } from '@/features/pet/services/pet-egg-service';
 import { usePlayerStore } from '@/features/player/store/player-store';
 import { ShieldService } from '@/features/shields/services/shield-service';
 import { GameEvents } from '@/services/game-events';
@@ -143,6 +144,13 @@ export const ConsumableItemService = {
       case 'passive_xp':
       case 'passive_coins':
         return { ok: false, message: 'Relíquias passivas vêm do livro de coleção.' };
+      case 'hatch_pet': {
+        const hatchResult = await PetEggService.use(itemKey);
+        if (hatchResult.ok) {
+          showGameToast(hatchResult.message, 'success');
+        }
+        return hatchResult;
+      }
       default:
         return { ok: false, message: 'Efeito deste item ainda não está disponível.' };
     }

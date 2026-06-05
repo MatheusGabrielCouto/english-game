@@ -1,24 +1,26 @@
 import { useEffect, useMemo } from 'react';
 import { Text, View } from 'react-native';
 import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withSequence,
-  withTiming,
+    useAnimatedStyle,
+    useSharedValue,
+    withRepeat,
+    withSequence,
+    withTiming,
 } from 'react-native-reanimated';
 
 import { Button, ProgressBar } from '@/components';
 import { GameCard } from '@/components/ui/game';
+import { FOCUS_MESSAGES, FOCUS_STUDY_TYPE_META } from '@/features/focus-mode/constants/focus-config';
+import { getDisplayFocusedSeconds } from '@/features/focus-mode/utils/focus-session-display';
 import { usePet } from '@/features/pet/hooks/use-pet';
 import { getPetDisplayInfo } from '@/features/pet/utils/display';
-import { FOCUS_STUDY_TYPE_META, FOCUS_MESSAGES } from '@/features/focus-mode/constants/focus-config';
 import type { FocusLiveSessionState } from '@/types/focus-mode';
 
 type FocusActiveSessionProps = {
   liveSession: FocusLiveSessionState;
   onComplete: () => void;
   onAbandon: () => void;
+  onTimerEnded?: () => void;
 };
 
 const formatTimer = (totalSec: number): string => {
@@ -27,10 +29,16 @@ const formatTimer = (totalSec: number): string => {
   return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 };
 
-export const FocusActiveSession = ({ liveSession, onComplete, onAbandon }: FocusActiveSessionProps) => {
+export const FocusActiveSession = ({
+  liveSession,
+  onComplete,
+  onAbandon,
+  onTimerEnded,
+}: FocusActiveSessionProps) => {
   const { pet } = usePet();
   const bounce = useSharedValue(0);
   const { session, remainingSec, elapsedSec, trackingState, currentDistractionPackage } = liveSession;
+  const displayFocusedSec = getDisplayFocusedSeconds(session, elapsedSec);
 
   const display = pet ? getPetDisplayInfo(pet) : null;
   const studyMeta = FOCUS_STUDY_TYPE_META[session.studyType];
@@ -38,6 +46,11 @@ export const FocusActiveSession = ({ liveSession, onComplete, onAbandon }: Focus
     () => Math.min(100, Math.round((elapsedSec / session.plannedDurationSec) * 100)),
     [elapsedSec, session.plannedDurationSec],
   );
+
+  useEffect(() => {
+    if (remainingSec > 0 || !onTimerEnded) return;
+    onTimerEnded();
+  }, [remainingSec, onTimerEnded]);
 
   useEffect(() => {
     bounce.value = withRepeat(
@@ -86,7 +99,7 @@ export const FocusActiveSession = ({ liveSession, onComplete, onAbandon }: Focus
         <View className="mt-4 flex-row gap-4">
           <View className="items-center">
             <Text className="text-xs text-muted">Foco</Text>
-            <Text className="text-base font-bold text-success">{formatTimer(session.focusedSeconds)}</Text>
+            <Text className="text-base font-bold text-success">{formatTimer(displayFocusedSec)}</Text>
           </View>
           <View className="items-center">
             <Text className="text-xs text-muted">Distração</Text>
@@ -94,7 +107,7 @@ export const FocusActiveSession = ({ liveSession, onComplete, onAbandon }: Focus
           </View>
           <View className="items-center">
             <Text className="text-xs text-muted">XP acum.</Text>
-            <Text className="text-base font-bold text-xp">+{Math.round(session.focusedSeconds / 12)}</Text>
+            <Text className="text-base font-bold text-xp">+{Math.round(displayFocusedSec / 12)}</Text>
           </View>
         </View>
       </GameCard>

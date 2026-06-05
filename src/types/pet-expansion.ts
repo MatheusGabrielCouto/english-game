@@ -90,6 +90,8 @@ export type PetDialogueLine = {
   context: PetDialogueContext;
   text: string;
   minAffinity: number;
+  /** Se definido, linha só para essas personalidades; omitido = universal. */
+  personalityKeys?: string[];
 };
 
 export type PetMemoryDefinition = {

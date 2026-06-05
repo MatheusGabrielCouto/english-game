@@ -1,3 +1,4 @@
+import { PET_PERSONALITY_DIALOGUES } from '@/features/pet-farm/catalogs/pet-personality-dialogues';
 import type { PetDialogueContext, PetDialogueLine } from '@/types/pet-expansion';
 
 const lines = (
@@ -66,19 +67,39 @@ export const PET_DIALOGUES_CATALOG: PetDialogueLine[] = [
     'Practice question: What did you learn today?',
     'Let us practice: "Remote work changed my career."',
   ], 150),
+  ...PET_PERSONALITY_DIALOGUES,
 ];
+
+const matchesPersonality = (line: PetDialogueLine, personalityKey: string | null | undefined): boolean => {
+  if (!line.personalityKeys?.length) return true;
+  if (!personalityKey) return false;
+  return line.personalityKeys.includes(personalityKey);
+};
 
 export const pickDialogue = (
   context: PetDialogueContext,
   affinity: number,
+  personalityKey?: string | null,
 ): PetDialogueLine => {
-  const pool = PET_DIALOGUES_CATALOG.filter(
-    (line) => line.context === context && line.minAffinity <= affinity,
+  const personalityPool = PET_DIALOGUES_CATALOG.filter(
+    (line) =>
+      line.context === context &&
+      line.minAffinity <= affinity &&
+      matchesPersonality(line, personalityKey) &&
+      line.personalityKeys?.length,
   );
-  if (pool.length === 0) {
-    return PET_DIALOGUES_CATALOG[0];
+  if (personalityPool.length > 0) {
+    return personalityPool[Math.floor(Math.random() * personalityPool.length)];
   }
-  return pool[Math.floor(Math.random() * pool.length)];
+
+  const universalPool = PET_DIALOGUES_CATALOG.filter(
+    (line) =>
+      line.context === context &&
+      line.minAffinity <= affinity &&
+      !line.personalityKeys?.length,
+  );
+  const pool = universalPool.length > 0 ? universalPool : PET_DIALOGUES_CATALOG;
+  return pool[Math.floor(Math.random() * pool.length)] ?? PET_DIALOGUES_CATALOG[0];
 };
 
 export const PET_MEMORY_DEFINITIONS = [

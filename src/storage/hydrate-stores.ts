@@ -106,6 +106,9 @@ const initGameEventListeners = (): void => {
   WeeklyMissionService.initListeners();
   PetService.initListeners();
   PetMemoryService.initListeners();
+  void import('@/features/pet-farm/services/pet-instance-memory-service').then((m) =>
+    m.PetInstanceMemoryService.initListeners(),
+  );
   InventoryService.initListeners();
   AchievementService.initListeners();
   TitleService.initListeners();
@@ -169,6 +172,15 @@ export const hydrateCriticalStores = async (): Promise<void> => {
 /** Heavy SQLite + service caches — runs after first paint. */
 export const hydrateBackgroundServices = async (): Promise<void> => {
   await BoosterModifierCache.refresh();
+
+  const { PetRosterService } = await import('@/features/pet-farm/services/pet-roster-service');
+  const { PetFarmBonusCache } = await import('@/features/pet-farm/services/pet-farm-bonus-cache');
+  const { PetTraitBonusCache } = await import('@/features/pet-farm/services/pet-trait-bonus-cache');
+  const { PetPersonalityCache } = await import('@/features/pet-farm/services/pet-personality-cache');
+  await PetRosterService.ensureInitialized();
+  await PetFarmBonusCache.refresh();
+  await PetTraitBonusCache.refresh();
+  await PetPersonalityCache.refresh();
 
   await Promise.all([
     PetService.initialize(),

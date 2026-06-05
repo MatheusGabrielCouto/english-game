@@ -28,8 +28,12 @@ export type PetDexEntryDisplay = {
   isIncubating: boolean;
 };
 
-export const isPetIncubating = (pet: Pet): boolean =>
-  pet.stage === PetStage.EGG || pet.isIncubating;
+export const isPetIncubating = (pet: Pet): boolean => {
+  if (pet.hatchAt && pet.isIncubating && new Date(pet.hatchAt).getTime() > Date.now()) {
+    return true;
+  }
+  return pet.stage === PetStage.EGG || pet.isIncubating;
+};
 
 export const getPetDisplayInfo = (pet: Pet): PetDisplayInfo => {
   const species = PET_SPECIES_BY_KEY[pet.speciesKey] ?? PET_SPECIES_BY_KEY.codeowl;
@@ -62,11 +66,25 @@ export const getPetDexEntryDisplay = (
   if (isActive && currentPet) {
     const display = getPetDisplayInfo(currentPet);
     const incubating = isPetIncubating(currentPet);
+    let subtitle = `${display.stageLabel} · seu pet`;
+
+    if (incubating && currentPet.hatchAt) {
+      const msLeft = new Date(currentPet.hatchAt).getTime() - Date.now();
+      if (msLeft > 0) {
+        const hoursLeft = Math.ceil(msLeft / (60 * 60 * 1000));
+        subtitle =
+          hoursLeft < 24
+            ? `Ovo · choca em ~${hoursLeft}h`
+            : `Ovo · choca em ~${Math.ceil(hoursLeft / 24)} dia(s)`;
+      } else {
+        subtitle = 'Ovo · eclosão em breve';
+      }
+    }
 
     return {
       emoji: species.emoji,
       name: species.name,
-      subtitle: `${display.stageLabel} · seu pet`,
+      subtitle,
       speciesDiscovered: speciesDiscoveredInDb && !incubating,
       isActive: true,
       isIncubating: incubating,

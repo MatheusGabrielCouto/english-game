@@ -25,6 +25,7 @@ import {
     formatNextReviewLabel,
     isReviewDue,
 } from '@/features/english-journal/utils/journal-review';
+import { parseJournalBody } from '@/features/english-journal/utils/journal-transcription-body';
 import { getSpaceLabel } from '@/features/english-journal/utils/vault-map-builder';
 
 export default function VaultEntryDetailRoute() {
@@ -111,6 +112,7 @@ export default function VaultEntryDetailRoute() {
 
   const due = isReviewDue(entry.nextReviewAt);
   const showReviewBanner = due || justReviewed;
+  const bodyDisplayText = entry.body ? parseJournalBody(entry.body).primaryText : '';
 
   return (
     <ScreenContainer scrollable>
@@ -174,7 +176,7 @@ export default function VaultEntryDetailRoute() {
           ) : null}
           {entry.body ? (
             <View className="gap-3">
-              <Text className="text-base leading-6 text-foreground">{entry.body}</Text>
+              <Text className="text-base leading-6 text-foreground">{bodyDisplayText}</Text>
               <JournalEntryBodyTranslation body={entry.body} />
             </View>
           ) : entry.audioUri ? null : (

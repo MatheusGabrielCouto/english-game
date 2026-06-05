@@ -23,13 +23,13 @@ export const LOOT_BOX_UPGRADE_CHAIN: { from: string; to: string; costStudyPoints
 ];
 
 export const STUDY_POINTS_SHOP = [
-  { key: 'box_common', label: 'Loot Box Comum', cost: 80, lootRarity: LootBoxRarity.COMMON },
-  { key: 'box_uncommon', label: 'Loot Box Incomum', cost: 150, lootRarity: LootBoxRarity.UNCOMMON },
-  { key: 'box_rare', label: 'Loot Box Rara', cost: 300, lootRarity: LootBoxRarity.RARE },
-  { key: 'box_epic', label: 'Loot Box Épica', cost: 600, lootRarity: LootBoxRarity.EPIC },
-  { key: 'pet_egg', label: 'Ovo de Pet', cost: 400, itemKey: 'pet_egg' },
-  { key: 'golden_ticket', label: 'Ticket Dourado', cost: 200, itemKey: 'golden_ticket' },
-  { key: 'free_loot_ticket', label: 'Ticket de Loot', cost: 120, itemKey: 'free_loot_ticket' },
+  { key: 'box_common', label: 'Loot Box Comum', cost: 120, lootRarity: LootBoxRarity.COMMON },
+  { key: 'box_uncommon', label: 'Loot Box Incomum', cost: 240, lootRarity: LootBoxRarity.UNCOMMON },
+  { key: 'box_rare', label: 'Loot Box Rara', cost: 480, lootRarity: LootBoxRarity.RARE },
+  { key: 'box_epic', label: 'Loot Box Épica', cost: 960, lootRarity: LootBoxRarity.EPIC },
+  { key: 'pet_egg', label: 'Ovo de Pet', cost: 3200, itemKey: 'pet_egg' },
+  { key: 'golden_ticket', label: 'Ticket Dourado', cost: 380, itemKey: 'golden_ticket' },
+  { key: 'free_loot_ticket', label: 'Ticket de Loot', cost: 220, itemKey: 'free_loot_ticket' },
 ] as const;
 
 /** Drop weights for collectible rarity inside a loot box tier */

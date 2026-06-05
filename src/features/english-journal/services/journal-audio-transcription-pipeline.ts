@@ -1,7 +1,7 @@
 import type { JournalTranscriptionMode } from '../constants/journal-transcription-mode'
 import { speechLocaleForMode } from '../constants/journal-transcription-mode'
 import { JOURNAL_UI } from '../constants/journal-ui'
-import { formatTranslatedNoteBody } from '../utils/journal-transcription-body'
+import { formatPortugueseOnlyNoteBody, formatTranslatedNoteBody } from '../utils/journal-transcription-body'
 import { transcribeJournalAudio } from './journal-audio-transcription'
 import { translatePortugueseToEnglish } from './journal-text-translation'
 
@@ -28,6 +28,10 @@ export const processJournalAudioRecording = async (
 
   if (mode === 'english') {
     return { ok: true, text: transcription.text }
+  }
+
+  if (mode === 'portuguese') {
+    return { ok: true, text: formatPortugueseOnlyNoteBody(transcription.text) }
   }
 
   onPhaseChange?.('translating')

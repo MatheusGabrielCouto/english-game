@@ -1,19 +1,22 @@
 import { useAppStore } from '@/features/app/store/app-store';
+import { CityVitalityService } from '@/features/city/services/city-vitality-service';
+import { useCityMapStore } from '@/features/city/store/city-map-store';
 import { useCollectionBookStore } from '@/features/collection-book/store/collection-book-store';
+import { PET_SPECIES_BY_KEY } from '@/features/game-design/catalogs/pet-species-catalog';
 import { GLOBAL_BONUS_CAP_PERCENT } from '@/features/game-design/constants/balance';
 import { getDifficultyConfig } from '@/features/game-design/constants/difficulty';
 import { RPG_PERKS } from '@/features/game-design/constants/rpg';
-import { PunishmentModifierService } from '@/features/punishments/services/punishment-modifier-service';
-import { getAccumulatedPrestigeBonuses } from '@/features/prestige/constants/prestige-catalog';
-import { PET_SPECIES_BY_KEY } from '@/features/game-design/catalogs/pet-species-catalog';
-import { CityVitalityService } from '@/features/city/services/city-vitality-service';
-import { useCityMapStore } from '@/features/city/store/city-map-store';
 import { useMetagameStore } from '@/features/metagame/store/metagame-store';
+import { PetFarmBonusCache } from '@/features/pet-farm/services/pet-farm-bonus-cache';
+import { PetTraitBonusCache } from '@/features/pet-farm/services/pet-trait-bonus-cache';
 import { PetRuntimeCache } from '@/features/pet/services/pet-runtime-cache';
+import { getAccumulatedPrestigeBonuses } from '@/features/prestige/constants/prestige-catalog';
+import { PunishmentModifierService } from '@/features/punishments/services/punishment-modifier-service';
 import { useRpgStore } from '@/features/rpg/store/rpg-store';
 
-import { BoosterModifierCache } from './booster-modifier-cache';
+import { roundBonusPercent } from '../utils/bonus-percent-format';
 import { sumRelicBonusesFromKeys } from '../utils/relic-bonus';
+import { BoosterModifierCache } from './booster-modifier-cache';
 
 export type RewardModifiers = {
   xpPercent: number;
@@ -25,7 +28,8 @@ export type RewardModifiers = {
   lootBoxBonusChance: number;
 };
 
-const capBonus = (value: number): number => Math.min(GLOBAL_BONUS_CAP_PERCENT, Math.max(0, value));
+const capBonus = (value: number): number =>
+  roundBonusPercent(Math.min(GLOBAL_BONUS_CAP_PERCENT, Math.max(0, value)));
 
 const parsePercent = (value: string): number => {
   const match = value.match(/\+(\d+(?:\.\d+)?)\s*%/);
@@ -76,18 +80,31 @@ export const RewardModifierService = {
       }
     }
 
-    const pet = PetRuntimeCache.get();
-    let petXp = 0;
-    let petCoins = 0;
-    let petLoot = 0;
-    if (pet?.speciesKey) {
-      const species = PET_SPECIES_BY_KEY[pet.speciesKey];
-      if (species) {
-        if (species.passive.type === 'xp_boost') petXp += species.passive.value;
-        if (species.passive.type === 'coin_boost') petCoins += species.passive.value;
-        if (species.passive.type === 'loot_luck') petLoot += species.passive.value;
+    const farmBonuses = PetFarmBonusCache.getSync();
+    let petXp = farmBonuses.companionXp;
+    let petCoins = farmBonuses.companionCoins;
+    let petLoot = farmBonuses.companionLoot;
+
+    if (petXp === 0 && petCoins === 0 && petLoot === 0) {
+      const pet = PetRuntimeCache.get();
+      if (pet?.speciesKey) {
+        const species = PET_SPECIES_BY_KEY[pet.speciesKey];
+        if (species) {
+          if (species.passive.type === 'xp_boost') petXp += species.passive.value;
+          if (species.passive.type === 'coin_boost') petCoins += species.passive.value;
+          if (species.passive.type === 'loot_luck') petLoot += species.passive.value;
+        }
       }
     }
+
+    petXp += farmBonuses.pasture.xp_boost;
+    petCoins += farmBonuses.pasture.coin_boost;
+    petLoot += farmBonuses.pasture.loot_luck;
+
+    const traitBonuses = PetTraitBonusCache.getSync();
+    petXp += traitBonuses.xp_percent;
+    petCoins += traitBonuses.coin_percent;
+    petLoot += traitBonuses.loot_percent;
 
     const boosters = BoosterModifierCache.getSync();
     const allRelic = relics.allRewardsPercent;
@@ -120,7 +137,9 @@ export const RewardModifierService = {
       xpPercent,
       coinPercent,
       lootLuckPercent,
-      contractRewardPercent: contractFromRpg + boosters.contractRewardPercent,
+      contractRewardPercent: capBonus(
+        contractFromRpg + boosters.contractRewardPercent + traitBonuses.contract_percent,
+      ),
       contractStakeMultiplier: difficultyConfig.contractStakeMultiplier,
       contractRewardMultiplier: difficultyConfig.contractRewardMultiplier,
       lootBoxBonusChance: difficultyConfig.lootBoxBonusChance,

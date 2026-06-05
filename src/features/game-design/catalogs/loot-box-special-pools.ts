@@ -54,6 +54,7 @@ export const LOOT_BOX_SPECIAL_DROPS: Record<LootBoxRarityValue, WeightedSpecialD
     special(4, 'bilhete_loot_gratis'),
     special(3, 'chave_prata'),
     special(3, 'booster_study'),
+    special(3, 'trait_reroll_single'),
   ],
   [LootBoxRarity.LEGENDARY]: [
     special(6, 'elixir_xp_dobro_1h'),
@@ -64,6 +65,7 @@ export const LOOT_BOX_SPECIAL_DROPS: Record<LootBoxRarityValue, WeightedSpecialD
     special(4, 'golden_ticket'),
     special(3, 'chave_ouro'),
     special(3, 'combo_estudo_1h'),
+    special(2, 'trait_reroll_all'),
   ],
   [LootBoxRarity.MYTHIC]: [
     special(5, 'convite_faang'),

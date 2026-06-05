@@ -15,8 +15,13 @@ export type MissionRewardBurst = {
 
 export type PetEvolutionCelebration = {
   stage: string;
+  previousStage: string;
   emoji: string;
   label: string;
+  previousLabel: string;
+  nickname?: string;
+  speciesKey?: string;
+  coinsReward: number;
 };
 
 export type PrestigeCelebration = {
