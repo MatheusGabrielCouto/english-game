@@ -1,9 +1,9 @@
-import { type Href, router } from 'expo-router'
+import { router } from 'expo-router'
 import { Text, View } from 'react-native'
 
 import { Button, ProgressBar } from '@/components'
 import { GameCard, PressableScale } from '@/components/ui/game'
-import { routes } from '@/constants'
+import { buildGpsMentorPracticeHref } from '@/features/mentor-ai/utils/resolve-gps-mentor-practice'
 import type { DailyStudyBlock } from '@/types/learning-gps'
 
 import { LEARNING_GPS_UI } from '../constants/learning-gps-ui'
@@ -22,8 +22,15 @@ export const LearningGpsDailyBlockRow = ({
   compact = false,
   isPriority = false,
 }: LearningGpsDailyBlockRowProps) => {
-  const handleGoToFarm = () => {
-    router.push(routes.farm as Href)
+  const handleStudyWithAtlas = () => {
+    router.push(
+      buildGpsMentorPracticeHref({
+        skillKey: block.skillKey,
+        title: block.label,
+        description: `${block.progressMinutes}/${block.minutes} min do plano de hoje`,
+        blockId: block.id,
+      }),
+    )
   }
 
   const handleMarkDone = () => {
@@ -75,7 +82,7 @@ export const LearningGpsDailyBlockRow = ({
 
       {!compact ? (
         <View className="mt-3 gap-2">
-          <Button label={LEARNING_GPS_UI.home.goToFarm} onPress={handleGoToFarm} />
+          <Button label={LEARNING_GPS_UI.home.studyWithAtlas} onPress={handleStudyWithAtlas} />
           <PressableScale onPress={handleMarkDone}>
             <Text className="text-center text-sm font-semibold text-muted">
               {LEARNING_GPS_UI.home.markDone}

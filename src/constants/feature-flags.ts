@@ -6,6 +6,8 @@ export const featureFlags = {
   /** M1: Baralho Vivo hub + revisão MVP */
   flashDeckEnabled: true,
   duelsEnabled: true,
+  /** Fase 28: Mentor IA — Professor Atlas */
+  mentorAiEnabled: true,
 } as const;
 
 export type FeatureFlagKey = keyof typeof featureFlags;
@@ -18,3 +20,7 @@ export const isDuelsEnabled = (): boolean => featureFlags.duelsEnabled;
 export const canAccessFlashDeck = (): boolean => isFlashDeckEnabled();
 
 export const canAccessDuels = (): boolean => isDuelsEnabled();
+
+export const isMentorAiEnabled = (): boolean => featureFlags.mentorAiEnabled;
+
+export const canAccessMentorAi = (): boolean => isMentorAiEnabled();

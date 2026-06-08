@@ -5,6 +5,10 @@ node_modules/
 package-lock.json
 yarn.lock
 
+# Mentor LLM (~1 GB) — baixar com: pnpm run mentor:download-model
+assets/models/*
+!assets/models/.gitkeep
+
 # Expo
 .expo/
 dist/

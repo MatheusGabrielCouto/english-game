@@ -4,9 +4,9 @@ import { describe, it } from 'node:test'
 import type { MotivationDailyPickRecord, MotivationSparkRecord } from '@/types/motivation-spark'
 
 import {
-  getRecentSparkIds,
-  pickDailyMotivationSpark,
-  pickWeightedSpark,
+    getRecentSparkIds,
+    pickDailyMotivationSpark,
+    pickWeightedSpark,
 } from '../motivation-rotation'
 
 const spark = (id: string, overrides: Partial<MotivationSparkRecord> = {}): MotivationSparkRecord => ({
@@ -36,8 +36,8 @@ const spark = (id: string, overrides: Partial<MotivationSparkRecord> = {}): Moti
 describe('motivation rotation', () => {
   it('excludes recent spark ids within avoid window', () => {
     const picks: MotivationDailyPickRecord[] = [
-      { dateKey: '2026-06-01', sparkId: 'a', notifiedAt: null, openedAt: null },
-      { dateKey: '2026-06-05', sparkId: 'b', notifiedAt: null, openedAt: null },
+      { dateKey: '2026-06-01', sparkId: 'a', notifiedAt: null, eveningNotifiedAt: null, openedAt: null },
+      { dateKey: '2026-06-05', sparkId: 'b', notifiedAt: null, eveningNotifiedAt: null, openedAt: null },
     ]
 
     const recent = getRecentSparkIds(picks, 7, '2026-06-08')
@@ -55,7 +55,7 @@ describe('motivation rotation', () => {
   it('avoids repeating recent sparks when possible', () => {
     const sparks = [spark('a'), spark('b')]
     const picks: MotivationDailyPickRecord[] = [
-      { dateKey: '2026-06-07', sparkId: 'a', notifiedAt: null, openedAt: null },
+      { dateKey: '2026-06-07', sparkId: 'a', notifiedAt: null, eveningNotifiedAt: null, openedAt: null },
     ]
 
     const chosen = pickDailyMotivationSpark({

@@ -83,15 +83,18 @@ export const MotivationNotificationService = {
     const daily = await MotivationDailyPickService.getDailySpark(todayKey)
     if (!daily) return
 
+    const morningAlreadySent = Boolean(daily.pick.notifiedAt)
     const preferredHour = motivationSettings.preferredHour ?? notificationSettings.preferredHour
     const preferredMinute =
       motivationSettings.preferredMinute ?? notificationSettings.preferredMinute
     const morningTrigger = resolveMotivationNotificationScheduleTime({
       preferredHour,
       preferredMinute,
+      allowSoonFallback: !morningAlreadySent,
     })
 
     if (
+      !morningAlreadySent &&
       shouldScheduleMotivationNotification({
         globalEnabled: notificationSettings.enabled,
         motivationSparkEnabled: notificationSettings.motivationSpark,
@@ -103,7 +106,7 @@ export const MotivationNotificationService = {
     ) {
       const scheduled = await scheduleSparkNotification({
         identifier: buildMotivationDailyNotificationId(todayKey),
-        triggerDate: morningTrigger,
+        triggerDate: morningTrigger!,
         spark: daily.spark,
         variant: 'morning',
         dateKey: todayKey,
@@ -114,12 +117,15 @@ export const MotivationNotificationService = {
       }
     }
 
+    const eveningAlreadySent = Boolean(daily.pick.eveningNotifiedAt)
     const eveningTrigger = resolveMotivationNotificationScheduleTime({
       preferredHour: motivationSettings.eveningHour,
       preferredMinute: motivationSettings.eveningMinute,
+      allowSoonFallback: !eveningAlreadySent,
     })
 
     if (
+      !eveningAlreadySent &&
       shouldScheduleMotivationEveningNotification({
         globalEnabled: notificationSettings.enabled,
         motivationSparkEnabled: notificationSettings.motivationSpark,
@@ -129,13 +135,17 @@ export const MotivationNotificationService = {
         triggerDate: eveningTrigger,
       })
     ) {
-      await scheduleSparkNotification({
+      const scheduled = await scheduleSparkNotification({
         identifier: buildMotivationEveningNotificationId(todayKey),
-        triggerDate: eveningTrigger,
+        triggerDate: eveningTrigger!,
         spark: daily.spark,
         variant: 'evening',
         dateKey: todayKey,
       })
+
+      if (scheduled) {
+        await MotivationDailyPickService.markEveningNotified(todayKey, new Date().toISOString())
+      }
     }
   },
 }

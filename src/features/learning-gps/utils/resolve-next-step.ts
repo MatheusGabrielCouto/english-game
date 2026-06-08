@@ -1,5 +1,10 @@
 import { LEARNING_SKILL_BY_KEY } from '@/features/learning-gps/constants/learning-skills'
 import {
+    buildGpsMentorPracticeHref,
+    mapUnitKindToSkill,
+    resolveGpsMentorPracticeLabel,
+} from '@/features/mentor-ai/utils/resolve-gps-mentor-practice'
+import {
     LearningUnitStatus,
     type DailyStudyBlock,
     type LearningCurriculumSnapshot,
@@ -67,13 +72,21 @@ export const resolveNextStep = (input: {
   )
 
   if (activeUnit) {
+    const practiceInput = {
+      skillKey: mapUnitKindToSkill(activeUnit.kind),
+      title: activeUnit.title,
+      description: activeUnit.description,
+      unitKey: activeUnit.key,
+      unitKind: activeUnit.kind,
+    }
+
     return {
       kind: 'unit',
       title: activeUnit.title,
       description: activeUnit.description,
       emoji: activeUnit.emoji,
-      ctaLabel: activeUnit.practiceLabel,
-      route: activeUnit.practiceRoute,
+      ctaLabel: resolveGpsMentorPracticeLabel(practiceInput),
+      route: buildGpsMentorPracticeHref(practiceInput),
       unitKey: activeUnit.key,
     }
   }
@@ -86,8 +99,17 @@ export const resolveNextStep = (input: {
       title: nextBlock.label,
       description: `${nextBlock.progressMinutes}/${nextBlock.minutes} min do plano de hoje`,
       emoji: nextBlock.emoji,
-      ctaLabel: 'Estudar no Farm',
-      route: '/farm',
+      ctaLabel: resolveGpsMentorPracticeLabel({
+        skillKey: nextBlock.skillKey,
+        title: nextBlock.label,
+        blockId: nextBlock.id,
+      }),
+      route: buildGpsMentorPracticeHref({
+        skillKey: nextBlock.skillKey,
+        title: nextBlock.label,
+        description: `${nextBlock.progressMinutes}/${nextBlock.minutes} min do plano de hoje`,
+        blockId: nextBlock.id,
+      }),
       blockId: nextBlock.id,
     }
   }

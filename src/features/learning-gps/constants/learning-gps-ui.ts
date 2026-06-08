@@ -17,6 +17,7 @@ export const LEARNING_GPS_UI = {
     blocksEmpty: 'Configure seu ritmo no onboarding para ver o plano do dia.',
     blocksProgress: (done: number, total: number) => `${done}/${total} blocos concluídos`,
     goToFarm: 'Estudar no Farm',
+    studyWithAtlas: 'Estudar com o Atlas',
     markDone: 'Marcar feito',
     blockCompleted: 'Concluído',
     blockProgress: (current: number, target: number) => `${current}/${target} min`,

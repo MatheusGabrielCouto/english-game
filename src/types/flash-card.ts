@@ -3,7 +3,8 @@ export type FlashCardSource =
   | 'duel_suggest'
   | 'farm'
   | 'import'
-  | 'pack';
+  | 'pack'
+  | 'mentor';
 
 export type FlashCardState =
   | 'new'

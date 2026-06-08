@@ -47,6 +47,7 @@ import m0043 from "./0043_learning_gps.sql";
 import m0044 from "./0044_learning_gps_daily_plan.sql";
 import m0045 from "./0045_learning_unit_progress.sql";
 import m0046 from "./0046_learning_monthly_reports.sql";
+import m0047 from "./0047_mentor_ai_foundation.sql";
 import journal from "./meta/_journal.json";
 
 export default {
@@ -99,5 +100,6 @@ export default {
     m0044,
     m0045,
     m0046,
+    m0047,
   },
 };

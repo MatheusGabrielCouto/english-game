@@ -455,7 +455,14 @@ export type GameEvent =
       current: number
       best: number
       totalOpens: number
-    };
+    }
+  | { type: 'MENTOR_CHAT_STARTED'; sessionId: string; mode: string }
+  | { type: 'MENTOR_CORRECTION_APPLIED'; errorId: string; category: string }
+  | { type: 'MENTOR_EXERCISE_COMPLETED'; sessionId: string }
+  | { type: 'MENTOR_ROLEPLAY_COMPLETED'; sessionId: string; turns: number }
+  | { type: 'MENTOR_MISSION_ACCEPTED'; missionId: string }
+  | { type: 'MENTOR_MISSION_COMPLETED'; missionId: string }
+  | { type: 'MENTOR_SESSION_COMPLETED'; sessionId: string; durationMinutes: number };
 
 type GameEventListener = (event: GameEvent) => void | Promise<void>;
 type CoalescedAfterBatchTask = () => void | Promise<void>;

@@ -335,6 +335,7 @@ export const motivationDailyPicks = sqliteTable('motivation_daily_picks', {
   dateKey: text('date_key').primaryKey(),
   sparkId: text('spark_id').notNull(),
   notifiedAt: text('notified_at'),
+  eveningNotifiedAt: text('evening_notified_at'),
   openedAt: text('opened_at'),
 });
 
@@ -1290,6 +1291,29 @@ export const lemmaCompetence = sqliteTable('lemma_competence', {
   updatedAt: text('updated_at').notNull(),
 });
 
+export const mentorMemory = sqliteTable('mentor_memory', {
+  key: text('key').primaryKey(),
+  valueJson: text('value_json').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const mentorChatSessions = sqliteTable('mentor_chat_sessions', {
+  id: text('id').primaryKey(),
+  mode: text('mode').notNull(),
+  title: text('title').notNull(),
+  messagesJson: text('messages_json').notNull().default('[]'),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const mentorErrorLog = sqliteTable('mentor_error_log', {
+  id: text('id').primaryKey(),
+  category: text('category').notNull(),
+  original: text('original').notNull(),
+  corrected: text('corrected').notNull(),
+  occurredAt: text('occurred_at').notNull(),
+});
+
 export const schema = {
   player,
   appSettings,
@@ -1394,4 +1418,7 @@ export const schema = {
   duelSessions,
   duelSessionQuestions,
   lemmaCompetence,
+  mentorMemory,
+  mentorChatSessions,
+  mentorErrorLog,
 };

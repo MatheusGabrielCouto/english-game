@@ -524,7 +524,7 @@ Dependências:
 
 - Fase 27 (GPS inteligência)
 
-Status: Planejado
+Status: Concluído
 
 ---
 
@@ -543,7 +543,7 @@ Dependências:
 
 - Fase 28
 
-Status: Planejado
+Status: Concluído
 
 ---
 
@@ -561,7 +561,7 @@ Dependências:
 
 - Fase 29
 
-Status: Planejado
+Status: Concluído
 
 ---
 
@@ -579,7 +579,7 @@ Dependências:
 
 - Fase 29
 
-Status: Planejado
+Status: Concluído
 
 ---
 
@@ -615,7 +615,7 @@ Dependências:
 
 - Fase 29
 
-Status: Planejado
+Status: Concluído
 
 ---
 

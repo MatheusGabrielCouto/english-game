@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="focus_accessibility_service_description">English Quest Focus Mode bloqueia apps distrativos durante sessões de estudo e retorna você ao app automaticamente. Nenhum dado sai do dispositivo.</string>
+    <string name="focus_accessibility_service_label">English Quest Focus Mode</string>
+</resources>

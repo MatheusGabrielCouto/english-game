@@ -1,0 +1,14 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/main/AndroidManifest.xml:1:1-13
+INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/main/AndroidManifest.xml:1:1-13
+	package
+		INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/main/AndroidManifest.xml
+uses-sdk
+INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/main/AndroidManifest.xml
+INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/main/AndroidManifest.xml

@@ -1,8 +1,13 @@
-import { router, type Href } from 'expo-router'
+import { router } from 'expo-router'
 import { Text, View } from 'react-native'
 
 import { Button, ProgressBar } from '@/components'
 import { GameCard } from '@/components/ui/game'
+import {
+    buildGpsMentorPracticeHref,
+    mapUnitKindToSkill,
+    resolveGpsMentorPracticeLabel,
+} from '@/features/mentor-ai/utils/resolve-gps-mentor-practice'
 import { LearningUnitStatus, type LearningCurriculumUnitView } from '@/types/learning-gps'
 
 import { LEARNING_GPS_UI } from '../constants/learning-gps-ui'
@@ -24,8 +29,22 @@ export const LearningCurriculumUnitCard = ({
   const isCompleted = progress.status === LearningUnitStatus.COMPLETED
   const kindLabel = LEARNING_GPS_UI.unitKind[unit.kind]
 
+  const practiceHref = buildGpsMentorPracticeHref({
+    skillKey: mapUnitKindToSkill(unit.kind),
+    title: unit.title,
+    description: unit.description,
+    unitKey: unit.key,
+    unitKind: unit.kind,
+  })
+  const practiceLabel = resolveGpsMentorPracticeLabel({
+    skillKey: mapUnitKindToSkill(unit.kind),
+    title: unit.title,
+    unitKey: unit.key,
+    unitKind: unit.kind,
+  })
+
   const handlePractice = () => {
-    router.push(unit.practiceRoute as Href)
+    router.push(practiceHref)
   }
 
   const handleMarkDone = () => {
@@ -77,7 +96,7 @@ export const LearningCurriculumUnitCard = ({
               </View>
               <View className="mt-3 gap-2">
                 <Button
-                  label={unit.practiceLabel}
+                  label={practiceLabel}
                   size={featured ? 'md' : 'sm'}
                   variant={featured ? 'primary' : 'secondary'}
                   onPress={handlePractice}

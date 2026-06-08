@@ -65,6 +65,15 @@ export const routes = {
   duelsRematchReview: '/duels/rematch-review',
   learningInsights: '/learning-insights',
   learningGps: '/learning-gps',
+  mentor: {
+    dashboard: '/mentor',
+    chat: '/mentor/chat',
+    correct: '/mentor/correct',
+    exercise: '/mentor/exercise',
+    roleplay: '/mentor/roleplay',
+    history: '/mentor/history',
+    settings: '/mentor/settings',
+  },
   routines: '/(tabs)/play?tab=routines',
   /** Entrada principal do Vault — mesma rota da aba Knowledge */
   englishJournal: '/(tabs)/knowledge',

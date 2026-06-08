@@ -19,7 +19,6 @@ const ensureFocusNotificationChannel = async (): Promise<void> => {
     importance: Notifications.AndroidImportance.HIGH,
     vibrationPattern: [0, 400, 200, 400],
     lightColor: '#8b5cf6',
-    sound: 'default',
   });
 };
 

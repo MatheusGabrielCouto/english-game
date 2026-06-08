@@ -33,6 +33,7 @@ const pickAndPersist = async (dateKey: string): Promise<MotivationDailySparkSnap
     dateKey,
     sparkId: chosen.id,
     notifiedAt: null,
+    eveningNotifiedAt: null,
     openedAt: null,
   }
 
@@ -81,6 +82,19 @@ export const MotivationDailyPickService = {
     await MotivationDailyPickRepository.upsert({
       ...pick,
       notifiedAt,
+    })
+  },
+
+  async markEveningNotified(
+    dateKey: string,
+    eveningNotifiedAt = new Date().toISOString(),
+  ): Promise<void> {
+    const pick = await MotivationDailyPickRepository.findByDateKey(dateKey)
+    if (!pick) return
+
+    await MotivationDailyPickRepository.upsert({
+      ...pick,
+      eveningNotifiedAt,
     })
   },
 

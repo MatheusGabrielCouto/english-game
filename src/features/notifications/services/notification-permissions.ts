@@ -25,7 +25,6 @@ export const ensureAndroidChannels = async (): Promise<void> => {
     importance: Notifications.AndroidImportance.HIGH,
     vibrationPattern: [0, 250, 250, 250],
     lightColor: '#8b5cf6',
-    sound: 'default',
   });
 
   await Notifications.setNotificationChannelAsync(ANDROID_DELIGHT_CHANNEL_ID, {
@@ -33,7 +32,6 @@ export const ensureAndroidChannels = async (): Promise<void> => {
     importance: Notifications.AndroidImportance.HIGH,
     vibrationPattern: [0, 120, 80, 200],
     lightColor: '#fbbf24',
-    sound: 'default',
   });
 };
 

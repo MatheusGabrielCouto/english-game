@@ -9,6 +9,7 @@ const mapRow = (row: typeof motivationDailyPicks.$inferSelect): MotivationDailyP
   dateKey: row.dateKey,
   sparkId: row.sparkId,
   notifiedAt: row.notifiedAt,
+  eveningNotifiedAt: row.eveningNotifiedAt ?? null,
   openedAt: row.openedAt,
 })
 
@@ -41,6 +42,7 @@ export const MotivationDailyPickRepository = {
         dateKey: pick.dateKey,
         sparkId: pick.sparkId,
         notifiedAt: pick.notifiedAt,
+        eveningNotifiedAt: pick.eveningNotifiedAt,
         openedAt: pick.openedAt,
       })
       .onConflictDoUpdate({
@@ -48,6 +50,7 @@ export const MotivationDailyPickRepository = {
         set: {
           sparkId: pick.sparkId,
           notifiedAt: pick.notifiedAt,
+          eveningNotifiedAt: pick.eveningNotifiedAt,
           openedAt: pick.openedAt,
         },
       })

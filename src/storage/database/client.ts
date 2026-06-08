@@ -16,6 +16,7 @@ import { reconcileLearningGpsSchema } from './reconcile-learning-gps-schema';
 import { reconcileLearningSystemsSchema } from './reconcile-learning-systems-schema';
 import { reconcileLivingCitySchema } from './reconcile-living-city-schema';
 import { reconcileMemoryWallSchema } from './reconcile-memory-wall-schema';
+import { reconcileMentorAiSchema } from './reconcile-mentor-ai-schema';
 import { reconcileMotivationSparkSchema } from './reconcile-motivation-spark-schema';
 import { reconcileNotificationsSchema } from './reconcile-notifications-schema';
 import { reconcileShopOffersSchema } from './reconcile-shop-offers-schema';
@@ -52,6 +53,7 @@ const repairSchema = (sqlite: ReturnType<typeof openDatabaseSync>): void => {
   reconcileEnglishJournalSchema(sqlite);
   reconcileKnowledgeVaultSchema(sqlite);
   reconcileMotivationSparkSchema(sqlite);
+  reconcileMentorAiSchema(sqlite);
   reconcileShopOffersSchema(sqlite);
 };
 

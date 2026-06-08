@@ -1,6 +1,11 @@
 import { routes } from '@/constants'
 import { LEARNING_SKILL_BY_KEY } from '@/features/learning-gps/constants/learning-skills'
 import {
+    buildGpsMentorPracticeHref,
+    mapUnitKindToSkill,
+    resolveGpsMentorPracticeLabel,
+} from '@/features/mentor-ai/utils/resolve-gps-mentor-practice'
+import {
     LearningSkillKey,
     LearningUnitStatus,
     type LearningCurriculumSnapshot,
@@ -12,30 +17,27 @@ import type { RoutineTodayItem } from '@/types/routine'
 
 import { getSkillLabel } from './detect-skill-weaknesses'
 
-const SKILL_ROUTES: Record<string, { route: string; label: string }> = {
-  vocabulary: { route: routes.farm, label: 'Praticar no Farm' },
-  reading: { route: routes.farm, label: 'Ler no Farm' },
-  listening: { route: routes.farm, label: 'Ouvir no Farm' },
-  speaking: { route: routes.farm, label: 'Conversar no Farm' },
-  writing: { route: routes.englishJournal, label: 'Escrever no Journal' },
-  grammar: { route: routes.duels, label: 'Duelo de gramática' },
-}
-
 const buildWeaknessMission = (
   weakness: LearningSkillWeakness,
   index: number,
 ): LearningPersonalizedMission => {
   const skill = LEARNING_SKILL_BY_KEY[weakness.skillKey]
-  const route = SKILL_ROUTES[weakness.skillKey]
+  const title = `Reforçar ${getSkillLabel(weakness.skillKey)}`
+  const description = `Sua ${skill.label.toLowerCase()} está ${weakness.gapPercent}% abaixo da média das outras skills.`
+  const practiceInput = {
+    skillKey: weakness.skillKey,
+    title,
+    description,
+  }
 
   return {
     id: `weakness-${weakness.skillKey}-${index}`,
     skillKey: weakness.skillKey,
-    title: `Reforçar ${getSkillLabel(weakness.skillKey)}`,
-    description: `Sua ${skill.label.toLowerCase()} está ${weakness.gapPercent}% abaixo da média das outras skills.`,
+    title,
+    description,
     emoji: skill.emoji,
-    practiceRoute: route.route,
-    practiceLabel: route.label,
+    practiceRoute: buildGpsMentorPracticeHref(practiceInput),
+    practiceLabel: resolveGpsMentorPracticeLabel(practiceInput),
     source: 'weakness',
     priority: weakness.priority === 'high' ? 1 : 2,
   }
@@ -52,19 +54,23 @@ const buildCurriculumMission = (
 
   if (!active) return null
 
+  const skillKey = mapUnitKindToSkill(active.kind)
+  const practiceInput = {
+    skillKey,
+    title: active.title,
+    description: active.description,
+    unitKey: active.key,
+    unitKind: active.kind,
+  }
+
   return {
     id: `curriculum-${active.key}`,
-    skillKey:
-      active.kind === 'grammar'
-        ? LearningSkillKey.GRAMMAR
-        : active.kind === 'speaking'
-          ? LearningSkillKey.SPEAKING
-          : LearningSkillKey.VOCABULARY,
+    skillKey,
     title: active.title,
     description: active.description,
     emoji: active.emoji,
-    practiceRoute: active.practiceRoute,
-    practiceLabel: active.practiceLabel,
+    practiceRoute: buildGpsMentorPracticeHref(practiceInput),
+    practiceLabel: resolveGpsMentorPracticeLabel(practiceInput),
     source: 'world',
     priority: 0,
   }

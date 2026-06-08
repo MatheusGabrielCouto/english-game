@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { View } from 'react-native'
 
+import { isMentorAiEnabled } from '@/constants'
 import { StartupPerfService } from '@/services/startup-perf-service'
 
 import { HomeChangelogCard } from '@/features/changelog/components/HomeChangelogCard'
@@ -21,6 +22,7 @@ import { HOME_UI } from '@/features/home/constants/home-ui'
 import { useHomeFocusRefresh } from '@/features/home/hooks/use-home-focus-refresh'
 import { useHomeScreenReady } from '@/features/home/hooks/use-home-screen-ready'
 import { HomeLearningGpsCard } from '@/features/learning-gps/components/HomeLearningGpsCard'
+import { HomeMentorCard } from '@/features/mentor-ai/components/HomeMentorCard'
 import { HomeMotivationSparkCard } from '@/features/motivation-spark/components/HomeMotivationSparkCard'
 import { CoachMarkTarget } from '@/features/tutorial'
 
@@ -49,6 +51,7 @@ export const HomeScreenContent = () => {
           <HomeDoNowCard />
         </CoachMarkTarget>
         <HomeLearningGpsCard />
+        {isMentorAiEnabled() ? <HomeMentorCard /> : null}
         <HomeMotivationSparkCard />
         <HomeStreakCard />
         <HomeActiveObjectivesCard />

@@ -27,9 +27,11 @@ export {
 export {
     canAccessDuels,
     canAccessFlashDeck,
+    canAccessMentorAi,
     featureFlags,
     isDuelsEnabled,
-    isFlashDeckEnabled
+    isFlashDeckEnabled,
+    isMentorAiEnabled
 } from './feature-flags';
 export { fontFamilies, type FontFamilyKey } from './fonts';
 export {

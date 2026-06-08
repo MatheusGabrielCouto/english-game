@@ -99,6 +99,26 @@
       "expo-sharing",
       "expo-dev-client",
       "expo-focus-mode",
+      "expo-mentor-model",
+      "./plugins/withMentorModel.js",
+      [
+        "expo-build-properties",
+        {
+          "newArchEnabled": true,
+          "android": {
+            "largeHeap": true,
+            "buildArchs": ["arm64-v8a"],
+            "extraProguardRules": "-keep class com.rnllama.** { *; }\n"
+          }
+        }
+      ],
+      [
+        "llama.rn",
+        {
+          "enableOpenCL": false,
+          "forceCxx20": true
+        }
+      ],
       [
         "expo-audio",
         {

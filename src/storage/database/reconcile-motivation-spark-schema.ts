@@ -50,9 +50,17 @@ export const reconcileMotivationSparkSchema = (sqlite: SQLiteDatabase): void => 
         date_key text PRIMARY KEY NOT NULL,
         spark_id text NOT NULL,
         notified_at text,
+        evening_notified_at text,
         opened_at text
       )
     `);
+  }
+
+  if (
+    tableExists(sqlite, 'motivation_daily_picks') &&
+    !columnExists(sqlite, 'motivation_daily_picks', 'evening_notified_at')
+  ) {
+    sqlite.execSync(`ALTER TABLE motivation_daily_picks ADD COLUMN evening_notified_at text`);
   }
 
   if (!tableExists(sqlite, 'motivation_settings')) {

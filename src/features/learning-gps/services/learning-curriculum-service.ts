@@ -6,8 +6,8 @@ import {
     mergeCurriculumUnits,
     unlockNextUnit,
 } from '@/features/learning-gps/utils/curriculum-progress'
-import { getNextWorldKey } from '@/features/learning-gps/utils/world-progression'
 import { farmAmountToGpsMinutes } from '@/features/learning-gps/utils/map-farm-activity-to-gps'
+import { getNextWorldKey } from '@/features/learning-gps/utils/world-progression'
 import { GameEvents } from '@/services/game-events'
 import { LearningCurriculumRepository } from '@/storage/repositories/learning-curriculum-repository'
 import { LearningGpsRepository } from '@/storage/repositories/learning-gps-repository'
@@ -154,6 +154,44 @@ export const LearningCurriculumService = {
 
     if (completed) {
       await finalizeUnitCompletion(active.unit.key, profile.currentWorldKey)
+    }
+
+    return completed
+  },
+
+  async creditActiveUnitFromMentor(amount = 1): Promise<boolean> {
+    const profile = await LearningGpsRepository.getOrCreateProfile()
+    const units = getCurriculumForWorld(profile.currentWorldKey)
+    if (units.length === 0) return false
+
+    const active = await LearningCurriculumRepository.getActiveUnit(profile.currentWorldKey, units)
+    if (!active) return false
+
+    const { progress, completed } = applyPracticeCredit(active.unit, active.progress, amount)
+    await LearningCurriculumRepository.saveProgress(progress)
+
+    if (completed) {
+      await finalizeUnitCompletion(active.unit.key, profile.currentWorldKey)
+    }
+
+    return completed
+  },
+
+  async creditUnitFromMentor(unitKey: string, amount = 1): Promise<boolean> {
+    const profile = await LearningGpsRepository.getOrCreateProfile()
+    const units = getCurriculumForWorld(profile.currentWorldKey)
+    const unit = units.find((entry) => entry.key === unitKey)
+    if (!unit) return false
+
+    const existing = await LearningCurriculumRepository.findByKey(unitKey)
+    if (!existing || existing.status === LearningUnitStatus.LOCKED) return false
+    if (existing.status === LearningUnitStatus.COMPLETED) return false
+
+    const { progress, completed } = applyPracticeCredit(unit, existing, amount)
+    await LearningCurriculumRepository.saveProgress(progress)
+
+    if (completed) {
+      await finalizeUnitCompletion(unitKey, profile.currentWorldKey)
     }
 
     return completed

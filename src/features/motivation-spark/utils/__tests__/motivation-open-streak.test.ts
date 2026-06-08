@@ -7,9 +7,9 @@ describe('motivation open streak', () => {
   it('computes consecutive days ending today', () => {
     const streak = computeMotivationOpenStreak(
       [
-        { dateKey: '2026-06-08', sparkId: 'a', notifiedAt: null, openedAt: 't' },
-        { dateKey: '2026-06-07', sparkId: 'a', notifiedAt: null, openedAt: 't' },
-        { dateKey: '2026-06-05', sparkId: 'a', notifiedAt: null, openedAt: 't' },
+        { dateKey: '2026-06-08', sparkId: 'a', notifiedAt: null, eveningNotifiedAt: null, openedAt: 't' },
+        { dateKey: '2026-06-07', sparkId: 'a', notifiedAt: null, eveningNotifiedAt: null, openedAt: 't' },
+        { dateKey: '2026-06-05', sparkId: 'a', notifiedAt: null, eveningNotifiedAt: null, openedAt: 't' },
       ],
       '2026-06-08',
     )
@@ -20,7 +20,7 @@ describe('motivation open streak', () => {
 
   it('returns zero when yesterday and today are missing', () => {
     const streak = computeMotivationOpenStreak(
-      [{ dateKey: '2026-06-01', sparkId: 'a', notifiedAt: null, openedAt: 't' }],
+      [{ dateKey: '2026-06-01', sparkId: 'a', notifiedAt: null, eveningNotifiedAt: null, openedAt: 't' }],
       '2026-06-08',
     )
 

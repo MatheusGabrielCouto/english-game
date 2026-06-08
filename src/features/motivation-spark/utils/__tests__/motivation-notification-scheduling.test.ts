@@ -24,7 +24,7 @@ describe('motivation notification scheduling', () => {
     assert.equal(buildMotivationSparkDeepLinkPath('spark_1'), '/motivation/spark_1')
   })
 
-  it('pushes trigger forward when preferred time already passed', () => {
+  it('returns null when preferred time already passed', () => {
     const referenceDate = new Date(2026, 5, 8, 20, 0, 0)
     const trigger = resolveMotivationNotificationScheduleTime({
       preferredHour: 7,
@@ -32,8 +32,20 @@ describe('motivation notification scheduling', () => {
       referenceDate,
     })
 
-    assert.equal(trigger.getHours(), 20)
-    assert.equal(trigger.getMinutes(), 2)
+    assert.equal(trigger, null)
+  })
+
+  it('uses soon fallback only when explicitly allowed', () => {
+    const referenceDate = new Date(2026, 5, 8, 20, 0, 0)
+    const trigger = resolveMotivationNotificationScheduleTime({
+      preferredHour: 7,
+      preferredMinute: 0,
+      referenceDate,
+      allowSoonFallback: true,
+    })
+
+    assert.equal(trigger?.getHours(), 20)
+    assert.equal(trigger?.getMinutes(), 2)
   })
 
   it('keeps same preferred time when still in the future', () => {

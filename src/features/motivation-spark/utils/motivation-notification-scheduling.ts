@@ -14,18 +14,24 @@ export const resolveMotivationNotificationScheduleTime = (input: {
   preferredHour: number
   preferredMinute: number
   referenceDate?: Date
-}): Date => {
+  /** One-time grace when the slot was missed today (e.g. user just enabled notifications). */
+  allowSoonFallback?: boolean
+}): Date | null => {
   const referenceDate = input.referenceDate ?? new Date()
   const trigger = new Date(referenceDate)
   trigger.setHours(input.preferredHour, input.preferredMinute, 0, 0)
 
-  if (trigger.getTime() <= referenceDate.getTime()) {
+  if (trigger.getTime() > referenceDate.getTime()) {
+    return trigger
+  }
+
+  if (input.allowSoonFallback) {
     const soon = new Date(referenceDate)
     soon.setMinutes(soon.getMinutes() + 2)
     return soon
   }
 
-  return trigger
+  return null
 }
 
 export const shouldScheduleMotivationNotification = (input: {
@@ -34,7 +40,7 @@ export const shouldScheduleMotivationNotification = (input: {
   featureEnabled: boolean
   dailyNotification: boolean
   hasActiveSparks: boolean
-  triggerDate: Date
+  triggerDate: Date | null
   referenceDate?: Date
 }): boolean => {
   if (!input.globalEnabled) return false
@@ -42,6 +48,7 @@ export const shouldScheduleMotivationNotification = (input: {
   if (!input.featureEnabled) return false
   if (!input.dailyNotification) return false
   if (!input.hasActiveSparks) return false
+  if (!input.triggerDate) return false
 
   const referenceDate = input.referenceDate ?? new Date()
   return input.triggerDate.getTime() > referenceDate.getTime()
@@ -53,7 +60,7 @@ export const shouldScheduleMotivationEveningNotification = (input: {
   featureEnabled: boolean
   eveningNotification: boolean
   hasActiveSparks: boolean
-  triggerDate: Date
+  triggerDate: Date | null
   referenceDate?: Date
 }): boolean => {
   if (!input.globalEnabled) return false
@@ -61,6 +68,7 @@ export const shouldScheduleMotivationEveningNotification = (input: {
   if (!input.featureEnabled) return false
   if (!input.eveningNotification) return false
   if (!input.hasActiveSparks) return false
+  if (!input.triggerDate) return false
 
   const referenceDate = input.referenceDate ?? new Date()
   return input.triggerDate.getTime() > referenceDate.getTime()

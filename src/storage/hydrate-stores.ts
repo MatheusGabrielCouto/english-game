@@ -226,6 +226,12 @@ export const hydrateBackgroundServices = async (): Promise<void> => {
     ),
     KnowledgeVaultService.initialize(),
     LearningGpsService.initialize(),
+    import('@/features/mentor-ai/services/mentor-model-bootstrap').then(({ MentorModelBootstrap }) =>
+      MentorModelBootstrap.initialize(),
+    ),
+    import('@/features/mentor-ai/services/mentor-retention-service').then(({ MentorRetentionService }) =>
+      MentorRetentionService.runIfDue(),
+    ),
   ]);
 
   try {

@@ -1,0 +1,7 @@
+expo.modules.mentormodel.expo-mentor-model-pngs-0 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/build/generated/res/pngs/release
+expo.modules.mentormodel.expo-mentor-model-resValues-1 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/build/generated/res/resValues/release
+expo.modules.mentormodel.expo-mentor-model-mergeReleaseResources-2 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
+expo.modules.mentormodel.expo-mentor-model-mergeReleaseResources-3 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+expo.modules.mentormodel.expo-mentor-model-release-4 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/build/intermediates/merged_res/release/mergeReleaseResources
+expo.modules.mentormodel.expo-mentor-model-main-5 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/main/res
+expo.modules.mentormodel.expo-mentor-model-release-6 /Users/matheusgabriel/Estudos/React Native/app-foco/modules/expo-mentor-model/android/src/release/res

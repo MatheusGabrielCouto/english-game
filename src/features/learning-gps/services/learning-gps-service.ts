@@ -10,6 +10,7 @@ import {
     LearningWorldKey,
     type DailyStudyBlock,
     type LearningGpsSnapshot,
+    type LearningSkillKeyValue,
     type LearningWorldKeyValue,
     type LearningWorldRecord,
 } from '@/types/learning-gps'
@@ -45,6 +46,7 @@ import {
 import { LearningCurriculumBridge } from './learning-curriculum-bridge'
 import { LearningCurriculumService } from './learning-curriculum-service'
 import { LearningGpsFarmBridge } from './learning-gps-farm-bridge'
+import { LearningGpsMentorBridge } from './learning-gps-mentor-bridge'
 import { LearningGpsRoutineBridge } from './learning-gps-routine-bridge'
 import { LearningIntelligenceService } from './learning-intelligence-service'
 
@@ -151,6 +153,7 @@ const persistBlockCompletion = async (
 export const LearningGpsService = {
   async initialize(): Promise<void> {
     LearningGpsFarmBridge.initListeners()
+    LearningGpsMentorBridge.initListeners()
     LearningCurriculumBridge.initListeners()
     LearningGpsRoutineBridge.initListeners()
     await LearningGpsRepository.ensureSkillLevels()
@@ -247,6 +250,35 @@ export const LearningGpsService = {
 
     if (category === RoutineCategory.SPEAKING || category === RoutineCategory.CAREER) {
       await LearningCurriculumService.creditFromFarmActivity(FarmActivityType.SPEAKING, 1)
+    }
+
+    return LearningGpsService.refresh()
+  },
+
+  async creditFromMentorStudy(input: {
+    skillKey: LearningSkillKeyValue
+    minutes: number
+    blockId?: string | null
+    unitKey?: string | null
+  }): Promise<LearningGpsSnapshot | null> {
+    const difficulty = useAppStore.getState().difficulty
+    const dateKey = getTodayKey()
+    const dailyPlan = await LearningGpsRepository.getOrCreateDailyPlan(dateKey, difficulty)
+    const blocks = buildDailyStudyBlocks(difficulty, dailyPlan.blockProgress)
+
+    const block =
+      (input.blockId ? blocks.find((entry) => entry.id === input.blockId) : null) ??
+      blocks.find((entry) => !entry.completed && entry.skillKey === input.skillKey)
+
+    if (block) {
+      const { block: updatedBlock, newlyCompleted } = applyMinutesToBlock(block, input.minutes)
+      await persistBlockCompletion(updatedBlock, { ...dailyPlan.blockProgress }, newlyCompleted)
+    }
+
+    if (input.unitKey) {
+      await LearningCurriculumService.creditUnitFromMentor(input.unitKey, 1)
+    } else {
+      await LearningCurriculumService.creditActiveUnitFromMentor(1)
     }
 
     return LearningGpsService.refresh()

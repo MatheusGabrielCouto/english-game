@@ -51,6 +51,7 @@ export type MotivationDailyPickRecord = {
   dateKey: string
   sparkId: string
   notifiedAt: string | null
+  eveningNotifiedAt: string | null
   openedAt: string | null
 }
 
