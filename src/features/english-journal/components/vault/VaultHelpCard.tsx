@@ -35,7 +35,7 @@ export const VaultHelpCard = ({
         accessibilityState={{ expanded: open }}
         accessibilityLabel={title}>
         <View className="flex-row items-center gap-2">
-          <Text className="text-base">💡</Text>
+          <Text className="">💡</Text>
           <Text className="text-sm font-semibold text-foreground">{title}</Text>
         </View>
         <Text className="text-xs text-muted">{open ? 'Ocultar' : 'Ver'}</Text>

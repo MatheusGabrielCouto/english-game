@@ -92,11 +92,21 @@ export const BACKUP_TABLE_NAMES = [
   'duel_sessions',
   'duel_session_questions',
   'lemma_competence',
+  'learning_worlds',
+  'player_learning_profile',
+  'skill_levels',
+  'learning_daily_plans',
+  'learning_unit_progress',
+  'learning_monthly_reports',
   'focus_settings',
   'focus_blocked_apps',
   'focus_sessions',
   'focus_session_events',
   'focus_analytics',
+  'motivation_sparks',
+  'motivation_collections',
+  'motivation_daily_picks',
+  'motivation_settings',
   'punishment_state',
   'punishment_history',
   'punishment_analytics',
@@ -106,7 +116,7 @@ export const BACKUP_TABLE_NAMES = [
 export type BackupTableName = (typeof BACKUP_TABLE_NAMES)[number]
 
 export const BACKUP_EXPORT_SUMMARY =
-  'Jogador, pet, missões, rotinas, cidade, flash decks, duelos, inventário, foco e favoritos do menu — sem áudios nem Knowledge Vault.'
+  'Jogador, pet, missões, rotinas, cidade, flash decks, duelos, inventário, foco, Chama Interior e favoritos do menu — sem áudios nem Knowledge Vault.'
 
 export const BACKUP_MESSAGES = {
   exportSuccess: 'Backup exportado. Escolha onde salvar o arquivo.',

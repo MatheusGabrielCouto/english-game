@@ -70,6 +70,14 @@ export const getMetricValue = (
       return snapshot.stats.totalJournalReviews;
     case 'total_journal_connections':
       return snapshot.stats.totalJournalConnections;
+    case 'total_motivation_sparks':
+      return snapshot.stats.totalMotivationSparks;
+    case 'motivation_open_streak':
+      return snapshot.stats.motivationOpenStreak;
+    case 'best_motivation_open_streak':
+      return snapshot.stats.bestMotivationOpenStreak;
+    case 'total_motivation_opens':
+      return snapshot.stats.totalMotivationOpens;
     default:
       return 0;
   }

@@ -22,14 +22,15 @@ import { FocusModeService } from '@/features/focus-mode/services/focus-mode-serv
 import { FocusPetReactionService } from '@/features/focus-mode/services/focus-pet-reactions';
 import { BoosterModifierCache } from '@/features/game-design/services/booster-modifier-cache';
 import { InventoryService } from '@/features/inventory/services/inventory-service';
+import { LearningGpsService } from '@/features/learning-gps/services/learning-gps-service';
 import { LearningAnalyticsService } from '@/features/learning/services/learning-analytics-service';
 import { LearningIntegrationService } from '@/features/learning/services/learning-integration-service';
 import { LearningMissionBridge } from '@/features/learning/services/learning-mission-bridge';
 import { LemmaCompetenceService } from '@/features/learning/services/lemma-competence-service';
 import { useMenuHubStore } from '@/features/menu-hub/store/menu-hub-store';
 import { MetagameService } from '@/features/metagame/services/metagame-service';
+import { MotivationSparkService } from '@/features/motivation-spark/services/motivation-spark-service';
 import { NotificationService } from '@/features/notifications/services/notification-service';
-import { ReviewPromptService } from '@/features/review-prompt/services/review-prompt-service';
 import { PetMemoryService } from '@/features/pet/services/pet-memory-service';
 import { PetService } from '@/features/pet/services/pet-service';
 import { LevelMilestoneService } from '@/features/player/services/level-milestone-service';
@@ -38,6 +39,7 @@ import { PunishmentService } from '@/features/punishments/services/punishment-se
 import { resetDailyMissionsInDatabase } from '@/features/quests/services/reset-daily-missions';
 import { useMissionsStore } from '@/features/quests/store/missions-store';
 import { getTodayKey } from '@/features/quests/utils/date';
+import { ReviewPromptService } from '@/features/review-prompt/services/review-prompt-service';
 import { RoutineService } from '@/features/routines/services/routine-service';
 import { RpgService } from '@/features/rpg/services/rpg-service';
 import { ShopService } from '@/features/shop/services/shop-service';
@@ -175,7 +177,7 @@ export const hydrateCriticalStores = async (): Promise<void> => {
 
   AndroidWidgetService.init();
   await AndroidWidgetService.ensureSnapshot();
-  void AndroidWidgetService.syncNow();
+  await AndroidWidgetService.syncNow();
 
   StartupPerfService.recordCriticalHydrationMs(Date.now() - startedAt);
 };
@@ -223,6 +225,7 @@ export const hydrateBackgroundServices = async (): Promise<void> => {
       FlashDeckSeedService.initialize(),
     ),
     KnowledgeVaultService.initialize(),
+    LearningGpsService.initialize(),
   ]);
 
   try {
@@ -314,6 +317,8 @@ export const refreshApplicationAfterRestore = async (): Promise<void> => {
   await LearningAnalyticsService.refresh();
   void useFlashDeckStore.getState().refresh();
   await useMenuHubStore.getState().hydrate();
+  await MotivationSparkService.hydrate();
+  await LearningGpsService.refresh();
 
   try {
     await NotificationService.initialize();

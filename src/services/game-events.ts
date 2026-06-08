@@ -2,10 +2,10 @@ import type { WeeklyMissionType } from '@/types/weekly-mission-type';
 
 import { AppLogService } from './app-log-service';
 import {
-  appendGameEventToBatch,
-  drainGameEventBatch,
-  registerCoalescedTask,
-  shouldScheduleGameEventFlush,
+    appendGameEventToBatch,
+    drainGameEventBatch,
+    registerCoalescedTask,
+    shouldScheduleGameEventFlush,
 } from './game-events-batch-policy';
 
 export type GameEvent =
@@ -434,7 +434,28 @@ export type GameEvent =
     }
   | { type: 'JOURNAL_LINK_CREATED'; fromId: string; count: number }
   | { type: 'JOURNAL_COLLECTION_UPDATED'; entryId: string; collectionCount: number }
-  | { type: 'JOURNAL_LIBRARY_TIER_UP'; tier: number; knowledgePoints: number };
+  | { type: 'JOURNAL_LIBRARY_TIER_UP'; tier: number; knowledgePoints: number }
+  | { type: 'MOTIVATION_SPARK_CREATED'; sparkId: string }
+  | { type: 'MOTIVATION_SPARK_UPDATED'; sparkId: string }
+  | { type: 'MOTIVATION_SPARK_DELETED'; sparkId: string }
+  | {
+      type: 'LEARNING_BLOCK_COMPLETED';
+      blockId: string;
+      skillKey: string;
+      minutes: number;
+      skillGain: number;
+      worldProgressGain: number;
+    }
+  | { type: 'LEARNING_UNIT_COMPLETED'; unitKey: string; worldKey: string }
+  | { type: 'LEARNING_WORLD_ADVANCED'; fromWorldKey: string; toWorldKey: string }
+  | { type: 'MOTIVATION_DAILY_PICKED'; sparkId: string; dateKey: string }
+  | { type: 'MOTIVATION_SPARK_OPENED'; sparkId: string; dateKey: string }
+  | {
+      type: 'MOTIVATION_OPEN_STREAK_UPDATED'
+      current: number
+      best: number
+      totalOpens: number
+    };
 
 type GameEventListener = (event: GameEvent) => void | Promise<void>;
 type CoalescedAfterBatchTask = () => void | Promise<void>;

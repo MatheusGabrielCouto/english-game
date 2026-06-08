@@ -6,10 +6,8 @@
   "scripts": {},
   "peerDependencies": {
     "expo": "*",
+    "expo-modules-core": "*",
     "react": "*",
     "react-native": "*"
-  },
-  "dependencies": {
-    "expo-modules-core": "~3.0.29"
   }
 }

@@ -299,7 +299,7 @@ export const DuelBattleContent = () => {
         ) : null}
         {result.rewards.xp > 0 || result.rewards.coins > 0 ? (
           <View className="rounded-xl border border-gold/40 bg-gold/10 px-4 py-3">
-            <Text className="text-center text-base font-black text-gold">
+            <Text className="text-center  font-black text-gold">
               {result.rewards.isConsolation
                 ? DUEL_UI.consolationLine(result.rewards.xp)
                 : DUEL_UI.rewardsLine(result.rewards.xp, result.rewards.coins)}

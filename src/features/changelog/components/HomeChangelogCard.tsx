@@ -27,7 +27,7 @@ export const HomeChangelogCard = () => {
       </View>
 
       <View className="mt-2 flex-row flex-wrap items-center gap-2">
-        <Text className="text-base font-black text-foreground">{entry.title}</Text>
+        <Text className=" font-black text-foreground">{entry.title}</Text>
         <View className="rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5">
           <Text className="text-[10px] font-bold uppercase tracking-wide text-primary">
             {CHANGELOG_UI.versionLabel(entry.version)}

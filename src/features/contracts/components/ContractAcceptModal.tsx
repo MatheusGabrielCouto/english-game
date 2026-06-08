@@ -21,7 +21,7 @@ const BalanceRow = ({
 }) => (
   <View className="gap-1 border-b border-border/60 py-2.5 last:border-b-0">
     <Text className="text-xs text-foreground-secondary">{label}</Text>
-    <Text className={`text-base font-bold ${valueClassName}`} numberOfLines={1}>
+    <Text className={` font-bold ${valueClassName}`} numberOfLines={1}>
       {value}
     </Text>
   </View>

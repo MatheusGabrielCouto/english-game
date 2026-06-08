@@ -168,7 +168,7 @@ export const PetBreedingScreenContent = () => {
                       <Text className="text-[9px] font-bold text-primary">Mais provável</Text>
                     ) : null}
                   </View>
-                  <Text className="text-base font-black text-primary">{o.percent}%</Text>
+                  <Text className=" font-black text-primary">{o.percent}%</Text>
                 </View>
               );
             })}

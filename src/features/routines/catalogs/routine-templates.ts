@@ -126,6 +126,30 @@ export const ROUTINE_TEMPLATES: RoutineTemplate[] = [
     defaultXp: 24,
     defaultCoins: 12,
   },
+  {
+    key: 'listening_podcast',
+    name: 'Podcast em Inglês',
+    description: 'Ouça um episódio ou trecho de podcast.',
+    emoji: '🎧',
+    category: RoutineCategory.LISTENING,
+    frequency: RoutineFrequency.WEEKLY,
+    weekdays: [1, 3, 5],
+    expectedDurationMin: 25,
+    defaultXp: 20,
+    defaultCoins: 10,
+  },
+  {
+    key: 'toefl_mock',
+    name: 'Simulado TOEFL',
+    description: 'Simulado mensal de proficiência em inglês.',
+    emoji: '📝',
+    category: RoutineCategory.ENGLISH_COURSE,
+    frequency: RoutineFrequency.MONTHLY,
+    weekdays: [6],
+    expectedDurationMin: 90,
+    defaultXp: 50,
+    defaultCoins: 25,
+  },
 ];
 
 export const ROUTINE_TEMPLATE_BY_KEY = Object.fromEntries(

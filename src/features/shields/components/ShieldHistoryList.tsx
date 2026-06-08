@@ -30,7 +30,7 @@ export const ShieldHistoryList = ({ limit = 10 }: ShieldHistoryListProps) => {
 
   return (
     <Card elevated>
-      <Text className="mb-4 text-base font-semibold text-foreground">Histórico de uso</Text>
+      <Text className="mb-4  font-semibold text-foreground">Histórico de uso</Text>
       <View className="gap-3">
         {history.map((entry) => (
           <View

@@ -25,7 +25,7 @@ export const CityBuildingCard = ({ building }: CityBuildingCardProps) => {
         <Text className="text-3xl">{isUnlocked ? building.icon : '🔒'}</Text>
         <View className="flex-1 gap-1">
           <View className="flex-row items-center justify-between gap-2">
-            <Text className="flex-1 text-base font-semibold text-foreground">{building.name}</Text>
+            <Text className="flex-1  font-semibold text-foreground">{building.name}</Text>
             {building.isActive ? (
               <Text className="text-xs font-medium text-primary">Atual</Text>
             ) : null}

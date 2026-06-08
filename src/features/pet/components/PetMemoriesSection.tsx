@@ -18,7 +18,7 @@ export const PetMemoriesSection = () => {
 
   return (
     <Card elevated>
-      <Text className="mb-1 text-base font-semibold text-foreground">Álbum de memórias</Text>
+      <Text className="mb-1  font-semibold text-foreground">Álbum de memórias</Text>
       <Text className="mb-3 text-xs leading-relaxed text-foreground-secondary">
         Memórias da sua conta — não resetam ao trocar de pet. Compartilhadas com o companheiro atual.
       </Text>

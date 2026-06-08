@@ -16,7 +16,7 @@ export const PetMessageCard = ({ mood }: PetMessageCardProps) => {
     <Card elevated accent>
       <View className="items-center gap-3 py-2">
         <Text className="text-4xl">{config.emoji}</Text>
-        <Text className="text-center text-base font-medium text-foreground">{config.message}</Text>
+        <Text className="text-center  font-medium text-foreground">{config.message}</Text>
       </View>
     </Card>
   );

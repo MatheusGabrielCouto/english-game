@@ -22,7 +22,7 @@ export const CityMapHeader = ({ summary, resourceBalances }: CityMapHeaderProps)
       </View>
       <View className="items-end">
         <Text className="text-xs text-muted">{CITY_UI.mapVitalityLabel}</Text>
-        <Text className="text-base font-semibold text-foreground">{summary.cityVitality}%</Text>
+        <Text className=" font-semibold text-foreground">{summary.cityVitality}%</Text>
         <Text className="text-[10px] text-muted">
           {summary.vitalityBand === 'high'
             ? CITY_UI.vitalityHigh

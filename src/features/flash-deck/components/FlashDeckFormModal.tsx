@@ -88,7 +88,7 @@ export const FlashDeckFormModal = ({ visible, deck, onClose, onSaved }: FlashDec
             onChangeText={setName}
             placeholder={FLASH_DECK_UI.deckNamePlaceholder}
             placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
-            className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+            className="rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
           />
         </View>
 
@@ -121,7 +121,7 @@ export const FlashDeckFormModal = ({ visible, deck, onClose, onSaved }: FlashDec
             placeholder="Ex.: Palavras para entrevistas em inglês"
             placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
             multiline
-            className="min-h-[72px] rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+            className="min-h-[72px] rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
           />
         </View>
 

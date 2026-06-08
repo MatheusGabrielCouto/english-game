@@ -159,6 +159,17 @@ export const MENU_HUB_ITEMS: MenuHubItemDef[] = [
     pinnable: true,
   },
   {
+    id: 'motivation-spark',
+    label: 'Chama Interior',
+    emoji: '🔥',
+    route: routes.motivation.hub as Href,
+    hint: 'Suas faíscas de motivação',
+    category: 'knowledge',
+    searchKeywords: ['chama', 'motivação', 'motivation', 'faísca', 'spark', 'interior', 'cofre'],
+    exploreId: 'motivation-spark',
+    pinnable: true,
+  },
+  {
     id: 'knowledge-map',
     label: 'Mapa de ideias',
     emoji: '🗺️',

@@ -74,6 +74,7 @@ export const reconcileNotificationsSchema = (sqlite: SQLiteDatabase): void => {
       'season_reminder',
       'prestige_reminder',
       'shop_offer_reminder',
+      'motivation_spark',
     ] as const;
 
     for (const column of featureColumns) {

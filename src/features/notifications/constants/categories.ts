@@ -45,6 +45,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
   [NotificationCategory.SEASON_REMINDER]: 'Temporada',
   [NotificationCategory.PRESTIGE_REMINDER]: 'Prestígio',
   [NotificationCategory.SHOP_OFFER]: 'Ofertas da loja',
+  [NotificationCategory.MOTIVATION_SPARK]: 'Chama Interior',
 };
 
 export const NOTIFICATION_IDENTIFIER_PREFIX = 'eq';

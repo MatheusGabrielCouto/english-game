@@ -61,7 +61,7 @@ export const ProfilePlayerStrip = ({ onEditName }: ProfilePlayerStripProps) => {
 
           <View className="flex-row items-center gap-2 self-start rounded-xl border border-gold/35 bg-gold/10 px-3 py-1.5">
             <Text className="text-[10px] font-bold uppercase text-muted">{PROFILE_UI.playerLevelLabel}</Text>
-            <Text className="text-base font-black text-gold">{level}</Text>
+            <Text className=" font-black text-gold">{level}</Text>
           </View>
         </View>
       </View>
@@ -78,7 +78,7 @@ export const ProfilePlayerStrip = ({ onEditName }: ProfilePlayerStripProps) => {
 
       {activeContract ? (
         <View className="flex-row items-start gap-2 rounded-xl border border-warning/30 bg-warning/10 px-3 py-2.5">
-          <Text className="text-base">📜</Text>
+          <Text className="">📜</Text>
           <View className="min-w-0 flex-1">
             <Text className="text-xs font-bold uppercase text-warning">Contrato ativo</Text>
             <Text className="mt-0.5 text-sm font-semibold text-foreground" numberOfLines={2}>

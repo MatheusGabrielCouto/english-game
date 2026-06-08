@@ -12,17 +12,25 @@ Configuração nativa em `app.json`: `scheme`, `ios.associatedDomains`, `android
 
 ## Rotas públicas
 
-| Path                                                                                 | Destino no app        |
-| ------------------------------------------------------------------------------------ | --------------------- |
-| `/`, `/home`, `/streak`                                                              | Home                  |
-| `/play`, `/missions`                                                                 | Aba Jogar             |
-| `/routines`                                                                          | Jogar → Rotinas       |
-| `/vault`                                                                             | Knowledge Vault       |
-| `/vault/entry/:id`                                                                   | Nota do diário        |
-| `/city?poiKey=&tab=`                                                                 | Cidade + POI          |
-| `/pet`, `/shop`, `/contracts`, `/loot`, `/flash`, `/duels`, `/prestige`, `/metagame` | Telas correspondentes |
-| `/pet-farm/*`                                                                        | Fazenda de pets       |
-| `/focus`                                                                             | Modo foco             |
+| Path                                                                                 | Destino no app              |
+| ------------------------------------------------------------------------------------ | --------------------------- |
+| `/`, `/home`, `/streak`                                                              | Home                        |
+| `/play`, `/missions`                                                                 | Aba Jogar                   |
+| `/routines`                                                                          | Jogar → Rotinas             |
+| `/vault`                                                                             | Knowledge Vault             |
+| `/vault/entry/:id`                                                                   | Nota do diário              |
+| `/motivation`                                                                        | Chama Interior (hub)        |
+| `/motivation/:id`                                                                    | Detalhe da faísca           |
+| `/city?poiKey=&tab=`                                                                 | Cidade + POI                |
+| `/pet`, `/shop`, `/contracts`, `/loot`, `/flash`, `/duels`, `/prestige`, `/metagame` | Telas correspondentes       |
+| `/pet-farm/*`                                                                        | Fazenda de pets             |
+| `/focus`                                                                             | Modo foco                   |
+| `/learning-gps`                                                                      | GPS de Aprendizado          |
+| `/mentor`                                                                            | Mentor Dashboard (Fase 28+) |
+| `/mentor/chat`                                                                       | Chat com Professor Atlas    |
+| `/mentor/correct`                                                                    | Correção de frases          |
+| `/mentor/roleplay`                                                                   | Roleplay / entrevista       |
+| `/mentor/settings`                                                                   | Configurações do Mentor     |
 
 ## Notificações
 

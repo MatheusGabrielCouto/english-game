@@ -83,7 +83,7 @@ export const CityPoiDetailTabs = ({
               TOUCH_TARGET_CHIP_CLASS,
               isActive ? 'border-primary bg-primary' : 'border-border bg-surface',
             )}>
-            <Text className="text-base">{tab.emoji}</Text>
+            <Text className="">{tab.emoji}</Text>
             <Text
               className={cn(
                 'text-xs font-bold',

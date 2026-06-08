@@ -86,6 +86,11 @@ export const ERROR_BOUNDARY_FEATURES = {
     title: 'Focus Mode indisponível',
     hint: 'Sessões anteriores foram salvas. Tente iniciar de novo.',
   },
+  'motivation-spark': {
+    emoji: '🔥',
+    title: 'Chama Interior indisponível',
+    hint: 'Suas faíscas continuam salvas no aparelho. Tente novamente.',
+  },
 } as const
 
 export type ErrorBoundaryFeatureId = keyof typeof ERROR_BOUNDARY_FEATURES

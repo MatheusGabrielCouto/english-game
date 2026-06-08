@@ -2,7 +2,7 @@ import type { Href } from 'expo-router'
 
 import { NotificationCategory, type NotificationCategoryValue } from '@/types/notification'
 
-import { playTabHref, routes, vaultEntryHref } from './routes'
+import { motivationSparkHref, playTabHref, routes, vaultEntryHref } from './routes'
 
 export const DEEP_LINK_SCHEME = 'englishquest'
 export const DEEP_LINK_HOST = 'englishquest.app'
@@ -58,6 +58,7 @@ const NOTIFICATION_CATEGORY_PATHS: Record<NotificationCategoryValue, string> = {
   [NotificationCategory.SEASON_REMINDER]: '/metagame',
   [NotificationCategory.PRESTIGE_REMINDER]: '/prestige',
   [NotificationCategory.SHOP_OFFER]: '/shop',
+  [NotificationCategory.MOTIVATION_SPARK]: '/motivation',
 }
 
 export const buildNotificationDeepLink = (
@@ -83,6 +84,11 @@ export const resolveDeepLinkPathToHref = (path: string, query?: DeepLinkQuery): 
 
   if (segments[0] === 'vault' && segments[1] === 'entry' && segments[2]) {
     return vaultEntryHref(segments[2])
+  }
+
+  if (segments[0] === 'motivation') {
+    if (segments[1]) return motivationSparkHref(segments[1])
+    return routes.motivation.hub
   }
 
   switch (normalized) {

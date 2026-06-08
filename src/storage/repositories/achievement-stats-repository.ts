@@ -16,6 +16,10 @@ const DEFAULT_STATS: AchievementStatsRecord = {
   totalJournalVoiceNotes: 0,
   totalJournalReviews: 0,
   totalJournalConnections: 0,
+  totalMotivationSparks: 0,
+  motivationOpenStreak: 0,
+  bestMotivationOpenStreak: 0,
+  totalMotivationOpens: 0,
 };
 
 const mapRow = (row: typeof achievementStats.$inferSelect): AchievementStatsRecord => ({
@@ -29,6 +33,10 @@ const mapRow = (row: typeof achievementStats.$inferSelect): AchievementStatsReco
   totalJournalVoiceNotes: row.totalJournalVoiceNotes ?? 0,
   totalJournalReviews: row.totalJournalReviews ?? 0,
   totalJournalConnections: row.totalJournalConnections ?? 0,
+  totalMotivationSparks: row.totalMotivationSparks ?? 0,
+  motivationOpenStreak: row.motivationOpenStreak ?? 0,
+  bestMotivationOpenStreak: row.bestMotivationOpenStreak ?? 0,
+  totalMotivationOpens: row.totalMotivationOpens ?? 0,
 });
 
 export const AchievementStatsRepository = {
@@ -50,6 +58,10 @@ export const AchievementStatsRepository = {
       totalJournalVoiceNotes: DEFAULT_STATS.totalJournalVoiceNotes,
       totalJournalReviews: DEFAULT_STATS.totalJournalReviews,
       totalJournalConnections: DEFAULT_STATS.totalJournalConnections,
+      totalMotivationSparks: DEFAULT_STATS.totalMotivationSparks,
+      motivationOpenStreak: DEFAULT_STATS.motivationOpenStreak,
+      bestMotivationOpenStreak: DEFAULT_STATS.bestMotivationOpenStreak,
+      totalMotivationOpens: DEFAULT_STATS.totalMotivationOpens,
     });
 
     return DEFAULT_STATS;
@@ -71,6 +83,10 @@ export const AchievementStatsRepository = {
         totalJournalVoiceNotes: record.totalJournalVoiceNotes,
         totalJournalReviews: record.totalJournalReviews,
         totalJournalConnections: record.totalJournalConnections,
+        totalMotivationSparks: record.totalMotivationSparks,
+        motivationOpenStreak: record.motivationOpenStreak,
+        bestMotivationOpenStreak: record.bestMotivationOpenStreak,
+        totalMotivationOpens: record.totalMotivationOpens,
       })
       .onConflictDoUpdate({
         target: achievementStats.id,
@@ -85,6 +101,10 @@ export const AchievementStatsRepository = {
           totalJournalVoiceNotes: record.totalJournalVoiceNotes,
           totalJournalReviews: record.totalJournalReviews,
           totalJournalConnections: record.totalJournalConnections,
+          totalMotivationSparks: record.totalMotivationSparks,
+          motivationOpenStreak: record.motivationOpenStreak,
+          bestMotivationOpenStreak: record.bestMotivationOpenStreak,
+          totalMotivationOpens: record.totalMotivationOpens,
         },
       });
   },
@@ -186,6 +206,16 @@ export const AchievementStatsRepository = {
     const next = {
       ...stats,
       totalJournalConnections: stats.totalJournalConnections + amount,
+    };
+    await AchievementStatsRepository.save(next);
+    return next;
+  },
+
+  async incrementMotivationSparks(amount = 1): Promise<AchievementStatsRecord> {
+    const stats = await AchievementStatsRepository.getOrCreate();
+    const next = {
+      ...stats,
+      totalMotivationSparks: stats.totalMotivationSparks + amount,
     };
     await AchievementStatsRepository.save(next);
     return next;

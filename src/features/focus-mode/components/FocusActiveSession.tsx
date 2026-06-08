@@ -99,15 +99,15 @@ export const FocusActiveSession = ({
         <View className="mt-4 flex-row gap-4">
           <View className="items-center">
             <Text className="text-xs text-muted">Foco</Text>
-            <Text className="text-base font-bold text-success">{formatTimer(displayFocusedSec)}</Text>
+            <Text className=" font-bold text-success">{formatTimer(displayFocusedSec)}</Text>
           </View>
           <View className="items-center">
             <Text className="text-xs text-muted">Distração</Text>
-            <Text className="text-base font-bold text-warning">{formatTimer(session.distractedSeconds)}</Text>
+            <Text className=" font-bold text-warning">{formatTimer(session.distractedSeconds)}</Text>
           </View>
           <View className="items-center">
             <Text className="text-xs text-muted">XP acum.</Text>
-            <Text className="text-base font-bold text-xp">+{Math.round(displayFocusedSec / 12)}</Text>
+            <Text className=" font-bold text-xp">+{Math.round(displayFocusedSec / 12)}</Text>
           </View>
         </View>
       </GameCard>

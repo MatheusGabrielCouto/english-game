@@ -2,13 +2,13 @@ import { type Href, router } from 'expo-router'
 import { Text, View } from 'react-native'
 
 import { GameCard, PressableScale } from '@/components/ui/game'
-import { HomeStatGrid } from '@/features/home/components/shared/HomeStatGrid'
-import { HomeStatPill } from '@/features/home/components/shared/HomeStatPill'
 import { routes } from '@/constants'
 import { useContractsStore } from '@/features/contracts/store/contracts-store'
-import { HOME_UI } from '@/features/home/constants/home-ui'
 import { HomeSectionLabel } from '@/features/home/components/shared/HomeSectionLabel'
+import { HomeStatGrid } from '@/features/home/components/shared/HomeStatGrid'
+import { HomeStatPill } from '@/features/home/components/shared/HomeStatPill'
 import { RpgProgressBar } from '@/features/home/components/shared/RpgProgressBar'
+import { HOME_UI } from '@/features/home/constants/home-ui'
 import { toProgressPercent } from '@/utils/progress'
 
 export const HomeActiveContractCard = () => {
@@ -23,7 +23,7 @@ export const HomeActiveContractCard = () => {
       >
         <GameCard variant="default" className="border-warning/20">
           <HomeSectionLabel emoji="📜" title={HOME_UI.contract.title} tone="warning" />
-          <Text className="mt-3 text-base font-bold text-foreground">{HOME_UI.contract.emptyTitle}</Text>
+          <Text className="mt-3  font-bold text-foreground">{HOME_UI.contract.emptyTitle}</Text>
           <Text className="mt-1 text-sm text-foreground-secondary">{HOME_UI.contract.emptyBody}</Text>
           <Text className="mt-3 text-xs font-bold text-warning">{HOME_UI.contract.emptyCta} →</Text>
         </GameCard>

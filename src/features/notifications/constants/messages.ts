@@ -45,6 +45,12 @@ export const NOTIFICATION_MESSAGES: Record<string, string[]> = {
     'Estude para desbloquear o próximo prédio.',
     'Sua cidade internacional está esperando.',
   ],
+  [NotificationCategory.MOTIVATION_SPARK]: [
+    'Sua chama pessoal está esperando.',
+    'Você escreveu isso para os dias difíceis.',
+    'Um minuto com o seu porquê.',
+    'Relembre por que você segue em frente.',
+  ],
 };
 
 export const buildStreakRiskBody = (currentStreak: number, seed: number): string => {

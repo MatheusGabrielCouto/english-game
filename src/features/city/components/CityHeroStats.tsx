@@ -27,7 +27,7 @@ export const CityHeroStats = ({
           <GameDisplayText variant="hero" className="text-3xl leading-none text-accent">
             {unlocked}
           </GameDisplayText>
-          <Text className="pb-0.5 text-base font-bold text-muted">/ {total}</Text>
+          <Text className="pb-0.5  font-bold text-muted">/ {total}</Text>
         </View>
       </View>
 

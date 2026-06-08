@@ -2,12 +2,11 @@
 
 Documento de **game design + learning science** para transformar o estudo de inglês em progressão inevitável do RPG — sem telas de “aula”, sem sensação de dever escolar.
 
-> **Relacionados:** `[PRD.md](./PRD.md)`, `[FEATURES.md](./FEATURES.md)`, `[GAMIFICATION_SYSTEMS.md](./GAMIFICATION_SYSTEMS.md)` (retenção/meta), `[LIVING_CITY.md](./LIVING_CITY.md)` (cidade/POIs), farm/vocabulário, pet, contratos, `GameEvents`.
+> **Relacionados:** `[PRD.md](./PRD.md)`, `[FEATURES.md](./FEATURES.md)`, `[ENGLISH_LEARNING_ROADMAP.md](./ENGLISH_LEARNING_ROADMAP.md)` (GPS pedagógico — mundos CEFR, skills, plano diário), `[GAMIFICATION_SYSTEMS.md](./GAMIFICATION_SYSTEMS.md)` (retenção/meta), `[LIVING_CITY.md](./LIVING_CITY.md)` (cidade/POIs), farm/vocabulário, pet, contratos, `GameEvents`.
 
 ---
 
 ## Princípios transversais
-
 
 | Princípio                    | Implicação de design                                                                                                                        |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -16,7 +15,6 @@ Documento de **game design + learning science** para transformar o estudo de ing
 | **SRS embutido**             | Revisão = manutenção do mundo (muro cai, rumor espalha erro, pet “esquece” frase favorita)                                                  |
 | **Reforço emocional**        | Acerto correto desbloqueia reação do pet, trust do NPC, clima da cidade — não só +10 XP                                                     |
 | **Um ledger de competência** | SQLite guarda **domínio por lemma/skill** (reconhecimento → produção → uso em missão) alimentado por todos os sistemas                      |
-
 
 ```mermaid
 flowchart LR
@@ -45,8 +43,6 @@ flowchart LR
   C --> ECO
   PET --> ECO
 ```
-
-
 
 ---
 
@@ -84,7 +80,6 @@ flowchart LR
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema        | Integração                                                                           |
 | -------------- | ------------------------------------------------------------------------------------ |
 | **Cidade**     | `city_poi_projects`, entregas, `visual_stage` — obra = progresso linguístico visível |
@@ -92,7 +87,6 @@ flowchart LR
 | **Economia**   | Moedas aceleram obra, mas **não substituem** tijolos; evita pay-to-skip learning     |
 | **Pet**        | Pet “carrega” tijolo até o POI (missão de entrega = caminhada + recall leve)         |
 | **Inventário** | Tijolos raros (phrasal verbs) ocupam slot de “material de construção”                |
-
 
 ### 4. Retenção e hábito diário
 
@@ -121,7 +115,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema               | Integração                                                                 |
 | --------------------- | -------------------------------------------------------------------------- |
 | **Cidade**            | `requiredPlayerLevel` + chave; POIs `eventOnly` exigem chave sazonal       |
@@ -129,7 +122,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 | **Contratos**         | Contratos em POIs bloqueados só aparecem com chave parcial                 |
 | **Carreira**          | Vagas “remote US” exigem chave `work_visa`                                 |
 | **Títulos**           | Título exibe chave ativa como “carimbo no passaporte”                      |
-
 
 ### 4. Retenção e hábito
 
@@ -158,7 +150,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema                              | Integração                                                              |
 | ------------------------------------ | ----------------------------------------------------------------------- |
 | **Pet**                              | Memórias (`pet-memory`) registram ecos bem-sucedidos como capítulo      |
@@ -166,7 +157,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 | **Focus Mode**                       | Sessão de foco alimenta frases longas para eco noturno                  |
 | **Cidade**                           | NPC trust sobe quando eco do pet coincide com tema do POI               |
 | **Pacto de Ritmo** (GAMIFICATION #1) | Eco noturno só na fase “dormindo” — recompensa maior                    |
-
 
 ### 4. Retenção e hábito
 
@@ -195,7 +185,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema       | Integração                                                |
 | ------------- | --------------------------------------------------------- |
 | **Contratos** | Estende `issuerPoiKey` + templates por carreira           |
@@ -203,7 +192,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 | **Economia**  | Multas e bônus de moedas; seguro consumível do inventário |
 | **Carreira**  | Ramo “interview” exige tribunal de conditional            |
 | **Chains**    | Arco da prefeitura desbloqueia modo tribunal              |
-
 
 ### 4. Retenção e hábito
 
@@ -226,12 +214,11 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 2. Como o inglês é aprendido
 
-- Revisão espaçada **visual e geográfica** — você sabe *onde* revisar.
+- Revisão espaçada **visual e geográfica** — você sabe _onde_ revisar.
 - Áudio + reconhecimento + produção escalonados por estágio do grafite.
 - Palavras “irmãs” restauram juntas se no mesmo cluster semântico.
 
 ### 3. Conexão com outros sistemas
-
 
 | Sistema          | Integração                                                                 |
 | ---------------- | -------------------------------------------------------------------------- |
@@ -239,7 +226,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 | **Farm**         | Nova palavra cria grafite em POI temático correspondente                   |
 | **Eventos**      | Grafites festivos (Natal) expiram com evento — última chance de consolidar |
 | **Estatísticas** | Heatmap de decay por tema para o jogador                                   |
-
 
 ### 4. Retenção e hábito
 
@@ -268,7 +254,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema        | Integração                                                |
 | -------------- | --------------------------------------------------------- |
 | **Inventário** | Categoria `linguistic_token`; loot boxes raras            |
@@ -276,7 +261,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 | **Pet**        | Pet sugere token faltante (hint com custo de felicidade)  |
 | **Loja**       | Vende token sideboard, não power pay-to-win               |
 | **RPG**        | Skills desbloqueiam slots extras no craft                 |
-
 
 ### 4. Retenção e hábito
 
@@ -305,14 +289,12 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema              | Integração                                               |
 | -------------------- | -------------------------------------------------------- |
 | **Farm / speaking**  | Gera e recarrega fichas; qualidade afeta yield           |
 | **Contratos / POIs** | Gates configuráveis por `requires_speaking`              |
 | **Focus Mode**       | Sessão longa converte em ficha bônus                     |
 | **Punishments**      | Falha grave em prova = debuff leve de reputação, não ban |
-
 
 ### 4. Retenção e hábito
 
@@ -341,14 +323,12 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema          | Integração                                               |
 | ---------------- | -------------------------------------------------------- |
 | **Pet**          | Fase dormindo; memória “sonhei com airport”              |
 | **Notificações** | Lembrete noturno opcional, janela silenciosa             |
 | **Cidade**       | Cenários do sonho = POIs visitados recentemente          |
 | **Streak**       | Sonho conta como “toque mínimo” em dias de reconciliação |
-
 
 ### 4. Retenção e hábito
 
@@ -377,14 +357,12 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema              | Integração                                  |
 | -------------------- | ------------------------------------------- |
 | **Cidade / eventos** | `mapThemeKey` + clima ligados               |
 | **Kit de Frase**     | Token `tone` obrigatório em crafts no clima |
 | **Carreira**         | Interview storm alinha com ramo career      |
 | **Títulos**          | Desbloqueiam slots de guarda-roupa          |
-
 
 ### 4. Retenção e hábito
 
@@ -413,14 +391,12 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema                  | Integração                                         |
 | ------------------------ | -------------------------------------------------- |
 | **Career / metagame**    | Substitui métrica vaga por checklist de evidências |
 | **Contratos / tribunal** | Maior fonte de evidências formais                  |
 | **Cidade**               | % cidade deriva de evidências + obras              |
 | **Prestígio**            | Reset mantém evidências “lendárias” encadernadas   |
-
 
 ### 4. Retenção e hábito
 
@@ -449,14 +425,12 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema                             | Integração                                             |
 | ----------------------------------- | ------------------------------------------------------ |
 | **Cidade viva**                     | `activeRumor`, vitalidade, NPC flavor                  |
 | **Gossip graph** (GAMIFICATION #10) | Camada social entre POIs                               |
 | **Farm**                            | Lemma necessário destacado se já estudado mas em decay |
 | **Pet**                             | Pet “ouviu fofoca” — hint para POI certo               |
-
 
 ### 4. Retenção e hábito
 
@@ -485,14 +459,12 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 3. Conexão com outros sistemas
 
-
 | Sistema                | Integração                                            |
 | ---------------------- | ----------------------------------------------------- |
 | **NPC trust** (Fase 7) | Trust = consistência; ressonância = qualidade afetiva |
 | **Chains**             | Passos exigem ressonância mínima                      |
 | **Loja / economia**    | Descontos locais, não global                          |
 | **Pet**                | Pet comenta “você foi gentil com Sam” — reforço moral |
-
 
 ### 4. Retenção e hábito
 
@@ -502,12 +474,11 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 
 ### 5. Evitar “estou estudando”
 
-É **dating sim / social RPG light** — você escolhe palavras que soam certas para *aquela* pessoa.
+É **dating sim / social RPG light** — você escolhe palavras que soam certas para _aquela_ pessoa.
 
 ---
 
 ## Matriz de integração (visão rápida)
-
 
 | Sistema               | Pet     | Cidade     | Economia      | Quests            | Inventário | Farm/SRS | Contratos |
 | --------------------- | ------- | ---------- | ------------- | ----------------- | ---------- | -------- | --------- |
@@ -523,7 +494,6 @@ O jogador **constrói a cidade**, não “revisa deck 4”. UI mostra planta, NP
 | Livro de Evidências   | —       | % cidade   | —             | —                 | —          | ★★       | ★★★       |
 | Rumores Lexicais      | hint    | ★★★        | debuff        | micro             | —          | ★★       | —         |
 | Ressonância NPC       | comenta | ★★★        | loja POI      | chains            | —          | ★★       | ★★        |
-
 
 ---
 
@@ -555,15 +525,13 @@ pragmatics_tag_mastery (
 
 ## Ordem de implementação sugerida (produto)
 
-
 | Fase | Sistemas                                    | Por quê                                               |
 | ---- | ------------------------------------------- | ----------------------------------------------------- |
-| A   | Muro da Memória + Grafite                   | Já existe lexicon/obras/cidade — maior ROI pedagógico |
+| A    | Muro da Memória + Grafite                   | Já existe lexicon/obras/cidade — maior ROI pedagógico |
 | B    | Câmara de Eco + Cache dos Sonhos            | Pet + SRS com baixo escopo de UI                      |
 | C    | Chaves Semânticas + Rumores Lexicais        | Aprofunda mapa e chains existentes                    |
 | D    | Kit de Frase + Clima de Registro            | Camada de crafting pragmático                         |
 | E    | Tribunal + Prova Oral + Livro de Evidências | Gates avançados para jogadores mid/late               |
-
 
 ---
 
@@ -577,4 +545,4 @@ pragmatics_tag_mastery (
 
 ---
 
-*Documento de design — maio/2026. Complementa `GAMIFICATION_SYSTEMS.md` (loops de retenção) com foco em aquisição e retenção linguística invisível.*
+_Documento de design — maio/2026. Complementa `GAMIFICATION_SYSTEMS.md` (loops de retenção) com foco em aquisição e retenção linguística invisível._

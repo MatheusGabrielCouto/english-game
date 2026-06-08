@@ -46,13 +46,13 @@ export const ShopSpPurchaseModal = ({
         <View className="rounded-xl border border-border bg-surface-elevated p-4">
           <View className="flex-row items-center justify-between">
             <Text className={SHOP_TEXT.label}>Custo</Text>
-            <Text className="text-base font-bold text-accent">
+            <Text className=" font-bold text-accent">
               {product.cost.toLocaleString('pt-BR')} SP
             </Text>
           </View>
           <View className="mt-2 flex-row items-center justify-between">
             <Text className={SHOP_TEXT.label}>Seu saldo</Text>
-            <Text className="text-base font-semibold text-foreground">
+            <Text className=" font-semibold text-foreground">
               {balance.toLocaleString('pt-BR')} SP
             </Text>
           </View>
@@ -60,7 +60,7 @@ export const ShopSpPurchaseModal = ({
             <Text className={SHOP_TEXT.label}>Após compra</Text>
             <Text
               className={cn(
-                'text-base font-semibold',
+                ' font-semibold',
                 canAfford ? 'text-foreground' : 'text-warning',
               )}>
               {canAfford ? remaining.toLocaleString('pt-BR') : '—'} SP

@@ -62,7 +62,7 @@ export const RoutineOptionSelect = <T extends string>({
               <View className="min-w-0 flex-1">
                 <Text
                   className={cn(
-                    'text-base font-semibold',
+                    ' font-semibold',
                     selected ? 'text-primary' : 'text-foreground',
                   )}>
                   {option.label}

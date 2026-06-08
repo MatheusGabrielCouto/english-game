@@ -12,9 +12,11 @@ import { reconcileEnglishJournalSchema } from './reconcile-english-journal-schem
 import { reconcileFocusModeSchema } from './reconcile-focus-mode-schema';
 import { reconcileGameDesignSchema } from './reconcile-game-design-schema';
 import { reconcileKnowledgeVaultSchema } from './reconcile-knowledge-vault-schema';
+import { reconcileLearningGpsSchema } from './reconcile-learning-gps-schema';
 import { reconcileLearningSystemsSchema } from './reconcile-learning-systems-schema';
 import { reconcileLivingCitySchema } from './reconcile-living-city-schema';
 import { reconcileMemoryWallSchema } from './reconcile-memory-wall-schema';
+import { reconcileMotivationSparkSchema } from './reconcile-motivation-spark-schema';
 import { reconcileNotificationsSchema } from './reconcile-notifications-schema';
 import { reconcileShopOffersSchema } from './reconcile-shop-offers-schema';
 import { reconcileUserRoutinesSchema } from './reconcile-user-routines-schema';
@@ -44,10 +46,12 @@ const repairSchema = (sqlite: ReturnType<typeof openDatabaseSync>): void => {
   reconcileCityPolishSchema(sqlite);
   reconcileMemoryWallSchema(sqlite);
   reconcileLearningSystemsSchema(sqlite);
+  reconcileLearningGpsSchema(sqlite);
   reconcileContractRunsSchema(sqlite);
   reconcileUserRoutinesSchema(sqlite);
   reconcileEnglishJournalSchema(sqlite);
   reconcileKnowledgeVaultSchema(sqlite);
+  reconcileMotivationSparkSchema(sqlite);
   reconcileShopOffersSchema(sqlite);
 };
 

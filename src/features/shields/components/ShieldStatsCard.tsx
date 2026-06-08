@@ -17,7 +17,7 @@ export const ShieldStatsCard = () => {
 
   return (
     <Card elevated>
-      <Text className="mb-1 text-base font-semibold text-foreground">Estatísticas</Text>
+      <Text className="mb-1  font-semibold text-foreground">Estatísticas</Text>
       <Text className="mb-4 text-sm text-foreground-secondary">
         Resumo do uso e conquista de escudos
       </Text>

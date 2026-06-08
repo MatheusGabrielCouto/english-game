@@ -25,7 +25,7 @@ const FlashDeckListTileComponent = ({ deck, onPress }: FlashDeckListTileProps) =
         <Text className="text-2xl">{deck.coverEmoji ?? FLASH_DECK_UI.emoji}</Text>
       </View>
       <View className="min-w-0 flex-1">
-        <Text className="text-base font-black text-foreground" numberOfLines={1}>
+        <Text className=" font-black text-foreground" numberOfLines={1}>
           {deck.name}
         </Text>
         {deck.description ? (

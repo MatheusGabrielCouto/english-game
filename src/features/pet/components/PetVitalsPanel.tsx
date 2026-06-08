@@ -1,13 +1,13 @@
 import { Text, View } from 'react-native';
 
-import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Card } from '@/components';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 import type { Pet } from '@/types/pet';
 
+import { MOOD_CONFIG } from '../constants';
 import { PET_VITAL_THRESHOLDS } from '../constants/vitals';
 import { PetVitalsService } from '../services/pet-vitals-service';
 import { getAffinityTier } from '../utils/affinity';
-import { MOOD_CONFIG } from '../constants';
 import { ROUTINE_LABELS, getRoutinePhase } from '../utils/routine';
 
 type PetVitalsPanelProps = {
@@ -51,7 +51,7 @@ export const PetVitalsPanel = ({ pet }: PetVitalsPanelProps) => {
   return (
     <Card elevated className="gap-4">
       <View className="flex-row items-center justify-between">
-        <Text className="text-base font-semibold text-foreground">Status</Text>
+        <Text className=" font-semibold text-foreground">Status</Text>
         <Text className="text-sm text-foreground-secondary">
           {routine.emoji} {routine.label} · {moodConfig.emoji} {moodConfig.label}
         </Text>

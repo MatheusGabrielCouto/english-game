@@ -54,7 +54,7 @@ export const TitlesHeroCard = ({ progress, summary }: TitlesHeroCardProps) => {
         <View className="min-w-0 flex-1">
           <Text className="text-2xl font-black text-foreground">
             {summary.unlocked}
-            <Text className="text-base font-medium text-foreground-secondary"> / {summary.total}</Text>
+            <Text className=" font-medium text-foreground-secondary"> / {summary.total}</Text>
           </Text>
           <Text className="mt-0.5 text-xs text-muted">{TITLES_UI.collectionLabel}</Text>
         </View>

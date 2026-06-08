@@ -35,7 +35,7 @@ export const InventoryShieldCard = ({ quantity, hideHeader = false }: InventoryS
           />
         </View>
         <View className="min-w-0 flex-1 gap-2">
-          <Text className="text-base font-bold text-foreground">
+          <Text className=" font-bold text-foreground">
             {quantity > 0 ? 'Proteção ativa' : 'Sem escudos'}
           </Text>
           <Text className="text-sm leading-relaxed text-foreground-secondary">

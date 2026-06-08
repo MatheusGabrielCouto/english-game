@@ -44,6 +44,15 @@ export const HOME_UI = {
     overflow: (count: number) =>
       count === 1 ? '+1 objetivo no Jogar' : `+${count} objetivos no Jogar`,
   },
+  motivationSpark: {
+    title: 'Chama de hoje',
+    subtitle: 'Sua motivação pessoal',
+    emptyTitle: 'Crie sua primeira faísca',
+    emptyBody: 'Guarde frases, fotos ou áudios que te lembram por que você segue em frente.',
+    createCta: 'Nova faísca',
+    openCta: 'Acender agora',
+    openHubCta: 'Abrir Chama Interior',
+  },
   doNow: {
     title: 'Faça agora',
     cta: 'Fazer agora',

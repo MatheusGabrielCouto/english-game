@@ -24,7 +24,7 @@ export const FocusSetupPanel = ({ defaultDuration, onStart }: FocusSetupPanelPro
   if (!FocusMonitorBridge.isSupported()) {
     return (
       <Card elevated>
-        <Text className="text-base font-semibold text-foreground">Focus Mode</Text>
+        <Text className=" font-semibold text-foreground">Focus Mode</Text>
         <Text className="mt-2 text-sm text-foreground-secondary">
           Disponível apenas no Android. Use um build nativo para ativar o monitoramento de distrações.
         </Text>

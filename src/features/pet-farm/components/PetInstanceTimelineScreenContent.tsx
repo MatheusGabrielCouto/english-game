@@ -97,7 +97,7 @@ const TimelineRow = ({
   <View className="flex-row gap-3">
     <View className="items-center">
       <View className="h-9 w-9 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
-        <Text className="text-base">{memory.icon}</Text>
+        <Text className="">{memory.icon}</Text>
       </View>
       {!isLast ? <View className="mt-1 w-0.5 flex-1 bg-border" /> : null}
     </View>

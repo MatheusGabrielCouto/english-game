@@ -5,8 +5,8 @@ import { cn } from '@/utils'
 
 import { AppIcon, type AppIconName } from './AppIcon'
 import { Button } from './Button'
-import { GameCard } from './game'
 import { EmptyStateArt } from './empty-state/EmptyStateArt'
+import { GameCard } from './game'
 
 export type EmptyStateVariant = 'game' | 'vault' | 'farm'
 
@@ -39,7 +39,7 @@ const EmptyStateCopy = ({
       {title}
     </Text>
     {description ? (
-      <Text className="mt-2 text-center text-base leading-6 text-foreground-secondary">
+      <Text className="mt-2 text-center  leading-6 text-foreground-secondary">
         {description}
       </Text>
     ) : null}

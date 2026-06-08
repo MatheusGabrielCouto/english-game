@@ -47,7 +47,7 @@ export const WeeklyMissionCard = ({
       )}
       elevated>
       <View className="mb-2 flex-row items-start justify-between gap-2">
-        <Text className="flex-1 text-base font-semibold text-foreground">{mission.title}</Text>
+        <Text className="flex-1  font-semibold text-foreground">{mission.title}</Text>
         <View className={cn('rounded-md px-2 py-0.5', statusStyles[status])}>
           <Text className="text-xs font-semibold">{statusLabels[status]}</Text>
         </View>

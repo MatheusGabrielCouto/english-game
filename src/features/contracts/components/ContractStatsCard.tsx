@@ -28,7 +28,7 @@ const StatRow = ({ label, value, tone = 'default' }: StatRowProps) => (
   <View className="flex-row items-center gap-3 rounded-xl border border-border bg-surface px-3 py-3">
     <Text className="min-w-0 flex-1 text-sm text-foreground-secondary">{label}</Text>
     <Text
-      className={cn('max-w-[50%] shrink-0 text-right text-base font-black', toneClass[tone])}
+      className={cn('max-w-[50%] shrink-0 text-right  font-black', toneClass[tone])}
       numberOfLines={2}
       adjustsFontSizeToFit
       minimumFontScale={0.85}>

@@ -57,7 +57,7 @@ export type TypographyVariant = keyof typeof typography
 export const typographyClasses = {
   label: 'text-xs font-bold uppercase tracking-widest text-muted',
   body: 'text-sm leading-relaxed text-foreground-secondary',
-  title: 'text-base font-black text-foreground',
+  title: ' font-black text-foreground',
   hero: 'text-2xl font-black text-foreground',
   caption: 'text-[10px] font-semibold text-foreground-secondary',
   subtitle: 'text-xs leading-relaxed text-foreground-secondary',

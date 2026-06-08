@@ -156,6 +156,13 @@ const refreshStore = async (): Promise<void> => {
 };
 
 export const RoutineService = {
+  async getDueTodayItems(): Promise<RoutineTodayItem[]> {
+    const dateKey = getTodayKey();
+    const routines = await RoutineRepository.listActive();
+    const items = await Promise.all(routines.map((routine) => buildTodayItem(routine, dateKey)));
+    return items.filter((item) => item.isDueToday);
+  },
+
   async initialize(): Promise<void> {
     await RoutineService.reconcileMissedPeriods();
     await refreshStore();

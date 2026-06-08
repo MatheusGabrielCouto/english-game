@@ -1,4 +1,0 @@
-expo.modules.focusmode
-string focus_accessibility_service_description
-string focus_accessibility_service_label
-xml focus_accessibility_service_config

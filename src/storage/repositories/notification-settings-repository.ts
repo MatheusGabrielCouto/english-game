@@ -26,6 +26,7 @@ const DEFAULT_SETTINGS: NotificationSettings = {
   seasonReminder: true,
   prestigeReminder: true,
   shopOfferReminder: true,
+  motivationSpark: true,
   updatedAt: new Date().toISOString(),
 };
 
@@ -50,6 +51,7 @@ const mapRow = (row: typeof notificationSettings.$inferSelect): NotificationSett
   seasonReminder: row.seasonReminder ?? true,
   prestigeReminder: row.prestigeReminder ?? true,
   shopOfferReminder: row.shopOfferReminder ?? true,
+  motivationSpark: row.motivationSpark ?? true,
   updatedAt: row.updatedAt,
 });
 
@@ -87,6 +89,7 @@ export const saveNotificationSettings = async (settings: NotificationSettings): 
       seasonReminder: settings.seasonReminder,
       prestigeReminder: settings.prestigeReminder,
       shopOfferReminder: settings.shopOfferReminder,
+      motivationSpark: settings.motivationSpark,
       updatedAt,
     })
     .onConflictDoUpdate({
@@ -112,6 +115,7 @@ export const saveNotificationSettings = async (settings: NotificationSettings): 
         seasonReminder: settings.seasonReminder,
         prestigeReminder: settings.prestigeReminder,
         shopOfferReminder: settings.shopOfferReminder,
+        motivationSpark: settings.motivationSpark,
         updatedAt,
       },
     });

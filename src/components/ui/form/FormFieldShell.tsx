@@ -80,7 +80,7 @@ export const FormFieldShell = ({
               onPress={onClear}
               accessibilityRole="button"
               accessibilityLabel="Limpar campo">
-              <Text className="text-base font-bold text-muted">✕</Text>
+              <Text className=" font-bold text-muted">✕</Text>
             </Pressable>
           </View>
         ) : (

@@ -42,7 +42,7 @@ export const KnowledgeMapNoteSheet = ({
     <View className="gap-3 rounded-2xl border border-primary/30 bg-surface-elevated p-4">
       <View className="flex-row items-start justify-between gap-2">
         <View className="min-w-0 flex-1">
-          <Text className="text-base font-bold text-foreground">{title}</Text>
+          <Text className=" font-bold text-foreground">{title}</Text>
           {reviewLabel ? (
             <Text className={`mt-1 text-xs font-semibold ${REVIEW_TONE[meta.reviewStatus]}`}>
               {reviewLabel}

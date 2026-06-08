@@ -83,7 +83,7 @@ export const CollectionCategoryCard = ({
         </View>
       </View>
 
-      <Text className="mt-3 text-base font-black text-foreground">{category.label}</Text>
+      <Text className="mt-3  font-black text-foreground">{category.label}</Text>
       <Text className="mt-0.5 text-xs text-foreground-secondary">{category.description}</Text>
 
       <View className="mt-3 flex-row items-end justify-between">
@@ -103,7 +103,7 @@ export const CollectionCategoryCard = ({
           <View
             key={`${category.key}-preview-${index}`}
             className="h-8 w-8 items-center justify-center rounded-lg bg-surface/90">
-            <Text className="text-base">{icon}</Text>
+            <Text className="">{icon}</Text>
           </View>
         ))}
         {category.discovered > category.preview.length ? (

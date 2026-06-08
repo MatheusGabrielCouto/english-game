@@ -9,8 +9,11 @@ import {
     DIFFICULTY_ORDER,
     type LearningDifficultyValue,
 } from '@/features/game-design/constants/difficulty'
+import { LEARNING_GPS_UI } from '@/features/learning-gps/constants/learning-gps-ui'
+import { LearningGpsService } from '@/features/learning-gps/services/learning-gps-service'
 import { usePlayerStore } from '@/features/player'
 import { useTutorialStore } from '@/features/tutorial/store/tutorial-store'
+import { LearningWorldKey } from '@/types/learning-gps'
 import { cn, playerNameSchema } from '@/utils'
 import { haptics } from '@/utils/haptics'
 
@@ -42,6 +45,7 @@ export const OnboardingWizardModal = () => {
     setError(null)
     setName(parsed.data.name)
     setDifficulty(selectedDifficulty)
+    void LearningGpsService.completeOnboarding(LearningWorldKey.SURVIVOR)
     completeWizard()
     haptics.success()
     openTutorial(0)
@@ -73,6 +77,21 @@ export const OnboardingWizardModal = () => {
             accessibilityLabel="Nome do jogador"
           />
           {error ? <Text className="mt-2 text-sm text-danger">{error}</Text> : null}
+        </View>
+
+        <View>
+          <Text className="mb-2 text-sm font-semibold text-foreground">
+            {LEARNING_GPS_UI.onboarding.worldTitle}
+          </Text>
+          <View className="mb-4 rounded-xl border border-accent/30 bg-accent/10 px-4 py-3">
+            <Text className="font-semibold text-foreground">🏕️ Survivor · A1</Text>
+            <Text className="mt-1 text-xs text-foreground-secondary">
+              {LEARNING_GPS_UI.onboarding.survivorHint}
+            </Text>
+          </View>
+          <Text className="mb-2 text-xs text-foreground-secondary">
+            {LEARNING_GPS_UI.onboarding.worldSubtitle}
+          </Text>
         </View>
 
         <View>

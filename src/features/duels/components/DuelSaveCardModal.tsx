@@ -29,9 +29,9 @@ export const DuelSaveCardModal = ({
         <Text className="mt-2 text-sm text-foreground-secondary">{DUEL_UI.saveCardBody}</Text>
         <View className="mt-4 rounded-xl border border-border bg-background-secondary/80 p-3">
           <Text className="text-xs font-bold uppercase text-muted">{DUEL_UI.saveCardFrontLabel}</Text>
-          <Text className="mt-1 text-base font-semibold text-foreground">{front}</Text>
+          <Text className="mt-1  font-semibold text-foreground">{front}</Text>
           <Text className="mt-3 text-xs font-bold uppercase text-muted">{DUEL_UI.saveCardBackLabel}</Text>
-          <Text className="mt-1 text-base text-foreground-secondary">{back}</Text>
+          <Text className="mt-1  text-foreground-secondary">{back}</Text>
         </View>
         <View className="mt-4 gap-2">
           <Button

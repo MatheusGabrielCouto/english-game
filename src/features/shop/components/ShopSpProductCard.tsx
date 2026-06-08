@@ -54,8 +54,8 @@ export const ShopSpProductCard = ({
 
       <View className="flex-row items-center justify-between gap-2 border-t border-border/60 pt-3">
         <View className="flex-row items-center gap-1">
-          <Text className="text-base">⚡</Text>
-          <Text className={cn(canAfford ? SHOP_TEXT.priceAccent : SHOP_TEXT.price, compact && 'text-base')}>
+          <Text className="">⚡</Text>
+          <Text className={cn(canAfford ? SHOP_TEXT.priceAccent : SHOP_TEXT.price, compact && '')}>
             {product.cost.toLocaleString('pt-BR')}
           </Text>
         </View>

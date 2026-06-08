@@ -281,6 +281,48 @@
       "when": 1780283000000,
       "tag": "0040_knowledge_vault",
       "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "6",
+      "when": 1780284000000,
+      "tag": "0041_motivation_spark",
+      "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "6",
+      "when": 1780284500000,
+      "tag": "0042_motivation_v11",
+      "breakpoints": true
+    },
+    {
+      "idx": 43,
+      "version": "6",
+      "when": 1780285000000,
+      "tag": "0043_learning_gps",
+      "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "6",
+      "when": 1780285500000,
+      "tag": "0044_learning_gps_daily_plan",
+      "breakpoints": true
+    },
+    {
+      "idx": 45,
+      "version": "6",
+      "when": 1780286000000,
+      "tag": "0045_learning_unit_progress",
+      "breakpoints": true
+    },
+    {
+      "idx": 46,
+      "version": "6",
+      "when": 1780286500000,
+      "tag": "0046_learning_monthly_reports",
+      "breakpoints": true
     }
   ]
 }

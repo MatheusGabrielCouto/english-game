@@ -4,12 +4,12 @@ import { Text, View } from 'react-native'
 
 import { GameCard, PressableScale } from '@/components/ui/game'
 import { routes } from '@/constants'
-import { HOME_UI } from '@/features/home/constants/home-ui'
 import { HomeCardSkeleton } from '@/features/home/components/HomeCardSkeleton'
 import { HomeCardRow } from '@/features/home/components/shared/HomeCardRow'
 import { HomeSectionLabel } from '@/features/home/components/shared/HomeSectionLabel'
-import { HOME_LAYOUT } from '@/features/home/constants/home-layout'
 import { RpgProgressBar } from '@/features/home/components/shared/RpgProgressBar'
+import { HOME_LAYOUT } from '@/features/home/constants/home-layout'
+import { HOME_UI } from '@/features/home/constants/home-ui'
 import { useMissionsStore } from '@/features/quests/store/missions-store'
 import { cn } from '@/utils'
 import { toProgressPercent } from '@/utils/progress'
@@ -78,7 +78,7 @@ export const HomeDailyQuestsCard = () => {
         <View className="mt-4 gap-2.5">
           {previewMissions.map((mission) => (
             <View key={mission.id} className="flex-row items-center gap-2.5">
-              <Text className="text-base">{mission.completed ? '✅' : '⬜'}</Text>
+              <Text className="">{mission.completed ? '✅' : '⬜'}</Text>
               <View className="min-w-0 flex-1">
                 <Text
                   className={cn(

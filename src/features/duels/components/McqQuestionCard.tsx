@@ -61,7 +61,7 @@ export const McqQuestionCard = ({
               </View>
               <Text
                 className={cn(
-                  'flex-1 text-base leading-5',
+                  'flex-1  leading-5',
                   isSelected ? 'font-bold text-foreground' : 'text-foreground-secondary',
                 )}>
                 {choice}

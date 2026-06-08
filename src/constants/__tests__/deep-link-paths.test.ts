@@ -39,3 +39,11 @@ test('resolveDeepLinkUrlToHref maps play and vault entry', () => {
     '/english-journal/entry/abc-123',
   )
 })
+
+test('resolveDeepLinkUrlToHref maps motivation hub and spark detail', () => {
+  assert.equal(resolveDeepLinkUrlToHref('englishquest://motivation'), '/motivation')
+  assert.equal(
+    resolveDeepLinkUrlToHref('englishquest://motivation/spark_123'),
+    '/motivation/spark_123',
+  )
+})

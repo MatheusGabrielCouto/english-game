@@ -86,11 +86,11 @@ export const PetIncubationLab = ({ pet }: PetIncubationLabProps) => {
 
         <View className="px-4 py-6">
           <View className="mb-1 flex-row items-center justify-center gap-2">
-            <Text className="text-base">🔬</Text>
+            <Text className="">🔬</Text>
             <Text className="text-xs font-bold uppercase tracking-wider text-muted">
               {PET_UI.labSpeciesLabel}
             </Text>
-            <Text className="text-base">🧪</Text>
+            <Text className="">🧪</Text>
           </View>
           <Text className="text-center text-lg font-black text-foreground">
             {species.emoji} {species.name}

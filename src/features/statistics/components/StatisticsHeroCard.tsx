@@ -31,7 +31,7 @@ const HeroStat = ({ emoji, label, value, tone = 'primary' }: HeroStatProps) => (
       {emoji} {label}
     </Text>
     <Text
-      className={cn('mt-1 text-base font-black', toneValue[tone])}
+      className={cn('mt-1  font-black', toneValue[tone])}
       numberOfLines={1}
       adjustsFontSizeToFit
       minimumFontScale={0.75}>

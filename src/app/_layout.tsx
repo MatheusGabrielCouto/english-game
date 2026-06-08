@@ -1,9 +1,4 @@
-import { Platform } from 'react-native';
 import 'react-native-gesture-handler';
-
-if (Platform.OS === 'android') {
-  require('@/widgets/android/register');
-}
 
 import '@/global.css';
 import '@/nativewind-setup';

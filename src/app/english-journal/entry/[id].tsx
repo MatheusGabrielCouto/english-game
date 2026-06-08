@@ -181,7 +181,7 @@ export default function VaultEntryDetailRoute() {
           ) : null}
           {entry.body ? (
             <View className="gap-3">
-              <Text className="text-base leading-6 text-foreground">{bodyDisplayText}</Text>
+              <Text className=" leading-6 text-foreground">{bodyDisplayText}</Text>
               <JournalEntryBodyTranslation body={entry.body} />
             </View>
           ) : entry.audioUri ? null : (

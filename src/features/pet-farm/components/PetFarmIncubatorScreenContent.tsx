@@ -113,7 +113,7 @@ export const PetFarmIncubatorScreenContent = () => {
                       'h-9 w-9 items-center justify-center rounded-full',
                       ready ? 'bg-amber-500/25' : 'bg-primary/15',
                     )}>
-                    <Text className="text-base">{ready ? '✨' : '🔥'}</Text>
+                    <Text className="">{ready ? '✨' : '🔥'}</Text>
                   </View>
                 </View>
               );

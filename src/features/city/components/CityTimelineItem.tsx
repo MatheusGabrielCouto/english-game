@@ -72,7 +72,7 @@ export const CityTimelineItem = ({ building, playerLevel, isLast = false }: City
 
           <View className="flex-1">
             <View className="flex-row flex-wrap items-center gap-2">
-              <Text className="text-base font-black text-foreground">{building.name}</Text>
+              <Text className=" font-black text-foreground">{building.name}</Text>
               <View
                 className={cn(
                   'rounded-md px-2 py-0.5',

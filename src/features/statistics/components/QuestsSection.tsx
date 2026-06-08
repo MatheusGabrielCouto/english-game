@@ -22,7 +22,7 @@ const QuestRow = ({
 }) => (
   <View className="gap-2 rounded-xl border border-border bg-surface px-3 py-3">
     <Text className="text-sm font-semibold text-foreground">{label}</Text>
-    <Text className="text-base font-black text-primary">
+    <Text className=" font-black text-primary">
       {formatNumber(completed)} / {formatNumber(total)} · {rate}%
     </Text>
     <ProgressBar value={rate} max={100} variant="xp" height="sm" />

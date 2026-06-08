@@ -3,8 +3,8 @@ import { useCallback, useState } from 'react';
 import { Alert, Text, TextInput, View } from 'react-native';
 
 import { Button } from '@/components';
-import { INPUT_PLACEHOLDER_COLOR } from '@/constants';
 import { ScreenSkeleton } from '@/components/ui/skeleton';
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants';
 import { useAsyncAction } from '@/hooks';
 import type { FlashCardRecord } from '@/types/flash-card';
 
@@ -101,7 +101,7 @@ export const FlashCardDetailContent = () => {
   if (!card) {
     return (
       <View className="gap-4 py-8">
-        <Text className="text-center text-base text-foreground-secondary">
+        <Text className="text-center  text-foreground-secondary">
           Esta carta não existe mais.
         </Text>
         <Button label={FLASH_DECK_UI.backToHub} variant="secondary" onPress={() => router.back()} />
@@ -125,7 +125,7 @@ export const FlashCardDetailContent = () => {
           placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           autoCapitalize="none"
           autoCorrect={false}
-          className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          className="rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
         />
       </View>
 
@@ -136,7 +136,7 @@ export const FlashCardDetailContent = () => {
           onChangeText={setBack}
           placeholder={FLASH_DECK_UI.backPlaceholder}
           placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
-          className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          className="rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
         />
       </View>
 
@@ -149,7 +149,7 @@ export const FlashCardDetailContent = () => {
           placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           autoCapitalize="none"
           multiline
-          className="min-h-[88px] rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          className="min-h-[88px] rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
         />
       </View>
 
@@ -162,7 +162,7 @@ export const FlashCardDetailContent = () => {
           placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           autoCapitalize="none"
           autoCorrect={false}
-          className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          className="rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
         />
       </View>
 

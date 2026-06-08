@@ -1,4 +1,4 @@
-import { Platform } from 'react-native'
+import { AppState, Platform, type AppStateStatus } from 'react-native'
 import { requestWidgetUpdate } from 'react-native-android-widget'
 
 import type { GameEvent } from '@/services/game-events'
@@ -15,6 +15,7 @@ import {
 } from './widget-snapshot'
 
 let initialized = false
+let appStateSubscription: ReturnType<typeof AppState.addEventListener> | null = null
 
 const pushWidgetUpdate = async (snapshot: QuestProgressWidgetSnapshot) => {
   if (Platform.OS !== 'android') return
@@ -37,6 +38,12 @@ const scheduleWidgetSync = debounce(() => {
   void syncWidgetSnapshot()
 }, 400)
 
+const handleAppStateChange = (nextState: AppStateStatus) => {
+  if (nextState === 'active') {
+    scheduleWidgetSync()
+  }
+}
+
 const handleGameEvent = (event: GameEvent) => {
   switch (event.type) {
     case 'DAILY_MISSION_COMPLETED':
@@ -54,6 +61,14 @@ export const AndroidWidgetService = {
     if (initialized || Platform.OS !== 'android') return
     initialized = true
     GameEvents.subscribe(handleGameEvent)
+    appStateSubscription?.remove()
+    appStateSubscription = AppState.addEventListener('change', handleAppStateChange)
+  },
+
+  dispose: () => {
+    appStateSubscription?.remove()
+    appStateSubscription = null
+    initialized = false
   },
 
   syncNow: syncWidgetSnapshot,
@@ -63,12 +78,8 @@ export const AndroidWidgetService = {
     const existing = await loadWidgetSnapshot()
     if (existing.updatedAt !== new Date(0).toISOString()) return existing
 
-    const snapshot = {
-      ...buildWidgetSnapshot(),
-      updatedAt: new Date().toISOString(),
-    }
+    const snapshot = buildWidgetSnapshot()
     await saveWidgetSnapshot(snapshot)
     return snapshot
   },
-
 }

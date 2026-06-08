@@ -2,13 +2,15 @@ import { buildNotificationDeepLink, type DeepLinkQuery } from '@/constants/deep-
 import type { NotificationCategoryValue } from '@/types/notification'
 
 import {
-  ANDROID_DELIGHT_CHANNEL_ID,
-  RICH_ACHIEVEMENT_ANDROID_COLOR,
+    ANDROID_DELIGHT_CHANNEL_ID,
+    RICH_ACHIEVEMENT_ANDROID_COLOR,
 } from '../constants/rich-notification-ui'
 
 export type RichNotificationVisual = {
   heroEmoji: string
   accentColor?: string
+  imageUri?: string
+  tagline?: string
 }
 
 export type RichNotificationContentInput = {
@@ -48,6 +50,7 @@ export const buildRichNotificationPayload = (
   input: RichNotificationContentInput,
 ): RichNotificationPayload => {
   const heroEmoji = input.rich?.heroEmoji
+  const tagline = input.rich?.tagline?.trim()
   const url = buildNotificationDeepLink(input.category, {
     path: input.deepLinkPath,
     query: input.deepLinkQuery,
@@ -58,7 +61,7 @@ export const buildRichNotificationPayload = (
 
   return {
     title: input.title,
-    subtitle: heroEmoji ?? null,
+    subtitle: tagline ?? heroEmoji ?? null,
     body: input.body,
     sound: true,
     data: {

@@ -3,9 +3,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native'
 
 import { NetworkErrorState, VirtualizedList } from '@/components/ui'
-import { VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE } from '@/constants'
 import { ScreenSkeleton } from '@/components/ui/skeleton'
-import { INPUT_PLACEHOLDER_COLOR } from '@/constants'
+import { INPUT_PLACEHOLDER_COLOR, VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE } from '@/constants'
 import { vaultEntryHref } from '@/constants/routes'
 import type { VaultEntryRecord, VaultSpaceKey } from '@/types/knowledge-vault'
 
@@ -115,7 +114,7 @@ export const VaultGlobalSearchContent = () => {
           <Text className="text-sm font-semibold text-foreground">{VAULT_UI.searchLabel}</Text>
           <Text className="text-xs text-foreground-secondary">{VAULT_UI.globalSearchSubtitle}</Text>
           <TextInput
-            className="mt-2 rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+            className="mt-2 rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
             value={query}
             onChangeText={setQuery}
             placeholder={VAULT_UI.searchPlaceholder}

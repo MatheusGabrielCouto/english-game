@@ -6,10 +6,10 @@ import { PressableScale } from '@/components/ui/game';
 import { PetInteractionType, type PetInteractionTypeValue } from '@/types/pet-expansion';
 import { cn } from '@/utils';
 
-import { PET_INTERACTION_CATALOG } from '../constants/pet-interaction-catalog';
-import { PET_UI } from '../constants/pet-ui';
 import { DEFAULT_FOOD_KEY } from '../catalogs/pet-foods-catalog';
 import { DEFAULT_TOY_KEY } from '../catalogs/pet-toys-catalog';
+import { PET_INTERACTION_CATALOG } from '../constants/pet-interaction-catalog';
+import { PET_UI } from '../constants/pet-ui';
 import { usePet } from '../hooks/use-pet';
 import { PetInteractionService } from '../services/pet-interaction-service';
 import { PetVitalsService } from '../services/pet-vitals-service';
@@ -84,7 +84,7 @@ export const PetInteractionGrid = ({ onInteraction }: PetInteractionGridProps) =
   return (
     <Card elevated>
       <View className="mb-3 flex-row items-start justify-between gap-3">
-        <Text className="text-base font-semibold text-foreground">Interações</Text>
+        <Text className=" font-semibold text-foreground">Interações</Text>
         {!cooldown.canInteract ? (
           <Text className="text-xs font-bold text-warning">⏳ {cooldownLabel}</Text>
         ) : (

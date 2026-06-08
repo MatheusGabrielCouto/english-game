@@ -140,7 +140,7 @@ export const FarmScreenContent = () => {
             <View className="flex-row items-start gap-3">
               <Text className="text-3xl">{activity.emoji}</Text>
               <View className="flex-1">
-                <Text className="text-base font-black text-foreground">{activity.name}</Text>
+                <Text className=" font-black text-foreground">{activity.name}</Text>
                 <Text className="text-xs text-foreground-secondary">{activity.description}</Text>
                 <Text className="mt-1 text-[10px] text-muted">
                   {activity.studyPointsPerUnit} SP / {activity.unitLabel.slice(0, -1)} · {activity.coinPerUnit} moedas

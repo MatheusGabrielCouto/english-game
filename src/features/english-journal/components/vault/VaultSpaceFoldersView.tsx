@@ -67,7 +67,7 @@ export const VaultSpaceFoldersView = ({
               accessibilityState={{ expanded: isOpen }}>
               <Text className="text-lg">📁</Text>
               <View className="min-w-0 flex-1">
-                <Text className="text-base font-bold text-foreground">{folder.name}</Text>
+                <Text className=" font-bold text-foreground">{folder.name}</Text>
                 <Text className="text-xs text-foreground-secondary">
                   {VAULT_UI.spaceFolderNotes(folderEntries.length)}
                 </Text>
@@ -104,7 +104,7 @@ export const VaultSpaceFoldersView = ({
             accessibilityState={{ expanded: expanded.__unfiled__ ?? true }}>
             <Text className="text-lg">📄</Text>
             <View className="min-w-0 flex-1">
-              <Text className="text-base font-bold text-foreground">{VAULT_UI.spaceUnfiledSection}</Text>
+              <Text className=" font-bold text-foreground">{VAULT_UI.spaceUnfiledSection}</Text>
               <Text className="text-xs text-foreground-secondary">{VAULT_UI.spaceUnfiledHint}</Text>
             </View>
             <Text className="text-xs text-muted">{expanded.__unfiled__ ? '▼' : '▶'}</Text>

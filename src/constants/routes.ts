@@ -64,9 +64,18 @@ export const routes = {
   duelsPatentExam: '/duels/patent-exam',
   duelsRematchReview: '/duels/rematch-review',
   learningInsights: '/learning-insights',
+  learningGps: '/learning-gps',
   routines: '/(tabs)/play?tab=routines',
   /** Entrada principal do Vault — mesma rota da aba Knowledge */
   englishJournal: '/(tabs)/knowledge',
+  motivation: {
+    hub: '/motivation',
+    create: '/motivation/create',
+    collections: '/motivation/collections',
+    archived: '/motivation/archived',
+    settings: '/motivation/settings',
+    detail: '/motivation',
+  },
 } as const
 
 export const playTabHref = (section: 'missions' | 'routines' = 'missions'): Href =>
@@ -84,3 +93,5 @@ export const vaultSearchHref = (query?: string): Href => {
 export const vaultEntryHref = (id: string): Href => `${routes.vault.entryDetail}/${id}` as Href
 
 export const vaultSpaceHref = (key: string): Href => `${routes.vault.spaceDetail}/${key}` as Href
+
+export const motivationSparkHref = (id: string): Href => `${routes.motivation.detail}/${id}` as Href

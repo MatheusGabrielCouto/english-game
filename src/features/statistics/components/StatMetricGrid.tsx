@@ -30,7 +30,7 @@ const MetricList = ({ metrics }: { metrics: StatMetric[] }) => (
         </Text>
         <Text
           className={cn(
-            'max-w-[45%] shrink-0 text-right text-base font-black',
+            'max-w-[45%] shrink-0 text-right  font-black',
             toneClassName[metric.tone ?? 'default'],
           )}
           numberOfLines={2}
@@ -53,7 +53,7 @@ const MetricGrid = ({ metrics }: { metrics: StatMetric[] }) => (
           {metric.label}
         </Text>
         <Text
-          className={cn('mt-1 text-base font-black', toneClassName[metric.tone ?? 'default'])}
+          className={cn('mt-1  font-black', toneClassName[metric.tone ?? 'default'])}
           numberOfLines={2}
           adjustsFontSizeToFit
           minimumFontScale={0.8}>

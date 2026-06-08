@@ -60,7 +60,7 @@ export const StatisticsInsightsFeed = ({ insights }: StatisticsInsightsFeedProps
         </View>
         <View className="min-w-0 flex-1 gap-1">
           <Text className="text-xs font-bold uppercase tracking-wide text-primary">{categoryLabel}</Text>
-          <Text className="text-base font-bold leading-snug text-foreground">{insight.message}</Text>
+          <Text className=" font-bold leading-snug text-foreground">{insight.message}</Text>
         </View>
       </View>
 

@@ -25,7 +25,8 @@ export type ExploreItemId =
   | 'loot-catalog'
   | 'metagame'
   | 'routines'
-  | 'english-journal';
+  | 'english-journal'
+  | 'motivation-spark';
 
 export type ExploreItemDef = {
   id: ExploreItemId;
@@ -106,6 +107,14 @@ export const EXPLORE_CATEGORIES: ExploreCategoryDef[] = [
         emoji: '📓',
         route: routes.tabs.knowledge as Href,
         tagline: 'Second brain',
+        featured: true,
+      },
+      {
+        id: 'motivation-spark',
+        label: 'Chama Interior',
+        emoji: '🔥',
+        route: routes.motivation.hub as Href,
+        tagline: 'Cofre pessoal',
         featured: true,
       },
       { id: 'focus', label: 'Focus', emoji: '🎯', route: routes.focusMode as Href, tagline: focusTagline, featured: true },

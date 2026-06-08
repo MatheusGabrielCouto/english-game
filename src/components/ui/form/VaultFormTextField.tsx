@@ -59,7 +59,7 @@ export const VaultFormTextField = ({
       fieldId={resolvedFieldId}>
       <TextInput
         className={cn(
-          'rounded-xl border bg-surface px-4 py-3 text-base text-foreground',
+          'rounded-xl border bg-surface px-4 py-3  text-foreground',
           formInputBorderClass(showError),
           multiline && 'min-h-[88px]',
         )}

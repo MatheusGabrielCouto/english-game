@@ -24,7 +24,7 @@ export const SHOP_TEXT = {
   kickerPrimary: 'text-xs font-bold uppercase tracking-widest text-primary',
   kickerNeutral: 'text-xs font-bold uppercase tracking-widest text-foreground-secondary',
   heading: 'text-lg font-black text-foreground',
-  headingSm: 'text-base font-bold text-foreground',
+  headingSm: ' font-bold text-foreground',
   body: 'text-sm leading-relaxed text-foreground-secondary',
   bodySmall: 'text-xs leading-relaxed text-foreground-secondary',
   label: 'text-sm text-foreground-secondary',

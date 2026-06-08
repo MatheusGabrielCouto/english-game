@@ -27,7 +27,7 @@ export const AvailableContractCard = ({
     <View className="flex-row items-start gap-3">
       <Text className="text-3xl">{definition.icon}</Text>
       <View className="min-w-0 flex-1 gap-1">
-        <Text className="text-base font-bold text-foreground" numberOfLines={2}>
+        <Text className=" font-bold text-foreground" numberOfLines={2}>
           {definition.name}
         </Text>
         <Text className="text-sm leading-5 text-foreground-secondary" numberOfLines={3}>
@@ -72,7 +72,7 @@ export const AvailableContractCard = ({
 
     <View className="flex-row items-center gap-3 rounded-xl border border-border bg-surface-elevated px-3 py-3">
       <Text className="min-w-0 flex-1 text-sm text-foreground-secondary">Aposta necessária</Text>
-      <Text className="shrink-0 text-base font-black text-accent">{definition.stakeAmount} 🪙</Text>
+      <Text className="shrink-0  font-black text-accent">{definition.stakeAmount} 🪙</Text>
     </View>
 
     <Button

@@ -107,7 +107,7 @@ export const FocusDurationPicker = ({ valueMinutes, onChangeMinutes }: FocusDura
         <View className="flex-row items-center gap-2">
           <TextInput
             className={cn(
-              'min-w-0 flex-1 rounded-xl border bg-surface px-4 py-3 text-base font-semibold text-foreground',
+              'min-w-0 flex-1 rounded-xl border bg-surface px-4 py-3  font-semibold text-foreground',
               showError ? 'border-danger' : !isPreset ? 'border-primary' : 'border-border',
             )}
             value={input}

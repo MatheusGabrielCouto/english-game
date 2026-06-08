@@ -41,6 +41,7 @@ const CATEGORY_KEYS = [
   { key: 'seasonReminder' as const, category: NotificationCategory.SEASON_REMINDER },
   { key: 'prestigeReminder' as const, category: NotificationCategory.PRESTIGE_REMINDER },
   { key: 'shopOfferReminder' as const, category: NotificationCategory.SHOP_OFFER },
+  { key: 'motivationSpark' as const, category: NotificationCategory.MOTIVATION_SPARK },
 ];
 
 export const NotificationSettingsSection = () => {

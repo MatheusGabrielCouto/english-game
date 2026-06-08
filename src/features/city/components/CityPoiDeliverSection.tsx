@@ -119,7 +119,7 @@ export const CityPoiDeliverSection = ({ poiKey, isUnlocked }: CityPoiDeliverSect
           <View className="flex-row items-start gap-2">
             <Text className="text-2xl">{project.resourceEmoji}</Text>
             <View className="min-w-0 flex-1">
-              <Text className="text-base font-bold text-foreground">{project.title}</Text>
+              <Text className=" font-bold text-foreground">{project.title}</Text>
               <Text className="mt-1 text-sm leading-5 text-foreground-secondary">
                 {project.description}
               </Text>

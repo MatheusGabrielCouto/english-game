@@ -23,7 +23,7 @@ export const StudyHistoryList = ({ studyDays }: StudyHistoryListProps) => {
 
   return (
     <Card elevated>
-      <Text className="mb-4 text-base font-semibold text-foreground">Histórico recente</Text>
+      <Text className="mb-4  font-semibold text-foreground">Histórico recente</Text>
       <View className="gap-3">
         {studyDays.map((dateKey) => (
           <View

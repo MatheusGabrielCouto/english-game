@@ -41,7 +41,7 @@ const textVariantStyles: Record<ButtonVariant, string> = {
 
 const textSizeStyles: Record<ButtonSize, string> = {
   sm: 'text-sm',
-  md: 'text-base',
+  md: '',
   lg: 'text-lg',
 };
 

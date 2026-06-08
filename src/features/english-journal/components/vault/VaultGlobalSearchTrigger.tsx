@@ -20,7 +20,7 @@ export const VaultGlobalSearchTrigger = ({ query }: VaultGlobalSearchTriggerProp
       accessibilityRole="button"
       accessibilityLabel={VAULT_UI.globalSearchOpen}
       className="flex-row items-center gap-3 rounded-2xl border border-border bg-surface px-4 py-3">
-      <Text className="text-base">🔍</Text>
+      <Text className="">🔍</Text>
       <View className="min-w-0 flex-1">
         <Text className="text-sm font-semibold text-foreground">
           {query?.trim() ? query.trim() : VAULT_UI.globalSearchTrigger}

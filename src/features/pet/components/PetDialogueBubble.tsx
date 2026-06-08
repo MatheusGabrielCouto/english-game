@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 
 import { Card } from '@/components';
 
@@ -13,7 +13,7 @@ export const PetDialogueBubble = ({ message, petName }: PetDialogueBubbleProps) 
   return (
     <Card elevated accent className="border-accent/30">
       <Text className="mb-1 text-xs font-bold uppercase tracking-widest text-accent">{petName} diz:</Text>
-      <Text className="text-base leading-6 text-foreground">{message}</Text>
+      <Text className=" leading-6 text-foreground">{message}</Text>
     </Card>
   );
 };

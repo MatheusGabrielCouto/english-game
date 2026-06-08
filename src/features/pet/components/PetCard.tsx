@@ -35,7 +35,7 @@ export const PetCard = ({ pet }: PetCardProps) => {
 
       <View className="mt-4 rounded-xl border border-border bg-surface px-4 py-3">
         <Text className="text-xs text-foreground-secondary">Próxima evolução</Text>
-        <Text className="mt-1 text-base font-semibold text-foreground">{nextStageLabel}</Text>
+        <Text className="mt-1  font-semibold text-foreground">{nextStageLabel}</Text>
       </View>
     </Card>
   );

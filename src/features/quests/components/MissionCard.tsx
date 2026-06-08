@@ -1,5 +1,3 @@
-import { memo, useEffect, useRef } from 'react'
-import { Text, View } from 'react-native'
 import { AppIcon } from '@/components/ui/AppIcon'
 import { PressableScale } from '@/components/ui/game'
 import { CARD_METADATA_TEXT_CLASS, theme } from '@/constants'
@@ -7,6 +5,8 @@ import { CATEGORY_ICONS, CATEGORY_LABELS } from '@/features/game-design/constant
 import { DIFFICULTY_LABELS, DIFFICULTY_STYLES } from '@/features/quests/constants/mission-ui'
 import type { Mission } from '@/types/mission'
 import { cn, haptics } from '@/utils'
+import { memo, useEffect, useRef } from 'react'
+import { Text, View } from 'react-native'
 
 import { MissionCoinFloat } from './MissionCoinFloat'
 import { MissionIconMorph } from './MissionIconMorph'
@@ -103,7 +103,7 @@ export const MissionCard = memo(({ mission, onComplete, isCompleting = false }: 
 
               <Text
                 className={cn(
-                  'mt-1.5 text-base font-bold leading-snug text-foreground',
+                  'mt-1.5  font-bold leading-snug text-foreground',
                   mission.completed && 'text-foreground-secondary line-through',
                 )}>
                 {mission.title}

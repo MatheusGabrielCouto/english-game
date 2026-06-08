@@ -85,7 +85,7 @@ export const VaultHubNav = ({ active, linkMode = 'tab' }: VaultHubNavProps) => {
           TOUCH_TARGET_MIN_CLASS,
           'items-center justify-center rounded-2xl border border-border bg-surface',
         )}>
-        <Text className="text-base">🔍</Text>
+        <Text className="">🔍</Text>
       </Pressable>
     </View>
   );

@@ -52,7 +52,7 @@ const HomeEventBlock = ({
           <Text className="text-2xl">{emoji}</Text>
         </View>
         <View className={HOME_LAYOUT.growBlock}>
-          <Text className="text-base font-black text-foreground" numberOfLines={2}>
+          <Text className=" font-black text-foreground" numberOfLines={2}>
             {title}
           </Text>
           <Text className="mt-0.5 text-sm leading-5 text-foreground-secondary" numberOfLines={2}>

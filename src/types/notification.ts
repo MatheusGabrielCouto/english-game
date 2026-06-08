@@ -19,6 +19,7 @@ export const NotificationCategory = {
   SEASON_REMINDER: 'season_reminder',
   PRESTIGE_REMINDER: 'prestige_reminder',
   SHOP_OFFER: 'shop_offer',
+  MOTIVATION_SPARK: 'motivation_spark',
 } as const;
 
 export type NotificationCategoryValue =
@@ -65,6 +66,7 @@ export type NotificationSettings = {
   seasonReminder: boolean;
   prestigeReminder: boolean;
   shopOfferReminder: boolean;
+  motivationSpark: boolean;
   updatedAt: string;
 };
 
@@ -84,6 +86,8 @@ export type NotificationHistoryRecord = {
 export type NotificationRichVisual = {
   heroEmoji: string;
   accentColor?: string;
+  imageUri?: string;
+  tagline?: string;
 };
 
 export type NotificationCandidate = {

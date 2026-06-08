@@ -24,7 +24,7 @@ export const RoutineListItem = ({ item, onToggle, loading }: RoutineListItemProp
     <Card elevated accent={!completed}>
       <View className="flex-row items-start justify-between gap-2">
         <View className="flex-1">
-          <Text className="text-base font-black text-foreground">{routine.name}</Text>
+          <Text className=" font-black text-foreground">{routine.name}</Text>
           {routine.description ? (
             <Text className="mt-0.5 text-xs text-foreground-secondary" numberOfLines={2}>
               {routine.description}

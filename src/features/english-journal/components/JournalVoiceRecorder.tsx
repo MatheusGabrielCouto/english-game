@@ -2,10 +2,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 
 import { Button } from '@/components';
+import { prepareAudioSessionForRecording } from '@/services/audio/audio-playback';
 import { cn } from '@/utils';
 
 import { JOURNAL_UI } from '../constants/journal-ui';
 import { JOURNAL_VOICE_RECORDING_OPTIONS } from '../constants/journal-voice-recording';
+import { useJournalVoicePlayback } from '../services/journal-voice-playback';
 import { JournalVoicePlayer } from './JournalVoicePlayer';
 
 type JournalVoiceRecorderProps = {
@@ -74,15 +76,27 @@ const InnerRecorder = ({
     return () => clearInterval(tick);
   }, [recorderState.isRecording, onRecordingChange, recordingUri]);
 
-  const handleStart = useCallback(async () => {
-    if (!permissionGranted) {
+  const beginRecording = useCallback(async () => {
+    const status = await AudioModule.requestRecordingPermissionsAsync();
+    if (!status.granted) {
       Alert.alert('Microfone', JOURNAL_UI.micPermissionDenied);
-      return;
+      return false;
     }
+    setPermissionGranted(true);
+
+    useJournalVoicePlayback.getState().stop();
+
+    const ready = await prepareAudioSessionForRecording();
+    if (!ready) {
+      Alert.alert('Gravação', 'Não foi possível preparar o microfone. Tente novamente.');
+      return false;
+    }
+
     await recorder.prepareToRecordAsync();
     recorder.record();
     startedAtRef.current = Date.now();
-  }, [permissionGranted, recorder]);
+    return true;
+  }, [AudioModule, recorder]);
 
   const handlePause = useCallback(async () => {
     if (!recorderState.isRecording) return;
@@ -97,10 +111,12 @@ const InnerRecorder = ({
   }, [onRecordingChange, recorder, recorderState.isRecording]);
 
   const handleResume = useCallback(async () => {
-    await recorder.prepareToRecordAsync();
-    recorder.record();
-    startedAtRef.current = Date.now();
-  }, [recorder]);
+    try {
+      await beginRecording();
+    } catch {
+      Alert.alert('Gravação', 'Não foi possível continuar a gravação. Tente gravar de novo.');
+    }
+  }, [beginRecording]);
 
   const handleFinish = useCallback(async () => {
     if (recorderState.isRecording) {
@@ -149,7 +165,7 @@ const InnerRecorder = ({
         </Text>
       </View>
 
-      {hasClip && recordingUri ? (
+      {hasClip && recordingUri && !isRecording ? (
         <View className="mt-4">
           <JournalVoicePlayer
             entryId={`preview-${recordingUri}`}
@@ -162,7 +178,15 @@ const InnerRecorder = ({
 
       <View className="mt-4 flex-row flex-wrap justify-center gap-2">
         {!isRecording && !hasClip ? (
-          <Button label="Gravar" size="sm" onPress={() => void handleStart()} />
+          <Button
+            label="Gravar"
+            size="sm"
+            onPress={() => {
+              void beginRecording().catch(() => {
+                Alert.alert('Gravação', 'Não foi possível iniciar a gravação. Tente novamente.');
+              });
+            }}
+          />
         ) : null}
         {isRecording ? (
           <>

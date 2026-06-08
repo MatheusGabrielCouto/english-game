@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 
 import { Button, FormSheetModal } from '@/components';
-import { INPUT_PLACEHOLDER_COLOR } from '@/constants';
 import { VaultFormTextField } from '@/components/ui/form/VaultFormTextField';
+import { INPUT_PLACEHOLDER_COLOR } from '@/constants';
 import {
     JournalCategory,
     JournalEntryType,
@@ -27,8 +27,7 @@ import { VAULT_UI } from '../constants/vault-ui';
 import { useJournalAudioTranscription } from '../hooks/use-journal-audio-transcription';
 import { KnowledgeVaultService } from '../services/knowledge-vault-service';
 import { useVaultCollectionsStore } from '../store/vault-collections-store';
-import { entryTypeRequiresAudio, resolveAudioUpdatePayload } from '../utils/journal-form';
-import { validateJournalBody, validateJournalTitle } from '../utils/journal-form';
+import { entryTypeRequiresAudio, resolveAudioUpdatePayload, validateJournalBody, validateJournalTitle } from '../utils/journal-form';
 import { resolveVaultOrganizeContext } from '../utils/vault-organize-context';
 import { JournalEntryImageAttachments } from './JournalEntryImageAttachments';
 import { JournalEntryOptionalAudio } from './JournalEntryOptionalAudio';
@@ -506,7 +505,7 @@ export const JournalEntryFormModal = ({
 
                 <VaultField label={JOURNAL_UI.tagsLabel} hint={JOURNAL_UI.tagsHint}>
                   <TextInput
-                    className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+                    className="rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
                     value={tagsInput}
                     onChangeText={setTagsInput}
                     placeholder={JOURNAL_UI.tagsPlaceholder}

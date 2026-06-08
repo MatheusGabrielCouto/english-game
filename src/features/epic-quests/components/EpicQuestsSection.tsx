@@ -58,7 +58,7 @@ export const EpicQuestsSection = ({ missions, showHeader = true }: EpicQuestsSec
                 <Text className="text-[10px] font-bold uppercase tracking-widest text-legendary">
                   Epic Quest
                 </Text>
-                <Text className="mt-1 text-base font-bold text-foreground">{mission.title}</Text>
+                <Text className="mt-1  font-bold text-foreground">{mission.title}</Text>
                 <Text className="mt-1 text-sm leading-relaxed text-foreground-secondary">
                   {mission.description}
                 </Text>

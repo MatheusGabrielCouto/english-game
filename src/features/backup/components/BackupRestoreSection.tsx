@@ -23,7 +23,7 @@ export const BackupRestoreSection = () => {
       <Card elevated>
         <View className="gap-3">
           <View>
-            <Text className="text-base font-semibold text-foreground">Exportar backup</Text>
+            <Text className=" font-semibold text-foreground">Exportar backup</Text>
             <Text className="mt-1 text-sm leading-5 text-foreground-secondary">
               Salve uma cópia completa em JSON — Arquivos, iCloud, Google Drive ou compartilhamento.
             </Text>
@@ -54,7 +54,7 @@ export const BackupRestoreSection = () => {
       <Card elevated accent>
         <View className="gap-3">
           <View>
-            <Text className="text-base font-semibold text-foreground">Importar backup</Text>
+            <Text className=" font-semibold text-foreground">Importar backup</Text>
             <Text className="mt-1 text-sm leading-5 text-foreground-secondary">
               Restaure seu progresso a partir de um arquivo .json exportado anteriormente.
             </Text>

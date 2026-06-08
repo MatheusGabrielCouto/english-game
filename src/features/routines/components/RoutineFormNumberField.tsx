@@ -2,9 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Pressable, Text, TextInput, View } from 'react-native'
 import Animated from 'react-native-reanimated'
 
-import { formInputBorderClass } from '@/constants/form-validation-ui'
 import { getFormFieldInputA11y, resolveFormFieldErrorId } from '@/components/ui/form/form-field-a11y'
 import { useFormFieldShake } from '@/components/ui/form/useFormFieldShake'
+import { formInputBorderClass } from '@/constants/form-validation-ui'
 import { cn } from '@/utils'
 
 import { ROUTINE_FORM_INPUT } from '../constants/routine-form-limits'
@@ -142,7 +142,7 @@ export const RoutineFormNumberField = ({
                 'items-center justify-center rounded-xl border border-border bg-surface',
                 !canClear && 'opacity-0',
               )}>
-              <Text className="text-base font-bold text-muted">✕</Text>
+              <Text className=" font-bold text-muted">✕</Text>
             </Pressable>
           ) : null}
         </View>

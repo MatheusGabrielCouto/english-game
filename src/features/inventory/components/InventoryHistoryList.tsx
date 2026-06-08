@@ -5,8 +5,8 @@ import { EmptyState } from '@/components'
 import { VirtualizedList } from '@/components/ui'
 import { GameCard } from '@/components/ui/game'
 import {
-  VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE,
-  VIRTUALIZED_LIST_THRESHOLD,
+    VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE,
+    VIRTUALIZED_LIST_THRESHOLD,
 } from '@/constants'
 import type { AcquisitionHistoryRecord } from '@/types/inventory'
 import { InventoryCategory } from '@/types/inventory'
@@ -53,7 +53,7 @@ const HistoryRow = ({
     <View className={`flex-row gap-3 px-4 py-3 ${isLast ? '' : 'border-b border-border/60'}`}>
       <View className="items-center">
         <View className="h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface">
-          <Text className="text-base">{emoji}</Text>
+          <Text className="">{emoji}</Text>
         </View>
         {!isLast ? <View className="mt-1 w-px flex-1 bg-border/60" /> : null}
       </View>

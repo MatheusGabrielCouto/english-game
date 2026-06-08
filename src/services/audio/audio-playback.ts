@@ -62,6 +62,27 @@ export const configureAudioMode = async (): Promise<void> => {
   }
 }
 
+/** Switches session to recording before prepareToRecordAsync (playback uses allowsRecording: false). */
+export const prepareAudioSessionForRecording = async (): Promise<boolean> => {
+  if (!(await ensureAudioNative()) || !expoAudioModule) return false
+
+  try {
+    await expoAudioModule.setIsAudioActiveAsync(true)
+    await expoAudioModule.setAudioModeAsync({
+      playsInSilentMode: true,
+      shouldPlayInBackground: false,
+      interruptionMode: 'doNotMix',
+      allowsRecording: true,
+    })
+    return true
+  } catch (error) {
+    AppLogService.warn('audio.recording_mode_failed', 'Recording audio mode setup failed', {
+      message: error instanceof Error ? error.message : String(error),
+    })
+    return false
+  }
+}
+
 export const playAudioUri = async (
   uri: string,
   onFinished?: () => void,

@@ -4,8 +4,8 @@ import { GameCard } from '@/components/ui/game';
 import { ContractStatus, type ContractRunRecord } from '@/types/contract';
 import { cn } from '@/utils';
 
-import { CONTRACTS_BY_KEY } from '../constants/default-contracts';
 import { CONTRACTS_UI } from '../constants/contracts-ui';
+import { CONTRACTS_BY_KEY } from '../constants/default-contracts';
 import { getStatusLabel } from '../utils/progress';
 
 type ContractHistoryListProps = {
@@ -45,7 +45,7 @@ export const ContractHistoryList = ({ history }: ContractHistoryListProps) => {
             <View className="flex-row items-start gap-3">
               <Text className="text-2xl">{definition?.icon ?? '📜'}</Text>
               <View className="min-w-0 flex-1 gap-1">
-                <Text className="text-base font-bold text-foreground" numberOfLines={2}>
+                <Text className=" font-bold text-foreground" numberOfLines={2}>
                   {definition?.name ?? entry.contractKey}
                 </Text>
                 <Text className="text-sm text-foreground-secondary">

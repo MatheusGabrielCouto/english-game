@@ -44,7 +44,9 @@ Referência completa de todas as funcionalidades do aplicativo: o que cada uma f
 34. [Dificuldade de aprendizado](#dificuldade-de-aprendizado)
 35. [Baralho Vivo (Flash Deck)](#baralho-vivo-flash-deck)
 36. [Duelos de Inglês](#duelos-de-inglês)
-37. [Documentação relacionada](#documentação-relacionada)
+37. [Chama Interior](#chama-interior)
+38. [GPS de Aprendizado](#gps-de-aprendizado)
+39. [Documentação relacionada](#documentação-relacionada)
 
 ---
 
@@ -785,14 +787,14 @@ Afeta: quantidade de dailies/weeklies/epics, scaling de XP/moedas.
 
 **Rotas:** `/flash-deck`, revisão, deck/cartão, import CSV, MCQ, Blitz.
 
-| Recurso | Descrição |
-| ------- | --------- |
-| SRS SM-2 | 4 botões + swipe; estados new/learning/mature/leech |
-| Multi-deck | Cadernos com tags, busca, caps diários |
-| Modos M8 | Revisão MCQ, Blitz 2 min, import CSV (`expo-document-picker`) |
-| Leech helper | Suspender ou recomeçar cartas com 8+ lapsos |
-| Notificações | Lembrete local quando há cartas due (se notificações ativas) |
-| Integração | Duelo de cartas (5 due), sugestão pós-erro no duelo |
+| Recurso      | Descrição                                                     |
+| ------------ | ------------------------------------------------------------- |
+| SRS SM-2     | 4 botões + swipe; estados new/learning/mature/leech           |
+| Multi-deck   | Cadernos com tags, busca, caps diários                        |
+| Modos M8     | Revisão MCQ, Blitz 2 min, import CSV (`expo-document-picker`) |
+| Leech helper | Suspender ou recomeçar cartas com 8+ lapsos                   |
+| Notificações | Lembrete local quando há cartas due (se notificações ativas)  |
+| Integração   | Duelo de cartas (5 due), sugestão pós-erro no duelo           |
 
 **Serviços:** `FlashDeckService`, `FlashSrsService`, `FlashNotificationService`.
 
@@ -804,14 +806,14 @@ Afeta: quantidade de dailies/weeklies/epics, scaling de XP/moedas.
 
 **Rotas:** `/duels`, battle, prova de patente, rematch.
 
-| Recurso | Descrição |
-| ------- | --------- |
-| Combate | HP, combo, MCQ 4 alternativas, stamina 5/dia |
-| Patentes | Prova 15 perguntas (80%) para subir de liga |
-| Boss semanal | 1×/semana, bônus de moedas |
-| Timer B1+ | 15s por pergunta (Estagiário+) |
-| Conteúdo | Pacotes JSON A1–B2 + ledger de lemmas |
-| Economia | Cap diário de moedas em duelos ranqueados |
+| Recurso      | Descrição                                    |
+| ------------ | -------------------------------------------- |
+| Combate      | HP, combo, MCQ 4 alternativas, stamina 5/dia |
+| Patentes     | Prova 15 perguntas (80%) para subir de liga  |
+| Boss semanal | 1×/semana, bônus de moedas                   |
+| Timer B1+    | 15s por pergunta (Estagiário+)               |
+| Conteúdo     | Pacotes JSON A1–B2 + ledger de lemmas        |
+| Economia     | Cap diário de moedas em duelos ranqueados    |
 
 **Serviços:** `DuelService`, `DuelProfileService`, `LemmaCompetenceService`, `McqQuestionService`.
 
@@ -823,33 +825,100 @@ Ver também: [`BATTLE_AND_FLASHCARD_SYSTEMS.md`](./BATTLE_AND_FLASHCARD_SYSTEMS.
 
 ---
 
+## Chama Interior
+
+**Rotas:** `/motivation`, `/motivation/create`, `/motivation/collections`, `/motivation/[id]`, `/motivation/settings`.
+
+| Recurso            | Descrição                                                                                             |
+| ------------------ | ----------------------------------------------------------------------------------------------------- |
+| Faíscas multimídia | Texto, até 5 imagens, 1 áudio, até 3 links por spark                                                  |
+| Coleções           | Pastas temáticas; filtro e picker no formulário                                                       |
+| Busca e filtros    | Full-text em título/corpo; favoritas e fixadas no hub                                                 |
+| Rotação diária     | Algoritmo com peso, pin e janela `avoidRepeatDays`                                                    |
+| Home               | Card “Chama de hoje” (`showOnHome` nas configs da feature)                                            |
+| Notificações       | Lembrete diário + opcional “última chama”; rich com imagem; deep link `englishquest://motivation/:id` |
+| Toggle global      | `motivationSpark` em Perfil → Notificações                                                            |
+| Backup             | Tabelas motivation no JSON do jogo; export ZIP com mídia nas configurações da feature                 |
+| Conquistas         | Primeira faísca; 7 dias abrindo a chama                                                               |
+
+**Serviços:** `MotivationSparkService`, `MotivationCollectionService`, `MotivationDailyPickService`, `MotivationNotificationService`, `MotivationMediaExportService`.
+
+**Armazenamento de mídia:** `motivation-images/`, `motivation-audio/` em `documentDirectory`.
+
+Ver especificação completa: [`CHAMA_INTERIOR_MOTIVATION_VAULT.md`](./CHAMA_INTERIOR_MOTIVATION_VAULT.md).
+
+---
+
+## GPS de Aprendizado
+
+Sistema guiado de estudo de inglês — mundos CEFR (Survivor A1 → Legend C2), skills 0–100, plano diário/semanal, rotinas, SRS e checkpoint mensal. Responde “o que estudar agora” na Home.
+
+**Fase 22:** card na Home, tela `/learning-gps`, mundos CEFR, skills 0–100, plano diário por dificuldade.
+
+**Fase 23:** blocos com progresso diário, conclusão via Farm ou manual, skill + progresso do mundo.
+
+**Fase 24:** currículo Survivor A1 — 13 unidades, checkpoint 2 min, integração Farm + Duelos.
+
+**Fase 25:** mundos Explorer → Legend (A2–C2) — catálogo completo por mundo, checkpoints com metas finais, avanço automático ao completar checkpoint, badge de mundo concluído.
+
+**Fase 26:** rotinas no plano do dia — seção no GPS e Home, conclusão credita blocos/skills, modelos podcast e simulado TOEFL mensal, bridge `ROUTINE_COMPLETED`.
+
+**Fase 27:** inteligência — detecção de fraquezas (regra 70%), missões personalizadas, plano semanal + projeto, checkpoint mensal em `learning_monthly_reports`, blocos prioritários no plano do dia.
+
+**GPS completo (Fases 22–27).** Ver [`ENGLISH_LEARNING_ROADMAP.md`](./ENGLISH_LEARNING_ROADMAP.md).
+
+---
+
+## Mentor IA Offline (Professor Atlas)
+
+Professor particular de inglês **100% on-device** — chat, correção, exercícios, flashcards, roleplay, entrevistas e missões personalizadas. Consome SQLite (GPS, skills, rotinas, duelos) via `AIContextBuilder`.
+
+**Roadmap:** Fases 28–34. Ver [`MENTOR_AI_OFFLINE.md`](./MENTOR_AI_OFFLINE.md).
+
+| Fase | Escopo                                        |
+| ---- | --------------------------------------------- |
+| 28   | Fundação — schema, context builder, dashboard |
+| 29   | Chat livre + modelo local                     |
+| 30   | Correção ❌✅💡                               |
+| 31   | Exercícios + flashcards                       |
+| 32   | Missões geradas por IA                        |
+| 33   | Roleplay + entrevistas                        |
+| 34   | Voz (STT/TTS)                                 |
+
+---
+
 ## Documentação relacionada
 
-| Documento                                              | Conteúdo                                                         |
-| ------------------------------------------------------ | ---------------------------------------------------------------- |
-| [`PRD.md`](./PRD.md)                                   | Requisitos de produto                                            |
-| [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md)   | Roadmap de fases                                                 |
-| [`PET_SYSTEM.md`](./PET_SYSTEM.md)                     | Sistema de pet expandido                                         |
-| [`BALANCE_AUDIT.md`](./BALANCE_AUDIT.md)               | Auditoria de economia                                            |
-| [`REWARDS_CATALOG.md`](./REWARDS_CATALOG.md)           | Catálogo completo de recompensas                                 |
-| [`GAMIFICATION_SYSTEMS.md`](./GAMIFICATION_SYSTEMS.md) | Ideias avançadas de sistemas (retenção, pet)                     |
-| [`AUDIO_SYSTEM.md`](./AUDIO_SYSTEM.md)                 | Sistema de áudio integrado (SFX, ambient, música, GameEvents)    |
-| [`LIVING_CITY.md`](./LIVING_CITY.md)                   | Cidade Viva — mapa, POIs, eventos sazonais, vocabulário temático |
-| [`BATTLE_AND_FLASHCARD_SYSTEMS.md`](./BATTLE_AND_FLASHCARD_SYSTEMS.md) | Baralho Vivo + Duelos (roadmap M0–M8) |
+| Documento                                                                    | Conteúdo                                                         |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| [`PRD.md`](./PRD.md)                                                         | Requisitos de produto                                            |
+| [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md)                         | Roadmap de fases                                                 |
+| [`ENGLISH_LEARNING_ROADMAP.md`](./ENGLISH_LEARNING_ROADMAP.md)               | GPS de aprendizado — mundos, skills, plano diário                |
+| [`MENTOR_AI_OFFLINE.md`](./MENTOR_AI_OFFLINE.md)                             | Mentor IA offline — Professor Atlas, LLM local, fases 28–34      |
+| [`PET_SYSTEM.md`](./PET_SYSTEM.md)                                           | Sistema de pet expandido                                         |
+| [`BALANCE_AUDIT.md`](./BALANCE_AUDIT.md)                                     | Auditoria de economia                                            |
+| [`REWARDS_CATALOG.md`](./REWARDS_CATALOG.md)                                 | Catálogo completo de recompensas                                 |
+| [`GAMIFICATION_SYSTEMS.md`](./GAMIFICATION_SYSTEMS.md)                       | Ideias avançadas de sistemas (retenção, pet)                     |
+| [`AUDIO_SYSTEM.md`](./AUDIO_SYSTEM.md)                                       | Sistema de áudio integrado (SFX, ambient, música, GameEvents)    |
+| [`LIVING_CITY.md`](./LIVING_CITY.md)                                         | Cidade Viva — mapa, POIs, eventos sazonais, vocabulário temático |
+| [`BATTLE_AND_FLASHCARD_SYSTEMS.md`](./BATTLE_AND_FLASHCARD_SYSTEMS.md)       | Baralho Vivo + Duelos (roadmap M0–M8)                            |
+| [`CHAMA_INTERIOR_MOTIVATION_VAULT.md`](./CHAMA_INTERIOR_MOTIVATION_VAULT.md) | Cofre de motivação pessoal multimídia                            |
 
 ---
 
 ## Funcionalidades planejadas (não implementadas)
 
-| Feature                        | Fase                                                                            |
-| ------------------------------ | ------------------------------------------------------------------------------- |
-| Cidade Viva (mapa + POIs)      | Ver `LIVING_CITY.md` — fases 1–6 (Natal MVP em dev: `DEV_FORCE_CITY_EVENT_KEY`) |
-| Calendário de eventos (Natal…) | `LIVING_CITY.md` fase 6                                                         |
-| Backup/Restore JSON            | Fase 17–18                                                                      |
-| Focus Mode (Android)           | Implementado (módulo nativo)                                                    |
-| Punishments (perda XP/coins)   | Implementado                                                                    |
-| Baralho Vivo + Duelos          | M0–M8 — ver `BATTLE_AND_FLASHCARD_SYSTEMS.md`                                    |
-| IA conversacional no pet       | Pós-MVP                                                                         |
+| Feature                                              | Fase                                                                            |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Cidade Viva (mapa + POIs)                            | Ver `LIVING_CITY.md` — fases 1–6 (Natal MVP em dev: `DEV_FORCE_CITY_EVENT_KEY`) |
+| Calendário de eventos (Natal…)                       | `LIVING_CITY.md` fase 6                                                         |
+| Backup/Restore JSON                                  | Fase 17–18                                                                      |
+| Focus Mode (Android)                                 | Implementado (módulo nativo)                                                    |
+| Punishments (perda XP/coins)                         | Implementado                                                                    |
+| Baralho Vivo + Duelos                                | M0–M8 — ver `BATTLE_AND_FLASHCARD_SYSTEMS.md`                                   |
+| GPS — blocos completáveis, rotinas, relatório mensal | Fase 23–27 — ver `ENGLISH_LEARNING_ROADMAP.md`                                  |
+| Mentor IA offline (Professor Atlas)                  | Fases 28–34 — ver `MENTOR_AI_OFFLINE.md`                                        |
+| IA conversacional no pet (LLM)                       | Substituída pelo Mentor IA; pet mantém diálogos catalogados offline             |
 
 ---
 

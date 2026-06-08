@@ -71,7 +71,7 @@ Definida em `src/constants/typography.ts`. Use `typographyClasses` ou classes `g
 | Variante      | Classes NativeWind                                       | Quando usar                              |
 | ------------- | -------------------------------------------------------- | ---------------------------------------- |
 | `label`       | `text-xs font-bold uppercase tracking-widest text-muted` | Seções, badges, metadados                |
-| `title`       | `text-base font-black text-foreground`                   | Títulos de card                          |
+| `title`       | ` font-black text-foreground`                            | Títulos de card                          |
 | `body`        | `text-sm leading-relaxed text-foreground-secondary`      | Parágrafos, hints                        |
 | `hero`        | `text-2xl font-black text-foreground`                    | Corpo longo, subtítulos grandes          |
 | `display`     | `font-display text-game-display`                         | Títulos curtos de tela/card              |

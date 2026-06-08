@@ -4,11 +4,11 @@ import { INPUT_PLACEHOLDER_COLOR } from '@/constants'
 import { JournalEntryType, type JournalEntryTypeValue, type JournalStatsRecord } from '@/types/journal'
 
 import { VAULT_UI } from '../../constants/vault-ui'
+import { VaultHubNav } from '../VaultHubNav'
 import { VaultEmptyState } from './VaultEmptyState'
 import { VaultGlobalSearchTrigger } from './VaultGlobalSearchTrigger'
 import { VaultHelpCard } from './VaultHelpCard'
 import { VaultHeroCard } from './VaultHeroCard'
-import { VaultHubNav } from '../VaultHubNav'
 import { VaultQuickAction } from './VaultQuickAction'
 import { VaultSectionHeader } from './VaultSectionHeader'
 
@@ -99,7 +99,7 @@ export const VaultLibraryListHeader = ({
           <Text className="text-sm font-semibold text-foreground">{VAULT_UI.searchLabel}</Text>
           <Text className="text-xs text-foreground-secondary">{VAULT_UI.searchHint}</Text>
           <TextInput
-            className="mt-2 rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+            className="mt-2 rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
             value={search}
             onChangeText={onSearchChange}
             placeholder={VAULT_UI.searchPlaceholder}

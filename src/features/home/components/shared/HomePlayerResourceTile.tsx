@@ -51,7 +51,7 @@ export const HomePlayerResourceTile = ({
         className,
       )}>
       <View className="flex-row items-center gap-1.5">
-        <Text className="text-base">{emoji}</Text>
+        <Text className="">{emoji}</Text>
         <Text
           className="min-w-0 flex-1 text-[10px] font-semibold uppercase tracking-wide text-foreground-secondary"
           numberOfLines={1}>

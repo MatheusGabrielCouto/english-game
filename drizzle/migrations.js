@@ -41,6 +41,12 @@ import m0037 from "./0037_flash_deck_interview_tech.sql";
 import m0038 from "./0038_user_routines.sql";
 import m0039 from "./0039_english_journal.sql";
 import m0040 from "./0040_knowledge_vault.sql";
+import m0041 from "./0041_motivation_spark.sql";
+import m0042 from "./0042_motivation_v11.sql";
+import m0043 from "./0043_learning_gps.sql";
+import m0044 from "./0044_learning_gps_daily_plan.sql";
+import m0045 from "./0045_learning_unit_progress.sql";
+import m0046 from "./0046_learning_monthly_reports.sql";
 import journal from "./meta/_journal.json";
 
 export default {
@@ -87,5 +93,11 @@ export default {
     m0038,
     m0039,
     m0040,
+    m0041,
+    m0042,
+    m0043,
+    m0044,
+    m0045,
+    m0046,
   },
 };

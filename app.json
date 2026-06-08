@@ -126,11 +126,11 @@
             {
               "name": "QuestProgressWidget",
               "label": "English Quest",
-              "description": "Streak e próxima missão do dia",
-              "minWidth": "250dp",
-              "minHeight": "110dp",
+              "description": "Streak, nível, XP e missões do dia",
+              "minWidth": "320dp",
+              "minHeight": "185dp",
               "targetCellWidth": 4,
-              "targetCellHeight": 2,
+              "targetCellHeight": 3,
               "resizeMode": "horizontal|vertical",
               "previewImage": "./assets/splash-icon.png",
               "updatePeriodMillis": 1800000

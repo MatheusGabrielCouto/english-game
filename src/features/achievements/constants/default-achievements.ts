@@ -533,6 +533,29 @@ const BASE_ACHIEVEMENTS: AchievementDefinition[] = [
       { type: AchievementRewardType.TITLE, titleKey: 'english_scholar', label: 'Título: English Scholar' },
     ],
   },
+  {
+    key: 'motivation_first_spark',
+    name: 'Primeira faísca',
+    description: 'Guarde sua primeira chama no cofre pessoal.',
+    category: AchievementCategory.MISSIONS,
+    metric: 'total_motivation_sparks',
+    target: 1,
+    icon: '🔥',
+    rewards: [{ type: AchievementRewardType.COINS, amount: 25, label: '25 moedas' }],
+  },
+  {
+    key: 'motivation_open_streak_7',
+    name: 'Chama acesa',
+    description: 'Abra sua chama 7 dias seguidos.',
+    category: AchievementCategory.STREAK,
+    metric: 'best_motivation_open_streak',
+    target: 7,
+    icon: '🕯️',
+    rewards: [
+      { type: AchievementRewardType.COINS, amount: 75, label: '75 moedas' },
+      { type: AchievementRewardType.SHIELD, amount: 1, label: '1 escudo' },
+    ],
+  },
 ];
 
 export const ACHIEVEMENT_DEFINITIONS: AchievementDefinition[] = [

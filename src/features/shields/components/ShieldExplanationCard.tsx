@@ -12,7 +12,7 @@ export const ShieldExplanationCard = () => {
 
   return (
     <Card elevated>
-      <Text className="mb-1 text-base font-semibold text-foreground">Como funcionam</Text>
+      <Text className="mb-1  font-semibold text-foreground">Como funcionam</Text>
       <Text className="mb-4 text-sm text-foreground-secondary">
         Escudos protegem sua sequência automaticamente quando você perde um dia de estudo.
         Nenhuma ação manual é necessária.

@@ -11,7 +11,7 @@ type ActiveContractCardProps = {
 const DetailRow = ({ label, value }: { label: string; value: string }) => (
   <View className="flex-row items-center gap-3 rounded-xl border border-border bg-surface px-3 py-3">
     <Text className="min-w-0 flex-1 text-sm text-foreground-secondary">{label}</Text>
-    <Text className="shrink-0 text-base font-black text-foreground">{value}</Text>
+    <Text className="shrink-0  font-black text-foreground">{value}</Text>
   </View>
 );
 

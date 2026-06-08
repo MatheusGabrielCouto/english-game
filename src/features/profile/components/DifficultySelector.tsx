@@ -2,9 +2,9 @@ import { Pressable, Text, View } from 'react-native';
 
 import { Card } from '@/components';
 import {
-  DIFFICULTY_CONFIG,
-  DIFFICULTY_ORDER,
-  type LearningDifficultyValue,
+    DIFFICULTY_CONFIG,
+    DIFFICULTY_ORDER,
+    type LearningDifficultyValue,
 } from '@/features/game-design/constants/difficulty';
 import { cn } from '@/utils';
 
@@ -16,7 +16,7 @@ type DifficultySelectorProps = {
 export const DifficultySelector = ({ value, onChange }: DifficultySelectorProps) => (
   <Card elevated>
     <Text className="text-sm text-foreground-secondary">Ritmo de aprendizado</Text>
-    <Text className="mt-1 text-base text-foreground">
+    <Text className="mt-1  text-foreground">
       Escolha seu ritmo. Isso afeta missões, recompensas e contratos.
     </Text>
     <View className="mt-4 gap-2">

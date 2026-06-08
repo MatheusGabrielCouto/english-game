@@ -1,7 +1,7 @@
 import { ActivityIndicator, Text, View } from 'react-native'
 
-import { NETWORK_STATUS_UI } from '@/constants/network-status-ui'
 import { theme } from '@/constants'
+import { NETWORK_STATUS_UI } from '@/constants/network-status-ui'
 import { cn } from '@/utils'
 
 import { AppIcon } from './AppIcon'
@@ -45,7 +45,7 @@ export const NetworkErrorState = ({
         />
       </View>
       <View className="items-center gap-2">
-        <Text className="text-center text-base font-bold text-foreground">{title}</Text>
+        <Text className="text-center  font-bold text-foreground">{title}</Text>
         <Text className="max-w-sm text-center text-sm leading-5 text-foreground-secondary">
           {resolvedDescription}
         </Text>

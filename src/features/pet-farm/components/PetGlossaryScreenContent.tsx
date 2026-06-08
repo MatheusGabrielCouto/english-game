@@ -12,21 +12,20 @@ import { petCollection } from '@/storage/database/schema';
 import type { PetRarityValue } from '@/types/pet';
 
 import { ALL_PET_SPECIES } from '../catalogs/pet-species-resolver';
-import { isHybridSpecies } from '../utils/pet-glossary';
 import {
-  PET_RARITY_CHIP_STYLES,
-  PET_RARITY_LABELS,
+    PET_RARITY_CHIP_STYLES,
+    PET_RARITY_LABELS,
 } from '../constants/pet-encyclopedia-ui';
 import {
-  PET_GLOSSARY_FILTERS,
-  PET_GLOSSARY_UI,
-  type PetGlossaryFilter,
+    PET_GLOSSARY_FILTERS,
+    PET_GLOSSARY_UI,
+    type PetGlossaryFilter,
 } from '../constants/pet-glossary-ui';
 import {
-  countByRarity,
-  filterGlossarySpecies,
-  formatSpeciesStatLine,
-  groupGlossarySections,
+    countByRarity,
+    filterGlossarySpecies,
+    formatSpeciesStatLine,
+    groupGlossarySections, isHybridSpecies
 } from '../utils/pet-glossary';
 import { PetSpeciesIcon } from './PetSpeciesIcon';
 
@@ -181,7 +180,7 @@ const GlossarySpeciesCard = ({
         </View>
         <View className="flex-1 gap-1">
           <View className="flex-row flex-wrap items-center gap-1.5">
-            <Text className="text-base font-black text-foreground">{species.name}</Text>
+            <Text className=" font-black text-foreground">{species.name}</Text>
             {hybrid ? (
               <View className="rounded bg-amber-500/25 px-1.5 py-0.5">
                 <Text className="text-[8px] font-bold text-amber-200">Híbrido</Text>

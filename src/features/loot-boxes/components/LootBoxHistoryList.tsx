@@ -22,7 +22,7 @@ export const LootBoxHistoryList = ({ history }: LootBoxHistoryListProps) => {
 
   return (
     <Card elevated>
-      <Text className="mb-4 text-base font-semibold text-foreground">Histórico de aberturas</Text>
+      <Text className="mb-4  font-semibold text-foreground">Histórico de aberturas</Text>
       <View className="gap-3">
         {history.map((entry) => {
           const config = LOOT_BOX_RARITY_CONFIG[entry.boxRarity];

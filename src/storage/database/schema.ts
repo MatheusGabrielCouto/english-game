@@ -166,6 +166,10 @@ export const achievementStats = sqliteTable('achievement_stats', {
   totalJournalVoiceNotes: integer('total_journal_voice_notes').notNull().default(0),
   totalJournalReviews: integer('total_journal_reviews').notNull().default(0),
   totalJournalConnections: integer('total_journal_connections').notNull().default(0),
+  totalMotivationSparks: integer('total_motivation_sparks').notNull().default(0),
+  motivationOpenStreak: integer('motivation_open_streak').notNull().default(0),
+  bestMotivationOpenStreak: integer('best_motivation_open_streak').notNull().default(0),
+  totalMotivationOpens: integer('total_motivation_opens').notNull().default(0),
 });
 
 export const userRoutines = sqliteTable('user_routines', {
@@ -293,6 +297,110 @@ export const journalStats = sqliteTable('journal_stats', {
   totalConnections: integer('total_connections').notNull().default(0),
   totalCollections: integer('total_collections').notNull().default(0),
   libraryTier: integer('library_tier').notNull().default(0),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const motivationSparks = sqliteTable('motivation_sparks', {
+  id: text('id').primaryKey(),
+  title: text('title').notNull(),
+  body: text('body'),
+  contentKind: text('content_kind').notNull().default('text'),
+  imagesJson: text('images_json').notNull().default('[]'),
+  audioUri: text('audio_uri'),
+  audioDurationMs: integer('audio_duration_ms'),
+  audioTranscript: text('audio_transcript'),
+  linksJson: text('links_json').notNull().default('[]'),
+  collectionId: text('collection_id'),
+  tagsJson: text('tags_json').notNull().default('[]'),
+  importance: text('importance').notNull().default('medium'),
+  isFavorite: integer('is_favorite', { mode: 'boolean' }).notNull().default(false),
+  isPinned: integer('is_pinned', { mode: 'boolean' }).notNull().default(false),
+  isArchived: integer('is_archived', { mode: 'boolean' }).notNull().default(false),
+  rotationWeight: integer('rotation_weight').notNull().default(1),
+  lastShownAt: text('last_shown_at'),
+  showCount: integer('show_count').notNull().default(0),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const motivationCollections = sqliteTable('motivation_collections', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  emoji: text('emoji').notNull().default('🔥'),
+  sortOrder: integer('sort_order').notNull().default(0),
+  createdAt: text('created_at').notNull(),
+});
+
+export const motivationDailyPicks = sqliteTable('motivation_daily_picks', {
+  dateKey: text('date_key').primaryKey(),
+  sparkId: text('spark_id').notNull(),
+  notifiedAt: text('notified_at'),
+  openedAt: text('opened_at'),
+});
+
+export const motivationSettings = sqliteTable('motivation_settings', {
+  id: integer('id').primaryKey(),
+  enabled: integer('enabled', { mode: 'boolean' }).notNull().default(true),
+  dailyNotification: integer('daily_notification', { mode: 'boolean' }).notNull().default(true),
+  eveningNotification: integer('evening_notification', { mode: 'boolean' }).notNull().default(false),
+  preferredHour: integer('preferred_hour').notNull().default(7),
+  preferredMinute: integer('preferred_minute').notNull().default(0),
+  eveningHour: integer('evening_hour').notNull().default(20),
+  eveningMinute: integer('evening_minute').notNull().default(0),
+  avoidRepeatDays: integer('avoid_repeat_days').notNull().default(7),
+  showOnHome: integer('show_on_home', { mode: 'boolean' }).notNull().default(true),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const learningWorlds = sqliteTable('learning_worlds', {
+  key: text('key').primaryKey(),
+  name: text('name').notNull(),
+  emoji: text('emoji').notNull(),
+  cefrLevel: text('cefr_level').notNull(),
+  sortOrder: integer('sort_order').notNull(),
+  estimatedDaysMin: integer('estimated_days_min').notNull(),
+  estimatedDaysMax: integer('estimated_days_max').notNull(),
+  goalDescription: text('goal_description').notNull(),
+  description: text('description'),
+});
+
+export const playerLearningProfile = sqliteTable('player_learning_profile', {
+  id: integer('id').primaryKey(),
+  currentWorldKey: text('current_world_key').notNull(),
+  worldProgress: integer('world_progress').notNull().default(0),
+  learningGpsOnboarded: integer('learning_gps_onboarded', { mode: 'boolean' })
+    .notNull()
+    .default(false),
+  onboardedAt: text('onboarded_at'),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const skillLevels = sqliteTable('skill_levels', {
+  skillKey: text('skill_key').primaryKey(),
+  level: integer('level').notNull().default(0),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const learningDailyPlans = sqliteTable('learning_daily_plans', {
+  dateKey: text('date_key').primaryKey(),
+  difficulty: text('difficulty').notNull(),
+  blockProgressJson: text('block_progress_json').notNull().default('{}'),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const learningUnitProgress = sqliteTable('learning_unit_progress', {
+  unitKey: text('unit_key').primaryKey(),
+  worldKey: text('world_key').notNull(),
+  status: text('status').notNull().default('locked'),
+  practiceProgress: integer('practice_progress').notNull().default(0),
+  completedAt: text('completed_at'),
+  updatedAt: text('updated_at').notNull(),
+});
+
+export const learningMonthlyReports = sqliteTable('learning_monthly_reports', {
+  monthKey: text('month_key').primaryKey(),
+  generatedAt: text('generated_at').notNull(),
+  reportJson: text('report_json').notNull(),
   updatedAt: text('updated_at').notNull(),
 });
 
@@ -641,6 +749,7 @@ export const notificationSettings = sqliteTable('notification_settings', {
   seasonReminder: integer('season_reminder', { mode: 'boolean' }).notNull().default(true),
   prestigeReminder: integer('prestige_reminder', { mode: 'boolean' }).notNull().default(true),
   shopOfferReminder: integer('shop_offer_reminder', { mode: 'boolean' }).notNull().default(true),
+  motivationSpark: integer('motivation_spark', { mode: 'boolean' }).notNull().default(true),
   updatedAt: text('updated_at').notNull(),
 });
 
@@ -1259,6 +1368,15 @@ export const schema = {
   journalCollections,
   journalEntryCollections,
   journalStats,
+  motivationSparks,
+  motivationCollections,
+  motivationDailyPicks,
+  motivationSettings,
+  learningWorlds,
+  playerLearningProfile,
+  skillLevels,
+  learningDailyPlans,
+  learningUnitProgress,
   focusSettings,
   focusBlockedApps,
   focusSessions,

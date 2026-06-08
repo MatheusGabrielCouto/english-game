@@ -60,20 +60,20 @@ export const ShopOfferPurchaseModal = ({ shop }: ShopOfferPurchaseModalProps) =>
           </View>
           <View className="mt-2 flex-row items-center justify-between">
             <Text className={SHOP_TEXT.label}>Preço da oferta</Text>
-            <Text className="text-base font-bold text-accent">
+            <Text className=" font-bold text-accent">
               {selectedDailyOffer.offerPrice.toLocaleString('pt-BR')} {currencyEmoji}
             </Text>
           </View>
           <View className="mt-2 flex-row items-center justify-between">
             <Text className={SHOP_TEXT.label}>Saldo atual</Text>
-            <Text className="text-base font-semibold text-foreground">
+            <Text className=" font-semibold text-foreground">
               {balance.toLocaleString('pt-BR')} {currencyEmoji}
             </Text>
           </View>
           <View className="mt-2 flex-row items-center justify-between">
             <Text className={SHOP_TEXT.label}>Saldo após compra</Text>
             <Text
-              className={`text-base font-semibold ${canAfford ? 'text-foreground' : 'text-danger'}`}>
+              className={` font-semibold ${canAfford ? 'text-foreground' : 'text-danger'}`}>
               {canAfford ? remaining.toLocaleString('pt-BR') : '—'} {currencyEmoji}
             </Text>
           </View>

@@ -11,8 +11,8 @@ import {
 
 import { Button } from '@/components';
 import { VirtualizedList } from '@/components/ui';
-import { INPUT_PLACEHOLDER_COLOR, VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE } from '@/constants';
 import { ScreenSkeleton } from '@/components/ui/skeleton';
+import { INPUT_PLACEHOLDER_COLOR, VIRTUALIZED_LIST_ESTIMATED_ITEM_SIZE } from '@/constants';
 import { LearningHeroPanel } from '@/features/learning/components/ui';
 import type { FlashCardRecord, FlashDeckRecord } from '@/types/flash-card';
 import { DEFAULT_FLASH_DECK_ID } from '@/types/flash-card';
@@ -119,7 +119,7 @@ export const FlashDeckDetailContent = () => {
   if (!deck) {
     return (
       <View className="gap-4 py-8">
-        <Text className="text-center text-base text-foreground-secondary">
+        <Text className="text-center  text-foreground-secondary">
           Este caderno não existe ou foi arquivado.
         </Text>
         <Button label={FLASH_DECK_UI.backToHub} variant="secondary" onPress={() => router.back()} />
@@ -179,7 +179,7 @@ export const FlashDeckDetailContent = () => {
         placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
         autoCapitalize="none"
         autoCorrect={false}
-        className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+        className="rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
         accessibilityLabel={FLASH_DECK_UI.searchPlaceholder}
       />
 
@@ -217,7 +217,7 @@ export const FlashDeckDetailContent = () => {
     <>
       {cards.length === 0 ? (
         <View className="rounded-2xl border border-dashed border-border px-4 py-8">
-          <Text className="text-center text-base font-bold text-foreground">{FLASH_DECK_UI.deckEmptyTitle}</Text>
+          <Text className="text-center  font-bold text-foreground">{FLASH_DECK_UI.deckEmptyTitle}</Text>
           <Text className="mt-2 text-center text-sm leading-5 text-foreground-secondary">
             {FLASH_DECK_UI.deckEmptyBody}
           </Text>

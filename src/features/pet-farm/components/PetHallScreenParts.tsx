@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { Pressable, Text, View, type ViewStyle } from 'react-native';
 import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withSequence,
-  withTiming,
+    useAnimatedStyle,
+    useSharedValue,
+    withRepeat,
+    withSequence,
+    withTiming,
 } from 'react-native-reanimated';
 
 import type { PetHallPedestal } from '@/types/pet-hall';
@@ -54,7 +54,7 @@ export const PetHallPedestalCard = ({
       )}
       style={isOfficial ? PEDESTAL_BG : EMPTY_BG}>
       <View className="flex-row items-center gap-2">
-        <Text className="text-base">{pedestal.categoryEmoji}</Text>
+        <Text className="">{pedestal.categoryEmoji}</Text>
         <View className="flex-1">
           <Text className="text-[10px] font-bold uppercase tracking-wide text-muted">
             {pedestal.categoryLabel}

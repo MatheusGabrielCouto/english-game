@@ -84,7 +84,7 @@ export const Modal = ({
         </GameDisplayText>
       ) : null}
       {description ? (
-        <Text className="mt-2 text-base text-foreground-secondary">{description}</Text>
+        <Text className="mt-2  text-foreground-secondary">{description}</Text>
       ) : null}
       {body ? <View className="mt-4">{body}</View> : null}
       {footerMode === 'none' ? null : (

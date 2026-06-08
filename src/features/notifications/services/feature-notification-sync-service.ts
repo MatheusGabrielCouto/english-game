@@ -17,6 +17,8 @@ import { WeeklyMissionNotificationService } from '@/features/weekly-quests/servi
 
 import { getNotificationSettings } from '@/storage/repositories/notification-settings-repository';
 
+import { MotivationNotificationService } from '@/features/motivation-spark/services/motivation-notification-service';
+
 import { DailyQuestsNotificationService } from './daily-quests-notification-service';
 
 const FEATURE_PREFIXES = [
@@ -33,6 +35,7 @@ const FEATURE_PREFIXES = [
   `${NOTIFICATION_IDENTIFIER_PREFIX}-season-`,
   `${NOTIFICATION_IDENTIFIER_PREFIX}-prestige-`,
   `${NOTIFICATION_IDENTIFIER_PREFIX}-shop-offer-`,
+  `${NOTIFICATION_IDENTIFIER_PREFIX}-motivation-`,
 ] as const;
 
 export const FeatureNotificationSyncService = {
@@ -64,6 +67,7 @@ export const FeatureNotificationSyncService = {
       SeasonNotificationService.rescheduleAll(),
       PrestigeNotificationService.rescheduleAll(),
       ShopOfferNotificationService.rescheduleAll(),
+      MotivationNotificationService.rescheduleAll(),
     ]);
   },
 };

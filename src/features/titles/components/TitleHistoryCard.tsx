@@ -28,7 +28,7 @@ export const TitleHistoryCard = ({ title }: TitleHistoryCardProps) => {
         </View>
 
         <View className="min-w-0 flex-1 gap-1">
-          <Text className="text-base font-bold text-foreground" numberOfLines={2}>
+          <Text className=" font-bold text-foreground" numberOfLines={2}>
             {title.name}
           </Text>
           {title.isActive ? (

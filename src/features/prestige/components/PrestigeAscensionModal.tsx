@@ -4,16 +4,15 @@ import { Pressable, Text, View } from 'react-native'
 import { Button, FormSheetModal } from '@/components'
 import { useContractsStore } from '@/features/contracts/store/contracts-store'
 import { MetagameService } from '@/features/metagame/services/metagame-service'
-import { getNextPrestigeTier } from '@/features/prestige/constants/prestige-catalog'
 import { useMetagameStore } from '@/features/metagame/store/metagame-store'
-import { usePlayerStore } from '@/features/player/store/player-store'
+import { getNextPrestigeTier } from '@/features/prestige/constants/prestige-catalog'
 import { PrestigeSacrificeType } from '@/types/prestige'
 import { cn } from '@/utils'
 import { haptics } from '@/utils/haptics'
 
 import {
-  PRESTIGE_ASCENSION_COPY,
-  PRESTIGE_SACRIFICE_OPTIONS,
+    PRESTIGE_ASCENSION_COPY,
+    PRESTIGE_SACRIFICE_OPTIONS,
 } from '../constants/prestige-ascension'
 import { DEFAULT_SACRIFICE, usePrestigeScreenStore } from '../store/prestige-screen-store'
 
@@ -138,7 +137,7 @@ export const PrestigeAscensionModal = ({ preview }: PrestigeAscensionModalProps)
                 <View className="flex-row items-center gap-3">
                   <Text className="text-3xl">{option.emoji}</Text>
                   <View className="flex-1">
-                    <Text className="text-base font-bold text-foreground">{option.title}</Text>
+                    <Text className=" font-bold text-foreground">{option.title}</Text>
                     <Text className="mt-1 text-xs text-foreground-secondary">{option.description}</Text>
                     <Text className="mt-2 text-xs font-bold text-warning">{option.impact}</Text>
                   </View>
@@ -206,7 +205,7 @@ export const PrestigeAscensionModal = ({ preview }: PrestigeAscensionModalProps)
                 )}
                 accessibilityRole="button"
                 accessibilityLabel={PRESTIGE_ASCENSION_COPY.holdToConfirm}>
-                <Text className="text-center text-base font-black text-gold">
+                <Text className="text-center  font-black text-gold">
                   {isAscending ? PRESTIGE_ASCENSION_COPY.holding : PRESTIGE_ASCENSION_COPY.holdToConfirm}
                 </Text>
                 <View className="mx-8 mt-2 h-1.5 overflow-hidden rounded-full bg-surface-elevated">

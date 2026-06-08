@@ -17,7 +17,7 @@ export const DuelEnemyBar = ({ name, emoji, currentHp, maxHp }: DuelEnemyBarProp
     <View className="flex-row items-center justify-end gap-2">
       <View className="items-end">
         <Text className="text-[10px] font-black uppercase tracking-widest text-danger">Inimigo</Text>
-        <Text className="text-base font-black text-foreground">{name}</Text>
+        <Text className=" font-black text-foreground">{name}</Text>
       </View>
       <View className="h-14 w-14 items-center justify-center rounded-2xl border border-danger/40 bg-danger/10">
         <Text className="text-3xl">{emoji}</Text>

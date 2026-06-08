@@ -17,7 +17,7 @@ export const FlashDeckCardRow = ({ card }: FlashDeckCardRowProps) => (
     className="rounded-2xl border border-border bg-surface px-4 py-3 active:opacity-80">
     <View className="flex-row items-start justify-between gap-2">
       <View className="min-w-0 flex-1">
-        <Text className="text-base font-bold text-foreground" numberOfLines={1}>
+        <Text className=" font-bold text-foreground" numberOfLines={1}>
           {card.front}
         </Text>
         <Text className="mt-0.5 text-sm text-foreground-secondary" numberOfLines={1}>

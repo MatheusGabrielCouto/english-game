@@ -29,7 +29,7 @@ export const PetNameEditor = ({ pet, onUpdated }: PetNameEditorProps) => {
 
   return (
     <Card elevated>
-      <Text className="mb-2 text-base font-semibold text-foreground">Nome do companheiro</Text>
+      <Text className="mb-2  font-semibold text-foreground">Nome do companheiro</Text>
       <View className="flex-row items-center gap-2">
         <TextInput
           value={name}

@@ -3,10 +3,10 @@ import { Text, View } from 'react-native';
 import { Modal } from '@/components';
 import { GLOBAL_BONUS_CAP_PERCENT } from '@/features/game-design/constants/balance';
 import {
-  buildActiveBonusBreakdown,
-  formatBonusPercent,
-  formatLootBoxChance,
-  getContributionSummary,
+    buildActiveBonusBreakdown,
+    formatBonusPercent,
+    formatLootBoxChance,
+    getContributionSummary,
 } from '@/features/game-design/utils/active-bonus-breakdown';
 
 type ActiveBonusesDetailModalProps = {
@@ -27,7 +27,7 @@ const BonusTotalRow = ({
 }) => (
   <View className="flex-row items-center justify-between rounded-xl border border-border bg-surface-elevated px-3 py-2.5">
     <View className="flex-row items-center gap-2">
-      <Text className="text-base">{emoji}</Text>
+      <Text className="">{emoji}</Text>
       <Text className="text-sm font-semibold text-foreground">{label}</Text>
     </View>
     <View className="items-end">

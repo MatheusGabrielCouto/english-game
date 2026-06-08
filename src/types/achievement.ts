@@ -55,7 +55,11 @@ export type AchievementMetricType =
   | 'total_journal_entries'
   | 'total_journal_voice_notes'
   | 'total_journal_reviews'
-  | 'total_journal_connections';
+  | 'total_journal_connections'
+  | 'total_motivation_sparks'
+  | 'motivation_open_streak'
+  | 'best_motivation_open_streak'
+  | 'total_motivation_opens';
 
 export type AchievementTarget = number | PetStageValue;
 
@@ -86,6 +90,10 @@ export type AchievementStatsRecord = {
   totalJournalVoiceNotes: number;
   totalJournalReviews: number;
   totalJournalConnections: number;
+  totalMotivationSparks: number;
+  motivationOpenStreak: number;
+  bestMotivationOpenStreak: number;
+  totalMotivationOpens: number;
 };
 
 export type AchievementAnalyticsRecord = {

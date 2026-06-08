@@ -9,6 +9,7 @@ import { useFlashDeckStore } from '@/features/flash-deck/store/flash-deck-store'
 import { useFocusModeStore } from '@/features/focus-mode/store/focus-mode-store';
 import { InventoryService } from '@/features/inventory/services/inventory-service';
 import { useMetagameStore } from '@/features/metagame/store/metagame-store';
+import { useMotivationSparksStore } from '@/features/motivation-spark/store/motivation-sparks-store';
 import { usePlayerStore } from '@/features/player';
 import { useRoutinesStore } from '@/features/routines/store/routines-store';
 import { useTitlesStore } from '@/features/titles/store/titles-store';
@@ -35,6 +36,7 @@ export const useExploreBadges = (): Record<ExploreItemId, ExploreBadge> => {
   const flashDueCount = useFlashDeckStore((s) => s.totalDueCount);
   const pendingRoutines = useRoutinesStore((s) => s.pendingToday.length);
   const journalDueReviews = useVaultEntriesStore((s) => s.dueReviews.length);
+  const motivationSparkCount = useMotivationSparksStore((s) => s.sparks.length);
   const activeFocus = useFocusModeStore((s) => s.activeSession);
   const claimableSeasonTiers = useMetagameStore((s) => s.claimableSeasonTiers);
 
@@ -78,6 +80,13 @@ export const useExploreBadges = (): Record<ExploreItemId, ExploreBadge> => {
       journalDueReviews > 0
         ? { label: `${journalDueReviews} revisar`, tone: 'quest' }
         : { label: 'Cofre', tone: 'default' },
+    'motivation-spark':
+      motivationSparkCount > 0
+        ? {
+            label: motivationSparkCount === 1 ? '1 faísca' : `${motivationSparkCount} faíscas`,
+            tone: 'reward',
+          }
+        : { label: 'Criar', tone: 'quest' },
     'flash-deck':
       flashDueCount > 0
         ? { label: `${flashDueCount} na mesa`, tone: 'quest' }

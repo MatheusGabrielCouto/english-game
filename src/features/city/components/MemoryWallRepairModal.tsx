@@ -71,7 +71,7 @@ export const MemoryWallRepairModal = ({
             accessibilityLabel={choice}
             className="rounded-xl border border-border bg-surface-elevated px-4 py-3 active:opacity-80"
           >
-            <Text className="text-center text-base font-semibold text-foreground">{choice}</Text>
+            <Text className="text-center  font-semibold text-foreground">{choice}</Text>
           </Pressable>
         ))}
         {message ? (

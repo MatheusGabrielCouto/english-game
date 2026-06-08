@@ -32,7 +32,7 @@ export const AchievementCard = ({ achievement }: AchievementCardProps) => {
         </View>
 
         <View className="min-w-0 flex-1 gap-1">
-          <Text className="text-base font-bold text-foreground" numberOfLines={2}>
+          <Text className=" font-bold text-foreground" numberOfLines={2}>
             {achievement.name}
           </Text>
           {isUnlocked ? (

@@ -29,7 +29,7 @@ export const TutorialGuideCard = ({ compact = false }: TutorialGuideCardProps) =
       <View className="flex-row items-start gap-3">
         <Text className="text-3xl">📖</Text>
         <View className="flex-1">
-          <Text className="text-base font-bold text-foreground">{GAME_TUTORIAL_MESSAGES.reopen}</Text>
+          <Text className=" font-bold text-foreground">{GAME_TUTORIAL_MESSAGES.reopen}</Text>
           <Text className="mt-1 text-sm leading-relaxed text-foreground-secondary">
             {hasOnboarded
               ? 'Revise moedas, loot boxes, Study Points e prestígio quando quiser.'

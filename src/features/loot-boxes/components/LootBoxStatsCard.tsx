@@ -15,7 +15,7 @@ export const LootBoxStatsCard = ({ analytics, availableCount }: LootBoxStatsCard
   <SharedHeroTransition tag={SHARED_TRANSITION_TAGS.lootHero}>
   <Card elevated accent className="overflow-hidden">
     <HeroBrandMark size={72} className="absolute -right-2 -top-2" />
-    <Text className="mb-1 text-base font-semibold text-foreground">Estatísticas</Text>
+    <Text className="mb-1  font-semibold text-foreground">Estatísticas</Text>
     <Text className="mb-4 text-sm text-foreground-secondary">
       {availableCount} caixa{availableCount === 1 ? '' : 's'} disponíve{availableCount === 1 ? 'l' : 'is'} para abrir
     </Text>

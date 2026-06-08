@@ -5,8 +5,8 @@ import { theme } from '@/constants'
 import type { VaultMapNode } from '@/types/knowledge-vault'
 import { cn } from '@/utils'
 
-import { getSpaceColor } from '../../constants/vault-space-colors'
 import { GRAPH_UI } from '../../constants/vault-graph-ui'
+import { getSpaceColor } from '../../constants/vault-space-colors'
 import type { MindMapEntryMeta } from '../../utils/vault-map-builder'
 
 type KnowledgeMindMapProps = {
@@ -87,7 +87,7 @@ const SpaceBranch = ({
       >
         <Text className="text-2xl">{space.emoji ?? '📁'}</Text>
         <View className="min-w-0 flex-1">
-          <Text className="text-base font-black text-foreground">{space.label}</Text>
+          <Text className=" font-black text-foreground">{space.label}</Text>
           <Text className="text-xs text-muted">
             {noteCount} nota{noteCount === 1 ? '' : 's'}
           </Text>

@@ -61,7 +61,7 @@ export const ScreenHeader = ({ title, subtitle, className, showBack, emoji }: Sc
         {emoji ? `${emoji} ` : ''}{title}
       </GameDisplayText>
       {subtitle ? (
-        <Text className="mt-2 text-base leading-relaxed text-foreground-secondary">
+        <Text className="mt-2  leading-relaxed text-foreground-secondary">
           {subtitle}
         </Text>
       ) : null}

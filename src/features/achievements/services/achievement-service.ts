@@ -238,7 +238,17 @@ const reconcileStats = async (): Promise<void> => {
     totalJournalVoiceNotes: Math.max(stats.totalJournalVoiceNotes, journalVoice),
     totalJournalReviews: Math.max(stats.totalJournalReviews, journalStats.totalReviews),
     totalJournalConnections: Math.max(stats.totalJournalConnections, journalStats.totalConnections),
+    totalMotivationSparks: stats.totalMotivationSparks,
+    motivationOpenStreak: stats.motivationOpenStreak,
+    bestMotivationOpenStreak: stats.bestMotivationOpenStreak,
+    totalMotivationOpens: stats.totalMotivationOpens,
   };
+
+  const { MotivationSparkRepository } = await import(
+    '@/storage/repositories/motivation-spark-repository'
+  );
+  const motivationSparks = await MotivationSparkRepository.countActive();
+  next.totalMotivationSparks = Math.max(next.totalMotivationSparks, motivationSparks);
 
   if (
     next.totalMissionsCompleted !== stats.totalMissionsCompleted ||
@@ -250,7 +260,11 @@ const reconcileStats = async (): Promise<void> => {
     next.totalJournalEntries !== stats.totalJournalEntries ||
     next.totalJournalVoiceNotes !== stats.totalJournalVoiceNotes ||
     next.totalJournalReviews !== stats.totalJournalReviews ||
-    next.totalJournalConnections !== stats.totalJournalConnections
+    next.totalJournalConnections !== stats.totalJournalConnections ||
+    next.totalMotivationSparks !== stats.totalMotivationSparks ||
+    next.motivationOpenStreak !== stats.motivationOpenStreak ||
+    next.bestMotivationOpenStreak !== stats.bestMotivationOpenStreak ||
+    next.totalMotivationOpens !== stats.totalMotivationOpens
   ) {
     await AchievementStatsRepository.save(next);
   }
@@ -309,6 +323,14 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
       break;
     case 'JOURNAL_LINK_CREATED':
       cachedStats = await AchievementStatsRepository.incrementJournalConnections(event.count);
+      scheduleAchievementCheck(true);
+      break;
+    case 'MOTIVATION_SPARK_CREATED':
+      cachedStats = await AchievementStatsRepository.incrementMotivationSparks();
+      scheduleAchievementCheck(true);
+      break;
+    case 'MOTIVATION_SPARK_OPENED':
+    case 'MOTIVATION_OPEN_STREAK_UPDATED':
       scheduleAchievementCheck(true);
       break;
     default:

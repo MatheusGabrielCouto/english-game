@@ -58,7 +58,7 @@ export const FlashCardEditorContent = () => {
           placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           autoCapitalize="none"
           autoCorrect={false}
-          className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          className="rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
           accessibilityLabel={FLASH_DECK_UI.frontLabel}
         />
       </View>
@@ -70,7 +70,7 @@ export const FlashCardEditorContent = () => {
           onChangeText={setBack}
           placeholder={FLASH_DECK_UI.backPlaceholder}
           placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
-          className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          className="rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
           accessibilityLabel={FLASH_DECK_UI.backLabel}
         />
       </View>
@@ -84,7 +84,7 @@ export const FlashCardEditorContent = () => {
           placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           autoCapitalize="none"
           multiline
-          className="min-h-[88px] rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          className="min-h-[88px] rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
           accessibilityLabel={FLASH_DECK_UI.exampleLabel}
         />
       </View>
@@ -98,7 +98,7 @@ export const FlashCardEditorContent = () => {
           placeholderTextColor={INPUT_PLACEHOLDER_COLOR}
           autoCapitalize="none"
           autoCorrect={false}
-          className="rounded-xl border border-border bg-surface px-4 py-3 text-base text-foreground"
+          className="rounded-xl border border-border bg-surface px-4 py-3  text-foreground"
           accessibilityLabel={FLASH_DECK_UI.tagsLabel}
         />
       </View>

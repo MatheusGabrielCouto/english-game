@@ -14,12 +14,28 @@ export const buildRichNotificationContent = (
 ): Notifications.NotificationContentInput => {
   const payload = buildRichNotificationPayload(input)
 
+  const imageUri = input.rich?.imageUri
+
   return {
     title: payload.title,
     subtitle: payload.subtitle,
     body: payload.body,
     sound: payload.sound,
-    data: payload.data,
+    data: {
+      ...payload.data,
+      ...(imageUri ? { imageUri } : {}),
+    },
+    ...(imageUri
+      ? {
+          attachments: [
+            {
+              identifier: 'motivation-hero-image',
+              url: imageUri,
+              type: 'image' as const,
+            },
+          ],
+        }
+      : {}),
     ...(Platform.OS === 'android'
       ? {
           channelId: payload.android.channelId,

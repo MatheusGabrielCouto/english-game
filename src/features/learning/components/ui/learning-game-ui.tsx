@@ -101,7 +101,7 @@ export const LearningModeTile = ({
         <Text className="text-2xl">{emoji}</Text>
       </View>
       <View className="min-w-0 flex-1">
-        <Text className={cn('text-base font-black', styles.title)}>{title}</Text>
+        <Text className={cn(' font-black', styles.title)}>{title}</Text>
         {description ? (
           <Text className="mt-0.5 text-xs leading-4 text-foreground-secondary">{description}</Text>
         ) : null}

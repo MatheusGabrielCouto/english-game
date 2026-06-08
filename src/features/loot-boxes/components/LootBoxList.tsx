@@ -34,7 +34,7 @@ export const LootBoxList = ({ boxes, isOpening, selectedBoxId, onOpen }: LootBox
             <View className="flex-row items-center gap-4">
               <Text className="text-3xl">{config.emoji}</Text>
               <View className="flex-1">
-                <Text className="text-base font-semibold text-foreground">{config.label}</Text>
+                <Text className=" font-semibold text-foreground">{config.label}</Text>
                 <Text className="mt-0.5 text-xs text-muted">
                   Recebida em {new Date(box.acquiredAt).toLocaleDateString('pt-BR')}
                 </Text>

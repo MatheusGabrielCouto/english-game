@@ -23,7 +23,7 @@ export const VaultCollectionListItem = ({
         <Text className="text-2xl">{collection.emoji}</Text>
       </View>
       <View className="min-w-0 flex-1">
-        <Text className="text-base font-bold text-foreground">{collection.name}</Text>
+        <Text className=" font-bold text-foreground">{collection.name}</Text>
         {collection.description ? (
           <Text className="mt-1 text-xs text-foreground-secondary" numberOfLines={2}>
             {collection.description}

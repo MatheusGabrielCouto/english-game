@@ -72,7 +72,7 @@ export const PetLeagueSeasonHero = ({
         <Text className="text-xs font-bold uppercase tracking-wide text-amber-400/90">
           {PET_LEAGUE_UI.seasonTitle}
         </Text>
-        <Text className="text-base font-black text-foreground">
+        <Text className=" font-black text-foreground">
           {PET_LEAGUE_UI.daysLeft(daysRemaining)}
         </Text>
         <Text className="text-[10px] text-muted">{PET_LEAGUE_UI.resetsMonday}</Text>

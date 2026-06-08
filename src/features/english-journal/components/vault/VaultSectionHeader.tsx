@@ -12,7 +12,7 @@ export const VaultSectionHeader = ({ emoji, title, hint, trailing }: VaultSectio
     <View className="min-w-0 flex-1">
       <View className="flex-row items-center gap-2">
         <Text className="text-lg">{emoji}</Text>
-        <Text className="text-base font-black text-foreground">{title}</Text>
+        <Text className=" font-black text-foreground">{title}</Text>
       </View>
       {hint ? (
         <Text className="mt-0.5 text-xs leading-4 text-foreground-secondary">{hint}</Text>

@@ -20,6 +20,8 @@ import { HomeZoneSection } from '@/features/home/components/shared/HomeZoneSecti
 import { HOME_UI } from '@/features/home/constants/home-ui'
 import { useHomeFocusRefresh } from '@/features/home/hooks/use-home-focus-refresh'
 import { useHomeScreenReady } from '@/features/home/hooks/use-home-screen-ready'
+import { HomeLearningGpsCard } from '@/features/learning-gps/components/HomeLearningGpsCard'
+import { HomeMotivationSparkCard } from '@/features/motivation-spark/components/HomeMotivationSparkCard'
 import { CoachMarkTarget } from '@/features/tutorial'
 
 export const HomeScreenContent = () => {
@@ -46,6 +48,8 @@ export const HomeScreenContent = () => {
         <CoachMarkTarget coachKey="home-do-now">
           <HomeDoNowCard />
         </CoachMarkTarget>
+        <HomeLearningGpsCard />
+        <HomeMotivationSparkCard />
         <HomeStreakCard />
         <HomeActiveObjectivesCard />
       </HomeZoneSection>

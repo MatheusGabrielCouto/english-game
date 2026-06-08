@@ -2,10 +2,10 @@ import { Text, View } from 'react-native';
 
 import { Card, ProgressBar } from '@/components';
 import { GameCard } from '@/components/ui/game';
-import { CAREER_ROLES } from '../constants/career-catalog';
-import { useCareerStore } from '../store/career-store';
 import { usePlayerStore } from '@/features/player';
 import { cn } from '@/utils';
+import { CAREER_ROLES } from '../constants/career-catalog';
+import { useCareerStore } from '../store/career-store';
 
 export const CareerScreenContent = () => {
   const journey = useCareerStore((state) => state.journey);
@@ -51,7 +51,7 @@ export const CareerScreenContent = () => {
       </GameCard>
 
       <Card elevated>
-        <Text className="mb-3 text-base font-bold text-foreground">🗺️ Trilha de Carreira</Text>
+        <Text className="mb-3  font-bold text-foreground">🗺️ Trilha de Carreira</Text>
         <View className="gap-2">
           {CAREER_ROLES.map((role) => {
             const unlocked = level >= role.requiredLevel;
@@ -78,7 +78,7 @@ export const CareerScreenContent = () => {
       </Card>
 
       <Card elevated>
-        <Text className="mb-3 text-base font-bold text-foreground">🎤 Entrevistas</Text>
+        <Text className="mb-3  font-bold text-foreground">🎤 Entrevistas</Text>
         <View className="gap-3">
           {interviews.map((interview) => (
             <View key={interview.key} className="rounded-xl border border-border bg-surface p-4">
@@ -109,7 +109,7 @@ export const CareerScreenContent = () => {
       </Card>
 
       <Card elevated>
-        <Text className="mb-3 text-base font-bold text-foreground">📩 Ofertas de Trabalho</Text>
+        <Text className="mb-3  font-bold text-foreground">📩 Ofertas de Trabalho</Text>
         <View className="gap-3">
           {offers.map((offer) => (
             <View
@@ -135,7 +135,7 @@ export const CareerScreenContent = () => {
       </Card>
 
       <Card elevated accent>
-        <Text className="mb-3 text-base font-bold text-foreground">🌟 Sistema de Sonhos</Text>
+        <Text className="mb-3  font-bold text-foreground">🌟 Sistema de Sonhos</Text>
         <View className="gap-3">
           {dreams.map((dream) => (
             <View key={dream.key} className="gap-2">
@@ -155,7 +155,7 @@ export const CareerScreenContent = () => {
 
       {events.length > 0 ? (
         <Card elevated>
-          <Text className="mb-3 text-base font-bold text-foreground">📜 Histórico de Carreira</Text>
+          <Text className="mb-3  font-bold text-foreground">📜 Histórico de Carreira</Text>
           <View className="gap-2">
             {events.slice(0, 8).map((event) => (
               <View key={event.id} className="rounded-lg border border-border px-3 py-2">

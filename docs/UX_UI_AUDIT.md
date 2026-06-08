@@ -340,7 +340,7 @@ Mais     = Menu hub simplificado + favoritos
 ```
 TIPOGRAFIA
   label  → text-xs font-bold uppercase tracking-widest text-muted
-  title  → text-base font-black text-foreground
+  title  →  font-black text-foreground
   body   → text-sm text-foreground-secondary leading-relaxed
   hero   → text-2xl font-black text-foreground
 
@@ -855,33 +855,33 @@ Usuário que alterna Home ↔ Jogar ↔ Menu sente micro-travadas repetidas.
 
 #### Outros
 
-| Trigger                 | Arquivo                             |
-| ----------------------- | ----------------------------------- |
-| Mapa do vault no focus  | `knowledge/map.tsx`                 |
-| Coleções no focus       | `VaultCollectionsScreenContent.tsx` |
+| Trigger                         | Arquivo                                           |
+| ------------------------------- | ------------------------------------------------- |
+| Mapa do vault no focus          | `knowledge/map.tsx`                               |
+| Coleções no focus               | `VaultCollectionsScreenContent.tsx`               |
 | ~~Statistics ao abrir~~ ✅ P-42 | `statistics-refresh-policy.ts` — cache do hydrate |
-| Flash Deck hub no focus | `FlashDeckHubContent.tsx`           |
+| Flash Deck hub no focus         | `FlashDeckHubContent.tsx`                         |
 
 ---
 
 ### 3. Re-renders em cascata
 
-| Problema                                                                                         | Onde                                                             |
-| ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| ~~`english-journal-store` monolítico~~ ✅ P-45 — slices `entries` / `meta` / `collections`      | `vault-*-store.ts`                                               |
-| Hooks com 8–14 selectors sem `useShallow`                                                        | `use-city-map.ts`, `use-home-dashboard.ts`, `use-home-events.ts` |
-| `JournalEntryCard` pesado (galeria, voz, tradução) sem `memo`                                    | `JournalEntryCard.tsx`                                           |
-| `MissionCard` memo, mas cada card lê `completingMissionId` do store                              | `MissionCard.tsx`                                                |
+| Problema                                                                                   | Onde                                                             |
+| ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| ~~`english-journal-store` monolítico~~ ✅ P-45 — slices `entries` / `meta` / `collections` | `vault-*-store.ts`                                               |
+| Hooks com 8–14 selectors sem `useShallow`                                                  | `use-city-map.ts`, `use-home-dashboard.ts`, `use-home-events.ts` |
+| `JournalEntryCard` pesado (galeria, voz, tradução) sem `memo`                              | `JournalEntryCard.tsx`                                           |
+| `MissionCard` memo, mas cada card lê `completingMissionId` do store                        | `MissionCard.tsx`                                                |
 
 ---
 
 ### 4. Animações e mapa
 
-| Problema                                                                 | Arquivo                                          | Nota                                   |
-| ------------------------------------------------------------------------ | ------------------------------------------------ | -------------------------------------- |
-| ~~Loops infinitos Reanimated na Home com tab `freezeOnBlur` (não desmonta)~~ ✅ P-41 | `HomePetCompanionCard.tsx`, `HomeStreakCard.tsx` | Pausados no blur + reduce motion |
-| ~~Cidade: grid 7×6 + ruas + todos os POIs sem culling~~ ✅ P-44           | `city-map-viewport-culling.ts`                   | Só blocos/pins visíveis no scroll      |
-| Scroll aninhado no mapa                                                  | `CityScreen.tsx` + `ScreenContainer scrollable`  | Conflito de gestos + layout            |
+| Problema                                                                             | Arquivo                                          | Nota                              |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------ | --------------------------------- |
+| ~~Loops infinitos Reanimated na Home com tab `freezeOnBlur` (não desmonta)~~ ✅ P-41 | `HomePetCompanionCard.tsx`, `HomeStreakCard.tsx` | Pausados no blur + reduce motion  |
+| ~~Cidade: grid 7×6 + ruas + todos os POIs sem culling~~ ✅ P-44                      | `city-map-viewport-culling.ts`                   | Só blocos/pins visíveis no scroll |
+| Scroll aninhado no mapa                                                              | `CityScreen.tsx` + `ScreenContainer scrollable`  | Conflito de gestos + layout       |
 
 ---
 
@@ -893,17 +893,17 @@ Usuário que alterna Home ↔ Jogar ↔ Menu sente micro-travadas repetidas.
 
 ## Tier F — Roadmap de fluidez
 
-| ID   | Melhoria                                                                                                       | Por que importa                                   | Esforço | Referência                                                  |
-| ---- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------- | ----------------------------------------------------------- |
-| P-37 | ~~**FlashList como scroll raiz** — Vault, Flash Deck hub, inventário histórico; header via `ListHeaderComponent`~~ ✅ | Virtualização real com header rico | M | `vault-library-list-rows`, `scrollable={false}` |
-| P-38 | ~~**Throttle de focus refresh** — TTL ~30s ou stale-check por domínio na Home~~ ✅                            | Elimina storm ao alternar abas                    | S       | `home-focus-refresh-runner.ts`                              |
-| P-39 | ~~**Vault refresh inteligente** — tirar `search` do `useFocusEffect`; dedupe `listActive` no `refreshStore`~~ ✅ | Busca e focus deixam de bloquear UI               | S       | `vault-library-filter-ui.ts`, `refreshStore`                |
-| P-40 | ~~**`useShallow` + `memo` em list rows** — `JournalEntryCard`, rows do menu/flash~~ ✅                        | Menos re-render em listas longas                  | S       | `journal-entry-card-memo`, `useShallow` hooks               |
-| P-41 | ~~**Pausar animações Home no blur** — `useIsFocused` + reduce motion para pet bounce e streak glow~~ ✅       | CPU/GPU quando tab não está visível               | S       | `use-home-infinite-animations-active`, cards Home           |
-| P-42 | ~~**Statistics cache** — dashboard do background hydrate; refresh só ao expandir Detalhes ou pull~~ ✅        | Abrir Insights sem 12 queries                     | M       | `statistics-refresh-policy`, `use-statistics`               |
-| P-43 | ~~**Coalescer `GameEvents`** — fila microtask + `scheduleCoalescedAfterBatch` para refresh pesado~~ ✅         | Menos jank após missão/loot/cidade                | M       | `game-events.ts`, statistics/metagame/epic/career         |
-| P-44 | ~~**City map viewport** — render só pins/blocos visíveis no scroll (padding + zoom)~~ ✅                       | Mapa fluido em Pro Max / tablets                  | L       | `city-map-viewport-culling`, `CityMapViewport`              |
-| P-45 | ~~**Split vault store** — `entries` / `meta` / `collections`~~ ✅                                              | Subscriber granular                               | L       | `vault-entries-store`, `vault-meta-store`, `vault-collections-store` |
+| ID   | Melhoria                                                                                                              | Por que importa                     | Esforço | Referência                                                           |
+| ---- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | -------------------------------------------------------------------- |
+| P-37 | ~~**FlashList como scroll raiz** — Vault, Flash Deck hub, inventário histórico; header via `ListHeaderComponent`~~ ✅ | Virtualização real com header rico  | M       | `vault-library-list-rows`, `scrollable={false}`                      |
+| P-38 | ~~**Throttle de focus refresh** — TTL ~30s ou stale-check por domínio na Home~~ ✅                                    | Elimina storm ao alternar abas      | S       | `home-focus-refresh-runner.ts`                                       |
+| P-39 | ~~**Vault refresh inteligente** — tirar `search` do `useFocusEffect`; dedupe `listActive` no `refreshStore`~~ ✅      | Busca e focus deixam de bloquear UI | S       | `vault-library-filter-ui.ts`, `refreshStore`                         |
+| P-40 | ~~**`useShallow` + `memo` em list rows** — `JournalEntryCard`, rows do menu/flash~~ ✅                                | Menos re-render em listas longas    | S       | `journal-entry-card-memo`, `useShallow` hooks                        |
+| P-41 | ~~**Pausar animações Home no blur** — `useIsFocused` + reduce motion para pet bounce e streak glow~~ ✅               | CPU/GPU quando tab não está visível | S       | `use-home-infinite-animations-active`, cards Home                    |
+| P-42 | ~~**Statistics cache** — dashboard do background hydrate; refresh só ao expandir Detalhes ou pull~~ ✅                | Abrir Insights sem 12 queries       | M       | `statistics-refresh-policy`, `use-statistics`                        |
+| P-43 | ~~**Coalescer `GameEvents`** — fila microtask + `scheduleCoalescedAfterBatch` para refresh pesado~~ ✅                | Menos jank após missão/loot/cidade  | M       | `game-events.ts`, statistics/metagame/epic/career                    |
+| P-44 | ~~**City map viewport** — render só pins/blocos visíveis no scroll (padding + zoom)~~ ✅                              | Mapa fluido em Pro Max / tablets    | L       | `city-map-viewport-culling`, `CityMapViewport`                       |
+| P-45 | ~~**Split vault store** — `entries` / `meta` / `collections`~~ ✅                                                     | Subscriber granular                 | L       | `vault-entries-store`, `vault-meta-store`, `vault-collections-store` |
 
 **Legenda esforço:** S = 1–2 dias · M = 3–5 dias · L = 1–2 semanas
 
@@ -962,19 +962,19 @@ Tier F (P-37–P-45):  ✅ concluído
 
 # Top 10 — Matriz de priorização (pós-estrutura)
 
-| Rank | Problema                              | Solução                     | ID roadmap       | ROI        |
-| ---- | ------------------------------------- | --------------------------- | ---------------- | ---------- |
-| 1    | ~~Feedback de recompensa irregular~~  | RewardBurst + mission morph | P-04 ✅, P-05 ✅ | ⭐⭐⭐⭐⭐ |
-| 2    | ~~Tipografia genérica em telas core~~ | Expandir `GameDisplayText`  | P-01 ✅          | ⭐⭐⭐⭐⭐ |
-| 3    | ~~Celebrações “ok” mas não épicas~~   | Lottie tier 2               | P-02 ✅          | ⭐⭐⭐⭐   |
-| 4    | Toasts sem animação                   | Spring enter/exit           | P-03             | ⭐⭐⭐⭐   |
-| 5    | Acessibilidade incompleta             | Contraste + texto grande    | P-14, P-15       | ⭐⭐⭐⭐   |
-| 6    | Pet/Farm naming confuso               | Glossário + banners         | P-25             | ⭐⭐⭐⭐   |
-| 7    | iOS sem widget/Live Activity          | Paridade Android            | P-17, P-18       | ⭐⭐⭐     |
-| 8    | ~~Vault/Stats tom “produtividade”~~   | Microcopy + insights feed   | P-24 ✅, P-36 ✅ | ⭐⭐⭐     |
-| 9    | ~~Loading lists pesadas~~             | Virtualização + stagger     | P-06 ✅, P-31 ✅ | ⭐⭐⭐     |
+| Rank | Problema                              | Solução                     | ID roadmap             | ROI        |
+| ---- | ------------------------------------- | --------------------------- | ---------------------- | ---------- |
+| 1    | ~~Feedback de recompensa irregular~~  | RewardBurst + mission morph | P-04 ✅, P-05 ✅       | ⭐⭐⭐⭐⭐ |
+| 2    | ~~Tipografia genérica em telas core~~ | Expandir `GameDisplayText`  | P-01 ✅                | ⭐⭐⭐⭐⭐ |
+| 3    | ~~Celebrações “ok” mas não épicas~~   | Lottie tier 2               | P-02 ✅                | ⭐⭐⭐⭐   |
+| 4    | Toasts sem animação                   | Spring enter/exit           | P-03                   | ⭐⭐⭐⭐   |
+| 5    | Acessibilidade incompleta             | Contraste + texto grande    | P-14, P-15             | ⭐⭐⭐⭐   |
+| 6    | Pet/Farm naming confuso               | Glossário + banners         | P-25                   | ⭐⭐⭐⭐   |
+| 7    | iOS sem widget/Live Activity          | Paridade Android            | P-17, P-18             | ⭐⭐⭐     |
+| 8    | ~~Vault/Stats tom “produtividade”~~   | Microcopy + insights feed   | P-24 ✅, P-36 ✅       | ⭐⭐⭐     |
+| 9    | ~~Loading lists pesadas~~             | Virtualização + stagger     | P-06 ✅, P-31 ✅       | ⭐⭐⭐     |
 | 10   | **Fluidez runtime (scroll/focus)**    | P-37–P-41 quick wins        | P-37 ✅, P-38 ✅, P-39 | ⭐⭐⭐⭐   |
-| —    | Marca dispersa na loja                | Icon, splash, screenshots   | Premium          | ⭐⭐⭐     |
+| —    | Marca dispersa na loja                | Icon, splash, screenshots   | Premium                | ⭐⭐⭐     |
 
 ---
 

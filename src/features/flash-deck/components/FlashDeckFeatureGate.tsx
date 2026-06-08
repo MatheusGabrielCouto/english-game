@@ -28,7 +28,7 @@ export const FlashDeckFeatureGate = ({ children }: FlashDeckFeatureGateProps) =>
       <ScreenContainer scrollable>
         <ScreenHeader showBack title={FLASH_DECK_UI.screenTitle} emoji={FLASH_DECK_UI.emoji} />
         <View className="gap-4 py-8">
-          <Text className="text-center text-base leading-6 text-foreground-secondary">
+          <Text className="text-center  leading-6 text-foreground-secondary">
             {LEARNING_UI.comingSoon}
           </Text>
           <Button label="Voltar" variant="secondary" onPress={() => router.back()} />

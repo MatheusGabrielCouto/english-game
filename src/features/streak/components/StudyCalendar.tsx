@@ -10,9 +10,9 @@ import { getTodayKey } from '@/features/quests/utils/date';
 import { cn } from '@/utils';
 
 import {
-  formatMonthLabel,
-  getCalendarGridDays,
-  isToday,
+    formatMonthLabel,
+    getCalendarGridDays,
+    isToday,
 } from '../utils/date';
 
 const WEEKDAY_LABELS = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
@@ -113,7 +113,7 @@ export const StudyCalendar = ({ studiedDays, onMonthChange }: StudyCalendarProps
           <AppIcon name="chevron-back" size={18} color={theme.colors.foreground} />
         </Pressable>
 
-        <Text className="flex-1 text-center text-base font-bold capitalize text-foreground">
+        <Text className="flex-1 text-center  font-bold capitalize text-foreground">
           {formatMonthLabel(year, month)}
         </Text>
 

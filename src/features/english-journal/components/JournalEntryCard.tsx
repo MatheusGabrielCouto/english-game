@@ -13,8 +13,8 @@ import {
 } from '../constants/journal-ui';
 import { VAULT_UI } from '../constants/vault-ui';
 import { JournalService } from '../services/journal-service';
-import { isReviewDue } from '../utils/journal-review';
 import { hasSameJournalEntryCardSnapshot } from '../utils/journal-entry-card-memo';
+import { isReviewDue } from '../utils/journal-review';
 import { extractEnglishBodyForDisplay } from '../utils/journal-transcription-body';
 import { getSpaceLabel } from '../utils/vault-map-builder';
 import { JournalEntryBodyTranslation } from './JournalEntryBodyTranslation';
@@ -65,7 +65,7 @@ const JournalEntryCardComponent = ({
                 {entry.isPinned ? (
                   <Text className={cn(CARD_METADATA_TEXT_CLASS, 'text-primary')}>{VAULT_UI.pinnedKnowledge}</Text>
                 ) : null}
-                <Text className="text-base font-bold text-foreground" numberOfLines={2}>
+                <Text className=" font-bold text-foreground" numberOfLines={2}>
                   {entry.title}
                 </Text>
               </View>

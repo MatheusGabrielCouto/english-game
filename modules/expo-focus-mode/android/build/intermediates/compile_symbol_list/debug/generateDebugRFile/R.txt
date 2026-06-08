@@ -1,3 +1,0 @@
-int string focus_accessibility_service_description 0x0
-int string focus_accessibility_service_label 0x0
-int xml focus_accessibility_service_config 0x0

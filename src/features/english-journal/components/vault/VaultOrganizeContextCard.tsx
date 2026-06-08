@@ -16,7 +16,7 @@ export const VaultOrganizeContextCard = ({ context }: VaultOrganizeContextCardPr
         {VAULT_UI.organizeSpaceContextLabel}
       </Text>
       <View className="flex-row items-center gap-2">
-        <Text className="text-base">{context.spaceEmoji}</Text>
+        <Text className="">{context.spaceEmoji}</Text>
         <Text className="text-sm font-black text-foreground">{context.spaceLabel}</Text>
       </View>
       <Text className="text-xs leading-5 text-foreground-secondary">{context.spaceDescription}</Text>

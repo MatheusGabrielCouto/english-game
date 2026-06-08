@@ -25,7 +25,7 @@ export const PetCollectionSection = () => {
   return (
     <Card elevated>
       <View className="mb-1 flex-row items-center justify-between">
-        <Text className="text-base font-semibold text-foreground">Petédex</Text>
+        <Text className=" font-semibold text-foreground">Petédex</Text>
         <Text className="text-xs font-bold text-accent">
           {discovered}/{entries.length}
         </Text>
