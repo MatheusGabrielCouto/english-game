@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm';
+import { and, eq, inArray } from 'drizzle-orm';
 
 import type { PetInstanceMemoryRecord } from '@/types/pet-instance-memory';
 
@@ -59,4 +59,55 @@ export const unlockPetInstanceMemory = async (
     unlockedAt: record.unlockedAt,
   });
   return true;
+};
+
+export const listMemoryKeysByInstanceIds = async (
+  instanceIds: number[],
+): Promise<Map<number, Set<string>>> => {
+  const map = new Map<number, Set<string>>();
+  if (instanceIds.length === 0) return map;
+
+  const db = getDb();
+  const rows = await db
+    .select({
+      instanceId: petInstanceMemories.instanceId,
+      memoryKey: petInstanceMemories.memoryKey,
+    })
+    .from(petInstanceMemories)
+    .where(inArray(petInstanceMemories.instanceId, instanceIds));
+
+  for (const instanceId of instanceIds) {
+    map.set(instanceId, new Set());
+  }
+
+  for (const row of rows) {
+    const keys = map.get(row.instanceId) ?? new Set<string>();
+    keys.add(row.memoryKey);
+    map.set(row.instanceId, keys);
+  }
+
+  return map;
+};
+
+export const insertPetInstanceMemoriesBatch = async (
+  records: PetInstanceMemoryRecord[],
+): Promise<number> => {
+  if (records.length === 0) return 0;
+
+  const db = getDb();
+  await db
+    .insert(petInstanceMemories)
+    .values(
+      records.map((record) => ({
+        instanceId: record.instanceId,
+        memoryKey: record.memoryKey,
+        title: record.title,
+        description: record.description,
+        icon: record.icon,
+        unlockedAt: record.unlockedAt,
+      })),
+    )
+    .onConflictDoNothing();
+
+  return records.length;
 };

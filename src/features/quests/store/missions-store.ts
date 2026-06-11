@@ -50,9 +50,9 @@ export const useMissionsStore = create<MissionsState>()((set, get) => ({
 
   ensureDailyMissions: () => {
     const today = getTodayKey()
-    const { missionsDate, missions, isSyncing } = get()
+    const { missionsDate, missions, isSyncing, _hasHydrated } = get()
 
-    if (missionsDate === today && missions.length > 0) {
+    if (_hasHydrated && missionsDate === today && missions.length > 0) {
       return
     }
 

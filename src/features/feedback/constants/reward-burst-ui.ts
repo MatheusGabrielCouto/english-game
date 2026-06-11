@@ -18,6 +18,8 @@ export const REWARD_BURST_COPY = {
   missionFallback: 'Missão concluída!',
   vault: 'Revisão do Vault concluída!',
   focus: 'Sessão de foco concluída!',
+  multiple: 'Recompensas conquistadas!',
+  multipleActivities: (count: number) => `${count} atividades concluídas`,
 } as const
 
 export const resolveRewardBurstEmoji = (source?: RewardBurstSource): string =>

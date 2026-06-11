@@ -7,6 +7,7 @@ export type LevelUpCelebration = {
 };
 
 import type { RewardBurstSource } from '../constants/reward-burst-ui';
+import { createRewardBurst, mergeRewardBursts } from '../utils/merge-reward-burst';
 
 export type MissionRewardBurst = {
   id: string;
@@ -15,6 +16,7 @@ export type MissionRewardBurst = {
   coins: number;
   studyPoints?: number;
   source?: RewardBurstSource;
+  batchCount?: number;
 };
 
 export type PetEvolutionCelebration = {
@@ -48,7 +50,8 @@ export type ToastMessage = {
 type FeedbackState = {
   levelUpQueue: LevelUpCelebration[];
   activeLevelUp: LevelUpCelebration | null;
-  rewardBursts: MissionRewardBurst[];
+  activeRewardBurst: MissionRewardBurst | null;
+  rewardBurstQueue: MissionRewardBurst[];
   petEvolution: PetEvolutionCelebration | null;
   prestigeCelebration: PrestigeCelebration | null;
   showConfetti: boolean;
@@ -57,7 +60,7 @@ type FeedbackState = {
   enqueueLevelUp: (celebration: LevelUpCelebration) => void;
   dequeueLevelUp: () => void;
   addRewardBurst: (burst: Omit<MissionRewardBurst, 'id'>) => void;
-  removeRewardBurst: (id: string) => void;
+  completeRewardBurst: (id: string) => void;
   setPetEvolution: (celebration: PetEvolutionCelebration | null) => void;
   setPrestigeCelebration: (celebration: PrestigeCelebration | null) => void;
   triggerConfetti: () => void;
@@ -69,7 +72,8 @@ type FeedbackState = {
 export const useFeedbackStore = create<FeedbackState>()((set, get) => ({
   levelUpQueue: [],
   activeLevelUp: null,
-  rewardBursts: [],
+  activeRewardBurst: null,
+  rewardBurstQueue: [],
   petEvolution: null,
   prestigeCelebration: null,
   showConfetti: false,
@@ -90,28 +94,48 @@ export const useFeedbackStore = create<FeedbackState>()((set, get) => ({
     set({
       activeLevelUp: next ?? null,
       levelUpQueue: rest,
-      showConfetti: Boolean(next),
+      showConfetti: next ? true : false,
     });
   },
 
   addRewardBurst: (burst) => {
-    const id = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
-    set((state) => ({
-      rewardBursts: [...state.rewardBursts, { ...burst, id }],
-    }));
+    const item = createRewardBurst(burst);
+
+    set((state) => {
+      if (!state.activeRewardBurst) {
+        return { activeRewardBurst: item };
+      }
+
+      if (state.rewardBurstQueue.length > 0) {
+        const queue = state.rewardBurstQueue.slice();
+        const lastIndex = queue.length - 1;
+        queue[lastIndex] = mergeRewardBursts(queue[lastIndex]!, burst);
+        return { rewardBurstQueue: queue };
+      }
+
+      return { rewardBurstQueue: [item] };
+    });
   },
 
-  removeRewardBurst: (id) => {
+  completeRewardBurst: (id) => {
     set((state) => {
-      const rewardBursts = state.rewardBursts.filter((burst) => burst.id !== id);
+      if (state.activeRewardBurst?.id !== id) {
+        return {
+          rewardBurstQueue: state.rewardBurstQueue.filter((burst) => burst.id !== id),
+        };
+      }
+
+      const [next, ...rest] = state.rewardBurstQueue;
       const hasBlockingCelebration =
         state.activeLevelUp !== null ||
         state.petEvolution !== null ||
         state.prestigeCelebration !== null;
+      const hasPendingBursts = Boolean(next) || rest.length > 0;
 
       return {
-        rewardBursts,
-        showConfetti: hasBlockingCelebration ? state.showConfetti : rewardBursts.length > 0,
+        activeRewardBurst: next ?? null,
+        rewardBurstQueue: rest,
+        showConfetti: hasBlockingCelebration ? state.showConfetti : hasPendingBursts,
       };
     });
   },

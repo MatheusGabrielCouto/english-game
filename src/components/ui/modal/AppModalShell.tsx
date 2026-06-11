@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect } from 'react'
+import { type ReactNode, useEffect, useLayoutEffect, useState } from 'react'
 import {
   KeyboardAvoidingView,
   Modal as RNModal,
@@ -53,7 +53,13 @@ export const AppModalShell = ({
   backdropAccessibilityLabel = 'Fechar modal',
 }: AppModalShellProps) => {
   const { height: windowHeight } = useWindowDimensions()
-  const sheetHeight = Math.round(windowHeight * sheetHeightRatio)
+  const [sheetHeight, setSheetHeight] = useState(() => Math.round(windowHeight * sheetHeightRatio))
+
+  // Lock sheet height while open so Android keyboard resize does not reflow the panel.
+  useLayoutEffect(() => {
+    if (!visible || presentation !== 'sheet') return
+    setSheetHeight(Math.round(windowHeight * sheetHeightRatio))
+  }, [presentation, sheetHeightRatio, visible])
 
   const backdropOpacity = useSharedValue(0)
   const panelProgress = useSharedValue(0)
@@ -127,6 +133,30 @@ export const AppModalShell = ({
     </Animated.View>
   )
 
+  const modalBody = (
+    <View
+      className={
+        presentation === 'sheet' ? 'flex-1 justify-end' : 'flex-1 items-center justify-center px-6 py-6'
+      }
+      accessibilityViewIsModal={accessibilityViewIsModal}>
+      <ModalBackdrop
+        opacity={backdropOpacity}
+        onPress={handleBackdropPress}
+        accessibilityLabel={backdropAccessibilityLabel}
+      />
+
+      {presentation === 'center' ? (
+        <Animated.View style={[styles.centerPanel, centerPanelStyle]}>{children}</Animated.View>
+      ) : enableDismissGesture ? (
+        <GestureDetector gesture={panGesture}>
+          <Animated.View style={styles.sheetWrapper}>{sheetContent}</Animated.View>
+        </GestureDetector>
+      ) : (
+        <Animated.View style={styles.sheetWrapper}>{sheetContent}</Animated.View>
+      )}
+    </View>
+  )
+
   return (
     <RNModal
       visible={visible}
@@ -134,30 +164,16 @@ export const AppModalShell = ({
       animationType="none"
       onRequestClose={onClose}
       statusBarTranslucent>
-      <KeyboardAvoidingView
-        style={styles.avoiding}
-        behavior={MODAL_KEYBOARD_BEHAVIOR}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? (presentation === 'sheet' ? 6 : 12) : 0}>
-        <View
-          className={presentation === 'sheet' ? 'flex-1 justify-end' : 'flex-1 items-center justify-center px-6 py-6'}
-          accessibilityViewIsModal={accessibilityViewIsModal}>
-          <ModalBackdrop
-            opacity={backdropOpacity}
-            onPress={handleBackdropPress}
-            accessibilityLabel={backdropAccessibilityLabel}
-          />
-
-          {presentation === 'center' ? (
-            <Animated.View style={[styles.centerPanel, centerPanelStyle]}>{children}</Animated.View>
-          ) : enableDismissGesture ? (
-            <GestureDetector gesture={panGesture}>
-              <Animated.View style={styles.sheetWrapper}>{sheetContent}</Animated.View>
-            </GestureDetector>
-          ) : (
-            <Animated.View style={styles.sheetWrapper}>{sheetContent}</Animated.View>
-          )}
-        </View>
-      </KeyboardAvoidingView>
+      {presentation === 'sheet' ? (
+        modalBody
+      ) : (
+        <KeyboardAvoidingView
+          style={styles.avoiding}
+          behavior={MODAL_KEYBOARD_BEHAVIOR}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}>
+          {modalBody}
+        </KeyboardAvoidingView>
+      )}
     </RNModal>
   )
 }

@@ -1,6 +1,7 @@
 import { useFocusEffect } from 'expo-router'
 import { useCallback, useState } from 'react'
 
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy'
 import { getMotivationSettings } from '@/storage/repositories/motivation-settings-repository'
 import type { MotivationSparkRecord } from '@/types/motivation-spark'
 
@@ -32,8 +33,9 @@ export const useDailyMotivationSpark = () => {
 
   useFocusEffect(
     useCallback(() => {
+      if (shouldSkipHydratedStoreReread(hasHydrated, { withinFocusGrace: true })) return
       void refresh()
-    }, [refresh]),
+    }, [hasHydrated, refresh]),
   )
 
   const spark: MotivationSparkRecord | null = snapshot?.spark ?? null

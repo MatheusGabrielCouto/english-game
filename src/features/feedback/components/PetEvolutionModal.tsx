@@ -162,8 +162,10 @@ export const PetEvolutionModal = () => {
 
   const speciesKey = celebration?.speciesKey ?? 'codeowl';
 
+  if (!celebration) return null;
+
   return (
-    <Modal visible={celebration !== null} transparent animationType="none" statusBarTranslucent>
+    <Modal visible transparent animationType="none" statusBarTranslucent>
       <Pressable
         style={styles.root}
         onPress={canSkip ? handleClose : undefined}

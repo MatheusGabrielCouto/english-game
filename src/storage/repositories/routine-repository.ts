@@ -1,4 +1,4 @@
-import { and, desc, eq } from 'drizzle-orm';
+import { and, count, desc, eq, inArray } from 'drizzle-orm';
 
 import {
     mapRoutineRow,
@@ -146,6 +146,18 @@ export const RoutineRepository = {
     return row ? mapStatsRow(row) : null;
   },
 
+  async listStatsForRoutineIds(routineIds: string[]): Promise<RoutineStatsRecord[]> {
+    if (routineIds.length === 0) return [];
+
+    const db = getDb();
+    const rows = await db
+      .select()
+      .from(routineStats)
+      .where(inArray(routineStats.routineId, routineIds));
+
+    return rows.map(mapStatsRow);
+  },
+
   async saveStats(stats: RoutineStatsRecord): Promise<void> {
     const db = getDb();
     await db
@@ -170,6 +182,26 @@ export const RoutineRepository = {
           updatedAt: stats.updatedAt,
         },
       });
+  },
+
+  async listCompletionsForRoutineIdsAndPeriods(
+    routineIds: string[],
+    periodKeys: string[],
+  ): Promise<RoutineCompletionRecord[]> {
+    if (routineIds.length === 0 || periodKeys.length === 0) return [];
+
+    const db = getDb();
+    const rows = await db
+      .select()
+      .from(routineCompletions)
+      .where(
+        and(
+          inArray(routineCompletions.routineId, routineIds),
+          inArray(routineCompletions.periodKey, periodKeys),
+        ),
+      );
+
+    return rows.map(mapCompletionRow);
   },
 
   async getCompletion(
@@ -218,7 +250,7 @@ export const RoutineRepository = {
 
   async countTotalCompletions(): Promise<number> {
     const db = getDb();
-    const rows = await db.select().from(routineCompletions);
-    return rows.length;
+    const rows = await db.select({ total: count() }).from(routineCompletions);
+    return Number(rows[0]?.total ?? 0);
   },
 };

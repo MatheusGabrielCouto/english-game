@@ -156,7 +156,7 @@ export const FlashDeckHubContent = () => {
       <FlashDeckFormModal
         visible={deckModalVisible}
         onClose={() => setDeckModalVisible(false)}
-        onSaved={() => void refresh()}
+        onSaved={() => void refresh({ force: true })}
       />
     </>
   );

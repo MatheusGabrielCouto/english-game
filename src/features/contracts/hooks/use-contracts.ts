@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 import { showGameToast } from '@/features/feedback/services/feedback-service';
 import { usePlayerStore } from '@/features/player';
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy';
 import type { ContractDefinition } from '@/types/contract';
 
 import { CONTRACT_MESSAGES } from '../constants/default-contracts';
@@ -23,8 +24,9 @@ export const useContracts = () => {
   );
 
   useEffect(() => {
+    if (shouldSkipHydratedStoreReread(!isLoading)) return;
     void ContractService.refresh();
-  }, []);
+  }, [isLoading]);
 
   const getDefinition = useCallback(
     (key: string): ContractDefinition | undefined => ContractService.getDefinition(key),

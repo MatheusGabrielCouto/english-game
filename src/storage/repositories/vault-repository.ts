@@ -23,19 +23,20 @@ export const VaultRepository = {
     if (existing.length > 0) return;
 
     const now = new Date().toISOString();
-    for (const space of VAULT_SPACES) {
-      for (let i = 0; i < space.defaultFolders.length; i += 1) {
-        const folder = space.defaultFolders[i];
-        await db.insert(journalFolders).values({
-          id: createId('folder'),
-          spaceKey: space.key,
-          parentId: null,
-          name: folder.name,
-          slug: folder.slug,
-          sortOrder: i,
-          createdAt: now,
-        });
-      }
+    const folderRows = VAULT_SPACES.flatMap((space) =>
+      space.defaultFolders.map((folder, index) => ({
+        id: createId('folder'),
+        spaceKey: space.key,
+        parentId: null,
+        name: folder.name,
+        slug: folder.slug,
+        sortOrder: index,
+        createdAt: now,
+      })),
+    );
+
+    if (folderRows.length > 0) {
+      await db.insert(journalFolders).values(folderRows);
     }
   },
 
@@ -229,12 +230,35 @@ export const VaultRepository = {
   },
 
   async getRelatedIds(entryId: string): Promise<string[]> {
+    const map = await VaultRepository.getRelatedIdsBatch([entryId]);
+    return map.get(entryId) ?? [];
+  },
+
+  async getRelatedIdsBatch(entryIds: string[]): Promise<Map<string, string[]>> {
+    const map = new Map<string, string[]>();
+    if (entryIds.length === 0) return map;
+
     const db = getDb();
     const rows = await db
-      .select({ otherId: journalEntryLinks.toEntryId })
+      .select({
+        fromEntryId: journalEntryLinks.fromEntryId,
+        otherId: journalEntryLinks.toEntryId,
+      })
       .from(journalEntryLinks)
-      .where(eq(journalEntryLinks.fromEntryId, entryId));
-    return rows.map((r) => r.otherId).filter((id) => id !== entryId);
+      .where(inArray(journalEntryLinks.fromEntryId, entryIds));
+
+    for (const entryId of entryIds) {
+      map.set(entryId, []);
+    }
+
+    for (const row of rows) {
+      if (row.otherId === row.fromEntryId) continue;
+      const list = map.get(row.fromEntryId) ?? [];
+      list.push(row.otherId);
+      map.set(row.fromEntryId, list);
+    }
+
+    return map;
   },
 
   async purgeEntryRelations(entryId: string): Promise<void> {

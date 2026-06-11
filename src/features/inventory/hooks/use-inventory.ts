@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { isApplicationStoresHydrated } from '@/storage/application-hydration';
 import type { AcquisitionHistoryRecord, InventorySnapshot } from '@/types/inventory';
 
 import { InventoryService } from '../services/inventory-service';
@@ -33,11 +34,19 @@ export const useInventory = () => {
 
     void InventoryService.getHistory().then(setHistory);
 
-    if (!InventoryService.getCachedSnapshot()) {
-      void refresh();
-    } else {
+    const cached = InventoryService.getCachedSnapshot();
+    if (cached) {
+      setSnapshot(cached);
       setLoading(false);
+      return unsubscribe;
     }
+
+    if (isApplicationStoresHydrated()) {
+      setLoading(false);
+      return unsubscribe;
+    }
+
+    void refresh();
 
     return unsubscribe;
   }, [refresh, setLoading]);

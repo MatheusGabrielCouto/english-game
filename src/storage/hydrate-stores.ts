@@ -21,18 +21,23 @@ import { useFlashDeckStore } from '@/features/flash-deck/store/flash-deck-store'
 import { FocusModeService } from '@/features/focus-mode/services/focus-mode-service';
 import { FocusPetReactionService } from '@/features/focus-mode/services/focus-pet-reactions';
 import { BoosterModifierCache } from '@/features/game-design/services/booster-modifier-cache';
+import { seedHomeFocusRefreshStamps } from '@/features/home/services/home-focus-refresh-runner';
 import { InventoryService } from '@/features/inventory/services/inventory-service';
+import { useInventoryScreenStore } from '@/features/inventory/store/inventory-screen-store';
 import { LearningGpsService } from '@/features/learning-gps/services/learning-gps-service';
 import { LearningAnalyticsService } from '@/features/learning/services/learning-analytics-service';
 import { LearningIntegrationService } from '@/features/learning/services/learning-integration-service';
 import { LearningMissionBridge } from '@/features/learning/services/learning-mission-bridge';
 import { LemmaCompetenceService } from '@/features/learning/services/lemma-competence-service';
+import { LootBoxService } from '@/features/loot-boxes/services/loot-box-service';
+import { useLootBoxScreenStore } from '@/features/loot-boxes/store/loot-box-screen-store';
 import { useMenuHubStore } from '@/features/menu-hub/store/menu-hub-store';
 import { MetagameService } from '@/features/metagame/services/metagame-service';
 import { MotivationSparkService } from '@/features/motivation-spark/services/motivation-spark-service';
 import { NotificationService } from '@/features/notifications/services/notification-service';
 import { PetMemoryService } from '@/features/pet/services/pet-memory-service';
 import { PetService } from '@/features/pet/services/pet-service';
+import { usePetScreenStore } from '@/features/pet/store/pet-screen-store';
 import { LevelMilestoneService } from '@/features/player/services/level-milestone-service';
 import { usePlayerStore } from '@/features/player/store/player-store';
 import { PunishmentService } from '@/features/punishments/services/punishment-service';
@@ -42,6 +47,7 @@ import { getTodayKey } from '@/features/quests/utils/date';
 import { ReviewPromptService } from '@/features/review-prompt/services/review-prompt-service';
 import { RoutineService } from '@/features/routines/services/routine-service';
 import { RpgService } from '@/features/rpg/services/rpg-service';
+import { useShieldScreenStore } from '@/features/shields/store/shield-screen-store';
 import { ShopService } from '@/features/shop/services/shop-service';
 import { StatisticsService } from '@/features/statistics/services/statistics-service';
 import { StreakService } from '@/features/streak/services/streak-service';
@@ -56,7 +62,14 @@ import { AndroidWidgetService } from '@/widgets/android/android-widget-service';
 import { AudioDirector } from '@/services/audio';
 import { StartupPerfService } from '@/services/startup-perf-service';
 
+import {
+    markApplicationStoresHydrated,
+    markCriticalStoresHydrated,
+} from './application-hydration';
+import { hydrateHomeScreenStores, markHomeScreenStoresReady } from './hydrate-home-stores';
+
 import { initDatabase } from './database/client';
+import { advanceHydrationProgress } from './hydration-progress';
 import { migrateFromAsyncStorageIfNeeded } from './migrate-from-async-storage';
 import { getOrCreateAppSettings } from './repositories/app-settings-repository';
 import {
@@ -133,19 +146,39 @@ const initGameEventListeners = (): void => {
   CityNpcTrustService.initListeners();
 };
 
+const runTrackedBatch = async (
+  tasks: Array<() => Promise<unknown>>,
+  totalProgress: number,
+): Promise<void> => {
+  if (tasks.length === 0) return;
+
+  const step = totalProgress / tasks.length;
+  await Promise.all(
+    tasks.map((run) =>
+      Promise.resolve()
+        .then(() => run())
+        .finally(() => advanceHydrationProgress(step)),
+    ),
+  );
+};
+
 /** Fast path: enough state to render tabs and complete daily missions. */
 export const hydrateCriticalStores = async (): Promise<void> => {
   const startedAt = Date.now();
 
   await initDatabase();
+  advanceHydrationProgress(8);
+
   await migrateFromAsyncStorageIfNeeded();
   initGameEventListeners();
+  advanceHydrationProgress(7);
 
   const player = await getOrCreatePlayer();
   usePlayerStore.setState({
     ...pickPlayerState(player),
     _hasHydrated: true,
   });
+  advanceHydrationProgress(6);
 
   await StreakService.reconcileOnStartup();
 
@@ -153,6 +186,7 @@ export const hydrateCriticalStores = async (): Promise<void> => {
   usePlayerStore.setState({
     ...pickPlayerState(reconciledPlayer),
   });
+  advanceHydrationProgress(5);
 
   const settings = await getOrCreateAppSettings();
   useAppStore.setState({
@@ -163,8 +197,11 @@ export const hydrateCriticalStores = async (): Promise<void> => {
     _hasHydrated: true,
   });
 
+  advanceHydrationProgress(4);
+
   await loadDailyMissions();
   await RoutineService.initialize();
+  advanceHydrationProgress(8);
 
   StudyService.resetSessionCache();
   await WeeklyMissionService.ensureCurrentWeek();
@@ -175,11 +212,15 @@ export const hydrateCriticalStores = async (): Promise<void> => {
     isLoading: false,
   });
 
+  advanceHydrationProgress(5);
+
   AndroidWidgetService.init();
   await AndroidWidgetService.ensureSnapshot();
   await AndroidWidgetService.syncNow();
+  advanceHydrationProgress(5);
 
   StartupPerfService.recordCriticalHydrationMs(Date.now() - startedAt);
+  markCriticalStoresHydrated();
 };
 
 /** Heavy SQLite + service caches — runs after first paint. */
@@ -194,45 +235,53 @@ export const hydrateBackgroundServices = async (): Promise<void> => {
   await PetFarmBonusCache.refresh();
   await PetTraitBonusCache.refresh();
   await PetPersonalityCache.refresh();
+  advanceHydrationProgress(6);
 
-  await Promise.all([
-    PetService.initialize(),
-    PetMemoryService.seedInitialMemories(),
-    InventoryService.initialize(),
-    AchievementService.initialize(),
-    ShopService.initialize(),
-    TitleService.initialize(),
-    CityService.initialize(),
-    CityMapService.initialize(),
-    CityPoiMissionService.initialize(),
-    CityResourceService.initialize(),
-    LexiconBrickService.initialize(),
-    CityVitalityService.initialize(),
-    CityLivingService.initialize(),
-    CityEventService.initialize(),
-    ContractService.initialize(),
-    StatisticsService.initialize(),
-    EpicQuestService.initialize(),
-    RpgService.initialize(),
-    CareerService.initialize(),
-    MetagameService.initialize(),
-    StudyPointsService.initialize(),
-    FarmService.initialize(),
-    PunishmentService.initialize(),
-    CollectionBookService.initialize(),
-    WishlistService.initialize(),
-    import('@/features/flash-deck/services/flash-deck-seed-service').then(({ FlashDeckSeedService }) =>
-      FlashDeckSeedService.initialize(),
-    ),
-    KnowledgeVaultService.initialize(),
-    LearningGpsService.initialize(),
-    import('@/features/mentor-ai/services/mentor-model-bootstrap').then(({ MentorModelBootstrap }) =>
-      MentorModelBootstrap.initialize(),
-    ),
-    import('@/features/mentor-ai/services/mentor-retention-service').then(({ MentorRetentionService }) =>
-      MentorRetentionService.runIfDue(),
-    ),
-  ]);
+  await runTrackedBatch(
+    [
+      () => PetService.initialize(),
+      () => PetMemoryService.seedInitialMemories(),
+      () => InventoryService.initialize(),
+      () => LootBoxService.initialize(),
+      () => AchievementService.initialize(),
+      () => ShopService.initialize(),
+      () => TitleService.initialize(),
+      () => CityService.initialize(),
+      () => CityMapService.initialize(),
+      () => CityPoiMissionService.initialize(),
+      () => CityResourceService.initialize(),
+      () => LexiconBrickService.initialize(),
+      () => CityVitalityService.initialize(),
+      () => CityLivingService.initialize(),
+      () => CityEventService.initialize(),
+      () => ContractService.initialize(),
+      () => StatisticsService.initialize(),
+      () => EpicQuestService.initialize(),
+      () => RpgService.initialize(),
+      () => CareerService.initialize(),
+      () => MetagameService.initialize(),
+      () => StudyPointsService.initialize(),
+      () => FarmService.initialize(),
+      () => PunishmentService.initialize(),
+      () => CollectionBookService.initialize(),
+      () => WishlistService.initialize(),
+      () =>
+        import('@/features/flash-deck/services/flash-deck-seed-service').then(({ FlashDeckSeedService }) =>
+          FlashDeckSeedService.initialize(),
+        ),
+      () => KnowledgeVaultService.initialize(),
+      () => LearningGpsService.initialize(),
+      () =>
+        import('@/features/mentor-ai/services/mentor-model-bootstrap').then(({ MentorModelBootstrap }) =>
+          MentorModelBootstrap.initialize(),
+        ),
+      () =>
+        import('@/features/mentor-ai/services/mentor-retention-service').then(({ MentorRetentionService }) =>
+          MentorRetentionService.runIfDue(),
+        ),
+    ],
+    27,
+  );
 
   try {
     await AudioDirector.init();
@@ -257,11 +306,59 @@ export const hydrateBackgroundServices = async (): Promise<void> => {
   } catch (error) {
     console.warn('[review-prompt] initialize skipped:', error);
   }
+  advanceHydrationProgress(4);
+
+  await hydrateExtendedStores();
+  advanceHydrationProgress(5);
+};
+
+/** Stores and caches not wired through service.initialize — loaded once at startup. */
+const hydrateExtendedStores = async (): Promise<void> => {
+  await Promise.all([
+    useFlashDeckStore.getState().refresh(),
+    useMenuHubStore.getState().hydrate(),
+    MotivationSparkService.hydrate(),
+  ]);
+};
+
+const finalizeHydratedUiFlags = (): void => {
+  usePetScreenStore.getState().setLoading(false);
+  useInventoryScreenStore.getState().setLoading(false);
+  useLootBoxScreenStore.getState().setLoading(false);
+  useShieldScreenStore.getState().setLoading(false);
+  seedHomeFocusRefreshStamps();
+  markApplicationStoresHydrated();
+};
+
+let backgroundHydrationPromise: Promise<void> | null = null;
+
+/** Heavy services + Home card data — runs during splash before first Home paint. */
+export const hydrateBackgroundStoresPhase = (): Promise<void> => {
+  if (!backgroundHydrationPromise) {
+    backgroundHydrationPromise = (async () => {
+      await hydrateBackgroundServices();
+      await hydrateHomeScreenStores();
+      finalizeHydratedUiFlags();
+      advanceHydrationProgress(5);
+    })().catch((error) => {
+      backgroundHydrationPromise = null;
+      throw error;
+    });
+  }
+
+  return backgroundHydrationPromise;
 };
 
 export const hydrateStoresFromDatabase = async (): Promise<void> => {
+  advanceHydrationProgress(2);
   await hydrateCriticalStores();
-  await hydrateBackgroundServices();
+  await hydrateBackgroundStoresPhase();
+};
+
+/** Unblocks Home if background hydration fails — avoids infinite skeleton. */
+export const recoverBackgroundHydrationFailure = (): void => {
+  markHomeScreenStoresReady();
+  finalizeHydratedUiFlags();
 };
 
 /** Reloads all stores and service caches after a backup restore. */
@@ -301,6 +398,7 @@ export const refreshApplicationAfterRestore = async (): Promise<void> => {
 
   await PetService.refresh();
   await InventoryService.refresh();
+  await LootBoxService.initialize();
   await AchievementService.refresh();
   await ShopService.refresh();
   await TitleService.refresh();
@@ -325,10 +423,14 @@ export const refreshApplicationAfterRestore = async (): Promise<void> => {
   await useMenuHubStore.getState().hydrate();
   await MotivationSparkService.hydrate();
   await LearningGpsService.refresh();
+  await hydrateHomeScreenStores();
 
   try {
     await NotificationService.initialize();
   } catch (error) {
     console.warn('[notifications] re-init skipped:', error);
   }
+
+  markCriticalStoresHydrated();
+  finalizeHydratedUiFlags();
 };

@@ -28,6 +28,7 @@ import { PetBestActionHighlight } from '@/features/pet/components/PetBestActionH
 import { getPetDisplayInfo, isPetIncubating } from '@/features/pet/utils/display'
 import { getPetRecommendedAction } from '@/features/pet/utils/get-pet-recommended-action'
 import { getPetXPProgress } from '@/features/pet/utils/xp'
+import { CoachMarkTarget } from '@/features/tutorial'
 import { PetMood } from '@/types/pet'
 
 const MOOD_BOUNCE: Record<string, number> = {
@@ -71,19 +72,25 @@ export const HomePetCompanionCard = () => {
   }))
 
   if (isLoading && !pet) {
-    return <HomeCardSkeleton />
+    return (
+      <CoachMarkTarget coachKey="home-pet-card">
+        <HomeCardSkeleton />
+      </CoachMarkTarget>
+    )
   }
 
   if (!pet) {
     return (
-      <PressableScale fill onPress={() => router.push(routes.pet as Href)} accessibilityLabel={HOME_UI.pet.emptyCta}>
-        <GameCard variant="default" className="border-legendary/25">
-          <HomeSectionLabel emoji="🐾" title={HOME_UI.pet.title} tone="legendary" />
-          <Text className="mt-3 text-lg font-black text-foreground">{HOME_UI.pet.emptyTitle}</Text>
-          <Text className="mt-1 text-sm text-foreground-secondary">{HOME_UI.pet.emptyBody}</Text>
-          <Text className="mt-3 text-xs font-bold text-legendary">{HOME_UI.pet.emptyCta} →</Text>
-        </GameCard>
-      </PressableScale>
+      <CoachMarkTarget coachKey="home-pet-card">
+        <PressableScale fill onPress={() => router.push(routes.pet as Href)} accessibilityLabel={HOME_UI.pet.emptyCta}>
+          <GameCard variant="default" className="border-legendary/25">
+            <HomeSectionLabel emoji="🐾" title={HOME_UI.pet.title} tone="legendary" />
+            <Text className="mt-3 text-lg font-black text-foreground">{HOME_UI.pet.emptyTitle}</Text>
+            <Text className="mt-1 text-sm text-foreground-secondary">{HOME_UI.pet.emptyBody}</Text>
+            <Text className="mt-3 text-xs font-bold text-legendary">{HOME_UI.pet.emptyCta} →</Text>
+          </GameCard>
+        </PressableScale>
+      </CoachMarkTarget>
     )
   }
 
@@ -95,13 +102,14 @@ export const HomePetCompanionCard = () => {
   const recommendedAction = incubating ? null : getPetRecommendedAction(pet)
 
   return (
-    <PressableScale
-      fill
-      onPress={() => router.push(routes.pet as Href)}
-      accessibilityRole="button"
-      accessibilityLabel={HOME_UI.pet.viewPet}
-    >
-      <GameCard
+    <CoachMarkTarget coachKey="home-pet-card">
+      <PressableScale
+        fill
+        onPress={() => router.push(routes.pet as Href)}
+        accessibilityRole="button"
+        accessibilityLabel={HOME_UI.pet.viewPet}
+      >
+        <GameCard
         variant="quest"
         glow
         sharedTransitionTag={SHARED_TRANSITION_TAGS.petHero}
@@ -159,6 +167,7 @@ export const HomePetCompanionCard = () => {
           />
         </View>
       </GameCard>
-    </PressableScale>
+      </PressableScale>
+    </CoachMarkTarget>
   )
 }

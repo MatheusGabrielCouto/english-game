@@ -6,6 +6,7 @@ import { RoutineRepository } from '@/storage/repositories/routine-repository';
 import { CityResourceType } from '@/types/city-resource';
 import {
     RoutineCategory,
+    type RoutineStatsRecord,
     type RoutineTodayItem,
     type UserRoutineRecord,
 } from '@/types/routine';
@@ -106,40 +107,60 @@ const grantCityResourceForRoutine = async (category: UserRoutineRecord['category
   }
 };
 
-const buildTodayItem = async (
-  routine: UserRoutineRecord,
+const emptyRoutineStats = (routineId: string): RoutineStatsRecord => ({
+  routineId,
+  totalCompleted: 0,
+  totalMissed: 0,
+  currentStreak: 0,
+  bestStreak: 0,
+  lastCompletedPeriod: null,
+  updatedAt: new Date().toISOString(),
+});
+
+const buildTodayItems = async (
+  routines: UserRoutineRecord[],
   dateKey: string,
-): Promise<RoutineTodayItem> => {
-  const stats = (await RoutineRepository.getStats(routine.id)) ?? {
-    routineId: routine.id,
-    totalCompleted: 0,
-    totalMissed: 0,
-    currentStreak: 0,
-    bestStreak: 0,
-    lastCompletedPeriod: null,
-    updatedAt: new Date().toISOString(),
-  };
+): Promise<RoutineTodayItem[]> => {
+  if (routines.length === 0) return [];
 
-  const periodKey = getPeriodKey(routine.frequency, dateKey);
-  const completion = await RoutineRepository.getCompletion(routine.id, periodKey);
-  const rate = computeCompletionRate(stats.totalCompleted, stats.totalMissed);
+  const routineIds = routines.map((routine) => routine.id);
+  const periodKeys = [
+    ...new Set(routines.map((routine) => getPeriodKey(routine.frequency, dateKey))),
+  ];
 
-  return {
-    routine,
-    stats,
-    periodKey,
-    completed: Boolean(completion),
-    completion,
-    isDueToday: isRoutineDueOnDate(routine, dateKey),
-    completionRate: rate,
-    consistencyLabel: getConsistencyLabel(rate),
-  };
+  const [statsRows, completions] = await Promise.all([
+    RoutineRepository.listStatsForRoutineIds(routineIds),
+    RoutineRepository.listCompletionsForRoutineIdsAndPeriods(routineIds, periodKeys),
+  ]);
+
+  const statsByRoutineId = new Map(statsRows.map((stats) => [stats.routineId, stats]));
+  const completionByKey = new Map(
+    completions.map((completion) => [`${completion.routineId}:${completion.periodKey}`, completion]),
+  );
+
+  return routines.map((routine) => {
+    const stats = statsByRoutineId.get(routine.id) ?? emptyRoutineStats(routine.id);
+    const periodKey = getPeriodKey(routine.frequency, dateKey);
+    const completion = completionByKey.get(`${routine.id}:${periodKey}`) ?? null;
+    const rate = computeCompletionRate(stats.totalCompleted, stats.totalMissed);
+
+    return {
+      routine,
+      stats,
+      periodKey,
+      completed: Boolean(completion),
+      completion,
+      isDueToday: isRoutineDueOnDate(routine, dateKey),
+      completionRate: rate,
+      consistencyLabel: getConsistencyLabel(rate),
+    };
+  });
 };
 
 const refreshStore = async (): Promise<void> => {
   const dateKey = getTodayKey();
   const routines = await RoutineRepository.listActive();
-  const items = await Promise.all(routines.map((r) => buildTodayItem(r, dateKey)));
+  const items = await buildTodayItems(routines, dateKey);
 
   const dueToday = items.filter((item) => item.isDueToday);
   const completedToday = dueToday.filter((item) => item.completed);
@@ -159,7 +180,7 @@ export const RoutineService = {
   async getDueTodayItems(): Promise<RoutineTodayItem[]> {
     const dateKey = getTodayKey();
     const routines = await RoutineRepository.listActive();
-    const items = await Promise.all(routines.map((routine) => buildTodayItem(routine, dateKey)));
+    const items = await buildTodayItems(routines, dateKey);
     return items.filter((item) => item.isDueToday);
   },
 
@@ -176,9 +197,37 @@ export const RoutineService = {
   async reconcileMissedPeriods(): Promise<void> {
     const today = getTodayKey();
     const routines = await RoutineRepository.listActive();
+    if (routines.length === 0) return;
+
+    const routineIds = routines.map((routine) => routine.id);
+    const previousPeriods = [
+      ...new Set(
+        routines
+          .map((routine) => {
+            const currentPeriod = getPeriodKey(routine.frequency, today);
+            return getPreviousPeriodKey(routine.frequency, currentPeriod);
+          })
+          .filter((periodKey): periodKey is string => Boolean(periodKey)),
+      ),
+    ];
+
+    const [statsRows, completions] = await Promise.all([
+      RoutineRepository.listStatsForRoutineIds(routineIds),
+      RoutineRepository.listCompletionsForRoutineIdsAndPeriods(routineIds, previousPeriods),
+    ]);
+
+    const statsByRoutineId = new Map(statsRows.map((stats) => [stats.routineId, stats]));
+    const completionByKey = new Set(
+      completions.map((completion) => `${completion.routineId}:${completion.periodKey}`),
+    );
 
     for (const routine of routines) {
-      const stats = await RoutineRepository.ensureStats(routine.id);
+      let stats = statsByRoutineId.get(routine.id);
+      if (!stats) {
+        stats = await RoutineRepository.ensureStats(routine.id);
+        statsByRoutineId.set(routine.id, stats);
+      }
+
       const currentPeriod = getPeriodKey(routine.frequency, today);
       const previousPeriod = getPreviousPeriodKey(routine.frequency, currentPeriod);
       if (!previousPeriod) continue;
@@ -190,8 +239,7 @@ export const RoutineService = {
 
       if (!wasDue) continue;
 
-      const existing = await RoutineRepository.getCompletion(routine.id, previousPeriod);
-      if (existing) continue;
+      if (completionByKey.has(`${routine.id}:${previousPeriod}`)) continue;
 
       const { LearningAppStateRepository } = await import(
         '@/storage/repositories/learning-app-state-repository'

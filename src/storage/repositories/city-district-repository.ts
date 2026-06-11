@@ -30,6 +30,24 @@ export const CityDistrictRepository = {
     return row ? mapRow(row) : null;
   },
 
+  async insertMissing(records: CityDistrictRecord[]): Promise<number> {
+    if (records.length === 0) return 0;
+
+    const db = getDb();
+    await db
+      .insert(cityDistricts)
+      .values(
+        records.map((record) => ({
+          districtKey: record.districtKey,
+          unlockedAt: record.unlockedAt,
+          unlockReason: record.unlockReason,
+        })),
+      )
+      .onConflictDoNothing();
+
+    return records.length;
+  },
+
   async upsert(record: CityDistrictRecord): Promise<void> {
     const db = getDb();
     await db

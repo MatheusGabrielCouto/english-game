@@ -7,6 +7,7 @@ import { InventoryService } from '@/features/inventory/services/inventory-servic
 import { usePlayerStore } from '@/features/player';
 import { StudyPointsService } from '@/features/study-points/services/study-points-service';
 import { useStudyPointsStore } from '@/features/study-points/store/study-points-store';
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy';
 import type { LootBoxRarityValue } from '@/types/inventory';
 import type { ShopAnalyticsSummary, ShopProduct, ShopPurchaseHistoryRecord } from '@/types/shop';
 import type { ShopDailyOffer } from '@/types/shop-offer';
@@ -84,7 +85,7 @@ export const useShop = () => {
   }, []);
 
   useEffect(() => {
-    if (ShopService.getCachedAnalytics()) {
+    if (shouldSkipHydratedStoreReread(ShopService.getCachedAnalytics() !== null)) {
       setIsLoading(false);
       return;
     }
@@ -94,7 +95,10 @@ export const useShop = () => {
 
   useFocusEffect(
     useCallback(() => {
-      void InventoryService.refresh();
+      const inventoryReady = InventoryService.getCachedSnapshot() !== null;
+      if (!shouldSkipHydratedStoreReread(inventoryReady, { withinFocusGrace: true })) {
+        void InventoryService.refresh();
+      }
       void StudyPointsService.refresh();
       void Promise.all([
         ShopOfferService.ensureTodayOffers(),

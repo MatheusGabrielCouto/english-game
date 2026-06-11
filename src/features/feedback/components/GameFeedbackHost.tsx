@@ -10,10 +10,12 @@ export const GameFeedbackHost = () => {
   const showConfetti = useFeedbackStore((state) => state.showConfetti);
   const activeLevelUp = useFeedbackStore((state) => state.activeLevelUp);
   const petEvolution = useFeedbackStore((state) => state.petEvolution);
-  const rewardBursts = useFeedbackStore((state) => state.rewardBursts);
+  const activeRewardBurst = useFeedbackStore((state) => state.activeRewardBurst);
+  const rewardBurstQueue = useFeedbackStore((state) => state.rewardBurstQueue);
+  const hasRewardBursts = Boolean(activeRewardBurst || rewardBurstQueue.length > 0);
 
   const hasOverlay =
-    showConfetti || activeLevelUp || petEvolution || rewardBursts.length > 0;
+    showConfetti || activeLevelUp || petEvolution || hasRewardBursts;
 
   if (!hasOverlay) return null;
 

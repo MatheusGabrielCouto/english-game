@@ -47,12 +47,11 @@ export const RoutinesScreenContent = ({ embedded = false }: RoutinesScreenConten
         } else {
           await RoutineService.complete(routineId);
         }
-        await refresh();
       } finally {
         setTogglingId(null);
       }
     },
-    [refresh],
+    [],
   );
 
   const openCreate = () => {
@@ -146,7 +145,7 @@ export const RoutinesScreenContent = ({ embedded = false }: RoutinesScreenConten
         editing={editing}
         templateKey={templateKey}
         onClose={() => setFormVisible(false)}
-        onSaved={() => void refresh()}
+        onSaved={() => undefined}
       />
     </View>
   );

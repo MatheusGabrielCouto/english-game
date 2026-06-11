@@ -15,28 +15,29 @@ import { theme } from '@/constants'
 import { cn } from '@/utils'
 
 import {
+  REWARD_BURST_COPY,
   resolveRewardBurstBorder,
   resolveRewardBurstEmoji,
 } from '../constants/reward-burst-ui'
+import { useCelebrationBlocked } from '../hooks/useCelebrationBlocked'
 import { useFeedbackStore, type MissionRewardBurst } from '../store/feedback-store'
 import { MissionSuccessLottie } from './MissionSuccessLottie'
 
 type RewardBurstItemProps = {
   burst: MissionRewardBurst
-  index: number
   onDone: (id: string) => void
 }
 
-const RewardBurstItem = ({ burst, index, onDone }: RewardBurstItemProps) => {
+const RewardBurstItem = ({ burst, onDone }: RewardBurstItemProps) => {
   const translateY = useSharedValue(40)
   const opacity = useSharedValue(0)
   const scale = useSharedValue(0.85)
   const emoji = resolveRewardBurstEmoji(burst.source)
   const borderClass = resolveRewardBurstBorder(burst.source)
+  const batchCount = burst.batchCount ?? 1
 
   useEffect(() => {
-    const delay = index * 80
-    const lifetimeMs = 2200 + delay
+    const lifetimeMs = 2200
     let removed = false
 
     const finishBurst = () => {
@@ -45,9 +46,9 @@ const RewardBurstItem = ({ burst, index, onDone }: RewardBurstItemProps) => {
       onDone(burst.id)
     }
 
-    opacity.value = withDelay(delay, withTiming(1, { duration: 200 }))
-    translateY.value = withDelay(delay, withSpring(0, { damping: 18, stiffness: 220 }))
-    scale.value = withDelay(delay, withSpring(1, { damping: 16, stiffness: 240 }))
+    opacity.value = withTiming(1, { duration: 200 })
+    translateY.value = withSpring(0, { damping: 18, stiffness: 220 })
+    scale.value = withSpring(1, { damping: 16, stiffness: 240 })
 
     const fadeTimeout = setTimeout(() => {
       opacity.value = withTiming(0, { duration: 300 }, (finished) => {
@@ -65,7 +66,7 @@ const RewardBurstItem = ({ burst, index, onDone }: RewardBurstItemProps) => {
       clearTimeout(fadeTimeout)
       clearTimeout(fallbackTimeout)
     }
-  }, [burst.id, index, onDone, opacity, scale, translateY])
+  }, [burst.id, onDone, opacity, scale, translateY])
 
   const style = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -75,7 +76,7 @@ const RewardBurstItem = ({ burst, index, onDone }: RewardBurstItemProps) => {
   const hasRewards = burst.xp > 0 || burst.coins > 0 || (burst.studyPoints ?? 0) > 0
 
   return (
-    <Animated.View style={style} className="mb-2">
+    <Animated.View style={style}>
       <View
         className={cn(
           'relative flex-row items-center gap-3 rounded-2xl border bg-surface-elevated px-4 py-3 shadow-lg',
@@ -87,6 +88,11 @@ const RewardBurstItem = ({ burst, index, onDone }: RewardBurstItemProps) => {
           <GameDisplayText variant="title" numberOfLines={2}>
             {burst.title}
           </GameDisplayText>
+          {batchCount > 1 ? (
+            <Text className="mt-0.5 text-xs text-foreground-secondary">
+              {REWARD_BURST_COPY.multipleActivities(batchCount)}
+            </Text>
+          ) : null}
           {hasRewards ? (
             <View className="mt-1 flex-row flex-wrap gap-3">
               {burst.xp > 0 ? (
@@ -116,19 +122,18 @@ const RewardBurstItem = ({ burst, index, onDone }: RewardBurstItemProps) => {
 }
 
 export const RewardBurstOverlay = () => {
-  const bursts = useFeedbackStore((state) => state.rewardBursts)
-  const removeRewardBurst = useFeedbackStore((state) => state.removeRewardBurst)
+  const burst = useFeedbackStore((state) => state.activeRewardBurst)
+  const completeRewardBurst = useFeedbackStore((state) => state.completeRewardBurst)
+  const isBlocked = useCelebrationBlocked()
 
-  if (bursts.length === 0) return null
+  if (!burst || isBlocked) return null
 
   return (
     <View
       className="absolute left-0 right-0 top-16 z-50 px-5"
       pointerEvents="none"
       accessibilityLiveRegion="polite">
-      {bursts.map((burst, index) => (
-        <RewardBurstItem key={burst.id} burst={burst} index={index} onDone={removeRewardBurst} />
-      ))}
+      <RewardBurstItem burst={burst} onDone={completeRewardBurst} />
     </View>
   )
 }

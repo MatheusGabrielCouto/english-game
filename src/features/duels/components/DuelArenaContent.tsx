@@ -7,6 +7,7 @@ import { routes, theme } from '@/constants';
 import { isFlashDeckEnabled } from '@/constants/feature-flags';
 import { DEFAULT_DUEL_ENEMY_KEY, getDuelEnemy } from '@/data/loaders/duel-enemies';
 import { useFlashDeckStore } from '@/features/flash-deck/store/flash-deck-store';
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy';
 import {
     LearningHeroPanel,
     LearningModeTile,
@@ -55,7 +56,10 @@ export const DuelArenaContent = () => {
     useCallback(() => {
       resetBattle();
       void refresh();
-      void useFlashDeckStore.getState().refresh();
+      const flashDeckState = useFlashDeckStore.getState();
+      if (!shouldSkipHydratedStoreReread(!flashDeckState.isLoading, { withinFocusGrace: true })) {
+        void flashDeckState.refresh();
+      }
       void LearningIntegrationService.claimDailyArenaBonus().then((result) => {
         if (result.granted && result.message) {
           setArenaBonusMessage(result.message);

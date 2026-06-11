@@ -2198,8 +2198,8 @@
     {
       "title": "Nível 25",
       "description": "Alcance o nível 25.",
-      "missionType": "XP_GAINED",
-      "targetValue": 25000,
+      "missionType": "PLAYER_LEVEL",
+      "targetValue": 25,
       "difficulty": "medium",
       "baseXp": 2000,
       "baseCoins": 1000,
@@ -2208,8 +2208,8 @@
     {
       "title": "Nível 50",
       "description": "Alcance o nível 50.",
-      "missionType": "XP_GAINED",
-      "targetValue": 100000,
+      "missionType": "PLAYER_LEVEL",
+      "targetValue": 50,
       "difficulty": "hard",
       "baseXp": 5000,
       "baseCoins": 2500,
@@ -2218,8 +2218,8 @@
     {
       "title": "Nível 100",
       "description": "Alcance o nível 100.",
-      "missionType": "XP_GAINED",
-      "targetValue": 500000,
+      "missionType": "PLAYER_LEVEL",
+      "targetValue": 100,
       "difficulty": "expert",
       "baseXp": 20000,
       "baseCoins": 10000,

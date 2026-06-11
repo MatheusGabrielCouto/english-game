@@ -2,6 +2,7 @@ import { useFocusEffect } from 'expo-router'
 import { useCallback, useState } from 'react'
 
 import { getMotivationSettings, saveMotivationSettings } from '@/storage/repositories/motivation-settings-repository'
+import { runFocusRefreshIfNeeded } from '@/storage/startup-read-policy'
 import type { MotivationSettingsRecord } from '@/types/motivation-spark'
 
 import { MotivationNotificationService } from '../services/motivation-notification-service'
@@ -22,8 +23,8 @@ export const useMotivationSettings = () => {
 
   useFocusEffect(
     useCallback(() => {
-      void refresh()
-    }, [refresh]),
+      runFocusRefreshIfNeeded(settings !== null, refresh)
+    }, [refresh, settings]),
   )
 
   const updateSettings = useCallback(

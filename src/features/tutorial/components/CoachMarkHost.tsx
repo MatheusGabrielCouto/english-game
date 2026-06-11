@@ -8,13 +8,15 @@ import { useCoachMarkStore } from '../store/coach-mark-store'
 import { useTutorialStore } from '../store/tutorial-store'
 import { CoachMarkOverlay } from './CoachMarkOverlay'
 
-const NAVIGATION_SETTLE_MS = 480
+const NAVIGATION_SETTLE_MS = 650
+const TOUR_START_DELAY_MS = 400
 
 export const CoachMarkHost = () => {
   const hasHydrated = useAppStore((s) => s._hasHydrated)
   const hasOnboarded = useAppStore((s) => s.hasOnboarded)
   const setHasOnboarded = useAppStore((s) => s.setHasOnboarded)
   const wizardCompleted = useTutorialStore((s) => s.wizardCompleted)
+  const gameTutorialVisible = useTutorialStore((s) => s.isVisible)
 
   const isActive = useCoachMarkStore((s) => s.isActive)
   const stepIndex = useCoachMarkStore((s) => s.stepIndex)
@@ -31,9 +33,16 @@ export const CoachMarkHost = () => {
   const rect = step ? targets[step.targetKey] : undefined
 
   useEffect(() => {
-    if (!hasHydrated || hasOnboarded || !wizardCompleted || isActive) return
-    start()
-  }, [hasHydrated, hasOnboarded, isActive, start, wizardCompleted])
+    if (!hasHydrated || hasOnboarded || !wizardCompleted || isActive || gameTutorialVisible) {
+      return
+    }
+
+    const timer = setTimeout(() => {
+      start()
+    }, TOUR_START_DELAY_MS)
+
+    return () => clearTimeout(timer)
+  }, [gameTutorialVisible, hasHydrated, hasOnboarded, isActive, start, wizardCompleted])
 
   useEffect(() => {
     if (!isActive) return
@@ -47,6 +56,10 @@ export const CoachMarkHost = () => {
         router.push(currentStep.route as Href)
       }
       await new Promise((resolve) => setTimeout(resolve, NAVIGATION_SETTLE_MS))
+      if (!cancelled) {
+        requestRemeasure()
+      }
+      await new Promise((resolve) => setTimeout(resolve, 220))
       if (!cancelled) {
         requestRemeasure()
       }

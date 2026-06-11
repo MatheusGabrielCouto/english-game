@@ -62,7 +62,6 @@ export const Modal = ({
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
-        automaticallyAdjustKeyboardInsets
         keyboardDismissMode="on-drag"
         bounces={false}>
         {children}

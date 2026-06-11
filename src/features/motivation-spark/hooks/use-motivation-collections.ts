@@ -1,6 +1,7 @@
 import { useFocusEffect } from 'expo-router'
 import { useCallback, useState } from 'react'
 
+import { runFocusRefreshIfNeeded } from '@/storage/startup-read-policy'
 import type { MotivationCollectionRecord } from '@/types/motivation-spark'
 
 import { MotivationCollectionService } from '../services/motivation-collection-service'
@@ -21,8 +22,8 @@ export const useMotivationCollections = () => {
 
   useFocusEffect(
     useCallback(() => {
-      void refresh()
-    }, [refresh]),
+      runFocusRefreshIfNeeded(!isLoading, refresh)
+    }, [isLoading, refresh]),
   )
 
   return { collections, isLoading, refresh }

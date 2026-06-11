@@ -6,6 +6,8 @@ import { Button } from '@/components'
 import { LearningSectionHeader } from '@/features/learning/components/ui'
 import type { VaultCollectionRecord } from '@/types/knowledge-vault'
 
+import { runFocusRefreshIfNeeded } from '@/storage/startup-read-policy'
+
 import { COLLECTION_TEMPLATES } from '../../catalogs/collection-templates-catalog'
 import { VAULT_UI } from '../../constants/vault-ui'
 import { KnowledgeVaultService } from '../../services/knowledge-vault-service'
@@ -18,6 +20,7 @@ import { VaultEmptyState } from './VaultEmptyState'
 export const VaultCollectionsScreenContent = () => {
   const collections = useVaultCollectionsStore((s) => s.collections)
   const refresh = useVaultMetaStore((s) => s.refresh)
+  const vaultReady = useVaultMetaStore((s) => s.stats !== null && !s.isLoading)
 
   const [formVisible, setFormVisible] = useState(false)
   const [editing, setEditing] = useState<VaultCollectionRecord | null>(null)
@@ -29,8 +32,8 @@ export const VaultCollectionsScreenContent = () => {
 
   useFocusEffect(
     useCallback(() => {
-      void refresh()
-    }, [refresh]),
+      runFocusRefreshIfNeeded(vaultReady, refresh)
+    }, [refresh, vaultReady]),
   )
 
   const openCreate = () => {

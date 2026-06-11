@@ -9,6 +9,7 @@ import { formInputBorderClass } from '@/constants/form-validation-ui'
 import { INPUT_PLACEHOLDER_COLOR } from '@/constants/input-ui'
 import { LearningSectionHeader } from '@/features/learning/components/ui'
 import { useAsyncAction } from '@/hooks'
+import { runFocusRefreshIfNeeded } from '@/storage/startup-read-policy'
 import type { MentorChatSessionRecord, MentorErrorLogRecord } from '@/types/mentor-ai'
 
 import { MENTOR_AI_UI } from '../constants/mentor-ai-ui'
@@ -164,8 +165,8 @@ export const MentorHistoryScreenContent = () => {
 
   useFocusEffect(
     useCallback(() => {
-      void refresh()
-    }, [refresh]),
+      runFocusRefreshIfNeeded(snapshot !== null, refresh)
+    }, [refresh, snapshot]),
   )
 
   const confirmDeleteSession = (session: MentorChatSessionRecord) => {

@@ -2,33 +2,36 @@ import { useEffect, useState } from 'react'
 
 import { AppLogService } from '@/services/app-log-service'
 import { StartupPerfService } from '@/services/startup-perf-service'
-import { hydrateBackgroundServices, hydrateCriticalStores } from '@/storage'
-import { runInBackground } from '@/utils/defer-work'
+import {
+  finishHydrationProgress,
+  hydrateStoresFromDatabase,
+  recoverBackgroundHydrationFailure,
+  resetHydrationProgress,
+} from '@/storage'
 
 export const useAppHydration = () => {
-  const [isReady, setIsReady] = useState(false)
+  const [hydrationDone, setHydrationDone] = useState(false)
 
   useEffect(() => {
     let cancelled = false
 
+    resetHydrationProgress()
     StartupPerfService.mark('hydration_start')
 
-    hydrateCriticalStores()
+    void hydrateStoresFromDatabase()
       .then(() => {
         StartupPerfService.mark('hydration_critical_done')
-        if (!cancelled) setIsReady(true)
-
-        runInBackground('hydrate_services', async () => {
-          const startedAt = Date.now()
-          await hydrateBackgroundServices()
-          StartupPerfService.recordBackgroundHydrationMs(Date.now() - startedAt)
-        })
+        StartupPerfService.mark('hydration_background_done')
+        finishHydrationProgress()
+        if (!cancelled) setHydrationDone(true)
       })
       .catch((error) => {
-        AppLogService.error('hydration.failed', 'Failed to hydrate critical stores from SQLite', {
+        AppLogService.error('hydration.failed', 'Failed to hydrate stores from SQLite', {
           message: error instanceof Error ? error.message : String(error),
         })
-        if (!cancelled) setIsReady(true)
+        recoverBackgroundHydrationFailure()
+        finishHydrationProgress()
+        if (!cancelled) setHydrationDone(true)
       })
 
     return () => {
@@ -36,5 +39,5 @@ export const useAppHydration = () => {
     }
   }, [])
 
-  return isReady
+  return hydrationDone
 }

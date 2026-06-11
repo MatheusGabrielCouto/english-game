@@ -20,12 +20,14 @@ export const CelebrationsHost = () => {
   const showConfetti = useFeedbackStore((state) => state.showConfetti);
   const activeLevelUp = useFeedbackStore((state) => state.activeLevelUp);
   const petEvolution = useFeedbackStore((state) => state.petEvolution);
-  const rewardBursts = useFeedbackStore((state) => state.rewardBursts);
+  const activeRewardBurst = useFeedbackStore((state) => state.activeRewardBurst);
+  const rewardBurstQueue = useFeedbackStore((state) => state.rewardBurstQueue);
+  const hasRewardBursts = Boolean(activeRewardBurst || rewardBurstQueue.length > 0);
   const prestigeCelebration = useFeedbackStore((state) => state.prestigeCelebration);
 
   const hasLegacyCelebration = Boolean(achievementCelebration || titleCelebration || cityCelebration);
   const hasTransientEffects =
-    showConfetti || rewardBursts.length > 0 || hasLegacyCelebration;
+    showConfetti || hasRewardBursts || hasLegacyCelebration;
   const hasBlockingModal = Boolean(
     activeLevelUp || petEvolution || prestigeCelebration || hasLegacyCelebration,
   );
@@ -33,27 +35,29 @@ export const CelebrationsHost = () => {
   if (!hasTransientEffects && !hasBlockingModal) return null;
 
   return (
-    <>
+    <View style={styles.host} pointerEvents="box-none">
       {hasTransientEffects ? (
         <View style={styles.effectsLayer} pointerEvents="none">
           <CelebrationLottieOverlay />
           <RewardBurstOverlay />
         </View>
       ) : null}
-      <LevelUpModal />
-      <PetEvolutionModal />
+      {activeLevelUp ? <LevelUpModal /> : null}
+      {petEvolution ? <PetEvolutionModal /> : null}
       {achievementCelebration ? <AchievementUnlockModal /> : null}
       {titleCelebration ? <TitleUnlockModal /> : null}
       {cityCelebration ? <CityUnlockModal /> : null}
       {prestigeCelebration ? <PrestigeAscensionCelebrationModal /> : null}
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  effectsLayer: {
-    ...StyleSheet.absoluteFill,
+  host: {
+    ...StyleSheet.absoluteFillObject,
     zIndex: 50,
-    elevation: 50,
+  },
+  effectsLayer: {
+    ...StyleSheet.absoluteFillObject,
   },
 });

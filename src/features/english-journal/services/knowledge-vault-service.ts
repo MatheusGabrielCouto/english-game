@@ -28,12 +28,11 @@ import type {
 } from '@/types/knowledge-vault';
 
 import { VAULT_SPACE_BY_KEY } from '../catalogs/vault-spaces-catalog';
-import { isVaultUnfilteredListFilter } from '../constants/vault-library-filter-ui';
 import { JOURNAL_XP, resolveCreateXp } from '../constants/journal-rewards';
+import { isVaultUnfilteredListFilter } from '../constants/vault-library-filter-ui';
 import { useVaultCollectionsStore } from '../store/vault-collections-store';
 import { useVaultEntriesStore } from '../store/vault-entries-store';
 import { useVaultMetaStore } from '../store/vault-meta-store';
-import { filterDueReviewEntries } from '../utils/vault-due-reviews';
 import { entryTypeRequiresAudio, validateJournalBody, validateJournalTitle } from '../utils/journal-form';
 import {
     getReviewMessageForStage,
@@ -99,12 +98,26 @@ const grantKnowledgeToCity = async (category: JournalCategoryValue): Promise<voi
   }
 };
 
-const enrichEntry = async (entry: JournalEntryRecord): Promise<VaultEntryRecord> => {
-  const [relatedIds, collectionIds] = await Promise.all([
-    VaultRepository.getRelatedIds(entry.id),
-    VaultRepository.getCollectionIdsForEntry(entry.id),
+const enrichEntries = async (entries: JournalEntryRecord[]): Promise<VaultEntryRecord[]> => {
+  if (entries.length === 0) return [];
+
+  const entryIds = entries.map((entry) => entry.id);
+  const [collectionIdsByEntry, relatedIdsByEntry] = await Promise.all([
+    VaultRepository.enrichEntryIdsWithCollections(entryIds),
+    VaultRepository.getRelatedIdsBatch(entryIds),
   ]);
-  return { ...entry, spaceKey: entry.spaceKey as VaultSpaceKey, relatedIds, collectionIds };
+
+  return entries.map((entry) => ({
+    ...entry,
+    spaceKey: entry.spaceKey as VaultSpaceKey,
+    relatedIds: relatedIdsByEntry.get(entry.id) ?? [],
+    collectionIds: collectionIdsByEntry.get(entry.id) ?? [],
+  }));
+};
+
+const enrichEntry = async (entry: JournalEntryRecord): Promise<VaultEntryRecord> => {
+  const [enriched] = await enrichEntries([entry]);
+  return enriched;
 };
 
 const syncStatsAggregates = async (stats: JournalStatsRecord): Promise<JournalStatsRecord> => {
@@ -170,25 +183,30 @@ const refreshStore = async (filter?: JournalListFilter): Promise<void> => {
   const activeFilter = filter ?? useVaultMetaStore.getState().filter;
   const unfiltered = isVaultUnfilteredListFilter(activeFilter);
 
-  const [folders, collections, stats, favorites, pinned, recent] = await Promise.all([
+  const [folders, collections, stats, favorites, pinned, recent, dueReviews] = await Promise.all([
     VaultRepository.listFolders(),
     VaultRepository.listCollections(),
     JournalRepository.getStats().then(syncStatsAggregates),
     JournalRepository.listFavorites(),
     JournalRepository.listPinned(),
     JournalRepository.listRecent(12),
+    JournalRepository.listDueReviews(),
   ]);
 
-  const allEntries = unfiltered
-    ? await JournalRepository.listActive(activeFilter)
-    : await JournalRepository.listActive({});
+  let entries: JournalEntryRecord[];
+  let mapTree;
 
-  const entries = unfiltered
-    ? allEntries
-    : await JournalRepository.listActive(activeFilter);
-
-  const dueReviews = filterDueReviewEntries(allEntries);
-  const mapTree = buildVaultMapTree(allEntries, folders);
+  if (unfiltered) {
+    entries = await JournalRepository.listActive(activeFilter);
+    mapTree = buildVaultMapTree(entries, folders);
+  } else {
+    const [allEntries, filteredEntries] = await Promise.all([
+      JournalRepository.listActive({}),
+      JournalRepository.listActive(activeFilter),
+    ]);
+    entries = filteredEntries;
+    mapTree = buildVaultMapTree(allEntries, folders);
+  }
 
   useVaultEntriesStore.setState({
     entries,
@@ -238,7 +256,7 @@ export const KnowledgeVaultService = {
     if (filter.tags?.length) {
       result = result.filter((e) => filter.tags!.some((t) => e.tags.includes(t)));
     }
-    return Promise.all(result.map(enrichEntry));
+    return enrichEntries(result);
   },
 
   getReviewMessage(entry: JournalEntryRecord): string {

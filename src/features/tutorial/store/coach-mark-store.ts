@@ -14,8 +14,11 @@ type CoachMarkStore = {
   stepIndex: number
   targets: Partial<Record<CoachMarkTargetKey, CoachMarkTargetRect>>
   remeasureTick: number
+  homeScrollOffset: number | null
   registerTarget: (key: CoachMarkTargetKey, rect: CoachMarkTargetRect) => void
   requestRemeasure: () => void
+  requestHomeScroll: (offset: number) => void
+  clearHomeScroll: () => void
   start: () => void
   next: () => void
   skip: () => void
@@ -27,6 +30,7 @@ export const useCoachMarkStore = create<CoachMarkStore>()((set) => ({
   stepIndex: 0,
   targets: {},
   remeasureTick: 0,
+  homeScrollOffset: null,
 
   registerTarget: (key, rect) =>
     set((state) => ({
@@ -41,12 +45,17 @@ export const useCoachMarkStore = create<CoachMarkStore>()((set) => ({
       remeasureTick: state.remeasureTick + 1,
     })),
 
+  requestHomeScroll: (offset) => set({ homeScrollOffset: offset }),
+
+  clearHomeScroll: () => set({ homeScrollOffset: null }),
+
   start: () =>
     set({
       isActive: true,
       stepIndex: 0,
       targets: {},
       remeasureTick: 0,
+      homeScrollOffset: null,
     }),
 
   next: () =>
@@ -59,6 +68,7 @@ export const useCoachMarkStore = create<CoachMarkStore>()((set) => ({
       isActive: false,
       stepIndex: 0,
       targets: {},
+      homeScrollOffset: null,
     }),
 
   finish: () =>
@@ -66,5 +76,6 @@ export const useCoachMarkStore = create<CoachMarkStore>()((set) => ({
       isActive: false,
       stepIndex: 0,
       targets: {},
+      homeScrollOffset: null,
     }),
 }))

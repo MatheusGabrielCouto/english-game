@@ -43,8 +43,8 @@ describe('feedback store toast queue', () => {
 })
 
 describe('feedback store reward bursts', () => {
-  it('queues multiple reward bursts', () => {
-    useFeedbackStore.setState({ rewardBursts: [] })
+  it('shows one active burst at a time', () => {
+    useFeedbackStore.setState({ activeRewardBurst: null, rewardBurstQueue: [] })
 
     useFeedbackStore.getState().addRewardBurst({
       source: 'routine',
@@ -60,8 +60,67 @@ describe('feedback store reward bursts', () => {
     })
 
     const state = useFeedbackStore.getState()
-    assert.equal(state.rewardBursts.length, 2)
-    assert.equal(state.rewardBursts[0]?.source, 'routine')
-    assert.equal(state.rewardBursts[1]?.source, 'vault')
+    assert.equal(state.activeRewardBurst?.source, 'routine')
+    assert.equal(state.rewardBurstQueue.length, 1)
+    assert.equal(state.rewardBurstQueue[0]?.source, 'vault')
+  })
+
+  it('promotes queued burst after completion', () => {
+    useFeedbackStore.setState({
+      activeRewardBurst: {
+        id: 'active',
+        source: 'routine',
+        title: 'Ler 10 min',
+        xp: 8,
+        coins: 3,
+      },
+      rewardBurstQueue: [
+        {
+          id: 'queued',
+          source: 'vault',
+          title: 'Revisão do Vault concluída!',
+          xp: 5,
+          coins: 0,
+        },
+      ],
+    })
+
+    useFeedbackStore.getState().completeRewardBurst('active')
+
+    const state = useFeedbackStore.getState()
+    assert.equal(state.activeRewardBurst?.id, 'queued')
+    assert.equal(state.rewardBurstQueue.length, 0)
+  })
+
+  it('merges queued bursts while one is active', () => {
+    useFeedbackStore.setState({ activeRewardBurst: null, rewardBurstQueue: [] })
+
+    useFeedbackStore.getState().addRewardBurst({
+      source: 'routine',
+      title: 'Rotina A',
+      xp: 10,
+      coins: 2,
+    })
+    useFeedbackStore.getState().addRewardBurst({
+      source: 'focus',
+      title: 'Foco',
+      xp: 5,
+      coins: 1,
+    })
+    useFeedbackStore.getState().addRewardBurst({
+      source: 'vault',
+      title: 'Vault',
+      xp: 3,
+      coins: 0,
+      studyPoints: 2,
+    })
+
+    const state = useFeedbackStore.getState()
+    assert.equal(state.activeRewardBurst?.title, 'Rotina A')
+    assert.equal(state.rewardBurstQueue.length, 1)
+    assert.equal(state.rewardBurstQueue[0]?.xp, 8)
+    assert.equal(state.rewardBurstQueue[0]?.coins, 1)
+    assert.equal(state.rewardBurstQueue[0]?.studyPoints, 2)
+    assert.equal(state.rewardBurstQueue[0]?.batchCount, 2)
   })
 })

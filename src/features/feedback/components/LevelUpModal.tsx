@@ -43,9 +43,11 @@ export const LevelUpModal = () => {
     clearConfetti();
   };
 
+  if (!celebration) return null;
+
   return (
     <Modal
-      visible={celebration !== null}
+      visible
       onRequestClose={handleClose}
       title="Level Up!"
       description="Você evoluiu na sua jornada de aprendizado."

@@ -4,6 +4,8 @@ import { getDb } from '@/storage/database/client';
 import { petBreedingLog } from '@/storage/database/schema';
 import {
     hasPetInstanceMemory,
+    insertPetInstanceMemoriesBatch,
+    listMemoryKeysByInstanceIds,
     listPetInstanceMemories,
     unlockPetInstanceMemory,
 } from '@/storage/repositories/pet-instance-memory-repository';
@@ -26,6 +28,55 @@ const STAGE_RANK: Record<PetStageValue, number> = {
 
 const hasEpicTrait = (traitKeys: string[]): boolean =>
   traitKeys.some((key) => getTraitDefinition(key)?.poolRarity === 'epic');
+
+const buildMemoryRecord = (
+  instanceId: number,
+  memoryKey: PetInstanceMemoryKey,
+  unlockedAt: string,
+): PetInstanceMemoryRecord | null => {
+  const definition = getInstanceMemoryDefinition(memoryKey);
+  if (!definition) return null
+
+  return {
+    instanceId,
+    memoryKey: definition.key,
+    title: definition.title,
+    description: definition.description,
+    icon: definition.icon,
+    unlockedAt,
+  }
+};
+
+const collectStaticMilestoneMemories = (
+  instance: PetInstance,
+  existing: Set<string>,
+  unlockedAt: string,
+): PetInstanceMemoryRecord[] => {
+  const pending: PetInstanceMemoryRecord[] = []
+
+  if (instance.generation >= 5 && !existing.has('gen_milestone_5')) {
+    const record = buildMemoryRecord(instance.id, 'gen_milestone_5', unlockedAt)
+    if (record) pending.push(record)
+  }
+
+  if (hasEpicTrait(instance.traitKeys) && !existing.has('trait_legendary')) {
+    const record = buildMemoryRecord(instance.id, 'trait_legendary', unlockedAt)
+    if (record) pending.push(record)
+  }
+
+  if (instance.level >= 2 && !existing.has('first_level_up')) {
+    const record = buildMemoryRecord(instance.id, 'first_level_up', unlockedAt)
+    if (record) pending.push(record)
+  }
+
+  const stageRank = STAGE_RANK[instance.stage] ?? 0
+  if (stageRank > STAGE_RANK[PetStage.EGG] && !existing.has('first_evolution')) {
+    const record = buildMemoryRecord(instance.id, 'first_evolution', unlockedAt)
+    if (record) pending.push(record)
+  }
+
+  return pending
+};
 
 export const PetInstanceMemoryService = {
   async getMemories(instanceId: number): Promise<PetInstanceMemoryRecord[]> {
@@ -148,33 +199,46 @@ export const PetInstanceMemoryService = {
 
   async backfillAllInstances(): Promise<number> {
     const all = await PetInstanceRepository.listAll();
-    let added = 0;
+    const instanceIds = all.map((instance) => instance.id);
+    const existingByInstance = await listMemoryKeysByInstanceIds(instanceIds);
+    const pending: PetInstanceMemoryRecord[] = [];
 
     for (const instance of all) {
-      const before = await listPetInstanceMemories(instance.id);
-      const beforeCount = before.length;
+      const existing = new Set(existingByInstance.get(instance.id) ?? []);
 
-      if (!(await hasPetInstanceMemory(instance.id, 'born'))) {
-        await PetInstanceMemoryService.tryUnlock(instance.id, 'born', instance.createdAt);
+      if (!existing.has('born')) {
+        const born = buildMemoryRecord(instance.id, 'born', instance.createdAt);
+        if (born) pending.push(born);
       }
-      await PetInstanceMemoryService.syncStaticMilestones(instance);
 
-      const after = await listPetInstanceMemories(instance.id);
-      if (after.length > beforeCount) added += after.length - beforeCount;
+      pending.push(...collectStaticMilestoneMemories(instance, existing, instance.updatedAt));
     }
 
     const db = getDb();
     const breedRows = await db.select().from(petBreedingLog);
+
     for (const row of breedRows) {
-      const at = row.rolledAt;
-      if (await PetInstanceMemoryService.tryUnlock(row.motherInstanceId, 'first_breed', at)) {
-        added += 1;
+      const motherKeys = existingByInstance.get(row.motherInstanceId) ?? new Set<string>();
+      if (!motherKeys.has('first_breed')) {
+        const record = buildMemoryRecord(row.motherInstanceId, 'first_breed', row.rolledAt);
+        if (record) pending.push(record);
       }
-      if (await PetInstanceMemoryService.tryUnlock(row.fatherInstanceId, 'first_breed', at)) {
-        added += 1;
+
+      const fatherKeys = existingByInstance.get(row.fatherInstanceId) ?? new Set<string>();
+      if (!fatherKeys.has('first_breed')) {
+        const record = buildMemoryRecord(row.fatherInstanceId, 'first_breed', row.rolledAt);
+        if (record) pending.push(record);
       }
     }
 
-    return added;
+    const unique = new Map<string, PetInstanceMemoryRecord>();
+    for (const record of pending) {
+      unique.set(`${record.instanceId}:${record.memoryKey}`, record);
+    }
+
+    const records = [...unique.values()];
+    if (records.length === 0) return 0;
+
+    return insertPetInstanceMemoriesBatch(records);
   },
 };

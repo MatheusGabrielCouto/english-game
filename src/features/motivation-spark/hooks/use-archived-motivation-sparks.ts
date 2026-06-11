@@ -2,6 +2,7 @@ import { useFocusEffect } from 'expo-router'
 import { useCallback, useEffect, useState } from 'react'
 
 import { GameEvents } from '@/services/game-events'
+import { runFocusRefreshIfNeeded } from '@/storage/startup-read-policy'
 import type { MotivationSparkRecord } from '@/types/motivation-spark'
 
 import { MotivationSparkService } from '../services/motivation-spark-service'
@@ -27,8 +28,8 @@ export const useArchivedMotivationSparks = () => {
 
   useFocusEffect(
     useCallback(() => {
-      void refresh()
-    }, [refresh]),
+      runFocusRefreshIfNeeded(!isLoading, refresh)
+    }, [isLoading, refresh]),
   )
 
   useEffect(() => {

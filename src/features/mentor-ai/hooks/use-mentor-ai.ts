@@ -2,6 +2,7 @@ import { useFocusEffect } from 'expo-router'
 import { useCallback, useEffect } from 'react'
 
 import { GameEvents } from '@/services/game-events'
+import { runFocusRefreshIfNeeded } from '@/storage/startup-read-policy'
 
 import { MentorAIService } from '../services/mentor-ai-service'
 import { useMentorAiStore } from '../store/mentor-ai-store'
@@ -21,7 +22,7 @@ export const useMentorAi = () => {
         void MentorAIService.hydrate()
         return
       }
-      void refresh()
+      runFocusRefreshIfNeeded(hasHydrated, refresh)
     }, [hasHydrated, refresh]),
   )
 

@@ -11,7 +11,6 @@ import Animated, {
 import { SharedHeroTransition } from '@/components/ui/game';
 import { SHARED_TRANSITION_TAGS } from '@/constants';
 import { PetSpeciesIcon } from '@/features/pet-farm/components/PetSpeciesIcon';
-import { CoachMarkTarget } from '@/features/tutorial';
 import type { Pet } from '@/types/pet';
 
 import { PET_ANIMATIONS_BY_KEY } from '../catalogs/pet-animations-catalog';
@@ -55,7 +54,6 @@ export const PetHeroDisplay = ({ pet }: PetHeroDisplayProps) => {
     .filter(Boolean);
 
   return (
-    <CoachMarkTarget coachKey="pet-hero">
     <SharedHeroTransition
       tag={SHARED_TRANSITION_TAGS.petHero}
       className="items-center rounded-3xl border border-legendary/30 bg-legendary/5 px-4 py-8">
@@ -94,6 +92,5 @@ export const PetHeroDisplay = ({ pet }: PetHeroDisplayProps) => {
         {display.speciesName} · {display.stageLabel} · Nv. {display.level}
       </Text>
     </SharedHeroTransition>
-    </CoachMarkTarget>
   );
 };

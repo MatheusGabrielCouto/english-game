@@ -32,6 +32,31 @@ export const CityPoiRepository = {
     return row ? mapRow(row) : null;
   },
 
+  async insertMissing(records: CityPoiRecord[]): Promise<number> {
+    if (records.length === 0) return 0;
+
+    const db = getDb();
+    await db
+      .insert(cityPois)
+      .values(
+        records.map((record) => ({
+          poiKey: record.poiKey,
+          districtKey: record.districtKey,
+          category: record.category,
+          localLevel: record.localLevel,
+          localXp: record.localXp,
+          positionX: record.positionX,
+          positionY: record.positionY,
+          unlockedAt: record.unlockedAt,
+          visualStage: record.visualStage,
+          npcTrust: record.npcTrust,
+        })),
+      )
+      .onConflictDoNothing();
+
+    return records.length;
+  },
+
   async upsert(record: CityPoiRecord): Promise<void> {
     const db = getDb();
     await db

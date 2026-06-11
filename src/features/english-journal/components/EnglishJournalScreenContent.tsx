@@ -15,6 +15,8 @@ import {
   VAULT_LIBRARY_SEARCH_DEBOUNCE_MS,
 } from '../constants/vault-library-filter-ui';
 import { VAULT_UI } from '../constants/vault-ui';
+import { runFocusRefreshIfNeeded } from '@/storage/startup-read-policy';
+
 import { KnowledgeVaultService } from '../services/knowledge-vault-service';
 import { useVaultEntriesStore } from '../store/vault-entries-store';
 import { useVaultMetaStore } from '../store/vault-meta-store';
@@ -85,8 +87,8 @@ export const EnglishJournalScreenContent = ({ hubLinkMode = 'stack' }: EnglishJo
 
   useFocusEffect(
     useCallback(() => {
-      refreshLibrary(searchRef.current);
-    }, [refreshLibrary]),
+      runFocusRefreshIfNeeded(!isLoading && stats !== null, () => refreshLibrary(searchRef.current));
+    }, [isLoading, refreshLibrary, stats]),
   );
 
   const skipSearchDebounceRef = useRef(true);

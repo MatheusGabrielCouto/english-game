@@ -1,4 +1,4 @@
-import { and, count, eq } from 'drizzle-orm';
+import { count, sql } from 'drizzle-orm';
 
 import { getDb } from '../database/client';
 import { dailyMissions, weeklyMissions, weeklyMissionsHistory } from '../database/schema';
@@ -14,32 +14,33 @@ export const MissionStatsRepository = {
   async getSnapshot(): Promise<MissionStatsSnapshot> {
     const db = getDb();
 
-    const [dailyTotalRow] = await db.select({ total: count() }).from(dailyMissions);
-    const [dailyCompletedRow] = await db
-      .select({ total: count() })
-      .from(dailyMissions)
-      .where(eq(dailyMissions.completed, true));
-
-    const [weeklyTotalRow] = await db.select({ total: count() }).from(weeklyMissions);
-    const [weeklyHistoryTotalRow] = await db.select({ total: count() }).from(weeklyMissionsHistory);
-
-    const [weeklyCompletedRow] = await db
-      .select({ total: count() })
-      .from(weeklyMissions)
-      .where(and(eq(weeklyMissions.completed, true), eq(weeklyMissions.claimed, true)));
-
-    const [weeklyHistoryCompletedRow] = await db
-      .select({ total: count() })
-      .from(weeklyMissionsHistory)
-      .where(
-        and(eq(weeklyMissionsHistory.completed, true), eq(weeklyMissionsHistory.claimed, true)),
-      );
+    const [dailyRow, weeklyRow, weeklyHistoryRow] = await Promise.all([
+      db
+        .select({
+          total: count(),
+          completed: sql<number>`sum(case when ${dailyMissions.completed} then 1 else 0 end)`,
+        })
+        .from(dailyMissions),
+      db
+        .select({
+          total: count(),
+          completed: sql<number>`sum(case when ${weeklyMissions.completed} = 1 and ${weeklyMissions.claimed} = 1 then 1 else 0 end)`,
+        })
+        .from(weeklyMissions),
+      db
+        .select({
+          total: count(),
+          completed: sql<number>`sum(case when ${weeklyMissionsHistory.completed} = 1 and ${weeklyMissionsHistory.claimed} = 1 then 1 else 0 end)`,
+        })
+        .from(weeklyMissionsHistory),
+    ]);
 
     return {
-      dailyCompleted: dailyCompletedRow?.total ?? 0,
-      dailyTotal: dailyTotalRow?.total ?? 0,
-      weeklyCompleted: (weeklyCompletedRow?.total ?? 0) + (weeklyHistoryCompletedRow?.total ?? 0),
-      weeklyTotal: (weeklyTotalRow?.total ?? 0) + (weeklyHistoryTotalRow?.total ?? 0),
+      dailyCompleted: Number(dailyRow[0]?.completed ?? 0),
+      dailyTotal: Number(dailyRow[0]?.total ?? 0),
+      weeklyCompleted:
+        Number(weeklyRow[0]?.completed ?? 0) + Number(weeklyHistoryRow[0]?.completed ?? 0),
+      weeklyTotal: Number(weeklyRow[0]?.total ?? 0) + Number(weeklyHistoryRow[0]?.total ?? 0),
     };
   },
 };

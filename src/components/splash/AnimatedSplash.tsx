@@ -24,10 +24,11 @@ const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 type AnimatedSplashProps = {
   exiting: boolean
+  progress: number
   onExitComplete: () => void
 }
 
-export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps) => {
+export const AnimatedSplash = ({ exiting, progress, onExitComplete }: AnimatedSplashProps) => {
   const insets = useSafeAreaInsets()
   const backdropOpacity = useSharedValue(1)
   const logoScale = useSharedValue(0.82)
@@ -35,7 +36,7 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
   const logoTranslateY = useSharedValue(0)
   const logoTranslateX = useSharedValue(0)
   const glowScale = useSharedValue(0.9)
-  const glowOpacity = useSharedValue(0.35)
+  const glowOpacity = useSharedValue(0.18)
   const ringScale = useSharedValue(0.6)
   const ringOpacity = useSharedValue(0)
   const titleOpacity = useSharedValue(0)
@@ -43,8 +44,9 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
   const titleScale = useSharedValue(1)
   const taglineOpacity = useSharedValue(0)
   const footerOpacity = useSharedValue(1)
-  const progress = useSharedValue(0)
+  const barProgress = useSharedValue(0)
   const dotPhase = useSharedValue(0)
+  const clampedProgress = Math.min(100, Math.max(0, progress))
 
   const logoExitY = SCREEN_HEIGHT * SPLASH_TRANSITION.logoExitTranslateYRatio
 
@@ -61,8 +63,8 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
     )
     glowOpacity.value = withRepeat(
       withSequence(
-        withTiming(0.55, { duration: 1100 }),
         withTiming(0.28, { duration: 1100 }),
+        withTiming(0.12, { duration: 1100 }),
       ),
       -1,
       false,
@@ -70,26 +72,15 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
     titleOpacity.value = withDelay(220, withTiming(1, { duration: 500 }))
     titleY.value = withDelay(220, withTiming(0, { duration: 500, easing: Easing.out(Easing.cubic) }))
     taglineOpacity.value = withDelay(420, withTiming(1, { duration: 450 }))
-    progress.value = withRepeat(
-      withSequence(
-        withTiming(0.88, { duration: 1400, easing: Easing.inOut(Easing.quad) }),
-        withTiming(0.35, { duration: 900, easing: Easing.inOut(Easing.quad) }),
-      ),
-      -1,
-      false,
-    )
     dotPhase.value = withRepeat(withTiming(1, { duration: 900 }), -1, false)
-  }, [
-    dotPhase,
-    glowOpacity,
-    glowScale,
-    logoOpacity,
-    logoScale,
-    progress,
-    taglineOpacity,
-    titleOpacity,
-    titleY,
-  ])
+  }, [dotPhase, glowOpacity, glowScale, logoOpacity, logoScale, taglineOpacity, titleOpacity, titleY])
+
+  useEffect(() => {
+    barProgress.value = withTiming(clampedProgress / 100, {
+      duration: 220,
+      easing: Easing.out(Easing.cubic),
+    })
+  }, [barProgress, clampedProgress])
 
   useEffect(() => {
     if (!exiting) return
@@ -183,7 +174,7 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
   }))
 
   const barFillStyle = useAnimatedStyle(() => ({
-    transform: [{ scaleX: interpolate(progress.value, [0, 1], [0.15, 1]) }],
+    transform: [{ scaleX: Math.max(0.02, barProgress.value) }],
   }))
 
   const dot0Style = useAnimatedStyle(() => {
@@ -249,12 +240,16 @@ export const AnimatedSplash = ({ exiting, onExitComplete }: AnimatedSplashProps)
         </View>
 
         <View style={styles.loadingRow}>
-          <Text style={styles.loadingText}>{SPLASH_UI.loading}</Text>
-          <View style={styles.dots}>
-            <Animated.View style={[styles.dot, dot0Style]} />
-            <Animated.View style={[styles.dot, dot1Style]} />
-            <Animated.View style={[styles.dot, dot2Style]} />
-          </View>
+          <Text style={styles.loadingText}>
+            {SPLASH_UI.loading} {clampedProgress}%
+          </Text>
+          {clampedProgress < 100 ? (
+            <View style={styles.dots}>
+              <Animated.View style={[styles.dot, dot0Style]} />
+              <Animated.View style={[styles.dot, dot1Style]} />
+              <Animated.View style={[styles.dot, dot2Style]} />
+            </View>
+          ) : null}
         </View>
       </Animated.View>
     </View>
@@ -279,7 +274,7 @@ const styles = StyleSheet.create({
     height: 280,
     borderRadius: 140,
     backgroundColor: SPLASH_COLORS.glowPrimary,
-    opacity: 0.12,
+    opacity: 0.05,
   },
   ambientBottom: {
     position: 'absolute',
@@ -289,7 +284,7 @@ const styles = StyleSheet.create({
     height: 240,
     borderRadius: 120,
     backgroundColor: SPLASH_COLORS.glowAccent,
-    opacity: 0.1,
+    opacity: 0.04,
   },
   center: {
     flex: 1,
@@ -302,7 +297,7 @@ const styles = StyleSheet.create({
     height: 220,
     borderRadius: 110,
     backgroundColor: SPLASH_COLORS.glowPrimary,
-    opacity: 0.2,
+    opacity: 0.1,
   },
   glowInner: {
     position: 'absolute',
@@ -310,15 +305,15 @@ const styles = StyleSheet.create({
     height: 160,
     borderRadius: 80,
     backgroundColor: SPLASH_COLORS.glowAccent,
-    opacity: 0.15,
+    opacity: 0.07,
   },
   ring: {
     position: 'absolute',
     width: 168,
     height: 168,
     borderRadius: 84,
-    borderWidth: 2,
-    borderColor: SPLASH_COLORS.glowPrimary,
+    borderWidth: 1,
+    borderColor: 'rgba(109, 40, 217, 0.35)',
     backgroundColor: 'transparent',
   },
   logo: {
@@ -341,7 +336,7 @@ const styles = StyleSheet.create({
   tagline: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#a1a1aa',
+    color: '#71717a',
     textAlign: 'center',
     marginBottom: 20,
   },

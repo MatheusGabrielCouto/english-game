@@ -8,6 +8,8 @@ import { vaultEntryHref } from '@/constants';
 import { JournalEntryType } from '@/types/journal';
 import type { VaultSpaceKey } from '@/types/knowledge-vault';
 
+import { runFocusRefreshIfNeeded } from '@/storage/startup-read-policy';
+
 import { VAULT_SPACE_BY_KEY } from '../catalogs/vault-spaces-catalog';
 import { VAULT_UI } from '../constants/vault-ui';
 import { useVaultCollectionsStore } from '../store/vault-collections-store';
@@ -35,8 +37,8 @@ export const VaultSpaceDetailContent = ({ spaceKey }: VaultSpaceDetailContentPro
 
   useFocusEffect(
     useCallback(() => {
-      void refresh({ spaceKey });
-    }, [refresh, spaceKey]),
+      runFocusRefreshIfNeeded(!isLoading, () => refresh({ spaceKey }));
+    }, [isLoading, refresh, spaceKey]),
   );
 
   const spaceFolders = useMemo(

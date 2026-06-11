@@ -10,6 +10,7 @@ import { useEpicQuestsStore } from '@/features/epic-quests/store/epic-quests-sto
 import { usePlayerStore } from '@/features/player'
 import { QUESTS_UI, type QuestsTab } from '@/features/quests/constants/quests-ui'
 import { useMissionsStore } from '@/features/quests/store/missions-store'
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy'
 import { WeeklyQuestsSection } from '@/features/weekly-quests'
 import { useWeeklyMissionsStore } from '@/features/weekly-quests/store/weekly-missions-store'
 
@@ -46,15 +47,16 @@ export const QuestsScreenContent = ({ embedded = false }: QuestsScreenContentPro
   const currentStreak = usePlayerStore((s) => s.currentStreak)
 
   const epicMissions = useEpicQuestsStore((state) => state.missions)
+  const epicLoading = useEpicQuestsStore((state) => state.isLoading)
   const weeklyMissions = useWeeklyMissionsStore((s) => s.missions)
 
   useEffect(() => {
     ensureDailyMissions()
 
-    if (epicMissions.length === 0) {
+    if (!shouldSkipHydratedStoreReread(!epicLoading)) {
       void EpicQuestService.refresh()
     }
-  }, [ensureDailyMissions, epicMissions.length])
+  }, [ensureDailyMissions, epicLoading])
 
   const sortedMissions = useMemo(
     () =>

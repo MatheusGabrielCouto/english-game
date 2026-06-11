@@ -107,6 +107,24 @@ export const reconcileKnowledgeVaultSchema = (sqlite: SQLiteDatabase): void => {
     );
   }
 
+  if (tableExists(sqlite, 'journal_entry_links')) {
+    sqlite.execSync(
+      `CREATE INDEX IF NOT EXISTS idx_journal_entry_links_from ON journal_entry_links (from_entry_id)`,
+    );
+    sqlite.execSync(
+      `CREATE INDEX IF NOT EXISTS idx_journal_entry_links_to ON journal_entry_links (to_entry_id)`,
+    );
+  }
+
+  if (tableExists(sqlite, 'journal_entry_collections')) {
+    sqlite.execSync(
+      `CREATE INDEX IF NOT EXISTS idx_journal_entry_collections_entry ON journal_entry_collections (entry_id)`,
+    );
+    sqlite.execSync(
+      `CREATE INDEX IF NOT EXISTS idx_journal_entry_collections_collection ON journal_entry_collections (collection_id)`,
+    );
+  }
+
   ensureMigrationApplied(sqlite, '0040_knowledge_vault');
   ensureMigrationApplied(sqlite, '0041_journal_entry_images');
 };

@@ -10,6 +10,7 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import { StartupPerfService } from '@/services/startup-perf-service'
+import { useStartupHydrationStore } from '@/storage/startup-hydration-store'
 
 import { AnimatedSplash } from './AnimatedSplash'
 import { SPLASH_TIMING } from './constants/splash-ui'
@@ -20,6 +21,7 @@ type SplashGateProps = {
 }
 
 export const SplashGate = ({ isReady, children }: SplashGateProps) => {
+  const progress = useStartupHydrationStore((state) => state.progress)
   const [overlayVisible, setOverlayVisible] = useState(true)
   const [exiting, setExiting] = useState(false)
   const readyAtRef = useRef<number | null>(null)
@@ -93,7 +95,11 @@ export const SplashGate = ({ isReady, children }: SplashGateProps) => {
         {isReady ? children : <View style={{ flex: 1 }} />}
       </Animated.View>
       {overlayVisible ? (
-        <AnimatedSplash exiting={exiting} onExitComplete={handleExitComplete} />
+        <AnimatedSplash
+          exiting={exiting}
+          progress={progress}
+          onExitComplete={handleExitComplete}
+        />
       ) : null}
     </View>
   )

@@ -68,6 +68,21 @@ export const EpicMissionRepository = {
       .where(eq(epicMissionProgress.id, id));
   },
 
+  async patchMission(
+    id: string,
+    patch: Partial<
+      Pick<
+        EpicMissionProgress,
+        'title' | 'description' | 'missionType' | 'targetValue' | 'currentValue'
+      >
+    >,
+  ): Promise<void> {
+    if (Object.keys(patch).length === 0) return
+
+    const db = getDb();
+    await db.update(epicMissionProgress).set(patch).where(eq(epicMissionProgress.id, id));
+  },
+
   async complete(id: string, completedAt: string): Promise<void> {
     const db = getDb();
     await db

@@ -11,6 +11,9 @@ import { useRoutinesStore } from '@/features/routines/store/routines-store'
 
 import type { HomeFocusRefreshDomain } from '../constants/home-focus-refresh-ui'
 import {
+  HOME_FOCUS_REFRESH_DOMAINS,
+} from '../constants/home-focus-refresh-ui'
+import {
   getStaleHomeFocusDomains,
   markHomeFocusDomainsRefreshed,
   type HomeFocusRefreshStamps,
@@ -69,6 +72,11 @@ export const runThrottledHomeFocusRefresh = (now: number = Date.now()): HomeFocu
   }
 
   return staleDomains
+}
+
+/** Marks every Home focus domain as fresh — call after startup hydration. */
+export const seedHomeFocusRefreshStamps = (at: number = Date.now()): void => {
+  refreshStamps = markHomeFocusDomainsRefreshed(refreshStamps, HOME_FOCUS_REFRESH_DOMAINS, at)
 }
 
 /** Test helper — clears in-memory TTL stamps. */

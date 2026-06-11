@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { usePlayerStore } from '@/features/player';
+import { isApplicationStoresHydrated } from '@/storage/application-hydration';
 
 import { CityService } from '../services/city-service';
 import { useCityStore } from '../store/city-store';
@@ -16,6 +17,10 @@ export const useCity = () => {
 
   useEffect(() => {
     if (buildings.length === 0) {
+      if (isApplicationStoresHydrated()) {
+        previousLevel.current = level;
+        return;
+      }
       void CityService.refresh();
       previousLevel.current = level;
       return;

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { usePlayerStore } from '@/features/player';
 import { GameEvents } from '@/services/game-events';
+import { isApplicationStoresHydrated } from '@/storage/application-hydration';
 import type { Pet } from '@/types/pet';
 
 import { PetService } from '../services/pet-service';
@@ -30,11 +31,19 @@ export const usePet = () => {
       setLoading(false);
     });
 
-    if (!PetService.getCachedPet()) {
-      void refresh();
-    } else {
+    const cached = PetService.getCachedPet();
+    if (cached) {
+      setPet(cached);
       setLoading(false);
+      return unsubscribe;
     }
+
+    if (isApplicationStoresHydrated()) {
+      setLoading(false);
+      return unsubscribe;
+    }
+
+    void refresh();
 
     return unsubscribe;
   }, [refresh, setLoading]);

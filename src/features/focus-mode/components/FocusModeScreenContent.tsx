@@ -1,5 +1,4 @@
 import { router, type Href } from 'expo-router';
-import { useEffect } from 'react';
 import { Text, View } from 'react-native';
 
 import { Card } from '@/components';
@@ -13,11 +12,7 @@ import { FocusModeService } from '../services/focus-mode-service';
 import { FocusSetupPanel } from './FocusSetupPanel';
 
 export const FocusModeScreenContent = () => {
-  const { settings, analytics, isLoading, startSession, refresh } = useFocusMode();
-
-  useEffect(() => {
-    void refresh();
-  }, [refresh]);
+  const { settings, analytics, isLoading, startSession } = useFocusMode();
 
   const handleStart = async (studyType: FocusStudyTypeValue, durationMinutes: number) => {
     const session = await startSession(studyType, durationMinutes);

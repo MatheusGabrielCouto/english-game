@@ -6,6 +6,7 @@ import { ScreenContainer, ScreenHeader } from '@/components/layout'
 import { GameCard } from '@/components/ui/game'
 import { vaultSpaceHref } from '@/constants'
 import { VAULT_SPACES } from '@/features/english-journal/catalogs/vault-spaces-catalog'
+import { runFocusRefreshIfNeeded } from '@/storage/startup-read-policy'
 import { VaultScreenBody } from '@/features/english-journal/components/vault/VaultScreenBody'
 import { VAULT_UI } from '@/features/english-journal/constants/vault-ui'
 import { useVaultCollectionsStore } from '@/features/english-journal/store/vault-collections-store'
@@ -18,11 +19,12 @@ export default function VaultSpacesRoute() {
   const folders = useVaultCollectionsStore((s) => s.folders)
   const entries = useVaultEntriesStore((s) => s.entries)
   const refresh = useVaultMetaStore((s) => s.refresh)
+  const vaultReady = useVaultMetaStore((s) => s.stats !== null && !s.isLoading)
 
   useFocusEffect(
     useCallback(() => {
-      void refresh()
-    }, [refresh]),
+      runFocusRefreshIfNeeded(vaultReady, refresh)
+    }, [refresh, vaultReady]),
   )
 
   const handleOpenSpace = (spaceKey: VaultSpaceKey) => {

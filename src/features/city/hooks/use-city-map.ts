@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 
 import { usePlayerStore } from '@/features/player';
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy';
 
 import { CityMapService } from '../services/city-map-service';
 import { useCityMapStore } from '../store/city-map-store';
@@ -47,7 +48,9 @@ export const useCityMap = () => {
 
   useEffect(() => {
     if (pois.length === 0) {
-      void CityMapService.refresh();
+      if (!shouldSkipHydratedStoreReread(!isLoading)) {
+        void CityMapService.refresh();
+      }
       previousLevel.current = level;
       return;
     }
@@ -56,7 +59,7 @@ export const useCityMap = () => {
 
     previousLevel.current = level;
     void CityMapService.syncForPlayerLevel(level);
-  }, [pois.length, level]);
+  }, [isLoading, pois.length, level]);
 
   const selectedPoi = selectedPoiKey
     ? pois.find((poi) => poi.poiKey === selectedPoiKey) ?? null

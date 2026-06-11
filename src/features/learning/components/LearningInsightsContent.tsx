@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { GameCard } from '@/components/ui/game';
@@ -31,14 +31,9 @@ const MetricRow = ({ label, value, icon }: { label: string; value: string; icon:
 export const LearningInsightsContent = () => {
   const [snapshot, setSnapshot] = useState<LearningAnalyticsSnapshot | null>(null);
 
-  const refresh = useCallback(async () => {
-    const data = await LearningAnalyticsService.refresh();
-    setSnapshot(data);
-  }, []);
-
   useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    void LearningAnalyticsService.getSnapshot().then(setSnapshot);
+  }, []);
 
   const logs = AppLogService.getRecent(15).filter((entry) => entry.event.startsWith('learning.'));
 

@@ -287,29 +287,24 @@ export const FlashDeckRepository = {
   ): Promise<{ new: number; learning: number; mature: number; leech: number; total: number }> {
     const db = getDb();
     const rows = await db
-      .select()
+      .select({
+        newCount: sql<number>`sum(case when ${flashCards.state} = 'new' then 1 else 0 end)`,
+        learningCount: sql<number>`sum(case when ${flashCards.state} in ('learning', 'relearning') then 1 else 0 end)`,
+        matureCount: sql<number>`sum(case when ${flashCards.intervalDays} >= 21 then 1 else 0 end)`,
+        leechCount: sql<number>`sum(case when ${flashCards.lapseCount} >= 8 then 1 else 0 end)`,
+        total: sql<number>`count(*)`,
+      })
       .from(flashCards)
       .where(and(eq(flashCards.deckId, deckId), eq(flashCards.suspended, false)));
 
-    let newCount = 0;
-    let learningCount = 0;
-    let matureCount = 0;
-    let leechCount = 0;
-
-    for (const row of rows) {
-      const card = mapCardRow(row);
-      if (card.state === 'new') newCount += 1;
-      if (card.state === 'learning' || card.state === 'relearning') learningCount += 1;
-      if (card.intervalDays >= 21) matureCount += 1;
-      if (card.lapseCount >= 8) leechCount += 1;
-    }
+    const row = rows[0];
 
     return {
-      new: newCount,
-      learning: learningCount,
-      mature: matureCount,
-      leech: leechCount,
-      total: rows.length,
+      new: Number(row?.newCount ?? 0),
+      learning: Number(row?.learningCount ?? 0),
+      mature: Number(row?.matureCount ?? 0),
+      leech: Number(row?.leechCount ?? 0),
+      total: Number(row?.total ?? 0),
     };
   },
 

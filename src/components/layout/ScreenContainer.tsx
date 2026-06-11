@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import { ScrollView, View, type ScrollViewProps } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -12,6 +12,8 @@ type ScreenContainerProps = {
   backgroundColor?: string;
   edges?: ('top' | 'right' | 'bottom' | 'left')[];
   scrollViewProps?: Omit<ScrollViewProps, 'children' | 'className'>;
+  scrollRef?: RefObject<ScrollView | null>;
+  contentRef?: RefObject<View | null>;
 };
 
 export const ScreenContainer = ({
@@ -22,9 +24,13 @@ export const ScreenContainer = ({
   backgroundColor,
   edges = ['top', 'left', 'right'],
   scrollViewProps,
+  scrollRef,
+  contentRef,
 }: ScreenContainerProps) => {
   const content = (
-    <View className={cn('px-5 pb-8', contentClassName)}>{children}</View>
+    <View ref={contentRef} className={cn('px-5 pb-8', contentClassName)}>
+      {children}
+    </View>
   );
 
   return (
@@ -34,6 +40,7 @@ export const ScreenContainer = ({
       style={backgroundColor ? { backgroundColor } : undefined}>
       {scrollable ? (
         <ScrollView
+          ref={scrollRef}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
           style={backgroundColor ? { backgroundColor } : undefined}

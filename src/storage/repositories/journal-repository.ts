@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray, like, or, sql } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNotNull, like, lte, or, sql } from 'drizzle-orm';
 
 import type {
     JournalCategoryValue,
@@ -10,7 +10,7 @@ import type {
 } from '@/types/journal';
 
 import { mapJournalRow, serializeImages, serializeTags } from '@/features/english-journal/utils/journal-mappers';
-import { isReviewDue } from '@/features/english-journal/utils/journal-review';
+import { JournalSearchRepository } from '@/storage/repositories/journal-search-repository';
 import { VaultRepository } from '@/storage/repositories/vault-repository';
 import { getDb } from '../database/client';
 import { journalEntries, journalStats } from '../database/schema';
@@ -49,7 +49,7 @@ const DEFAULT_STATS: JournalStatsRecord = {
   updatedAt: new Date().toISOString(),
 };
 
-const buildSearchClause = (search: string) => {
+const buildLegacySearchClause = (search: string) => {
   const term = `%${search.trim().toLowerCase()}%`;
   return or(
     like(sql`lower(${journalEntries.title})`, term),
@@ -57,6 +57,16 @@ const buildSearchClause = (search: string) => {
     like(sql`lower(${journalEntries.tagsJson})`, term),
     like(sql`lower(${journalEntries.category})`, term),
   );
+};
+
+const resolveSearchEntryIds = (search: string): string[] => {
+  if (!search.trim()) return [];
+
+  if (JournalSearchRepository.isAvailable()) {
+    return JournalSearchRepository.searchEntryIds(search);
+  }
+
+  return [];
 };
 
 export type CreateJournalEntryRow = {
@@ -115,7 +125,14 @@ export const JournalRepository = {
       conditions.push(inArray(journalEntries.id, entryIds));
     }
     if (filter.search?.trim()) {
-      conditions.push(buildSearchClause(filter.search)!);
+      const searchEntryIds = resolveSearchEntryIds(filter.search);
+      if (searchEntryIds.length > 0) {
+        conditions.push(inArray(journalEntries.id, searchEntryIds));
+      } else if (JournalSearchRepository.isAvailable()) {
+        return [];
+      } else {
+        conditions.push(buildLegacySearchClause(filter.search)!);
+      }
     }
 
     const rows = await db
@@ -139,8 +156,20 @@ export const JournalRepository = {
   },
 
   async listDueReviews(nowIso = new Date().toISOString()): Promise<JournalEntryRecord[]> {
-    const all = await JournalRepository.listActive();
-    return all.filter((entry) => isReviewDue(entry.nextReviewAt, new Date(nowIso).getTime()));
+    const db = getDb();
+    const rows = await db
+      .select()
+      .from(journalEntries)
+      .where(
+        and(
+          eq(journalEntries.isArchived, false),
+          isNotNull(journalEntries.nextReviewAt),
+          lte(journalEntries.nextReviewAt, nowIso),
+        ),
+      )
+      .orderBy(journalEntries.nextReviewAt);
+
+    return rows.map(mapJournalRow);
   },
 
   async listFavorites(limit = 8): Promise<JournalEntryRecord[]> {
@@ -178,6 +207,8 @@ export const JournalRepository = {
 
   async insert(entry: CreateJournalEntryRow): Promise<void> {
     const db = getDb();
+    const tagsJson = serializeTags(entry.tags);
+
     await db.insert(journalEntries).values({
       id: entry.id,
       entryType: entry.entryType,
@@ -185,7 +216,7 @@ export const JournalRepository = {
       body: entry.body,
       category: entry.category,
       importance: entry.importance,
-      tagsJson: serializeTags(entry.tags),
+      tagsJson,
       audioUri: entry.audioUri,
       audioDurationMs: entry.audioDurationMs,
       imagesJson: serializeImages(entry.images),
@@ -200,6 +231,15 @@ export const JournalRepository = {
       lastReviewedAt: null,
       createdAt: entry.createdAt,
       updatedAt: entry.updatedAt,
+    });
+
+    JournalSearchRepository.upsertEntry({
+      id: entry.id,
+      title: entry.title,
+      body: entry.body,
+      tagsJson,
+      category: entry.category,
+      isArchived: false,
     });
   },
 
@@ -237,11 +277,34 @@ export const JournalRepository = {
         ...(images != null ? { imagesJson: serializeImages(images) } : {}),
       })
       .where(eq(journalEntries.id, id));
+
+    const needsSearchSync =
+      patch.title != null ||
+      patch.body !== undefined ||
+      patch.category != null ||
+      tags != null ||
+      patch.isArchived != null
+
+    if (!needsSearchSync) return
+
+    const rows = await db.select().from(journalEntries).where(eq(journalEntries.id, id)).limit(1);
+    const row = rows[0];
+    if (!row) return
+
+    JournalSearchRepository.upsertEntry({
+      id: row.id,
+      title: row.title,
+      body: row.body,
+      tagsJson: row.tagsJson,
+      category: row.category,
+      isArchived: row.isArchived,
+    });
   },
 
   async delete(id: string): Promise<void> {
     const db = getDb();
     await db.delete(journalEntries).where(eq(journalEntries.id, id));
+    JournalSearchRepository.deleteEntry(id);
   },
 
   async countActive(): Promise<number> {

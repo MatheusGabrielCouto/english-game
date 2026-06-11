@@ -77,5 +77,11 @@ export const reconcileUserRoutinesSchema = (sqlite: SQLiteDatabase): void => {
     );
   }
 
+  if (tableExists(sqlite, 'routine_completions')) {
+    sqlite.execSync(
+      `CREATE INDEX IF NOT EXISTS idx_routine_completions_routine_period ON routine_completions (routine_id, period_key)`,
+    );
+  }
+
   ensureMigrationApplied(sqlite, '0038_user_routines');
 };

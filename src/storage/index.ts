@@ -1,3 +1,11 @@
+export {
+    getApplicationHydratedAt,
+    isApplicationStoresHydrated,
+    isCriticalStoresHydrated,
+    markApplicationStoresHydrated,
+    markCriticalStoresHydrated,
+    resetApplicationHydrationForTests
+} from './application-hydration';
 export { getDb, getSqlite, initDatabase, type AppDatabase } from './database/client';
 export { DATABASE_NAME } from './database/constants';
 export {
@@ -22,11 +30,25 @@ export {
     weeklyMissionsHistory
 } from './database/schema';
 export {
+    hydrateHomeScreenStores,
+    isHomeScreenStoresReady,
+    markHomeScreenStoresReady,
+    resetHomeScreenStoresReadyForTests
+} from './hydrate-home-stores';
+export {
     hydrateBackgroundServices,
+    hydrateBackgroundStoresPhase,
     hydrateCriticalStores,
     hydrateStoresFromDatabase,
+    recoverBackgroundHydrationFailure,
     refreshApplicationAfterRestore
 } from './hydrate-stores';
+export {
+    advanceHydrationProgress,
+    finishHydrationProgress,
+    finishStartupProgress,
+    resetHydrationProgress,
+} from './hydration-progress';
 export { ActiveBoosterRepository } from './repositories/active-booster-repository';
 export {
     getAppSettings,
@@ -61,4 +83,9 @@ export { ShieldStatsRepository } from './repositories/shield-stats-repository';
 export { ShieldUsageRepository } from './repositories/shield-usage-repository';
 export { StudyDaysRepository } from './repositories/study-days-repository';
 export { WeeklyMissionRepository } from './repositories/weekly-mission-repository';
+export {
+    STARTUP_FOCUS_GRACE_MS, isWithinStartupFocusGrace,
+    runFocusRefreshIfNeeded,
+    shouldSkipHydratedStoreReread
+} from './startup-read-policy';
 

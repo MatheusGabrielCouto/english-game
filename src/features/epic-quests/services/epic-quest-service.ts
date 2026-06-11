@@ -1,19 +1,23 @@
-import { PlayerService } from '@/features/player/services/player-service';
 import { EPIC_MISSION_CATALOG } from '@/features/game-design/catalogs/epic-mission-catalog';
 import { getDifficultyConfig } from '@/features/game-design/constants/difficulty';
 import { pickDeterministicSubset, scaleCoins, scaleReward } from '@/features/game-design/utils/reward-scaling';
+import { PlayerService } from '@/features/player/services/player-service';
 import { GameEvents, type GameEvent } from '@/services/game-events';
 import { EpicMissionRepository } from '@/storage/repositories/epic-mission-repository';
 import { getLearningDifficulty } from '@/storage/repositories/game-settings-repository';
+import { getOrCreatePlayer } from '@/storage/repositories/player-repository';
 import type { EpicMissionProgress, EpicMissionViewModel } from '@/types/epic-mission';
 
 import { useEpicQuestsStore } from '../store/epic-quests-store';
+import {
+    computeEpicMissionPercentage,
+    resolvePlayerLevelMissionProgress,
+} from '../utils/epic-quest-progress';
+
+const catalogById = new Map(EPIC_MISSION_CATALOG.map((template) => [template.id, template]));
 
 const toViewModel = (mission: EpicMissionProgress): EpicMissionViewModel => {
-  const percentage =
-    mission.targetValue > 0
-      ? Math.min(100, Math.round((mission.currentValue / mission.targetValue) * 100))
-      : 0;
+  const percentage = computeEpicMissionPercentage(mission.currentValue, mission.targetValue);
 
   return {
     ...mission,
@@ -43,15 +47,21 @@ const ensureEpicMissions = async (): Promise<void> => {
   );
 
   const startedAt = new Date().toISOString();
+  const player = await getOrCreatePlayer();
 
   for (const template of selected) {
+    const currentValue =
+      template.missionType === 'PLAYER_LEVEL'
+        ? resolvePlayerLevelMissionProgress(player.level, template.targetValue)
+        : 0;
+
     await EpicMissionRepository.upsert({
       id: template.id,
       title: template.title,
       description: template.description,
       missionType: template.missionType,
       targetValue: template.targetValue,
-      currentValue: 0,
+      currentValue,
       xpReward: scaleReward(template.baseXp, template.difficulty, difficulty),
       coinReward: scaleCoins(template.baseCoins, template.difficulty, difficulty),
       difficulty: template.difficulty,
@@ -59,6 +69,76 @@ const ensureEpicMissions = async (): Promise<void> => {
       startedAt,
       completedAt: null,
     });
+  }
+};
+
+const reconcileMissionDefinitions = async (): Promise<void> => {
+  const missions = await EpicMissionRepository.findAll();
+  const player = await getOrCreatePlayer();
+
+  for (const mission of missions) {
+    const template = catalogById.get(mission.id);
+    if (!template) continue;
+
+    const definitionChanged =
+      mission.missionType !== template.missionType ||
+      mission.targetValue !== template.targetValue ||
+      mission.title !== template.title ||
+      mission.description !== template.description;
+
+    if (!definitionChanged) continue;
+
+    const currentValue =
+      template.missionType === 'PLAYER_LEVEL'
+        ? resolvePlayerLevelMissionProgress(player.level, template.targetValue)
+        : mission.missionType === template.missionType
+          ? mission.currentValue
+          : 0;
+
+    const patchedMission: EpicMissionProgress = {
+      ...mission,
+      title: template.title,
+      description: template.description,
+      missionType: template.missionType,
+      targetValue: template.targetValue,
+      currentValue,
+    };
+
+    await EpicMissionRepository.patchMission(mission.id, {
+      title: patchedMission.title,
+      description: patchedMission.description,
+      missionType: patchedMission.missionType,
+      targetValue: patchedMission.targetValue,
+      currentValue: patchedMission.currentValue,
+    });
+
+    if (patchedMission.status === 'active' && currentValue >= template.targetValue) {
+      await completeMission(patchedMission);
+    }
+  }
+};
+
+const syncPlayerLevelMissions = async (playerLevel?: number): Promise<void> => {
+  const level = playerLevel ?? (await getOrCreatePlayer()).level;
+  const missions = await EpicMissionRepository.findActive();
+  let changed = false;
+
+  for (const mission of missions) {
+    if (mission.missionType !== 'PLAYER_LEVEL') continue;
+
+    const nextValue = resolvePlayerLevelMissionProgress(level, mission.targetValue);
+    if (nextValue === mission.currentValue) continue;
+
+    changed = true;
+    await EpicMissionRepository.updateProgress(mission.id, nextValue);
+
+    if (nextValue >= mission.targetValue) {
+      await completeMission({ ...mission, currentValue: nextValue });
+    }
+  }
+
+  if (changed) {
+    GameEvents.scheduleCoalescedAfterBatch(refreshStore);
   }
 };
 
@@ -113,6 +193,9 @@ const handleGameEvent = async (event: GameEvent): Promise<void> => {
     case 'CITY_BUILDING_UNLOCKED':
       await updateProgressByType('CITY_BUILDINGS', 1);
       break;
+    case 'PLAYER_LEVEL_UP':
+      await syncPlayerLevelMissions(event.level);
+      break;
     default:
       break;
   }
@@ -131,10 +214,14 @@ export const EpicQuestService = {
 
   async initialize(): Promise<void> {
     await ensureEpicMissions();
+    await reconcileMissionDefinitions();
+    await syncPlayerLevelMissions();
     await refreshStore();
   },
 
   async refresh(): Promise<void> {
+    await reconcileMissionDefinitions();
+    await syncPlayerLevelMissions();
     await refreshStore();
   },
 };

@@ -1,8 +1,6 @@
 import type { Href } from 'expo-router'
 
-import { routes } from '@/constants'
-
-export type CoachMarkTargetKey = 'home-do-now' | 'home-player-coins' | 'pet-hero' | 'tab-menu'
+export type CoachMarkTargetKey = 'home-do-now' | 'home-player-coins' | 'home-pet-card' | 'tab-menu'
 
 export type CoachMarkPlacement = 'top' | 'bottom'
 
@@ -28,11 +26,11 @@ export const COACH_MARK_STEPS: CoachMarkStep[] = [
   },
   {
     id: 'pet-companion',
-    targetKey: 'pet-hero',
-    route: routes.pet as Href,
+    targetKey: 'home-pet-card',
+    route: '/(tabs)/' as Href,
     emoji: '🐾',
     title: 'Seu companheiro',
-    body: 'O pet reage ao seu estudo. Volte aqui para carinho, comida e evolução.',
+    body: 'Seu pet evolui com seus estudos — inclusive enquanto incubando. Toque neste card para ver o laboratório e acompanhar o progresso.',
     placement: 'bottom',
   },
   {

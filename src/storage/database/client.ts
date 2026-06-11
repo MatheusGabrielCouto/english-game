@@ -11,6 +11,7 @@ import { reconcileContractRunsSchema } from './reconcile-contract-runs-schema';
 import { reconcileEnglishJournalSchema } from './reconcile-english-journal-schema';
 import { reconcileFocusModeSchema } from './reconcile-focus-mode-schema';
 import { reconcileGameDesignSchema } from './reconcile-game-design-schema';
+import { reconcileJournalSearchSchema } from './reconcile-journal-search-schema';
 import { reconcileKnowledgeVaultSchema } from './reconcile-knowledge-vault-schema';
 import { reconcileLearningGpsSchema } from './reconcile-learning-gps-schema';
 import { reconcileLearningSystemsSchema } from './reconcile-learning-systems-schema';
@@ -27,6 +28,7 @@ import {
     runResilientMigrations,
 } from './resilient-migrator';
 import { schema } from './schema';
+import { applySqlitePerformancePragmas } from './sqlite-pragmas';
 
 export type AppDatabase = ReturnType<typeof drizzle<typeof schema>>;
 
@@ -52,6 +54,7 @@ const repairSchema = (sqlite: ReturnType<typeof openDatabaseSync>): void => {
   reconcileUserRoutinesSchema(sqlite);
   reconcileEnglishJournalSchema(sqlite);
   reconcileKnowledgeVaultSchema(sqlite);
+  reconcileJournalSearchSchema(sqlite);
   reconcileMotivationSparkSchema(sqlite);
   reconcileMentorAiSchema(sqlite);
   reconcileShopOffersSchema(sqlite);
@@ -79,6 +82,8 @@ export const initDatabase = async (): Promise<AppDatabase> => {
       const sqlite = openDatabaseSync(DATABASE_NAME, {
         enableChangeListener: true,
       });
+
+      applySqlitePerformancePragmas(sqlite);
 
       // Run idempotent repairs first — journal idx bugs can skip migrations entirely.
       repairSchema(sqlite);

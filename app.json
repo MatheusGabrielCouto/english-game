@@ -18,7 +18,7 @@
       "icon": "./assets/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#06060b"
+        "backgroundColor": "#000000"
       },
       "package": "com.englishquest.app",
       "predictiveBackGestureEnabled": false,
@@ -69,21 +69,21 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#06060b",
+          "backgroundColor": "#000000",
           "image": "./assets/splash-icon.png",
           "imageWidth": 220,
           "resizeMode": "contain",
           "dark": {
-            "backgroundColor": "#06060b",
+            "backgroundColor": "#000000",
             "image": "./assets/splash-icon.png"
           },
           "ios": {
-            "backgroundColor": "#06060b",
+            "backgroundColor": "#000000",
             "image": "./assets/splash-icon.png",
             "imageWidth": 220
           },
           "android": {
-            "backgroundColor": "#06060b",
+            "backgroundColor": "#000000",
             "image": "./assets/splash-icon.png",
             "imageWidth": 220
           }

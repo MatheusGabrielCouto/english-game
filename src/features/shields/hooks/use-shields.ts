@@ -1,6 +1,7 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { usePlayerStore } from '@/features/player';
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy';
 
 import { ShieldService } from '../services/shield-service';
 import { useShieldScreenStore } from '../store/shield-screen-store';
@@ -29,9 +30,15 @@ export const useShields = () => {
     setLoading(false);
   }, [setFeedback, setLoading, setRefreshing]);
 
+  const isInitialMount = useRef(true);
+
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      if (shouldSkipHydratedStoreReread(!isLoading)) return;
+    }
     void refresh();
-  }, [refresh, shields, currentStreak]);
+  }, [currentStreak, isLoading, refresh, shields]);
 
   return {
     shields,

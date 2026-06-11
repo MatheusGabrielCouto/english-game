@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy';
 import type { FlashCardRecord } from '@/types/flash-card';
 
 import type { FlashDeckListItem, FlashDeckStats } from '../services/flash-deck-service';
@@ -25,12 +26,12 @@ type FlashDeckState = {
   activeDeckStats: FlashDeckStats;
   dueCards: FlashCardRecord[];
   isLoading: boolean;
-  refresh: () => Promise<void>;
+  refresh: (options?: { force?: boolean }) => Promise<void>;
   refreshDeck: (deckId: string) => Promise<FlashDeckStats>;
   loadReviewQueue: (deckId: string) => Promise<FlashCardRecord[]>;
 };
 
-export const useFlashDeckStore = create<FlashDeckState>((set) => ({
+export const useFlashDeckStore = create<FlashDeckState>((set, get) => ({
   decks: [],
   totalDueCount: 0,
   activeDeckId: null,
@@ -38,8 +39,19 @@ export const useFlashDeckStore = create<FlashDeckState>((set) => ({
   dueCards: [],
   isLoading: true,
 
-  refresh: async () => {
-    set({ isLoading: true });
+  refresh: async (options) => {
+    const state = get();
+    if (
+      !options?.force &&
+      shouldSkipHydratedStoreReread(!state.isLoading, { withinFocusGrace: true })
+    ) {
+      return;
+    }
+
+    if (!state.isLoading) {
+      set({ isLoading: true });
+    }
+
     try {
       const decks = await FlashDeckService.listDecksWithSummary();
       const totalDueCount = decks.reduce((sum, deck) => sum + deck.dueCount, 0);

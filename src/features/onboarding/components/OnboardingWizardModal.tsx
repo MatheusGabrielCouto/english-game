@@ -26,7 +26,6 @@ export const OnboardingWizardModal = () => {
   const setName = usePlayerStore((s) => s.setName)
   const wizardCompleted = useTutorialStore((s) => s.wizardCompleted)
   const completeWizard = useTutorialStore((s) => s.completeWizard)
-  const openTutorial = useTutorialStore((s) => s.open)
 
   const [name, setNameInput] = useState(playerName)
   const [selectedDifficulty, setSelectedDifficulty] = useState<LearningDifficultyValue>(difficulty)
@@ -34,7 +33,7 @@ export const OnboardingWizardModal = () => {
 
   const visible = hasHydrated && !hasOnboarded && !wizardCompleted
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     const parsed = playerNameSchema.safeParse({ name: name.trim() })
     if (!parsed.success) {
       setError(parsed.error.issues[0]?.message ?? 'Nome inválido')
@@ -45,10 +44,9 @@ export const OnboardingWizardModal = () => {
     setError(null)
     setName(parsed.data.name)
     setDifficulty(selectedDifficulty)
-    void LearningGpsService.completeOnboarding(LearningWorldKey.SURVIVOR)
+    await LearningGpsService.completeOnboarding(LearningWorldKey.SURVIVOR)
     completeWizard()
     haptics.success()
-    openTutorial(0)
   }
 
   return (

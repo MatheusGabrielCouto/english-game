@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { usePlayerStore } from '@/features/player';
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy';
 
 import { TitleService } from '../services/title-service';
 import { useTitlesStore } from '../store/titles-store';
@@ -14,9 +15,15 @@ export const useTitles = () => {
   const analytics = useTitlesStore((state) => state.analytics);
   const isLoading = useTitlesStore((state) => state.isLoading);
 
+  const previousLevel = useRef(level);
+
   useEffect(() => {
+    const levelChanged = previousLevel.current !== level;
+    previousLevel.current = level;
+
+    if (!levelChanged && shouldSkipHydratedStoreReread(!isLoading)) return;
     void TitleService.refresh();
-  }, [level]);
+  }, [isLoading, level]);
 
   return {
     level,

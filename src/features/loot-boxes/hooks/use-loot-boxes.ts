@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { shouldSkipHydratedStoreReread } from '@/storage/startup-read-policy';
 import type { LootBoxRecord } from '@/types/inventory';
 import type { LootBoxAnalyticsRecord, LootBoxOpenHistoryRecord } from '@/types/loot-box';
 
@@ -7,9 +8,12 @@ import { LootBoxService } from '../services/loot-box-service';
 import { useLootBoxScreenStore } from '../store/loot-box-screen-store';
 
 export const useLootBoxes = () => {
-  const [boxes, setBoxes] = useState<LootBoxRecord[]>([]);
-  const [history, setHistory] = useState<LootBoxOpenHistoryRecord[]>([]);
-  const [analytics, setAnalytics] = useState<LootBoxAnalyticsRecord | null>(null);
+  const cachedSnapshot = LootBoxService.getCachedScreenSnapshot();
+  const [boxes, setBoxes] = useState<LootBoxRecord[]>(cachedSnapshot?.boxes ?? []);
+  const [history, setHistory] = useState<LootBoxOpenHistoryRecord[]>(cachedSnapshot?.history ?? []);
+  const [analytics, setAnalytics] = useState<LootBoxAnalyticsRecord | null>(
+    cachedSnapshot?.analytics ?? null,
+  );
   const isLoading = useLootBoxScreenStore((s) => s.isLoading);
   const isOpening = useLootBoxScreenStore((s) => s.isOpening);
   const lastResult = useLootBoxScreenStore((s) => s.lastResult);
@@ -36,8 +40,12 @@ export const useLootBoxes = () => {
   }, [setLoading]);
 
   useEffect(() => {
+    if (shouldSkipHydratedStoreReread(cachedSnapshot !== null)) {
+      setLoading(false);
+      return;
+    }
     void refresh();
-  }, [refresh]);
+  }, [cachedSnapshot, refresh, setLoading]);
 
   const openBox = useCallback(
     (id: number) => {

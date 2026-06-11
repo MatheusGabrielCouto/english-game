@@ -5,6 +5,8 @@ import { PunishmentHost } from '@/features/punishments';
 import { CoachMarkHost, GameTutorialHost } from '@/features/tutorial';
 import { useAppFonts, useAppHydration, useDeepLinking, useNetworkStatus } from '@/hooks';
 import { StartupPerfService } from '@/services/startup-perf-service';
+import { finishStartupProgress } from '@/storage/hydration-progress';
+import { useStartupHydrationStore } from '@/storage/startup-hydration-store';
 import { DarkTheme, ThemeProvider } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { type ReactNode, useEffect } from 'react';
@@ -31,9 +33,15 @@ type AppProvidersProps = {
 };
 
 export const AppProviders = ({ children }: AppProvidersProps) => {
-  const isHydrated = useAppHydration();
+  const hydrationDone = useAppHydration();
   const fontsReady = useAppFonts();
-  const isReady = isHydrated && fontsReady;
+  const progress = useStartupHydrationStore((state) => state.progress);
+  const isReady = progress >= 100;
+
+  useEffect(() => {
+    if (!hydrationDone || !fontsReady) return;
+    finishStartupProgress();
+  }, [fontsReady, hydrationDone]);
 
   useEffect(() => {
     if (!isReady) return;

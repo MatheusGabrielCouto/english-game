@@ -70,7 +70,8 @@ export type EpicMissionType =
   | 'ACHIEVEMENTS_UNLOCKED'
   | 'CITY_BUILDINGS'
   | 'PET_EVOLUTIONS'
-  | 'LOOT_BOXES_OPENED';
+  | 'LOOT_BOXES_OPENED'
+  | 'PLAYER_LEVEL';
 
 export type EpicMissionTemplate = {
   id: string;

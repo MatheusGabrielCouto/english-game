@@ -1,4 +1,4 @@
-import { and, asc, eq, isNull, sql } from 'drizzle-orm';
+import { and, asc, eq, gte, isNull, sql } from 'drizzle-orm';
 
 import type { LexiconBrickRecord, LexiconBrickSource } from '@/types/lexicon-brick';
 
@@ -59,8 +59,14 @@ export const LexiconBrickRepository = {
   },
 
   async listCrackedUnplaced(): Promise<LexiconBrickRecord[]> {
-    const bricks = await LexiconBrickRepository.listUnplaced();
-    return bricks.filter((b) => b.decayStage >= 2);
+    const db = getDb();
+    const rows = await db
+      .select()
+      .from(lexiconBricks)
+      .where(and(isNull(lexiconBricks.placedPoiKey), gte(lexiconBricks.decayStage, 2)))
+      .orderBy(asc(lexiconBricks.mintedAt));
+
+    return rows.map(mapRow);
   },
 
   async listCrackedByProject(

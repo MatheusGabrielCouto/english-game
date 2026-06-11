@@ -10,9 +10,11 @@ import { getAppSettings, saveAppSettings } from '@/storage/repositories/app-sett
 import { InventoryLootBoxRepository } from '@/storage/repositories/inventory-loot-box-repository';
 import { LootBoxAnalyticsRepository } from '@/storage/repositories/loot-box-analytics-repository';
 import { LootBoxOpenHistoryRepository } from '@/storage/repositories/loot-box-open-history-repository';
-import { LootBoxRarity, type LootBoxRarityValue } from '@/types/inventory';
+import { LootBoxRarity, type LootBoxRecord, type LootBoxRarityValue } from '@/types/inventory';
 import {
   LootBoxRewardType,
+  type LootBoxAnalyticsRecord,
+  type LootBoxOpenHistoryRecord,
   type LootBoxOpenResult,
   type LootBoxReward,
 } from '@/types/loot-box';
@@ -20,6 +22,28 @@ import {
 import { pickLootBoxReward } from '../utils/rewards';
 import { pickCollectibleForLootBox } from '../utils/pick-collectible';
 import { grantLootBoxReward } from './loot-box-grant';
+
+type LootBoxScreenCache = {
+  boxes: LootBoxRecord[];
+  history: LootBoxOpenHistoryRecord[];
+  analytics: LootBoxAnalyticsRecord;
+};
+
+let screenCache: LootBoxScreenCache | null = null;
+
+const invalidateScreenCache = (): void => {
+  screenCache = null;
+};
+
+const warmScreenCache = async (): Promise<LootBoxScreenCache> => {
+  const [boxes, history, analytics] = await Promise.all([
+    InventoryLootBoxRepository.findUnopened(),
+    LootBoxOpenHistoryRepository.findRecent(15),
+    LootBoxAnalyticsRepository.getOrCreate(),
+  ]);
+  screenCache = { boxes, history, analytics };
+  return screenCache;
+};
 
 const LOOT_BOX_UPGRADE: Partial<Record<LootBoxRarityValue, LootBoxRarityValue>> = {
   [LootBoxRarity.COMMON]: LootBoxRarity.UNCOMMON,
@@ -83,6 +107,14 @@ const applyReward = async (
 };
 
 export const LootBoxService = {
+  getCachedScreenSnapshot(): LootBoxScreenCache | null {
+    return screenCache;
+  },
+
+  async initialize(): Promise<void> {
+    await warmScreenCache();
+  },
+
   async openLootBox(id: number): Promise<LootBoxOpenResult | null> {
     const box = await InventoryLootBoxRepository.findById(id);
     if (!box || box.opened) return null;
@@ -128,6 +160,7 @@ export const LootBoxService = {
 
     await LootBoxAnalyticsRepository.recordOpened(box.rarity, appliedReward);
     await InventoryService.refresh();
+    invalidateScreenCache();
 
     const result: LootBoxOpenResult = {
       boxId: id,
@@ -140,15 +173,18 @@ export const LootBoxService = {
   },
 
   async getUnopenedBoxes() {
-    return InventoryLootBoxRepository.findUnopened();
+    if (screenCache) return screenCache.boxes;
+    return (await warmScreenCache()).boxes;
   },
 
   async getOpenHistory(limit = 15) {
+    if (screenCache && limit === 15) return screenCache.history;
     return LootBoxOpenHistoryRepository.findRecent(limit);
   },
 
   async getAnalytics() {
-    return LootBoxAnalyticsRepository.getOrCreate();
+    if (screenCache) return screenCache.analytics;
+    return (await warmScreenCache()).analytics;
   },
 
   async grantLootBox(
@@ -156,5 +192,6 @@ export const LootBoxService = {
     source: Parameters<typeof InventoryService.addLootBox>[1] = 'system',
   ) {
     await grantLootBoxReward(rarity, source);
+    invalidateScreenCache();
   },
 };

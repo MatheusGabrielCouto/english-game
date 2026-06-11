@@ -6,6 +6,8 @@ import { QUESTS_UI } from '@/features/quests/constants/quests-ui';
 import type { EpicMissionViewModel } from '@/types/epic-mission';
 import { cn } from '@/utils';
 
+import { formatEpicMissionProgress } from '../utils/epic-quest-progress';
+
 type EpicQuestsSectionProps = {
   missions: EpicMissionViewModel[];
   showHeader?: boolean;
@@ -77,7 +79,7 @@ export const EpicQuestsSection = ({ missions, showHeader = true }: EpicQuestsSec
               />
               <View className="mt-3 flex-row flex-wrap items-center justify-between gap-2">
                 <Text className="text-xs text-foreground-secondary">
-                  {mission.currentValue} / {mission.targetValue}
+                  {formatEpicMissionProgress(mission)}
                 </Text>
                 <View className="flex-row gap-3">
                   <Text className="text-xs font-bold text-xp">+{mission.xpReward} XP</Text>
